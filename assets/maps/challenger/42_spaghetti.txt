@@ -1,0 +1,140 @@
+# Medium Level 0: 42 Spaghetti Incident
+nb_drones: 42
+
+start_hub: start 0 0 [color=magenta capacity=42]
+hub: here_we_go_again 1 0 [color=lightbrown capacity=6]
+
+hub: long_way_home 0 1 [zone=priority color=cyan capacity=3]
+hub: highway_to_hell 0 2 [zone=priority color=cyan capacity=2]
+hub: telegraph_road 0 3 [zone=priority color=cyan capacity=1]
+hub: restricted 1 1 [zone=restricted color=red capacity=2]
+hub: normal_road_north 2 1 [color=lightblue capacity=1]
+hub: normal_road_join 2 2 [color=lightblue capacity=1]
+hub: normal_road_south 2 3 [color=lightblue capacity=1]
+hub: the_gathering 1 2 [color=orange capacity=8]
+
+hub: choose_wisely 2 4 [color=teal capacity=6]
+hub: pleasant_walk 1 4 [color=lime capacity=99]
+hub: WrOnG_WaY_LoL 0 4 [zone=priority color=maroon capacity=67]
+
+hub: should_be_fast 3 0 [zone=priority color=green capacity=6]
+hub: maybe_not 4 0 [zone=restricted color=orange]
+hub: false_good_idea 5 0 [zone=restricted color=red]
+
+hub: keep_calm 3 1 [color=yellow capacity=9]
+hub: have_a_quantum 4 1 [color=cyan capacity=8]
+hub: where_are_we_going 4 2 [color=teal capacity=7]
+hub: I_think_we_re_lost 3 2 [color=blue capacity=6]
+hub: maybe_ask_our_way 3 3 [color=violet capacity=5]
+hub: is_there_a_light 4 3 [color=purple capacity=4]
+
+hub: look_at_this_wall 5 1 [color=crimson capacity=6]
+hub: it_s_a_big_one 5 3 [color=magenta capacity=6]
+hub: is_there_a_way 5 4 [color=beige capacity=4]
+
+hub: collapsed_north 6 0 [zone=restricted color=brown]
+hub: forgotten_garden 6 1 [color=brown]
+hub: closed_market 6 2 [color=brown]
+hub: unknown_street 6 3 [color=brown]
+hub: collapsed_south 6 4 [zone=restricted color=brown]
+
+hub: best_is_to_come 7 0 [color=lime capacity=4]
+hub: hang_on_baby 7 2 [color=gold capacity=42]
+hub: far_far_away 7 4 [color=teal capacity=6]
+hub: a_big_42_coming 8 2 [color=magenta capacity=6]
+
+hub: 4tt 9 0 [color=blue capacity=4]
+hub: tt4 11 0 [color=blue capacity=4]
+hub: 4ff 9 1 [color=blue capacity=4]
+hub: ff4 11 1 [color=blue capacity=4]
+hub: 488 9 2 [color=blue capacity=4]
+hub: 848 10 2 [color=blue capacity=4]
+hub: 884 11 2 [color=blue capacity=4]
+hub: bb4 11 3 [color=blue capacity=4]
+hub: oo4 11 4 [color=blue capacity=4]
+
+hub: 2tt 12 0 [color=blue capacity=2]
+hub: t2t 13 0 [color=blue capacity=2]
+hub: tt2 14 0 [color=blue capacity=2]
+hub: ff2 14 1 [color=blue capacity=2]
+hub: 288 12 2 [color=blue capacity=2]
+hub: 828 13 2 [color=blue capacity=2]
+hub: 882 14 2 [color=blue capacity=2]
+hub: 2bb 12 3 [color=blue capacity=2]
+hub: 2oo 12 4 [color=blue capacity=2]
+hub: o2o 13 4 [color=blue capacity=2]
+hub: oo2 14 4 [color=blue capacity=2]
+
+hub: we_were_here 15 2 [color=magenta capacity=2]
+end_hub: goal 16 2 [color=rainbow capacity=42]
+
+connection: start-here_we_go_again [capacity=5]
+connection: here_we_go_again-long_way_home [capacity=2]
+connection: here_we_go_again-restricted [capacity=2]
+connection: here_we_go_again-normal_road_north
+connection: here_we_go_again-normal_road_south
+connection: long_way_home-highway_to_hell [capacity=2]
+connection: highway_to_hell-telegraph_road [capacity=2]
+connection: telegraph_road-the_gathering
+connection: restricted-the_gathering [capacity=2]
+connection: normal_road_north-normal_road_join
+connection: normal_road_join-normal_road_south
+connection: normal_road_join-the_gathering [capacity=2]
+connection: the_gathering-pleasant_walk [capacity=6]
+
+connection: choose_wisely-pleasant_walk [capacity=5]
+connection: pleasant_walk-WrOnG_WaY_LoL [capacity=20]
+
+connection: choose_wisely-should_be_fast [capacity=4]
+connection: should_be_fast-maybe_not [capacity=4]
+connection: maybe_not-false_good_idea [capacity=3]
+connection: false_good_idea-look_at_this_wall [capacity=2]
+
+connection: choose_wisely-keep_calm [capacity=4]
+connection: keep_calm-have_a_quantum [capacity=4]
+connection: have_a_quantum-where_are_we_going [capacity=4]
+connection: where_are_we_going-I_think_we_re_lost [capacity=4]
+connection: I_think_we_re_lost-maybe_ask_our_way [capacity=4]
+connection: maybe_ask_our_way-is_there_a_light [capacity=4]
+connection: is_there_a_light-look_at_this_wall [capacity=4]
+
+connection: false_good_idea-collapsed_north [capacity=3]
+connection: collapsed_north-forgotten_garden [capacity=3]
+connection: forgotten_garden-closed_market [capacity=3]
+connection: closed_market-unknown_street [capacity=3]
+connection: unknown_street-collapsed_south [capacity=3]
+connection: collapsed_north-closed_market [capacity=3]
+connection: forgotten_garden-collapsed_south [capacity=3]
+connection: collapsed_south-far_far_away [capacity=3]
+
+connection: look_at_this_wall-it_s_a_big_one [capacity=8]
+connection: it_s_a_big_one-is_there_a_way [capacity=3]
+connection: is_there_a_way-best_is_to_come [capacity=5]
+connection: best_is_to_come-hang_on_baby [capacity=4]
+connection: hang_on_baby-far_far_away [capacity=3]
+connection: far_far_away-a_big_42_coming [capacity=3]
+
+connection: 4tt-4ff
+connection: tt4-ff4
+connection: 4ff-488
+connection: ff4-884
+connection: 488-848
+connection: 848-884
+connection: 884-bb4
+connection: bb4-oo4
+connection: a_big_42_coming-488
+
+connection: 2tt-t2t
+connection: t2t-tt2
+connection: tt2-ff2
+connection: ff2-882
+connection: 882-828
+connection: 828-288
+connection: 288-2bb
+connection: 2bb-2oo
+connection: 2oo-o2o
+connection: o2o-oo2
+connection: 882-we_were_here
+
+connection: a_big_42_coming-we_were_here [capacity=3]
+connection: we_were_here-goal [capacity=12]

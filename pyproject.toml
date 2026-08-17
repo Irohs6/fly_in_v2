@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "fly-ing"
+version = "0.1.0"
+description = "Drone routing system"
+authors = []
+readme = "README.md"
+packages = [{ include = "src" }]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pygame = "^2.6"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0"
+mypy = "^1.10"
+flake8 = "^7.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+# ── flake8 (via flake8-pyproject) ───────────────────────
+[tool.flake8]
+max-line-length = 79
+exclude = [".venv", "__pycache__", ".mypy_cache"]
+
+[tool.mypy]
+python_version = "3.10"
+explicit_package_bases = true
+namespace_packages = true
+mypy_path = "."

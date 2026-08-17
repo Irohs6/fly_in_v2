@@ -1,0 +1,11 @@
+# Easy Level 3: Basic capacity management
+nb_drones: 4
+
+start_hub: start 0 0 [color=green]
+hub: bottleneck 1 0 [color=orange capacity=2]
+hub: wide_area 2 0 [color=blue capacity=3]
+end_hub: goal 3 0 [color=red]
+
+connection: start-bottleneck [capacity=4]
+connection: bottleneck-wide_area [capacity=4]
+connection: wide_area-goal [capacity=4]
