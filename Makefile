@@ -1,4 +1,4 @@
-.PHONY: all install run debug test lint lint-strict clean fclean
+.PHONY: all install run debug test test-maps test-maps-export lint lint-strict clean fclean
 
 all: install
 
@@ -13,6 +13,12 @@ debug:
 
 test:
 	poetry run pytest tests/
+
+test-maps:
+	poetry run python tests/test_all_maps_terminal.py
+
+test-maps-export:
+	poetry run python tests/test_all_maps_terminal.py --output-dir tests/results_by_map
 
 lint:
 	poetry run flake8 . --exclude=.venv

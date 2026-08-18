@@ -650,19 +650,67 @@ class Simulation:
     # ==============================================================
 
     def _record_tour(self) -> None:
-        """Enregistre la position des drones."""
+        """Enregistre l'état de la simulation pour le replay visuel."""
 
         tour_data: dict[str, str | None] = {}
+        drone_states: dict[str, dict[str, object]] = {}
 
         for drone in self.drones:
             if drone.current_zone is not None:
-                tour_data[drone.drone_id] = (
-                    drone.current_zone.name
-                )
+                tour_data[drone.drone_id] = drone.current_zone.name
             else:
                 tour_data[drone.drone_id] = None
 
+            connection = drone.moving_connection[1]
+            drone_states[drone.drone_id] = {
+                "zone": (
+                    drone.current_zone.name
+                    if drone.current_zone is not None
+                    else None
+                ),
+                "status": drone.status,
+                "transit_turns": drone.transit_turns,
+                "destination": (
+                    drone.destination.name
+                    if drone.destination is not None
+                    else None
+                ),
+                "connection": (
+                    {
+                        "source": connection.source.name,
+                        "target": connection.target.name,
+                    }
+                    if connection is not None
+                    else None
+                ),
+            }
+
         self.tours.append(tour_data)
+        self.replay_frames.append(
+            {
+                "turn": self.turn,
+                "drones": drone_states,
+                "zones": {
+                    name: {
+                        "count": zone.nb_drone,
+                        "max": zone.capacity,
+                    }
+                    for name, zone in self.graph.hubs.items()
+                },
+                "connections": {
+                    (
+                        f"{connection.source.name}"
+                        f"->{connection.target.name}"
+                    ): {
+                        "source": connection.source.name,
+                        "target": connection.target.name,
+                        "count": connection.nb_drones,
+                        "max": connection.capacity,
+                    }
+                    for connection in self.graph.connections
+                },
+            }
+        )
 
     # ==============================================================
     # AFFICHAGE

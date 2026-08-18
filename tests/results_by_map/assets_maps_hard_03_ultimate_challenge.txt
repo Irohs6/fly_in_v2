@@ -1,0 +1,588 @@
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 1                                                      ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      dist_gate1 [WAIT]                                  ║
+║ D_2      dist_gate3 [WAIT]                                  ║
+║ D_3      D_3 WAIT                                           ║
+║ D_4      D_4 WAIT                                           ║
+║ D_5      D_5 WAIT                                           ║
+║ D_6      D_6 WAIT                                           ║
+║ D_7      D_7 WAIT                                           ║
+║ D_8      D_8 WAIT                                           ║
+║ D_9      D_9 WAIT                                           ║
+║ D_10     D_10 WAIT                                          ║
+║ D_11     D_11 WAIT                                          ║
+║ D_12     D_12 WAIT                                          ║
+║ D_13     D_13 WAIT                                          ║
+║ D_14     D_14 WAIT                                          ║
+║ D_15     D_15 WAIT                                          ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 2                                                      ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      maze_correct [WAIT]                                ║
+║ D_2      maze_loop1 [WAIT]                                  ║
+║ D_3      dist_gate1 [WAIT]                                  ║
+║ D_4      dist_gate3 [WAIT]                                  ║
+║ D_5      D_5 WAIT                                           ║
+║ D_6      D_6 WAIT                                           ║
+║ D_7      D_7 WAIT                                           ║
+║ D_8      D_8 WAIT                                           ║
+║ D_9      D_9 WAIT                                           ║
+║ D_10     D_10 WAIT                                          ║
+║ D_11     D_11 WAIT                                          ║
+║ D_12     D_12 WAIT                                          ║
+║ D_13     D_13 WAIT                                          ║
+║ D_14     D_14 WAIT                                          ║
+║ D_15     D_15 WAIT                                          ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 3                                                      ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      bottleneck1 [WAIT]                                 ║
+║ D_2      maze_loop2 [WAIT]                                  ║
+║ D_3      maze_correct [WAIT]                                ║
+║ D_4      maze_loop1 [WAIT]                                  ║
+║ D_5      dist_gate1 [WAIT]                                  ║
+║ D_6      dist_gate3 [WAIT]                                  ║
+║ D_7      D_7 WAIT                                           ║
+║ D_8      D_8 WAIT                                           ║
+║ D_9      D_9 WAIT                                           ║
+║ D_10     D_10 WAIT                                          ║
+║ D_11     D_11 WAIT                                          ║
+║ D_12     D_12 WAIT                                          ║
+║ D_13     D_13 WAIT                                          ║
+║ D_14     D_14 WAIT                                          ║
+║ D_15     D_15 WAIT                                          ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 4                                                      ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      bottleneck2 [WAIT]                                 ║
+║ D_2      maze_correct [WAIT]                                ║
+║ D_3      bottleneck1 [WAIT]                                 ║
+║ D_4      maze_loop2 [WAIT]                                  ║
+║ D_5      maze_correct [WAIT]                                ║
+║ D_6      maze_loop1 [WAIT]                                  ║
+║ D_7      dist_gate1 [WAIT]                                  ║
+║ D_8      dist_gate3 [WAIT]                                  ║
+║ D_9      D_9 WAIT                                           ║
+║ D_10     D_10 WAIT                                          ║
+║ D_11     D_11 WAIT                                          ║
+║ D_12     D_12 WAIT                                          ║
+║ D_13     D_13 WAIT                                          ║
+║ D_14     D_14 WAIT                                          ║
+║ D_15     D_15 WAIT                                          ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 5                                                      ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      priority_hub [WAIT]                                ║
+║ D_2      bottleneck1 [WAIT]                                 ║
+║ D_3      bottleneck2 [WAIT]                                 ║
+║ D_4      maze_correct [WAIT]                                ║
+║ D_5      bottleneck1 [WAIT]                                 ║
+║ D_6      maze_loop2 [WAIT]                                  ║
+║ D_7      maze_correct [WAIT]                                ║
+║ D_8      maze_loop1 [WAIT]                                  ║
+║ D_9      dist_gate1 [WAIT]                                  ║
+║ D_10     dist_gate3 [WAIT]                                  ║
+║ D_11     D_11 WAIT                                          ║
+║ D_12     D_12 WAIT                                          ║
+║ D_13     D_13 WAIT                                          ║
+║ D_14     D_14 WAIT                                          ║
+║ D_15     D_15 WAIT                                          ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 6                                                      ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      conv_priority1 [WAIT]                              ║
+║ D_2      [TRANSIT]                                          ║
+║ D_3      priority_hub [WAIT]                                ║
+║ D_4      D_4 WAIT                                           ║
+║ D_5      bottleneck2 [WAIT]                                 ║
+║ D_6      maze_correct [WAIT]                                ║
+║ D_7      bottleneck1 [WAIT]                                 ║
+║ D_8      maze_loop2 [WAIT]                                  ║
+║ D_9      maze_correct [WAIT]                                ║
+║ D_10     maze_loop1 [WAIT]                                  ║
+║ D_11     dist_gate1 [WAIT]                                  ║
+║ D_12     dist_gate3 [WAIT]                                  ║
+║ D_13     D_13 WAIT                                          ║
+║ D_14     D_14 WAIT                                          ║
+║ D_15     D_15 WAIT                                          ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 7                                                      ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      conv_priority2 [WAIT]                              ║
+║ D_2      bottleneck1 -> overflow1 [TRANSIT END]             ║
+║ D_3      conv_priority1 [WAIT]                              ║
+║ D_4      bottleneck1 [WAIT]                                 ║
+║ D_5      priority_hub [WAIT]                                ║
+║ D_6      D_6 WAIT                                           ║
+║ D_7      bottleneck2 [WAIT]                                 ║
+║ D_8      maze_correct [WAIT]                                ║
+║ D_9      bottleneck1 [WAIT]                                 ║
+║ D_10     maze_loop2 [WAIT]                                  ║
+║ D_11     maze_correct [WAIT]                                ║
+║ D_12     maze_loop1 [WAIT]                                  ║
+║ D_13     dist_gate1 [WAIT]                                  ║
+║ D_14     dist_gate3 [WAIT]                                  ║
+║ D_15     D_15 WAIT                                          ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 8                                                      ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      final_merge [WAIT]                                 ║
+║ D_2      [TRANSIT]                                          ║
+║ D_3      conv_priority2 [WAIT]                              ║
+║ D_4      [TRANSIT]                                          ║
+║ D_5      conv_priority1 [WAIT]                              ║
+║ D_6      D_6 WAIT                                           ║
+║ D_7      priority_hub [WAIT]                                ║
+║ D_8      D_8 WAIT                                           ║
+║ D_9      bottleneck2 [WAIT]                                 ║
+║ D_10     D_10 WAIT                                          ║
+║ D_11     bottleneck1 [WAIT]                                 ║
+║ D_12     maze_loop2 [WAIT]                                  ║
+║ D_13     maze_correct [WAIT]                                ║
+║ D_14     maze_loop1 [WAIT]                                  ║
+║ D_15     dist_gate1 [WAIT]                                  ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 9                                                      ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      final_gate1 [WAIT]                                 ║
+║ D_2      overflow1 -> overflow2 [TRANSIT END]               ║
+║ D_3      final_merge [WAIT]                                 ║
+║ D_4      bottleneck1 -> overflow1 [TRANSIT END]             ║
+║ D_5      conv_priority2 [WAIT]                              ║
+║ D_6      bottleneck1 [WAIT]                                 ║
+║ D_7      conv_priority1 [WAIT]                              ║
+║ D_8      D_8 WAIT                                           ║
+║ D_9      priority_hub [WAIT]                                ║
+║ D_10     maze_correct [WAIT]                                ║
+║ D_11     bottleneck2 [WAIT]                                 ║
+║ D_12     maze_loop1 [WAIT]                                  ║
+║ D_13     bottleneck1 [WAIT]                                 ║
+║ D_14     dist_gate3 [WAIT]                                  ║
+║ D_15     maze_correct [WAIT]                                ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 10                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      final_gate2 [WAIT]                                 ║
+║ D_2      conv_normal1 [WAIT]                                ║
+║ D_3      final_gate1 [WAIT]                                 ║
+║ D_4      [TRANSIT]                                          ║
+║ D_5      final_merge [WAIT]                                 ║
+║ D_6      [TRANSIT]                                          ║
+║ D_7      conv_priority2 [WAIT]                              ║
+║ D_8      D_8 WAIT                                           ║
+║ D_9      conv_priority1 [WAIT]                              ║
+║ D_10     D_10 WAIT                                          ║
+║ D_11     priority_hub [WAIT]                                ║
+║ D_12     maze_loop2 [WAIT]                                  ║
+║ D_13     bottleneck2 [WAIT]                                 ║
+║ D_14     start [WAIT]                                       ║
+║ D_15     bottleneck1 [WAIT]                                 ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 11                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      final_gate3 [WAIT]                                 ║
+║ D_2      conv_normal2 [WAIT]                                ║
+║ D_3      final_gate2 [WAIT]                                 ║
+║ D_4      overflow1 -> overflow2 [TRANSIT END]               ║
+║ D_5      final_gate1 [WAIT]                                 ║
+║ D_6      bottleneck1 -> overflow1 [TRANSIT END]             ║
+║ D_7      final_merge [WAIT]                                 ║
+║ D_8      bottleneck1 [WAIT]                                 ║
+║ D_9      conv_priority2 [WAIT]                              ║
+║ D_10     D_10 WAIT                                          ║
+║ D_11     conv_priority1 [WAIT]                              ║
+║ D_12     maze_correct [WAIT]                                ║
+║ D_13     priority_hub [WAIT]                                ║
+║ D_14     dist_gate1 [WAIT]                                  ║
+║ D_15     bottleneck2 [WAIT]                                 ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 12                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      goal [WAIT]                                        ║
+║ D_2      final_merge [WAIT]                                 ║
+║ D_3      final_gate3 [WAIT]                                 ║
+║ D_4      conv_normal1 [WAIT]                                ║
+║ D_5      final_gate2 [WAIT]                                 ║
+║ D_6      [TRANSIT]                                          ║
+║ D_7      final_gate1 [WAIT]                                 ║
+║ D_8      [TRANSIT]                                          ║
+║ D_9      final_merge [WAIT]                                 ║
+║ D_10     bottleneck1 [WAIT]                                 ║
+║ D_11     conv_priority2 [WAIT]                              ║
+║ D_12     D_12 WAIT                                          ║
+║ D_13     conv_priority1 [WAIT]                              ║
+║ D_14     maze_correct [WAIT]                                ║
+║ D_15     priority_hub [WAIT]                                ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 13                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      DELIVERED                                          ║
+║ D_2      final_gate1 [WAIT]                                 ║
+║ D_3      goal [WAIT]                                        ║
+║ D_4      conv_normal2 [WAIT]                                ║
+║ D_5      final_gate3 [WAIT]                                 ║
+║ D_6      overflow1 -> overflow2 [TRANSIT END]               ║
+║ D_7      final_gate2 [WAIT]                                 ║
+║ D_8      bottleneck1 -> overflow1 [TRANSIT END]             ║
+║ D_9      final_gate1 [WAIT]                                 ║
+║ D_10     bottleneck2 [WAIT]                                 ║
+║ D_11     final_merge [WAIT]                                 ║
+║ D_12     bottleneck1 [WAIT]                                 ║
+║ D_13     conv_priority2 [WAIT]                              ║
+║ D_14     bottleneck1 [WAIT]                                 ║
+║ D_15     conv_priority1 [WAIT]                              ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 14                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      DELIVERED                                          ║
+║ D_2      final_gate2 [WAIT]                                 ║
+║ D_3      DELIVERED                                          ║
+║ D_4      final_merge [WAIT]                                 ║
+║ D_5      goal [WAIT]                                        ║
+║ D_6      conv_normal1 [WAIT]                                ║
+║ D_7      final_gate3 [WAIT]                                 ║
+║ D_8      [TRANSIT]                                          ║
+║ D_9      final_gate2 [WAIT]                                 ║
+║ D_10     priority_hub [WAIT]                                ║
+║ D_11     final_gate1 [WAIT]                                 ║
+║ D_12     bottleneck2 [WAIT]                                 ║
+║ D_13     final_merge [WAIT]                                 ║
+║ D_14     [TRANSIT]                                          ║
+║ D_15     conv_priority2 [WAIT]                              ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 15                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      DELIVERED                                          ║
+║ D_2      D_2 WAIT                                           ║
+║ D_3      DELIVERED                                          ║
+║ D_4      final_gate1 [WAIT]                                 ║
+║ D_5      DELIVERED                                          ║
+║ D_6      conv_normal2 [WAIT]                                ║
+║ D_7      goal [WAIT]                                        ║
+║ D_8      overflow1 -> overflow2 [TRANSIT END]               ║
+║ D_9      final_gate3 [WAIT]                                 ║
+║ D_10     conv_priority1 [WAIT]                              ║
+║ D_11     final_gate2 [WAIT]                                 ║
+║ D_12     priority_hub [WAIT]                                ║
+║ D_13     final_gate1 [WAIT]                                 ║
+║ D_14     bottleneck1 -> overflow1 [TRANSIT END]             ║
+║ D_15     final_merge [WAIT]                                 ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 16                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      DELIVERED                                          ║
+║ D_2      D_2 WAIT                                           ║
+║ D_3      DELIVERED                                          ║
+║ D_4      D_4 WAIT                                           ║
+║ D_5      DELIVERED                                          ║
+║ D_6      final_merge [WAIT]                                 ║
+║ D_7      DELIVERED                                          ║
+║ D_8      conv_normal1 [WAIT]                                ║
+║ D_9      goal [WAIT]                                        ║
+║ D_10     conv_priority2 [WAIT]                              ║
+║ D_11     final_gate3 [WAIT]                                 ║
+║ D_12     conv_priority1 [WAIT]                              ║
+║ D_13     final_gate2 [WAIT]                                 ║
+║ D_14     [TRANSIT]                                          ║
+║ D_15     final_gate1 [WAIT]                                 ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 17                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      DELIVERED                                          ║
+║ D_2      D_2 WAIT                                           ║
+║ D_3      DELIVERED                                          ║
+║ D_4      D_4 WAIT                                           ║
+║ D_5      DELIVERED                                          ║
+║ D_6      final_gate1 [WAIT]                                 ║
+║ D_7      DELIVERED                                          ║
+║ D_8      conv_normal2 [WAIT]                                ║
+║ D_9      DELIVERED                                          ║
+║ D_10     final_merge [WAIT]                                 ║
+║ D_11     goal [WAIT]                                        ║
+║ D_12     conv_priority2 [WAIT]                              ║
+║ D_13     final_gate3 [WAIT]                                 ║
+║ D_14     overflow1 -> overflow2 [TRANSIT END]               ║
+║ D_15     final_gate2 [WAIT]                                 ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 18                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      DELIVERED                                          ║
+║ D_2      D_2 WAIT                                           ║
+║ D_3      DELIVERED                                          ║
+║ D_4      D_4 WAIT                                           ║
+║ D_5      DELIVERED                                          ║
+║ D_6      D_6 WAIT                                           ║
+║ D_7      DELIVERED                                          ║
+║ D_8      final_merge [WAIT]                                 ║
+║ D_9      DELIVERED                                          ║
+║ D_10     final_gate1 [WAIT]                                 ║
+║ D_11     DELIVERED                                          ║
+║ D_12     final_merge [WAIT]                                 ║
+║ D_13     goal [WAIT]                                        ║
+║ D_14     conv_normal1 [WAIT]                                ║
+║ D_15     final_gate3 [WAIT]                                 ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 19                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      DELIVERED                                          ║
+║ D_2      D_2 WAIT                                           ║
+║ D_3      DELIVERED                                          ║
+║ D_4      final_gate2 [WAIT]                                 ║
+║ D_5      DELIVERED                                          ║
+║ D_6      D_6 WAIT                                           ║
+║ D_7      DELIVERED                                          ║
+║ D_8      final_gate1 [WAIT]                                 ║
+║ D_9      DELIVERED                                          ║
+║ D_10     D_10 WAIT                                          ║
+║ D_11     DELIVERED                                          ║
+║ D_12     D_12 WAIT                                          ║
+║ D_13     DELIVERED                                          ║
+║ D_14     conv_normal2 [WAIT]                                ║
+║ D_15     goal [WAIT]                                        ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 20                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      DELIVERED                                          ║
+║ D_2      final_gate3 [WAIT]                                 ║
+║ D_3      DELIVERED                                          ║
+║ D_4      D_4 WAIT                                           ║
+║ D_5      DELIVERED                                          ║
+║ D_6      final_gate2 [WAIT]                                 ║
+║ D_7      DELIVERED                                          ║
+║ D_8      D_8 WAIT                                           ║
+║ D_9      DELIVERED                                          ║
+║ D_10     D_10 WAIT                                          ║
+║ D_11     DELIVERED                                          ║
+║ D_12     final_gate1 [WAIT]                                 ║
+║ D_13     DELIVERED                                          ║
+║ D_14     final_merge [WAIT]                                 ║
+║ D_15     DELIVERED                                          ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 21                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      DELIVERED                                          ║
+║ D_2      goal [WAIT]                                        ║
+║ D_3      DELIVERED                                          ║
+║ D_4      final_gate3 [WAIT]                                 ║
+║ D_5      DELIVERED                                          ║
+║ D_6      D_6 WAIT                                           ║
+║ D_7      DELIVERED                                          ║
+║ D_8      final_gate2 [WAIT]                                 ║
+║ D_9      DELIVERED                                          ║
+║ D_10     D_10 WAIT                                          ║
+║ D_11     DELIVERED                                          ║
+║ D_12     D_12 WAIT                                          ║
+║ D_13     DELIVERED                                          ║
+║ D_14     final_gate1 [WAIT]                                 ║
+║ D_15     DELIVERED                                          ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 22                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      DELIVERED                                          ║
+║ D_2      DELIVERED                                          ║
+║ D_3      DELIVERED                                          ║
+║ D_4      goal [WAIT]                                        ║
+║ D_5      DELIVERED                                          ║
+║ D_6      final_gate3 [WAIT]                                 ║
+║ D_7      DELIVERED                                          ║
+║ D_8      D_8 WAIT                                           ║
+║ D_9      DELIVERED                                          ║
+║ D_10     final_gate2 [WAIT]                                 ║
+║ D_11     DELIVERED                                          ║
+║ D_12     D_12 WAIT                                          ║
+║ D_13     DELIVERED                                          ║
+║ D_14     D_14 WAIT                                          ║
+║ D_15     DELIVERED                                          ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 23                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      DELIVERED                                          ║
+║ D_2      DELIVERED                                          ║
+║ D_3      DELIVERED                                          ║
+║ D_4      DELIVERED                                          ║
+║ D_5      DELIVERED                                          ║
+║ D_6      goal [WAIT]                                        ║
+║ D_7      DELIVERED                                          ║
+║ D_8      final_gate3 [WAIT]                                 ║
+║ D_9      DELIVERED                                          ║
+║ D_10     D_10 WAIT                                          ║
+║ D_11     DELIVERED                                          ║
+║ D_12     final_gate2 [WAIT]                                 ║
+║ D_13     DELIVERED                                          ║
+║ D_14     D_14 WAIT                                          ║
+║ D_15     DELIVERED                                          ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 24                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      DELIVERED                                          ║
+║ D_2      DELIVERED                                          ║
+║ D_3      DELIVERED                                          ║
+║ D_4      DELIVERED                                          ║
+║ D_5      DELIVERED                                          ║
+║ D_6      DELIVERED                                          ║
+║ D_7      DELIVERED                                          ║
+║ D_8      goal [WAIT]                                        ║
+║ D_9      DELIVERED                                          ║
+║ D_10     final_gate3 [WAIT]                                 ║
+║ D_11     DELIVERED                                          ║
+║ D_12     D_12 WAIT                                          ║
+║ D_13     DELIVERED                                          ║
+║ D_14     final_gate2 [WAIT]                                 ║
+║ D_15     DELIVERED                                          ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 25                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      DELIVERED                                          ║
+║ D_2      DELIVERED                                          ║
+║ D_3      DELIVERED                                          ║
+║ D_4      DELIVERED                                          ║
+║ D_5      DELIVERED                                          ║
+║ D_6      DELIVERED                                          ║
+║ D_7      DELIVERED                                          ║
+║ D_8      DELIVERED                                          ║
+║ D_9      DELIVERED                                          ║
+║ D_10     goal [WAIT]                                        ║
+║ D_11     DELIVERED                                          ║
+║ D_12     final_gate3 [WAIT]                                 ║
+║ D_13     DELIVERED                                          ║
+║ D_14     D_14 WAIT                                          ║
+║ D_15     DELIVERED                                          ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 26                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      DELIVERED                                          ║
+║ D_2      DELIVERED                                          ║
+║ D_3      DELIVERED                                          ║
+║ D_4      DELIVERED                                          ║
+║ D_5      DELIVERED                                          ║
+║ D_6      DELIVERED                                          ║
+║ D_7      DELIVERED                                          ║
+║ D_8      DELIVERED                                          ║
+║ D_9      DELIVERED                                          ║
+║ D_10     DELIVERED                                          ║
+║ D_11     DELIVERED                                          ║
+║ D_12     goal [WAIT]                                        ║
+║ D_13     DELIVERED                                          ║
+║ D_14     final_gate3 [WAIT]                                 ║
+║ D_15     DELIVERED                                          ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 27                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      DELIVERED                                          ║
+║ D_2      DELIVERED                                          ║
+║ D_3      DELIVERED                                          ║
+║ D_4      DELIVERED                                          ║
+║ D_5      DELIVERED                                          ║
+║ D_6      DELIVERED                                          ║
+║ D_7      DELIVERED                                          ║
+║ D_8      DELIVERED                                          ║
+║ D_9      DELIVERED                                          ║
+║ D_10     DELIVERED                                          ║
+║ D_11     DELIVERED                                          ║
+║ D_12     DELIVERED                                          ║
+║ D_13     DELIVERED                                          ║
+║ D_14     goal [WAIT]                                        ║
+║ D_15     DELIVERED                                          ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 28                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      DELIVERED                                          ║
+║ D_2      DELIVERED                                          ║
+║ D_3      DELIVERED                                          ║
+║ D_4      DELIVERED                                          ║
+║ D_5      DELIVERED                                          ║
+║ D_6      DELIVERED                                          ║
+║ D_7      DELIVERED                                          ║
+║ D_8      DELIVERED                                          ║
+║ D_9      DELIVERED                                          ║
+║ D_10     DELIVERED                                          ║
+║ D_11     DELIVERED                                          ║
+║ D_12     DELIVERED                                          ║
+║ D_13     DELIVERED                                          ║
+║ D_14     DELIVERED                                          ║
+║ D_15     DELIVERED                                          ║
+╚══════════════════════════════════════════════════════════════╝

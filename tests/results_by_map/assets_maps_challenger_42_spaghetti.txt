@@ -1,0 +1,2160 @@
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 1                                                      ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      here_we_go_again [WAIT]                            ║
+║ D_2      here_we_go_again [WAIT]                            ║
+║ D_3      here_we_go_again [WAIT]                            ║
+║ D_4      here_we_go_again [WAIT]                            ║
+║ D_5      here_we_go_again [WAIT]                            ║
+║ D_6      D_6 WAIT                                           ║
+║ D_7      D_7 WAIT                                           ║
+║ D_8      D_8 WAIT                                           ║
+║ D_9      D_9 WAIT                                           ║
+║ D_10     D_10 WAIT                                          ║
+║ D_11     D_11 WAIT                                          ║
+║ D_12     D_12 WAIT                                          ║
+║ D_13     D_13 WAIT                                          ║
+║ D_14     D_14 WAIT                                          ║
+║ D_15     D_15 WAIT                                          ║
+║ D_16     D_16 WAIT                                          ║
+║ D_17     D_17 WAIT                                          ║
+║ D_18     D_18 WAIT                                          ║
+║ D_19     D_19 WAIT                                          ║
+║ D_20     D_20 WAIT                                          ║
+║ D_21     D_21 WAIT                                          ║
+║ D_22     D_22 WAIT                                          ║
+║ D_23     D_23 WAIT                                          ║
+║ D_24     D_24 WAIT                                          ║
+║ D_25     D_25 WAIT                                          ║
+║ D_26     D_26 WAIT                                          ║
+║ D_27     D_27 WAIT                                          ║
+║ D_28     D_28 WAIT                                          ║
+║ D_29     D_29 WAIT                                          ║
+║ D_30     D_30 WAIT                                          ║
+║ D_31     D_31 WAIT                                          ║
+║ D_32     D_32 WAIT                                          ║
+║ D_33     D_33 WAIT                                          ║
+║ D_34     D_34 WAIT                                          ║
+║ D_35     D_35 WAIT                                          ║
+║ D_36     D_36 WAIT                                          ║
+║ D_37     D_37 WAIT                                          ║
+║ D_38     D_38 WAIT                                          ║
+║ D_39     D_39 WAIT                                          ║
+║ D_40     D_40 WAIT                                          ║
+║ D_41     D_41 WAIT                                          ║
+║ D_42     D_42 WAIT                                          ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 2                                                      ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      normal_road_north [WAIT]                           ║
+║ D_2      normal_road_south [WAIT]                           ║
+║ D_3      [TRANSIT]                                          ║
+║ D_4      [TRANSIT]                                          ║
+║ D_5      long_way_home [WAIT]                               ║
+║ D_6      here_we_go_again [WAIT]                            ║
+║ D_7      here_we_go_again [WAIT]                            ║
+║ D_8      here_we_go_again [WAIT]                            ║
+║ D_9      here_we_go_again [WAIT]                            ║
+║ D_10     D_10 WAIT                                          ║
+║ D_11     D_11 WAIT                                          ║
+║ D_12     D_12 WAIT                                          ║
+║ D_13     D_13 WAIT                                          ║
+║ D_14     D_14 WAIT                                          ║
+║ D_15     D_15 WAIT                                          ║
+║ D_16     D_16 WAIT                                          ║
+║ D_17     D_17 WAIT                                          ║
+║ D_18     D_18 WAIT                                          ║
+║ D_19     D_19 WAIT                                          ║
+║ D_20     D_20 WAIT                                          ║
+║ D_21     D_21 WAIT                                          ║
+║ D_22     D_22 WAIT                                          ║
+║ D_23     D_23 WAIT                                          ║
+║ D_24     D_24 WAIT                                          ║
+║ D_25     D_25 WAIT                                          ║
+║ D_26     D_26 WAIT                                          ║
+║ D_27     D_27 WAIT                                          ║
+║ D_28     D_28 WAIT                                          ║
+║ D_29     D_29 WAIT                                          ║
+║ D_30     D_30 WAIT                                          ║
+║ D_31     D_31 WAIT                                          ║
+║ D_32     D_32 WAIT                                          ║
+║ D_33     D_33 WAIT                                          ║
+║ D_34     D_34 WAIT                                          ║
+║ D_35     D_35 WAIT                                          ║
+║ D_36     D_36 WAIT                                          ║
+║ D_37     D_37 WAIT                                          ║
+║ D_38     D_38 WAIT                                          ║
+║ D_39     D_39 WAIT                                          ║
+║ D_40     D_40 WAIT                                          ║
+║ D_41     D_41 WAIT                                          ║
+║ D_42     D_42 WAIT                                          ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 3                                                      ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      normal_road_join [WAIT]                            ║
+║ D_2      D_2 WAIT                                           ║
+║ D_3      here_we_go_again -> restricted [TRANSIT END]       ║
+║ D_4      here_we_go_again -> restricted [TRANSIT END]       ║
+║ D_5      highway_to_hell [WAIT]                             ║
+║ D_6      normal_road_north [WAIT]                           ║
+║ D_7      long_way_home [WAIT]                               ║
+║ D_8      long_way_home [WAIT]                               ║
+║ D_9      D_9 WAIT                                           ║
+║ D_10     here_we_go_again [WAIT]                            ║
+║ D_11     here_we_go_again [WAIT]                            ║
+║ D_12     here_we_go_again [WAIT]                            ║
+║ D_13     here_we_go_again [WAIT]                            ║
+║ D_14     here_we_go_again [WAIT]                            ║
+║ D_15     D_15 WAIT                                          ║
+║ D_16     D_16 WAIT                                          ║
+║ D_17     D_17 WAIT                                          ║
+║ D_18     D_18 WAIT                                          ║
+║ D_19     D_19 WAIT                                          ║
+║ D_20     D_20 WAIT                                          ║
+║ D_21     D_21 WAIT                                          ║
+║ D_22     D_22 WAIT                                          ║
+║ D_23     D_23 WAIT                                          ║
+║ D_24     D_24 WAIT                                          ║
+║ D_25     D_25 WAIT                                          ║
+║ D_26     D_26 WAIT                                          ║
+║ D_27     D_27 WAIT                                          ║
+║ D_28     D_28 WAIT                                          ║
+║ D_29     D_29 WAIT                                          ║
+║ D_30     D_30 WAIT                                          ║
+║ D_31     D_31 WAIT                                          ║
+║ D_32     D_32 WAIT                                          ║
+║ D_33     D_33 WAIT                                          ║
+║ D_34     D_34 WAIT                                          ║
+║ D_35     D_35 WAIT                                          ║
+║ D_36     D_36 WAIT                                          ║
+║ D_37     D_37 WAIT                                          ║
+║ D_38     D_38 WAIT                                          ║
+║ D_39     D_39 WAIT                                          ║
+║ D_40     D_40 WAIT                                          ║
+║ D_41     D_41 WAIT                                          ║
+║ D_42     D_42 WAIT                                          ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 4                                                      ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      the_gathering [WAIT]                               ║
+║ D_2      normal_road_join [WAIT]                            ║
+║ D_3      the_gathering [WAIT]                               ║
+║ D_4      the_gathering [WAIT]                               ║
+║ D_5      telegraph_road [WAIT]                              ║
+║ D_6      D_6 WAIT                                           ║
+║ D_7      highway_to_hell [WAIT]                             ║
+║ D_8      highway_to_hell [WAIT]                             ║
+║ D_9      normal_road_south [WAIT]                           ║
+║ D_10     [TRANSIT]                                          ║
+║ D_11     [TRANSIT]                                          ║
+║ D_12     long_way_home [WAIT]                               ║
+║ D_13     long_way_home [WAIT]                               ║
+║ D_14     D_14 WAIT                                          ║
+║ D_15     here_we_go_again [WAIT]                            ║
+║ D_16     here_we_go_again [WAIT]                            ║
+║ D_17     here_we_go_again [WAIT]                            ║
+║ D_18     D_18 WAIT                                          ║
+║ D_19     D_19 WAIT                                          ║
+║ D_20     D_20 WAIT                                          ║
+║ D_21     D_21 WAIT                                          ║
+║ D_22     D_22 WAIT                                          ║
+║ D_23     D_23 WAIT                                          ║
+║ D_24     D_24 WAIT                                          ║
+║ D_25     D_25 WAIT                                          ║
+║ D_26     D_26 WAIT                                          ║
+║ D_27     D_27 WAIT                                          ║
+║ D_28     D_28 WAIT                                          ║
+║ D_29     D_29 WAIT                                          ║
+║ D_30     D_30 WAIT                                          ║
+║ D_31     D_31 WAIT                                          ║
+║ D_32     D_32 WAIT                                          ║
+║ D_33     D_33 WAIT                                          ║
+║ D_34     D_34 WAIT                                          ║
+║ D_35     D_35 WAIT                                          ║
+║ D_36     D_36 WAIT                                          ║
+║ D_37     D_37 WAIT                                          ║
+║ D_38     D_38 WAIT                                          ║
+║ D_39     D_39 WAIT                                          ║
+║ D_40     D_40 WAIT                                          ║
+║ D_41     D_41 WAIT                                          ║
+║ D_42     D_42 WAIT                                          ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 5                                                      ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      pleasant_walk [WAIT]                               ║
+║ D_2      the_gathering [WAIT]                               ║
+║ D_3      pleasant_walk [WAIT]                               ║
+║ D_4      pleasant_walk [WAIT]                               ║
+║ D_5      the_gathering [WAIT]                               ║
+║ D_6      normal_road_join [WAIT]                            ║
+║ D_7      telegraph_road [WAIT]                              ║
+║ D_8      long_way_home [WAIT]                               ║
+║ D_9      D_9 WAIT                                           ║
+║ D_10     here_we_go_again -> restricted [TRANSIT END]       ║
+║ D_11     here_we_go_again -> restricted [TRANSIT END]       ║
+║ D_12     highway_to_hell [WAIT]                             ║
+║ D_13     here_we_go_again [WAIT]                            ║
+║ D_14     normal_road_north [WAIT]                           ║
+║ D_15     long_way_home [WAIT]                               ║
+║ D_16     D_16 WAIT                                          ║
+║ D_17     D_17 WAIT                                          ║
+║ D_18     here_we_go_again [WAIT]                            ║
+║ D_19     here_we_go_again [WAIT]                            ║
+║ D_20     here_we_go_again [WAIT]                            ║
+║ D_21     D_21 WAIT                                          ║
+║ D_22     D_22 WAIT                                          ║
+║ D_23     D_23 WAIT                                          ║
+║ D_24     D_24 WAIT                                          ║
+║ D_25     D_25 WAIT                                          ║
+║ D_26     D_26 WAIT                                          ║
+║ D_27     D_27 WAIT                                          ║
+║ D_28     D_28 WAIT                                          ║
+║ D_29     D_29 WAIT                                          ║
+║ D_30     D_30 WAIT                                          ║
+║ D_31     D_31 WAIT                                          ║
+║ D_32     D_32 WAIT                                          ║
+║ D_33     D_33 WAIT                                          ║
+║ D_34     D_34 WAIT                                          ║
+║ D_35     D_35 WAIT                                          ║
+║ D_36     D_36 WAIT                                          ║
+║ D_37     D_37 WAIT                                          ║
+║ D_38     D_38 WAIT                                          ║
+║ D_39     D_39 WAIT                                          ║
+║ D_40     D_40 WAIT                                          ║
+║ D_41     D_41 WAIT                                          ║
+║ D_42     D_42 WAIT                                          ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 6                                                      ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      choose_wisely [WAIT]                               ║
+║ D_2      pleasant_walk [WAIT]                               ║
+║ D_3      choose_wisely [WAIT]                               ║
+║ D_4      choose_wisely [WAIT]                               ║
+║ D_5      pleasant_walk [WAIT]                               ║
+║ D_6      the_gathering [WAIT]                               ║
+║ D_7      the_gathering [WAIT]                               ║
+║ D_8      highway_to_hell [WAIT]                             ║
+║ D_9      normal_road_join [WAIT]                            ║
+║ D_10     the_gathering [WAIT]                               ║
+║ D_11     the_gathering [WAIT]                               ║
+║ D_12     telegraph_road [WAIT]                              ║
+║ D_13     normal_road_south [WAIT]                           ║
+║ D_14     here_we_go_again [WAIT]                            ║
+║ D_15     highway_to_hell [WAIT]                             ║
+║ D_16     [TRANSIT]                                          ║
+║ D_17     [TRANSIT]                                          ║
+║ D_18     long_way_home [WAIT]                               ║
+║ D_19     long_way_home [WAIT]                               ║
+║ D_20     D_20 WAIT                                          ║
+║ D_21     here_we_go_again [WAIT]                            ║
+║ D_22     here_we_go_again [WAIT]                            ║
+║ D_23     D_23 WAIT                                          ║
+║ D_24     D_24 WAIT                                          ║
+║ D_25     D_25 WAIT                                          ║
+║ D_26     D_26 WAIT                                          ║
+║ D_27     D_27 WAIT                                          ║
+║ D_28     D_28 WAIT                                          ║
+║ D_29     D_29 WAIT                                          ║
+║ D_30     D_30 WAIT                                          ║
+║ D_31     D_31 WAIT                                          ║
+║ D_32     D_32 WAIT                                          ║
+║ D_33     D_33 WAIT                                          ║
+║ D_34     D_34 WAIT                                          ║
+║ D_35     D_35 WAIT                                          ║
+║ D_36     D_36 WAIT                                          ║
+║ D_37     D_37 WAIT                                          ║
+║ D_38     D_38 WAIT                                          ║
+║ D_39     D_39 WAIT                                          ║
+║ D_40     D_40 WAIT                                          ║
+║ D_41     D_41 WAIT                                          ║
+║ D_42     D_42 WAIT                                          ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 7                                                      ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      should_be_fast [WAIT]                              ║
+║ D_2      choose_wisely [WAIT]                               ║
+║ D_3      should_be_fast [WAIT]                              ║
+║ D_4      should_be_fast [WAIT]                              ║
+║ D_5      choose_wisely [WAIT]                               ║
+║ D_6      pleasant_walk [WAIT]                               ║
+║ D_7      pleasant_walk [WAIT]                               ║
+║ D_8      long_way_home [WAIT]                               ║
+║ D_9      the_gathering [WAIT]                               ║
+║ D_10     pleasant_walk [WAIT]                               ║
+║ D_11     pleasant_walk [WAIT]                               ║
+║ D_12     the_gathering [WAIT]                               ║
+║ D_13     normal_road_join [WAIT]                            ║
+║ D_14     normal_road_north [WAIT]                           ║
+║ D_15     telegraph_road [WAIT]                              ║
+║ D_16     here_we_go_again -> restricted [TRANSIT END]       ║
+║ D_17     here_we_go_again -> restricted [TRANSIT END]       ║
+║ D_18     highway_to_hell [WAIT]                             ║
+║ D_19     here_we_go_again [WAIT]                            ║
+║ D_20     normal_road_south [WAIT]                           ║
+║ D_21     long_way_home [WAIT]                               ║
+║ D_22     D_22 WAIT                                          ║
+║ D_23     here_we_go_again [WAIT]                            ║
+║ D_24     here_we_go_again [WAIT]                            ║
+║ D_25     here_we_go_again [WAIT]                            ║
+║ D_26     here_we_go_again [WAIT]                            ║
+║ D_27     D_27 WAIT                                          ║
+║ D_28     D_28 WAIT                                          ║
+║ D_29     D_29 WAIT                                          ║
+║ D_30     D_30 WAIT                                          ║
+║ D_31     D_31 WAIT                                          ║
+║ D_32     D_32 WAIT                                          ║
+║ D_33     D_33 WAIT                                          ║
+║ D_34     D_34 WAIT                                          ║
+║ D_35     D_35 WAIT                                          ║
+║ D_36     D_36 WAIT                                          ║
+║ D_37     D_37 WAIT                                          ║
+║ D_38     D_38 WAIT                                          ║
+║ D_39     D_39 WAIT                                          ║
+║ D_40     D_40 WAIT                                          ║
+║ D_41     D_41 WAIT                                          ║
+║ D_42     D_42 WAIT                                          ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 8                                                      ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      [TRANSIT]                                          ║
+║ D_2      should_be_fast [WAIT]                              ║
+║ D_3      choose_wisely [WAIT]                               ║
+║ D_4      choose_wisely [WAIT]                               ║
+║ D_5      should_be_fast [WAIT]                              ║
+║ D_6      choose_wisely [WAIT]                               ║
+║ D_7      choose_wisely [WAIT]                               ║
+║ D_8      highway_to_hell [WAIT]                             ║
+║ D_9      pleasant_walk [WAIT]                               ║
+║ D_10     choose_wisely [WAIT]                               ║
+║ D_11     choose_wisely [WAIT]                               ║
+║ D_12     pleasant_walk [WAIT]                               ║
+║ D_13     the_gathering [WAIT]                               ║
+║ D_14     normal_road_join [WAIT]                            ║
+║ D_15     the_gathering [WAIT]                               ║
+║ D_16     the_gathering [WAIT]                               ║
+║ D_17     the_gathering [WAIT]                               ║
+║ D_18     telegraph_road [WAIT]                              ║
+║ D_19     normal_road_north [WAIT]                           ║
+║ D_20     here_we_go_again [WAIT]                            ║
+║ D_21     highway_to_hell [WAIT]                             ║
+║ D_22     [TRANSIT]                                          ║
+║ D_23     [TRANSIT]                                          ║
+║ D_24     long_way_home [WAIT]                               ║
+║ D_25     long_way_home [WAIT]                               ║
+║ D_26     D_26 WAIT                                          ║
+║ D_27     here_we_go_again [WAIT]                            ║
+║ D_28     here_we_go_again [WAIT]                            ║
+║ D_29     D_29 WAIT                                          ║
+║ D_30     D_30 WAIT                                          ║
+║ D_31     D_31 WAIT                                          ║
+║ D_32     D_32 WAIT                                          ║
+║ D_33     D_33 WAIT                                          ║
+║ D_34     D_34 WAIT                                          ║
+║ D_35     D_35 WAIT                                          ║
+║ D_36     D_36 WAIT                                          ║
+║ D_37     D_37 WAIT                                          ║
+║ D_38     D_38 WAIT                                          ║
+║ D_39     D_39 WAIT                                          ║
+║ D_40     D_40 WAIT                                          ║
+║ D_41     D_41 WAIT                                          ║
+║ D_42     D_42 WAIT                                          ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 9                                                      ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      should_be_fast -> maybe_not [TRANSIT END]          ║
+║ D_2      D_2 WAIT                                           ║
+║ D_3      keep_calm [WAIT]                                   ║
+║ D_4      keep_calm [WAIT]                                   ║
+║ D_5      choose_wisely [WAIT]                               ║
+║ D_6      should_be_fast [WAIT]                              ║
+║ D_7      should_be_fast [WAIT]                              ║
+║ D_8      long_way_home [WAIT]                               ║
+║ D_9      choose_wisely [WAIT]                               ║
+║ D_10     should_be_fast [WAIT]                              ║
+║ D_11     keep_calm [WAIT]                                   ║
+║ D_12     choose_wisely [WAIT]                               ║
+║ D_13     pleasant_walk [WAIT]                               ║
+║ D_14     the_gathering [WAIT]                               ║
+║ D_15     pleasant_walk [WAIT]                               ║
+║ D_16     pleasant_walk [WAIT]                               ║
+║ D_17     pleasant_walk [WAIT]                               ║
+║ D_18     the_gathering [WAIT]                               ║
+║ D_19     normal_road_join [WAIT]                            ║
+║ D_20     normal_road_north [WAIT]                           ║
+║ D_21     telegraph_road [WAIT]                              ║
+║ D_22     here_we_go_again -> restricted [TRANSIT END]       ║
+║ D_23     here_we_go_again -> restricted [TRANSIT END]       ║
+║ D_24     highway_to_hell [WAIT]                             ║
+║ D_25     here_we_go_again [WAIT]                            ║
+║ D_26     normal_road_south [WAIT]                           ║
+║ D_27     long_way_home [WAIT]                               ║
+║ D_28     D_28 WAIT                                          ║
+║ D_29     here_we_go_again [WAIT]                            ║
+║ D_30     here_we_go_again [WAIT]                            ║
+║ D_31     here_we_go_again [WAIT]                            ║
+║ D_32     here_we_go_again [WAIT]                            ║
+║ D_33     D_33 WAIT                                          ║
+║ D_34     D_34 WAIT                                          ║
+║ D_35     D_35 WAIT                                          ║
+║ D_36     D_36 WAIT                                          ║
+║ D_37     D_37 WAIT                                          ║
+║ D_38     D_38 WAIT                                          ║
+║ D_39     D_39 WAIT                                          ║
+║ D_40     D_40 WAIT                                          ║
+║ D_41     D_41 WAIT                                          ║
+║ D_42     D_42 WAIT                                          ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 10                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      [TRANSIT]                                          ║
+║ D_2      choose_wisely [WAIT]                               ║
+║ D_3      have_a_quantum [WAIT]                              ║
+║ D_4      have_a_quantum [WAIT]                              ║
+║ D_5      keep_calm [WAIT]                                   ║
+║ D_6      choose_wisely [WAIT]                               ║
+║ D_7      choose_wisely [WAIT]                               ║
+║ D_8      highway_to_hell [WAIT]                             ║
+║ D_9      should_be_fast [WAIT]                              ║
+║ D_10     D_10 WAIT                                          ║
+║ D_11     have_a_quantum [WAIT]                              ║
+║ D_12     keep_calm [WAIT]                                   ║
+║ D_13     choose_wisely [WAIT]                               ║
+║ D_14     pleasant_walk [WAIT]                               ║
+║ D_15     choose_wisely [WAIT]                               ║
+║ D_16     choose_wisely [WAIT]                               ║
+║ D_17     D_17 WAIT                                          ║
+║ D_18     pleasant_walk [WAIT]                               ║
+║ D_19     the_gathering [WAIT]                               ║
+║ D_20     normal_road_join [WAIT]                            ║
+║ D_21     the_gathering [WAIT]                               ║
+║ D_22     the_gathering [WAIT]                               ║
+║ D_23     the_gathering [WAIT]                               ║
+║ D_24     telegraph_road [WAIT]                              ║
+║ D_25     normal_road_north [WAIT]                           ║
+║ D_26     here_we_go_again [WAIT]                            ║
+║ D_27     highway_to_hell [WAIT]                             ║
+║ D_28     [TRANSIT]                                          ║
+║ D_29     [TRANSIT]                                          ║
+║ D_30     long_way_home [WAIT]                               ║
+║ D_31     long_way_home [WAIT]                               ║
+║ D_32     D_32 WAIT                                          ║
+║ D_33     here_we_go_again [WAIT]                            ║
+║ D_34     here_we_go_again [WAIT]                            ║
+║ D_35     D_35 WAIT                                          ║
+║ D_36     D_36 WAIT                                          ║
+║ D_37     D_37 WAIT                                          ║
+║ D_38     D_38 WAIT                                          ║
+║ D_39     D_39 WAIT                                          ║
+║ D_40     D_40 WAIT                                          ║
+║ D_41     D_41 WAIT                                          ║
+║ D_42     D_42 WAIT                                          ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 11                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      maybe_not -> false_good_idea [TRANSIT END]         ║
+║ D_2      keep_calm [WAIT]                                   ║
+║ D_3      where_are_we_going [WAIT]                          ║
+║ D_4      where_are_we_going [WAIT]                          ║
+║ D_5      have_a_quantum [WAIT]                              ║
+║ D_6      keep_calm [WAIT]                                   ║
+║ D_7      keep_calm [WAIT]                                   ║
+║ D_8      long_way_home [WAIT]                               ║
+║ D_9      [TRANSIT]                                          ║
+║ D_10     choose_wisely [WAIT]                               ║
+║ D_11     where_are_we_going [WAIT]                          ║
+║ D_12     have_a_quantum [WAIT]                              ║
+║ D_13     should_be_fast [WAIT]                              ║
+║ D_14     choose_wisely [WAIT]                               ║
+║ D_15     should_be_fast [WAIT]                              ║
+║ D_16     should_be_fast [WAIT]                              ║
+║ D_17     choose_wisely [WAIT]                               ║
+║ D_18     choose_wisely [WAIT]                               ║
+║ D_19     pleasant_walk [WAIT]                               ║
+║ D_20     the_gathering [WAIT]                               ║
+║ D_21     pleasant_walk [WAIT]                               ║
+║ D_22     pleasant_walk [WAIT]                               ║
+║ D_23     pleasant_walk [WAIT]                               ║
+║ D_24     the_gathering [WAIT]                               ║
+║ D_25     normal_road_join [WAIT]                            ║
+║ D_26     normal_road_north [WAIT]                           ║
+║ D_27     telegraph_road [WAIT]                              ║
+║ D_28     here_we_go_again -> restricted [TRANSIT END]       ║
+║ D_29     here_we_go_again -> restricted [TRANSIT END]       ║
+║ D_30     highway_to_hell [WAIT]                             ║
+║ D_31     here_we_go_again [WAIT]                            ║
+║ D_32     normal_road_south [WAIT]                           ║
+║ D_33     long_way_home [WAIT]                               ║
+║ D_34     D_34 WAIT                                          ║
+║ D_35     here_we_go_again [WAIT]                            ║
+║ D_36     here_we_go_again [WAIT]                            ║
+║ D_37     here_we_go_again [WAIT]                            ║
+║ D_38     here_we_go_again [WAIT]                            ║
+║ D_39     D_39 WAIT                                          ║
+║ D_40     D_40 WAIT                                          ║
+║ D_41     D_41 WAIT                                          ║
+║ D_42     D_42 WAIT                                          ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 12                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      [TRANSIT]                                          ║
+║ D_2      have_a_quantum [WAIT]                              ║
+║ D_3      I_think_we_re_lost [WAIT]                          ║
+║ D_4      I_think_we_re_lost [WAIT]                          ║
+║ D_5      where_are_we_going [WAIT]                          ║
+║ D_6      have_a_quantum [WAIT]                              ║
+║ D_7      have_a_quantum [WAIT]                              ║
+║ D_8      highway_to_hell [WAIT]                             ║
+║ D_9      should_be_fast -> maybe_not [TRANSIT END]          ║
+║ D_10     keep_calm [WAIT]                                   ║
+║ D_11     I_think_we_re_lost [WAIT]                          ║
+║ D_12     where_are_we_going [WAIT]                          ║
+║ D_13     choose_wisely [WAIT]                               ║
+║ D_14     should_be_fast [WAIT]                              ║
+║ D_15     choose_wisely [WAIT]                               ║
+║ D_16     choose_wisely [WAIT]                               ║
+║ D_17     keep_calm [WAIT]                                   ║
+║ D_18     keep_calm [WAIT]                                   ║
+║ D_19     choose_wisely [WAIT]                               ║
+║ D_20     pleasant_walk [WAIT]                               ║
+║ D_21     choose_wisely [WAIT]                               ║
+║ D_22     choose_wisely [WAIT]                               ║
+║ D_23     D_23 WAIT                                          ║
+║ D_24     pleasant_walk [WAIT]                               ║
+║ D_25     the_gathering [WAIT]                               ║
+║ D_26     normal_road_join [WAIT]                            ║
+║ D_27     the_gathering [WAIT]                               ║
+║ D_28     the_gathering [WAIT]                               ║
+║ D_29     the_gathering [WAIT]                               ║
+║ D_30     telegraph_road [WAIT]                              ║
+║ D_31     normal_road_north [WAIT]                           ║
+║ D_32     here_we_go_again [WAIT]                            ║
+║ D_33     highway_to_hell [WAIT]                             ║
+║ D_34     [TRANSIT]                                          ║
+║ D_35     [TRANSIT]                                          ║
+║ D_36     long_way_home [WAIT]                               ║
+║ D_37     long_way_home [WAIT]                               ║
+║ D_38     D_38 WAIT                                          ║
+║ D_39     here_we_go_again [WAIT]                            ║
+║ D_40     here_we_go_again [WAIT]                            ║
+║ D_41     D_41 WAIT                                          ║
+║ D_42     D_42 WAIT                                          ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 13                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      false_good_idea -> collapsed_north [TRANSIT END]   ║
+║ D_2      where_are_we_going [WAIT]                          ║
+║ D_3      maybe_ask_our_way [WAIT]                           ║
+║ D_4      maybe_ask_our_way [WAIT]                           ║
+║ D_5      I_think_we_re_lost [WAIT]                          ║
+║ D_6      where_are_we_going [WAIT]                          ║
+║ D_7      where_are_we_going [WAIT]                          ║
+║ D_8      long_way_home [WAIT]                               ║
+║ D_9      [TRANSIT]                                          ║
+║ D_10     have_a_quantum [WAIT]                              ║
+║ D_11     maybe_ask_our_way [WAIT]                           ║
+║ D_12     I_think_we_re_lost [WAIT]                          ║
+║ D_13     keep_calm [WAIT]                                   ║
+║ D_14     choose_wisely [WAIT]                               ║
+║ D_15     keep_calm [WAIT]                                   ║
+║ D_16     keep_calm [WAIT]                                   ║
+║ D_17     have_a_quantum [WAIT]                              ║
+║ D_18     have_a_quantum [WAIT]                              ║
+║ D_19     should_be_fast [WAIT]                              ║
+║ D_20     choose_wisely [WAIT]                               ║
+║ D_21     should_be_fast [WAIT]                              ║
+║ D_22     should_be_fast [WAIT]                              ║
+║ D_23     choose_wisely [WAIT]                               ║
+║ D_24     choose_wisely [WAIT]                               ║
+║ D_25     pleasant_walk [WAIT]                               ║
+║ D_26     the_gathering [WAIT]                               ║
+║ D_27     pleasant_walk [WAIT]                               ║
+║ D_28     pleasant_walk [WAIT]                               ║
+║ D_29     pleasant_walk [WAIT]                               ║
+║ D_30     the_gathering [WAIT]                               ║
+║ D_31     normal_road_join [WAIT]                            ║
+║ D_32     normal_road_north [WAIT]                           ║
+║ D_33     telegraph_road [WAIT]                              ║
+║ D_34     here_we_go_again -> restricted [TRANSIT END]       ║
+║ D_35     here_we_go_again -> restricted [TRANSIT END]       ║
+║ D_36     highway_to_hell [WAIT]                             ║
+║ D_37     here_we_go_again [WAIT]                            ║
+║ D_38     normal_road_south [WAIT]                           ║
+║ D_39     long_way_home [WAIT]                               ║
+║ D_40     D_40 WAIT                                          ║
+║ D_41     here_we_go_again [WAIT]                            ║
+║ D_42     here_we_go_again [WAIT]                            ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 14                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      forgotten_garden [WAIT]                            ║
+║ D_2      I_think_we_re_lost [WAIT]                          ║
+║ D_3      is_there_a_light [WAIT]                            ║
+║ D_4      is_there_a_light [WAIT]                            ║
+║ D_5      maybe_ask_our_way [WAIT]                           ║
+║ D_6      I_think_we_re_lost [WAIT]                          ║
+║ D_7      I_think_we_re_lost [WAIT]                          ║
+║ D_8      here_we_go_again [WAIT]                            ║
+║ D_9      maybe_not -> false_good_idea [TRANSIT END]         ║
+║ D_10     where_are_we_going [WAIT]                          ║
+║ D_11     is_there_a_light [WAIT]                            ║
+║ D_12     maybe_ask_our_way [WAIT]                           ║
+║ D_13     have_a_quantum [WAIT]                              ║
+║ D_14     keep_calm [WAIT]                                   ║
+║ D_15     have_a_quantum [WAIT]                              ║
+║ D_16     have_a_quantum [WAIT]                              ║
+║ D_17     where_are_we_going [WAIT]                          ║
+║ D_18     where_are_we_going [WAIT]                          ║
+║ D_19     [TRANSIT]                                          ║
+║ D_20     should_be_fast [WAIT]                              ║
+║ D_21     choose_wisely [WAIT]                               ║
+║ D_22     choose_wisely [WAIT]                               ║
+║ D_23     should_be_fast [WAIT]                              ║
+║ D_24     keep_calm [WAIT]                                   ║
+║ D_25     choose_wisely [WAIT]                               ║
+║ D_26     pleasant_walk [WAIT]                               ║
+║ D_27     choose_wisely [WAIT]                               ║
+║ D_28     choose_wisely [WAIT]                               ║
+║ D_29     choose_wisely [WAIT]                               ║
+║ D_30     pleasant_walk [WAIT]                               ║
+║ D_31     the_gathering [WAIT]                               ║
+║ D_32     normal_road_join [WAIT]                            ║
+║ D_33     the_gathering [WAIT]                               ║
+║ D_34     the_gathering [WAIT]                               ║
+║ D_35     the_gathering [WAIT]                               ║
+║ D_36     telegraph_road [WAIT]                              ║
+║ D_37     normal_road_north [WAIT]                           ║
+║ D_38     here_we_go_again [WAIT]                            ║
+║ D_39     highway_to_hell [WAIT]                             ║
+║ D_40     [TRANSIT]                                          ║
+║ D_41     [TRANSIT]                                          ║
+║ D_42     long_way_home [WAIT]                               ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 15                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      [TRANSIT]                                          ║
+║ D_2      maybe_ask_our_way [WAIT]                           ║
+║ D_3      look_at_this_wall [WAIT]                           ║
+║ D_4      look_at_this_wall [WAIT]                           ║
+║ D_5      is_there_a_light [WAIT]                            ║
+║ D_6      maybe_ask_our_way [WAIT]                           ║
+║ D_7      maybe_ask_our_way [WAIT]                           ║
+║ D_8      normal_road_south [WAIT]                           ║
+║ D_9      [TRANSIT]                                          ║
+║ D_10     I_think_we_re_lost [WAIT]                          ║
+║ D_11     look_at_this_wall [WAIT]                           ║
+║ D_12     is_there_a_light [WAIT]                            ║
+║ D_13     where_are_we_going [WAIT]                          ║
+║ D_14     have_a_quantum [WAIT]                              ║
+║ D_15     where_are_we_going [WAIT]                          ║
+║ D_16     where_are_we_going [WAIT]                          ║
+║ D_17     I_think_we_re_lost [WAIT]                          ║
+║ D_18     I_think_we_re_lost [WAIT]                          ║
+║ D_19     should_be_fast -> maybe_not [TRANSIT END]          ║
+║ D_20     D_20 WAIT                                          ║
+║ D_21     keep_calm [WAIT]                                   ║
+║ D_22     keep_calm [WAIT]                                   ║
+║ D_23     choose_wisely [WAIT]                               ║
+║ D_24     have_a_quantum [WAIT]                              ║
+║ D_25     should_be_fast [WAIT]                              ║
+║ D_26     choose_wisely [WAIT]                               ║
+║ D_27     should_be_fast [WAIT]                              ║
+║ D_28     should_be_fast [WAIT]                              ║
+║ D_29     keep_calm [WAIT]                                   ║
+║ D_30     choose_wisely [WAIT]                               ║
+║ D_31     pleasant_walk [WAIT]                               ║
+║ D_32     the_gathering [WAIT]                               ║
+║ D_33     pleasant_walk [WAIT]                               ║
+║ D_34     pleasant_walk [WAIT]                               ║
+║ D_35     pleasant_walk [WAIT]                               ║
+║ D_36     the_gathering [WAIT]                               ║
+║ D_37     normal_road_join [WAIT]                            ║
+║ D_38     normal_road_north [WAIT]                           ║
+║ D_39     telegraph_road [WAIT]                              ║
+║ D_40     here_we_go_again -> restricted [TRANSIT END]       ║
+║ D_41     here_we_go_again -> restricted [TRANSIT END]       ║
+║ D_42     highway_to_hell [WAIT]                             ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 16                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      forgotten_garden -> collapsed_south [TRANSIT END]  ║
+║ D_2      is_there_a_light [WAIT]                            ║
+║ D_3      it_s_a_big_one [WAIT]                              ║
+║ D_4      it_s_a_big_one [WAIT]                              ║
+║ D_5      look_at_this_wall [WAIT]                           ║
+║ D_6      is_there_a_light [WAIT]                            ║
+║ D_7      is_there_a_light [WAIT]                            ║
+║ D_8      here_we_go_again [WAIT]                            ║
+║ D_9      false_good_idea -> collapsed_north [TRANSIT END]   ║
+║ D_10     maybe_ask_our_way [WAIT]                           ║
+║ D_11     it_s_a_big_one [WAIT]                              ║
+║ D_12     look_at_this_wall [WAIT]                           ║
+║ D_13     I_think_we_re_lost [WAIT]                          ║
+║ D_14     where_are_we_going [WAIT]                          ║
+║ D_15     I_think_we_re_lost [WAIT]                          ║
+║ D_16     I_think_we_re_lost [WAIT]                          ║
+║ D_17     maybe_ask_our_way [WAIT]                           ║
+║ D_18     maybe_ask_our_way [WAIT]                           ║
+║ D_19     [TRANSIT]                                          ║
+║ D_20     choose_wisely [WAIT]                               ║
+║ D_21     have_a_quantum [WAIT]                              ║
+║ D_22     have_a_quantum [WAIT]                              ║
+║ D_23     keep_calm [WAIT]                                   ║
+║ D_24     where_are_we_going [WAIT]                          ║
+║ D_25     choose_wisely [WAIT]                               ║
+║ D_26     should_be_fast [WAIT]                              ║
+║ D_27     choose_wisely [WAIT]                               ║
+║ D_28     D_28 WAIT                                          ║
+║ D_29     have_a_quantum [WAIT]                              ║
+║ D_30     keep_calm [WAIT]                                   ║
+║ D_31     choose_wisely [WAIT]                               ║
+║ D_32     pleasant_walk [WAIT]                               ║
+║ D_33     choose_wisely [WAIT]                               ║
+║ D_34     choose_wisely [WAIT]                               ║
+║ D_35     D_35 WAIT                                          ║
+║ D_36     pleasant_walk [WAIT]                               ║
+║ D_37     the_gathering [WAIT]                               ║
+║ D_38     normal_road_join [WAIT]                            ║
+║ D_39     the_gathering [WAIT]                               ║
+║ D_40     the_gathering [WAIT]                               ║
+║ D_41     the_gathering [WAIT]                               ║
+║ D_42     telegraph_road [WAIT]                              ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 17                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      far_far_away [WAIT]                                ║
+║ D_2      look_at_this_wall [WAIT]                           ║
+║ D_3      is_there_a_way [WAIT]                              ║
+║ D_4      is_there_a_way [WAIT]                              ║
+║ D_5      it_s_a_big_one [WAIT]                              ║
+║ D_6      look_at_this_wall [WAIT]                           ║
+║ D_7      look_at_this_wall [WAIT]                           ║
+║ D_8      [TRANSIT]                                          ║
+║ D_9      forgotten_garden [WAIT]                            ║
+║ D_10     is_there_a_light [WAIT]                            ║
+║ D_11     is_there_a_way [WAIT]                              ║
+║ D_12     it_s_a_big_one [WAIT]                              ║
+║ D_13     maybe_ask_our_way [WAIT]                           ║
+║ D_14     I_think_we_re_lost [WAIT]                          ║
+║ D_15     maybe_ask_our_way [WAIT]                           ║
+║ D_16     maybe_ask_our_way [WAIT]                           ║
+║ D_17     is_there_a_light [WAIT]                            ║
+║ D_18     is_there_a_light [WAIT]                            ║
+║ D_19     maybe_not -> false_good_idea [TRANSIT END]         ║
+║ D_20     keep_calm [WAIT]                                   ║
+║ D_21     where_are_we_going [WAIT]                          ║
+║ D_22     where_are_we_going [WAIT]                          ║
+║ D_23     have_a_quantum [WAIT]                              ║
+║ D_24     I_think_we_re_lost [WAIT]                          ║
+║ D_25     keep_calm [WAIT]                                   ║
+║ D_26     [TRANSIT]                                          ║
+║ D_27     keep_calm [WAIT]                                   ║
+║ D_28     choose_wisely [WAIT]                               ║
+║ D_29     where_are_we_going [WAIT]                          ║
+║ D_30     have_a_quantum [WAIT]                              ║
+║ D_31     should_be_fast [WAIT]                              ║
+║ D_32     choose_wisely [WAIT]                               ║
+║ D_33     should_be_fast [WAIT]                              ║
+║ D_34     should_be_fast [WAIT]                              ║
+║ D_35     choose_wisely [WAIT]                               ║
+║ D_36     choose_wisely [WAIT]                               ║
+║ D_37     pleasant_walk [WAIT]                               ║
+║ D_38     the_gathering [WAIT]                               ║
+║ D_39     pleasant_walk [WAIT]                               ║
+║ D_40     pleasant_walk [WAIT]                               ║
+║ D_41     pleasant_walk [WAIT]                               ║
+║ D_42     the_gathering [WAIT]                               ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 18                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      a_big_42_coming [WAIT]                             ║
+║ D_2      it_s_a_big_one [WAIT]                              ║
+║ D_3      best_is_to_come [WAIT]                             ║
+║ D_4      best_is_to_come [WAIT]                             ║
+║ D_5      is_there_a_way [WAIT]                              ║
+║ D_6      it_s_a_big_one [WAIT]                              ║
+║ D_7      it_s_a_big_one [WAIT]                              ║
+║ D_8      here_we_go_again -> restricted [TRANSIT END]       ║
+║ D_9      [TRANSIT]                                          ║
+║ D_10     look_at_this_wall [WAIT]                           ║
+║ D_11     best_is_to_come [WAIT]                             ║
+║ D_12     is_there_a_way [WAIT]                              ║
+║ D_13     is_there_a_light [WAIT]                            ║
+║ D_14     maybe_ask_our_way [WAIT]                           ║
+║ D_15     is_there_a_light [WAIT]                            ║
+║ D_16     I_think_we_re_lost [WAIT]                          ║
+║ D_17     look_at_this_wall [WAIT]                           ║
+║ D_18     look_at_this_wall [WAIT]                           ║
+║ D_19     [TRANSIT]                                          ║
+║ D_20     have_a_quantum [WAIT]                              ║
+║ D_21     I_think_we_re_lost [WAIT]                          ║
+║ D_22     I_think_we_re_lost [WAIT]                          ║
+║ D_23     where_are_we_going [WAIT]                          ║
+║ D_24     maybe_ask_our_way [WAIT]                           ║
+║ D_25     have_a_quantum [WAIT]                              ║
+║ D_26     should_be_fast -> maybe_not [TRANSIT END]          ║
+║ D_27     have_a_quantum [WAIT]                              ║
+║ D_28     keep_calm [WAIT]                                   ║
+║ D_29     I_think_we_re_lost [WAIT]                          ║
+║ D_30     where_are_we_going [WAIT]                          ║
+║ D_31     choose_wisely [WAIT]                               ║
+║ D_32     should_be_fast [WAIT]                              ║
+║ D_33     choose_wisely [WAIT]                               ║
+║ D_34     choose_wisely [WAIT]                               ║
+║ D_35     keep_calm [WAIT]                                   ║
+║ D_36     keep_calm [WAIT]                                   ║
+║ D_37     choose_wisely [WAIT]                               ║
+║ D_38     pleasant_walk [WAIT]                               ║
+║ D_39     choose_wisely [WAIT]                               ║
+║ D_40     choose_wisely [WAIT]                               ║
+║ D_41     D_41 WAIT                                          ║
+║ D_42     pleasant_walk [WAIT]                               ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 19                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      we_were_here [WAIT]                                ║
+║ D_2      is_there_a_way [WAIT]                              ║
+║ D_3      hang_on_baby [WAIT]                                ║
+║ D_4      hang_on_baby [WAIT]                                ║
+║ D_5      best_is_to_come [WAIT]                             ║
+║ D_6      is_there_a_way [WAIT]                              ║
+║ D_7      is_there_a_way [WAIT]                              ║
+║ D_8      the_gathering [WAIT]                               ║
+║ D_9      forgotten_garden -> collapsed_south [TRANSIT END]  ║
+║ D_10     it_s_a_big_one [WAIT]                              ║
+║ D_11     hang_on_baby [WAIT]                                ║
+║ D_12     best_is_to_come [WAIT]                             ║
+║ D_13     look_at_this_wall [WAIT]                           ║
+║ D_14     is_there_a_light [WAIT]                            ║
+║ D_15     look_at_this_wall [WAIT]                           ║
+║ D_16     where_are_we_going [WAIT]                          ║
+║ D_17     it_s_a_big_one [WAIT]                              ║
+║ D_18     it_s_a_big_one [WAIT]                              ║
+║ D_19     false_good_idea -> collapsed_north [TRANSIT END]   ║
+║ D_20     where_are_we_going [WAIT]                          ║
+║ D_21     maybe_ask_our_way [WAIT]                           ║
+║ D_22     maybe_ask_our_way [WAIT]                           ║
+║ D_23     I_think_we_re_lost [WAIT]                          ║
+║ D_24     is_there_a_light [WAIT]                            ║
+║ D_25     where_are_we_going [WAIT]                          ║
+║ D_26     [TRANSIT]                                          ║
+║ D_27     where_are_we_going [WAIT]                          ║
+║ D_28     have_a_quantum [WAIT]                              ║
+║ D_29     maybe_ask_our_way [WAIT]                           ║
+║ D_30     I_think_we_re_lost [WAIT]                          ║
+║ D_31     keep_calm [WAIT]                                   ║
+║ D_32     choose_wisely [WAIT]                               ║
+║ D_33     keep_calm [WAIT]                                   ║
+║ D_34     keep_calm [WAIT]                                   ║
+║ D_35     have_a_quantum [WAIT]                              ║
+║ D_36     have_a_quantum [WAIT]                              ║
+║ D_37     should_be_fast [WAIT]                              ║
+║ D_38     choose_wisely [WAIT]                               ║
+║ D_39     should_be_fast [WAIT]                              ║
+║ D_40     should_be_fast [WAIT]                              ║
+║ D_41     choose_wisely [WAIT]                               ║
+║ D_42     choose_wisely [WAIT]                               ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 20                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      goal [WAIT]                                        ║
+║ D_2      best_is_to_come [WAIT]                             ║
+║ D_3      far_far_away [WAIT]                                ║
+║ D_4      far_far_away [WAIT]                                ║
+║ D_5      hang_on_baby [WAIT]                                ║
+║ D_6      best_is_to_come [WAIT]                             ║
+║ D_7      best_is_to_come [WAIT]                             ║
+║ D_8      pleasant_walk [WAIT]                               ║
+║ D_9      far_far_away [WAIT]                                ║
+║ D_10     is_there_a_way [WAIT]                              ║
+║ D_11     far_far_away [WAIT]                                ║
+║ D_12     hang_on_baby [WAIT]                                ║
+║ D_13     it_s_a_big_one [WAIT]                              ║
+║ D_14     look_at_this_wall [WAIT]                           ║
+║ D_15     it_s_a_big_one [WAIT]                              ║
+║ D_16     have_a_quantum [WAIT]                              ║
+║ D_17     is_there_a_way [WAIT]                              ║
+║ D_18     is_there_a_way [WAIT]                              ║
+║ D_19     forgotten_garden [WAIT]                            ║
+║ D_20     I_think_we_re_lost [WAIT]                          ║
+║ D_21     is_there_a_light [WAIT]                            ║
+║ D_22     is_there_a_light [WAIT]                            ║
+║ D_23     maybe_ask_our_way [WAIT]                           ║
+║ D_24     look_at_this_wall [WAIT]                           ║
+║ D_25     I_think_we_re_lost [WAIT]                          ║
+║ D_26     maybe_not -> false_good_idea [TRANSIT END]         ║
+║ D_27     I_think_we_re_lost [WAIT]                          ║
+║ D_28     where_are_we_going [WAIT]                          ║
+║ D_29     is_there_a_light [WAIT]                            ║
+║ D_30     maybe_ask_our_way [WAIT]                           ║
+║ D_31     have_a_quantum [WAIT]                              ║
+║ D_32     keep_calm [WAIT]                                   ║
+║ D_33     have_a_quantum [WAIT]                              ║
+║ D_34     have_a_quantum [WAIT]                              ║
+║ D_35     where_are_we_going [WAIT]                          ║
+║ D_36     where_are_we_going [WAIT]                          ║
+║ D_37     [TRANSIT]                                          ║
+║ D_38     should_be_fast [WAIT]                              ║
+║ D_39     choose_wisely [WAIT]                               ║
+║ D_40     choose_wisely [WAIT]                               ║
+║ D_41     should_be_fast [WAIT]                              ║
+║ D_42     keep_calm [WAIT]                                   ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 21                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      DELIVERED                                          ║
+║ D_2      hang_on_baby [WAIT]                                ║
+║ D_3      a_big_42_coming [WAIT]                             ║
+║ D_4      a_big_42_coming [WAIT]                             ║
+║ D_5      far_far_away [WAIT]                                ║
+║ D_6      hang_on_baby [WAIT]                                ║
+║ D_7      hang_on_baby [WAIT]                                ║
+║ D_8      choose_wisely [WAIT]                               ║
+║ D_9      a_big_42_coming [WAIT]                             ║
+║ D_10     best_is_to_come [WAIT]                             ║
+║ D_11     D_11 WAIT                                          ║
+║ D_12     far_far_away [WAIT]                                ║
+║ D_13     is_there_a_way [WAIT]                              ║
+║ D_14     it_s_a_big_one [WAIT]                              ║
+║ D_15     is_there_a_way [WAIT]                              ║
+║ D_16     keep_calm [WAIT]                                   ║
+║ D_17     best_is_to_come [WAIT]                             ║
+║ D_18     best_is_to_come [WAIT]                             ║
+║ D_19     [TRANSIT]                                          ║
+║ D_20     maybe_ask_our_way [WAIT]                           ║
+║ D_21     look_at_this_wall [WAIT]                           ║
+║ D_22     look_at_this_wall [WAIT]                           ║
+║ D_23     is_there_a_light [WAIT]                            ║
+║ D_24     it_s_a_big_one [WAIT]                              ║
+║ D_25     maybe_ask_our_way [WAIT]                           ║
+║ D_26     [TRANSIT]                                          ║
+║ D_27     maybe_ask_our_way [WAIT]                           ║
+║ D_28     I_think_we_re_lost [WAIT]                          ║
+║ D_29     look_at_this_wall [WAIT]                           ║
+║ D_30     is_there_a_light [WAIT]                            ║
+║ D_31     where_are_we_going [WAIT]                          ║
+║ D_32     have_a_quantum [WAIT]                              ║
+║ D_33     where_are_we_going [WAIT]                          ║
+║ D_34     where_are_we_going [WAIT]                          ║
+║ D_35     I_think_we_re_lost [WAIT]                          ║
+║ D_36     I_think_we_re_lost [WAIT]                          ║
+║ D_37     should_be_fast -> maybe_not [TRANSIT END]          ║
+║ D_38     choose_wisely [WAIT]                               ║
+║ D_39     keep_calm [WAIT]                                   ║
+║ D_40     keep_calm [WAIT]                                   ║
+║ D_41     choose_wisely [WAIT]                               ║
+║ D_42     have_a_quantum [WAIT]                              ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 22                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      DELIVERED                                          ║
+║ D_2      far_far_away [WAIT]                                ║
+║ D_3      we_were_here [WAIT]                                ║
+║ D_4      we_were_here [WAIT]                                ║
+║ D_5      a_big_42_coming [WAIT]                             ║
+║ D_6      far_far_away [WAIT]                                ║
+║ D_7      far_far_away [WAIT]                                ║
+║ D_8      should_be_fast [WAIT]                              ║
+║ D_9      D_9 WAIT                                           ║
+║ D_10     hang_on_baby [WAIT]                                ║
+║ D_11     a_big_42_coming [WAIT]                             ║
+║ D_12     a_big_42_coming [WAIT]                             ║
+║ D_13     best_is_to_come [WAIT]                             ║
+║ D_14     is_there_a_way [WAIT]                              ║
+║ D_15     best_is_to_come [WAIT]                             ║
+║ D_16     choose_wisely [WAIT]                               ║
+║ D_17     hang_on_baby [WAIT]                                ║
+║ D_18     hang_on_baby [WAIT]                                ║
+║ D_19     forgotten_garden -> collapsed_south [TRANSIT END]  ║
+║ D_20     is_there_a_light [WAIT]                            ║
+║ D_21     it_s_a_big_one [WAIT]                              ║
+║ D_22     it_s_a_big_one [WAIT]                              ║
+║ D_23     look_at_this_wall [WAIT]                           ║
+║ D_24     is_there_a_way [WAIT]                              ║
+║ D_25     is_there_a_light [WAIT]                            ║
+║ D_26     false_good_idea -> collapsed_north [TRANSIT END]   ║
+║ D_27     is_there_a_light [WAIT]                            ║
+║ D_28     maybe_ask_our_way [WAIT]                           ║
+║ D_29     it_s_a_big_one [WAIT]                              ║
+║ D_30     look_at_this_wall [WAIT]                           ║
+║ D_31     I_think_we_re_lost [WAIT]                          ║
+║ D_32     where_are_we_going [WAIT]                          ║
+║ D_33     I_think_we_re_lost [WAIT]                          ║
+║ D_34     I_think_we_re_lost [WAIT]                          ║
+║ D_35     maybe_ask_our_way [WAIT]                           ║
+║ D_36     maybe_ask_our_way [WAIT]                           ║
+║ D_37     [TRANSIT]                                          ║
+║ D_38     keep_calm [WAIT]                                   ║
+║ D_39     have_a_quantum [WAIT]                              ║
+║ D_40     have_a_quantum [WAIT]                              ║
+║ D_41     keep_calm [WAIT]                                   ║
+║ D_42     where_are_we_going [WAIT]                          ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 23                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      DELIVERED                                          ║
+║ D_2      a_big_42_coming [WAIT]                             ║
+║ D_3      goal [WAIT]                                        ║
+║ D_4      goal [WAIT]                                        ║
+║ D_5      we_were_here [WAIT]                                ║
+║ D_6      a_big_42_coming [WAIT]                             ║
+║ D_7      a_big_42_coming [WAIT]                             ║
+║ D_8      choose_wisely [WAIT]                               ║
+║ D_9      we_were_here [WAIT]                                ║
+║ D_10     far_far_away [WAIT]                                ║
+║ D_11     D_11 WAIT                                          ║
+║ D_12     D_12 WAIT                                          ║
+║ D_13     hang_on_baby [WAIT]                                ║
+║ D_14     best_is_to_come [WAIT]                             ║
+║ D_15     hang_on_baby [WAIT]                                ║
+║ D_16     should_be_fast [WAIT]                              ║
+║ D_17     far_far_away [WAIT]                                ║
+║ D_18     far_far_away [WAIT]                                ║
+║ D_19     far_far_away [WAIT]                                ║
+║ D_20     look_at_this_wall [WAIT]                           ║
+║ D_21     is_there_a_way [WAIT]                              ║
+║ D_22     is_there_a_way [WAIT]                              ║
+║ D_23     it_s_a_big_one [WAIT]                              ║
+║ D_24     best_is_to_come [WAIT]                             ║
+║ D_25     look_at_this_wall [WAIT]                           ║
+║ D_26     forgotten_garden [WAIT]                            ║
+║ D_27     look_at_this_wall [WAIT]                           ║
+║ D_28     is_there_a_light [WAIT]                            ║
+║ D_29     is_there_a_way [WAIT]                              ║
+║ D_30     it_s_a_big_one [WAIT]                              ║
+║ D_31     maybe_ask_our_way [WAIT]                           ║
+║ D_32     I_think_we_re_lost [WAIT]                          ║
+║ D_33     maybe_ask_our_way [WAIT]                           ║
+║ D_34     maybe_ask_our_way [WAIT]                           ║
+║ D_35     is_there_a_light [WAIT]                            ║
+║ D_36     is_there_a_light [WAIT]                            ║
+║ D_37     maybe_not -> false_good_idea [TRANSIT END]         ║
+║ D_38     have_a_quantum [WAIT]                              ║
+║ D_39     where_are_we_going [WAIT]                          ║
+║ D_40     where_are_we_going [WAIT]                          ║
+║ D_41     have_a_quantum [WAIT]                              ║
+║ D_42     I_think_we_re_lost [WAIT]                          ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 24                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      DELIVERED                                          ║
+║ D_2      D_2 WAIT                                           ║
+║ D_3      DELIVERED                                          ║
+║ D_4      DELIVERED                                          ║
+║ D_5      goal [WAIT]                                        ║
+║ D_6      we_were_here [WAIT]                                ║
+║ D_7      D_7 WAIT                                           ║
+║ D_8      keep_calm [WAIT]                                   ║
+║ D_9      goal [WAIT]                                        ║
+║ D_10     a_big_42_coming [WAIT]                             ║
+║ D_11     we_were_here [WAIT]                                ║
+║ D_12     D_12 WAIT                                          ║
+║ D_13     far_far_away [WAIT]                                ║
+║ D_14     hang_on_baby [WAIT]                                ║
+║ D_15     far_far_away [WAIT]                                ║
+║ D_16     [TRANSIT]                                          ║
+║ D_17     a_big_42_coming [WAIT]                             ║
+║ D_18     a_big_42_coming [WAIT]                             ║
+║ D_19     D_19 WAIT                                          ║
+║ D_20     it_s_a_big_one [WAIT]                              ║
+║ D_21     best_is_to_come [WAIT]                             ║
+║ D_22     best_is_to_come [WAIT]                             ║
+║ D_23     is_there_a_way [WAIT]                              ║
+║ D_24     hang_on_baby [WAIT]                                ║
+║ D_25     it_s_a_big_one [WAIT]                              ║
+║ D_26     [TRANSIT]                                          ║
+║ D_27     it_s_a_big_one [WAIT]                              ║
+║ D_28     look_at_this_wall [WAIT]                           ║
+║ D_29     best_is_to_come [WAIT]                             ║
+║ D_30     is_there_a_way [WAIT]                              ║
+║ D_31     is_there_a_light [WAIT]                            ║
+║ D_32     maybe_ask_our_way [WAIT]                           ║
+║ D_33     is_there_a_light [WAIT]                            ║
+║ D_34     I_think_we_re_lost [WAIT]                          ║
+║ D_35     look_at_this_wall [WAIT]                           ║
+║ D_36     look_at_this_wall [WAIT]                           ║
+║ D_37     [TRANSIT]                                          ║
+║ D_38     where_are_we_going [WAIT]                          ║
+║ D_39     I_think_we_re_lost [WAIT]                          ║
+║ D_40     I_think_we_re_lost [WAIT]                          ║
+║ D_41     where_are_we_going [WAIT]                          ║
+║ D_42     maybe_ask_our_way [WAIT]                           ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 25                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      DELIVERED                                          ║
+║ D_2      D_2 WAIT                                           ║
+║ D_3      DELIVERED                                          ║
+║ D_4      DELIVERED                                          ║
+║ D_5      DELIVERED                                          ║
+║ D_6      goal [WAIT]                                        ║
+║ D_7      we_were_here [WAIT]                                ║
+║ D_8      have_a_quantum [WAIT]                              ║
+║ D_9      DELIVERED                                          ║
+║ D_10     D_10 WAIT                                          ║
+║ D_11     goal [WAIT]                                        ║
+║ D_12     we_were_here [WAIT]                                ║
+║ D_13     a_big_42_coming [WAIT]                             ║
+║ D_14     far_far_away [WAIT]                                ║
+║ D_15     a_big_42_coming [WAIT]                             ║
+║ D_16     should_be_fast -> maybe_not [TRANSIT END]          ║
+║ D_17     D_17 WAIT                                          ║
+║ D_18     D_18 WAIT                                          ║
+║ D_19     D_19 WAIT                                          ║
+║ D_20     is_there_a_way [WAIT]                              ║
+║ D_21     hang_on_baby [WAIT]                                ║
+║ D_22     hang_on_baby [WAIT]                                ║
+║ D_23     best_is_to_come [WAIT]                             ║
+║ D_24     far_far_away [WAIT]                                ║
+║ D_25     is_there_a_way [WAIT]                              ║
+║ D_26     forgotten_garden -> collapsed_south [TRANSIT END]  ║
+║ D_27     is_there_a_way [WAIT]                              ║
+║ D_28     it_s_a_big_one [WAIT]                              ║
+║ D_29     hang_on_baby [WAIT]                                ║
+║ D_30     best_is_to_come [WAIT]                             ║
+║ D_31     look_at_this_wall [WAIT]                           ║
+║ D_32     is_there_a_light [WAIT]                            ║
+║ D_33     look_at_this_wall [WAIT]                           ║
+║ D_34     where_are_we_going [WAIT]                          ║
+║ D_35     it_s_a_big_one [WAIT]                              ║
+║ D_36     it_s_a_big_one [WAIT]                              ║
+║ D_37     false_good_idea -> collapsed_north [TRANSIT END]   ║
+║ D_38     I_think_we_re_lost [WAIT]                          ║
+║ D_39     maybe_ask_our_way [WAIT]                           ║
+║ D_40     maybe_ask_our_way [WAIT]                           ║
+║ D_41     I_think_we_re_lost [WAIT]                          ║
+║ D_42     is_there_a_light [WAIT]                            ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 26                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      DELIVERED                                          ║
+║ D_2      D_2 WAIT                                           ║
+║ D_3      DELIVERED                                          ║
+║ D_4      DELIVERED                                          ║
+║ D_5      DELIVERED                                          ║
+║ D_6      DELIVERED                                          ║
+║ D_7      goal [WAIT]                                        ║
+║ D_8      where_are_we_going [WAIT]                          ║
+║ D_9      DELIVERED                                          ║
+║ D_10     we_were_here [WAIT]                                ║
+║ D_11     DELIVERED                                          ║
+║ D_12     goal [WAIT]                                        ║
+║ D_13     we_were_here [WAIT]                                ║
+║ D_14     a_big_42_coming [WAIT]                             ║
+║ D_15     D_15 WAIT                                          ║
+║ D_16     [TRANSIT]                                          ║
+║ D_17     D_17 WAIT                                          ║
+║ D_18     D_18 WAIT                                          ║
+║ D_19     a_big_42_coming [WAIT]                             ║
+║ D_20     best_is_to_come [WAIT]                             ║
+║ D_21     far_far_away [WAIT]                                ║
+║ D_22     far_far_away [WAIT]                                ║
+║ D_23     hang_on_baby [WAIT]                                ║
+║ D_24     D_24 WAIT                                          ║
+║ D_25     best_is_to_come [WAIT]                             ║
+║ D_26     far_far_away [WAIT]                                ║
+║ D_27     best_is_to_come [WAIT]                             ║
+║ D_28     is_there_a_way [WAIT]                              ║
+║ D_29     far_far_away [WAIT]                                ║
+║ D_30     hang_on_baby [WAIT]                                ║
+║ D_31     it_s_a_big_one [WAIT]                              ║
+║ D_32     look_at_this_wall [WAIT]                           ║
+║ D_33     it_s_a_big_one [WAIT]                              ║
+║ D_34     have_a_quantum [WAIT]                              ║
+║ D_35     is_there_a_way [WAIT]                              ║
+║ D_36     is_there_a_way [WAIT]                              ║
+║ D_37     forgotten_garden [WAIT]                            ║
+║ D_38     maybe_ask_our_way [WAIT]                           ║
+║ D_39     is_there_a_light [WAIT]                            ║
+║ D_40     is_there_a_light [WAIT]                            ║
+║ D_41     maybe_ask_our_way [WAIT]                           ║
+║ D_42     look_at_this_wall [WAIT]                           ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 27                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      DELIVERED                                          ║
+║ D_2      D_2 WAIT                                           ║
+║ D_3      DELIVERED                                          ║
+║ D_4      DELIVERED                                          ║
+║ D_5      DELIVERED                                          ║
+║ D_6      DELIVERED                                          ║
+║ D_7      DELIVERED                                          ║
+║ D_8      I_think_we_re_lost [WAIT]                          ║
+║ D_9      DELIVERED                                          ║
+║ D_10     goal [WAIT]                                        ║
+║ D_11     DELIVERED                                          ║
+║ D_12     DELIVERED                                          ║
+║ D_13     goal [WAIT]                                        ║
+║ D_14     we_were_here [WAIT]                                ║
+║ D_15     we_were_here [WAIT]                                ║
+║ D_16     maybe_not -> false_good_idea [TRANSIT END]         ║
+║ D_17     D_17 WAIT                                          ║
+║ D_18     D_18 WAIT                                          ║
+║ D_19     D_19 WAIT                                          ║
+║ D_20     hang_on_baby [WAIT]                                ║
+║ D_21     a_big_42_coming [WAIT]                             ║
+║ D_22     a_big_42_coming [WAIT]                             ║
+║ D_23     far_far_away [WAIT]                                ║
+║ D_24     D_24 WAIT                                          ║
+║ D_25     hang_on_baby [WAIT]                                ║
+║ D_26     D_26 WAIT                                          ║
+║ D_27     hang_on_baby [WAIT]                                ║
+║ D_28     best_is_to_come [WAIT]                             ║
+║ D_29     D_29 WAIT                                          ║
+║ D_30     far_far_away [WAIT]                                ║
+║ D_31     is_there_a_way [WAIT]                              ║
+║ D_32     it_s_a_big_one [WAIT]                              ║
+║ D_33     is_there_a_way [WAIT]                              ║
+║ D_34     keep_calm [WAIT]                                   ║
+║ D_35     best_is_to_come [WAIT]                             ║
+║ D_36     best_is_to_come [WAIT]                             ║
+║ D_37     [TRANSIT]                                          ║
+║ D_38     is_there_a_light [WAIT]                            ║
+║ D_39     look_at_this_wall [WAIT]                           ║
+║ D_40     look_at_this_wall [WAIT]                           ║
+║ D_41     is_there_a_light [WAIT]                            ║
+║ D_42     it_s_a_big_one [WAIT]                              ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 28                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      DELIVERED                                          ║
+║ D_2      D_2 WAIT                                           ║
+║ D_3      DELIVERED                                          ║
+║ D_4      DELIVERED                                          ║
+║ D_5      DELIVERED                                          ║
+║ D_6      DELIVERED                                          ║
+║ D_7      DELIVERED                                          ║
+║ D_8      maybe_ask_our_way [WAIT]                           ║
+║ D_9      DELIVERED                                          ║
+║ D_10     DELIVERED                                          ║
+║ D_11     DELIVERED                                          ║
+║ D_12     DELIVERED                                          ║
+║ D_13     DELIVERED                                          ║
+║ D_14     goal [WAIT]                                        ║
+║ D_15     goal [WAIT]                                        ║
+║ D_16     [TRANSIT]                                          ║
+║ D_17     we_were_here [WAIT]                                ║
+║ D_18     we_were_here [WAIT]                                ║
+║ D_19     D_19 WAIT                                          ║
+║ D_20     far_far_away [WAIT]                                ║
+║ D_21     D_21 WAIT                                          ║
+║ D_22     D_22 WAIT                                          ║
+║ D_23     a_big_42_coming [WAIT]                             ║
+║ D_24     a_big_42_coming [WAIT]                             ║
+║ D_25     far_far_away [WAIT]                                ║
+║ D_26     D_26 WAIT                                          ║
+║ D_27     far_far_away [WAIT]                                ║
+║ D_28     hang_on_baby [WAIT]                                ║
+║ D_29     D_29 WAIT                                          ║
+║ D_30     D_30 WAIT                                          ║
+║ D_31     best_is_to_come [WAIT]                             ║
+║ D_32     is_there_a_way [WAIT]                              ║
+║ D_33     best_is_to_come [WAIT]                             ║
+║ D_34     choose_wisely [WAIT]                               ║
+║ D_35     hang_on_baby [WAIT]                                ║
+║ D_36     hang_on_baby [WAIT]                                ║
+║ D_37     forgotten_garden -> collapsed_south [TRANSIT END]  ║
+║ D_38     look_at_this_wall [WAIT]                           ║
+║ D_39     it_s_a_big_one [WAIT]                              ║
+║ D_40     it_s_a_big_one [WAIT]                              ║
+║ D_41     look_at_this_wall [WAIT]                           ║
+║ D_42     is_there_a_way [WAIT]                              ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 29                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      DELIVERED                                          ║
+║ D_2      D_2 WAIT                                           ║
+║ D_3      DELIVERED                                          ║
+║ D_4      DELIVERED                                          ║
+║ D_5      DELIVERED                                          ║
+║ D_6      DELIVERED                                          ║
+║ D_7      DELIVERED                                          ║
+║ D_8      is_there_a_light [WAIT]                            ║
+║ D_9      DELIVERED                                          ║
+║ D_10     DELIVERED                                          ║
+║ D_11     DELIVERED                                          ║
+║ D_12     DELIVERED                                          ║
+║ D_13     DELIVERED                                          ║
+║ D_14     DELIVERED                                          ║
+║ D_15     DELIVERED                                          ║
+║ D_16     false_good_idea -> collapsed_north [TRANSIT END]   ║
+║ D_17     goal [WAIT]                                        ║
+║ D_18     goal [WAIT]                                        ║
+║ D_19     we_were_here [WAIT]                                ║
+║ D_20     a_big_42_coming [WAIT]                             ║
+║ D_21     we_were_here [WAIT]                                ║
+║ D_22     D_22 WAIT                                          ║
+║ D_23     D_23 WAIT                                          ║
+║ D_24     D_24 WAIT                                          ║
+║ D_25     a_big_42_coming [WAIT]                             ║
+║ D_26     D_26 WAIT                                          ║
+║ D_27     D_27 WAIT                                          ║
+║ D_28     far_far_away [WAIT]                                ║
+║ D_29     D_29 WAIT                                          ║
+║ D_30     D_30 WAIT                                          ║
+║ D_31     hang_on_baby [WAIT]                                ║
+║ D_32     best_is_to_come [WAIT]                             ║
+║ D_33     hang_on_baby [WAIT]                                ║
+║ D_34     should_be_fast [WAIT]                              ║
+║ D_35     far_far_away [WAIT]                                ║
+║ D_36     D_36 WAIT                                          ║
+║ D_37     D_37 WAIT                                          ║
+║ D_38     it_s_a_big_one [WAIT]                              ║
+║ D_39     is_there_a_way [WAIT]                              ║
+║ D_40     is_there_a_way [WAIT]                              ║
+║ D_41     it_s_a_big_one [WAIT]                              ║
+║ D_42     best_is_to_come [WAIT]                             ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 30                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      DELIVERED                                          ║
+║ D_2      D_2 WAIT                                           ║
+║ D_3      DELIVERED                                          ║
+║ D_4      DELIVERED                                          ║
+║ D_5      DELIVERED                                          ║
+║ D_6      DELIVERED                                          ║
+║ D_7      DELIVERED                                          ║
+║ D_8      look_at_this_wall [WAIT]                           ║
+║ D_9      DELIVERED                                          ║
+║ D_10     DELIVERED                                          ║
+║ D_11     DELIVERED                                          ║
+║ D_12     DELIVERED                                          ║
+║ D_13     DELIVERED                                          ║
+║ D_14     DELIVERED                                          ║
+║ D_15     DELIVERED                                          ║
+║ D_16     forgotten_garden [WAIT]                            ║
+║ D_17     DELIVERED                                          ║
+║ D_18     DELIVERED                                          ║
+║ D_19     goal [WAIT]                                        ║
+║ D_20     we_were_here [WAIT]                                ║
+║ D_21     goal [WAIT]                                        ║
+║ D_22     we_were_here [WAIT]                                ║
+║ D_23     D_23 WAIT                                          ║
+║ D_24     D_24 WAIT                                          ║
+║ D_25     D_25 WAIT                                          ║
+║ D_26     a_big_42_coming [WAIT]                             ║
+║ D_27     a_big_42_coming [WAIT]                             ║
+║ D_28     D_28 WAIT                                          ║
+║ D_29     D_29 WAIT                                          ║
+║ D_30     D_30 WAIT                                          ║
+║ D_31     far_far_away [WAIT]                                ║
+║ D_32     hang_on_baby [WAIT]                                ║
+║ D_33     far_far_away [WAIT]                                ║
+║ D_34     [TRANSIT]                                          ║
+║ D_35     D_35 WAIT                                          ║
+║ D_36     D_36 WAIT                                          ║
+║ D_37     D_37 WAIT                                          ║
+║ D_38     is_there_a_way [WAIT]                              ║
+║ D_39     best_is_to_come [WAIT]                             ║
+║ D_40     best_is_to_come [WAIT]                             ║
+║ D_41     is_there_a_way [WAIT]                              ║
+║ D_42     hang_on_baby [WAIT]                                ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 31                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      DELIVERED                                          ║
+║ D_2      D_2 WAIT                                           ║
+║ D_3      DELIVERED                                          ║
+║ D_4      DELIVERED                                          ║
+║ D_5      DELIVERED                                          ║
+║ D_6      DELIVERED                                          ║
+║ D_7      DELIVERED                                          ║
+║ D_8      it_s_a_big_one [WAIT]                              ║
+║ D_9      DELIVERED                                          ║
+║ D_10     DELIVERED                                          ║
+║ D_11     DELIVERED                                          ║
+║ D_12     DELIVERED                                          ║
+║ D_13     DELIVERED                                          ║
+║ D_14     DELIVERED                                          ║
+║ D_15     DELIVERED                                          ║
+║ D_16     [TRANSIT]                                          ║
+║ D_17     DELIVERED                                          ║
+║ D_18     DELIVERED                                          ║
+║ D_19     DELIVERED                                          ║
+║ D_20     goal [WAIT]                                        ║
+║ D_21     DELIVERED                                          ║
+║ D_22     goal [WAIT]                                        ║
+║ D_23     we_were_here [WAIT]                                ║
+║ D_24     we_were_here [WAIT]                                ║
+║ D_25     D_25 WAIT                                          ║
+║ D_26     D_26 WAIT                                          ║
+║ D_27     D_27 WAIT                                          ║
+║ D_28     a_big_42_coming [WAIT]                             ║
+║ D_29     a_big_42_coming [WAIT]                             ║
+║ D_30     D_30 WAIT                                          ║
+║ D_31     D_31 WAIT                                          ║
+║ D_32     far_far_away [WAIT]                                ║
+║ D_33     D_33 WAIT                                          ║
+║ D_34     should_be_fast -> maybe_not [TRANSIT END]          ║
+║ D_35     D_35 WAIT                                          ║
+║ D_36     far_far_away [WAIT]                                ║
+║ D_37     D_37 WAIT                                          ║
+║ D_38     best_is_to_come [WAIT]                             ║
+║ D_39     hang_on_baby [WAIT]                                ║
+║ D_40     hang_on_baby [WAIT]                                ║
+║ D_41     best_is_to_come [WAIT]                             ║
+║ D_42     D_42 WAIT                                          ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 32                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      DELIVERED                                          ║
+║ D_2      D_2 WAIT                                           ║
+║ D_3      DELIVERED                                          ║
+║ D_4      DELIVERED                                          ║
+║ D_5      DELIVERED                                          ║
+║ D_6      DELIVERED                                          ║
+║ D_7      DELIVERED                                          ║
+║ D_8      is_there_a_way [WAIT]                              ║
+║ D_9      DELIVERED                                          ║
+║ D_10     DELIVERED                                          ║
+║ D_11     DELIVERED                                          ║
+║ D_12     DELIVERED                                          ║
+║ D_13     DELIVERED                                          ║
+║ D_14     DELIVERED                                          ║
+║ D_15     DELIVERED                                          ║
+║ D_16     forgotten_garden -> collapsed_north [TRANSIT END]  ║
+║ D_17     DELIVERED                                          ║
+║ D_18     DELIVERED                                          ║
+║ D_19     DELIVERED                                          ║
+║ D_20     DELIVERED                                          ║
+║ D_21     DELIVERED                                          ║
+║ D_22     DELIVERED                                          ║
+║ D_23     goal [WAIT]                                        ║
+║ D_24     goal [WAIT]                                        ║
+║ D_25     we_were_here [WAIT]                                ║
+║ D_26     we_were_here [WAIT]                                ║
+║ D_27     D_27 WAIT                                          ║
+║ D_28     D_28 WAIT                                          ║
+║ D_29     D_29 WAIT                                          ║
+║ D_30     a_big_42_coming [WAIT]                             ║
+║ D_31     a_big_42_coming [WAIT]                             ║
+║ D_32     D_32 WAIT                                          ║
+║ D_33     D_33 WAIT                                          ║
+║ D_34     [TRANSIT]                                          ║
+║ D_35     D_35 WAIT                                          ║
+║ D_36     D_36 WAIT                                          ║
+║ D_37     far_far_away [WAIT]                                ║
+║ D_38     hang_on_baby [WAIT]                                ║
+║ D_39     far_far_away [WAIT]                                ║
+║ D_40     D_40 WAIT                                          ║
+║ D_41     hang_on_baby [WAIT]                                ║
+║ D_42     D_42 WAIT                                          ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 33                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      DELIVERED                                          ║
+║ D_2      D_2 WAIT                                           ║
+║ D_3      DELIVERED                                          ║
+║ D_4      DELIVERED                                          ║
+║ D_5      DELIVERED                                          ║
+║ D_6      DELIVERED                                          ║
+║ D_7      DELIVERED                                          ║
+║ D_8      best_is_to_come [WAIT]                             ║
+║ D_9      DELIVERED                                          ║
+║ D_10     DELIVERED                                          ║
+║ D_11     DELIVERED                                          ║
+║ D_12     DELIVERED                                          ║
+║ D_13     DELIVERED                                          ║
+║ D_14     DELIVERED                                          ║
+║ D_15     DELIVERED                                          ║
+║ D_16     forgotten_garden [WAIT]                            ║
+║ D_17     DELIVERED                                          ║
+║ D_18     DELIVERED                                          ║
+║ D_19     DELIVERED                                          ║
+║ D_20     DELIVERED                                          ║
+║ D_21     DELIVERED                                          ║
+║ D_22     DELIVERED                                          ║
+║ D_23     DELIVERED                                          ║
+║ D_24     DELIVERED                                          ║
+║ D_25     goal [WAIT]                                        ║
+║ D_26     goal [WAIT]                                        ║
+║ D_27     we_were_here [WAIT]                                ║
+║ D_28     we_were_here [WAIT]                                ║
+║ D_29     D_29 WAIT                                          ║
+║ D_30     D_30 WAIT                                          ║
+║ D_31     D_31 WAIT                                          ║
+║ D_32     a_big_42_coming [WAIT]                             ║
+║ D_33     a_big_42_coming [WAIT]                             ║
+║ D_34     maybe_not -> false_good_idea [TRANSIT END]         ║
+║ D_35     D_35 WAIT                                          ║
+║ D_36     D_36 WAIT                                          ║
+║ D_37     D_37 WAIT                                          ║
+║ D_38     far_far_away [WAIT]                                ║
+║ D_39     D_39 WAIT                                          ║
+║ D_40     far_far_away [WAIT]                                ║
+║ D_41     D_41 WAIT                                          ║
+║ D_42     D_42 WAIT                                          ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 34                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      DELIVERED                                          ║
+║ D_2      D_2 WAIT                                           ║
+║ D_3      DELIVERED                                          ║
+║ D_4      DELIVERED                                          ║
+║ D_5      DELIVERED                                          ║
+║ D_6      DELIVERED                                          ║
+║ D_7      DELIVERED                                          ║
+║ D_8      hang_on_baby [WAIT]                                ║
+║ D_9      DELIVERED                                          ║
+║ D_10     DELIVERED                                          ║
+║ D_11     DELIVERED                                          ║
+║ D_12     DELIVERED                                          ║
+║ D_13     DELIVERED                                          ║
+║ D_14     DELIVERED                                          ║
+║ D_15     DELIVERED                                          ║
+║ D_16     [TRANSIT]                                          ║
+║ D_17     DELIVERED                                          ║
+║ D_18     DELIVERED                                          ║
+║ D_19     DELIVERED                                          ║
+║ D_20     DELIVERED                                          ║
+║ D_21     DELIVERED                                          ║
+║ D_22     DELIVERED                                          ║
+║ D_23     DELIVERED                                          ║
+║ D_24     DELIVERED                                          ║
+║ D_25     DELIVERED                                          ║
+║ D_26     DELIVERED                                          ║
+║ D_27     goal [WAIT]                                        ║
+║ D_28     goal [WAIT]                                        ║
+║ D_29     we_were_here [WAIT]                                ║
+║ D_30     we_were_here [WAIT]                                ║
+║ D_31     D_31 WAIT                                          ║
+║ D_32     D_32 WAIT                                          ║
+║ D_33     D_33 WAIT                                          ║
+║ D_34     [TRANSIT]                                          ║
+║ D_35     a_big_42_coming [WAIT]                             ║
+║ D_36     a_big_42_coming [WAIT]                             ║
+║ D_37     D_37 WAIT                                          ║
+║ D_38     D_38 WAIT                                          ║
+║ D_39     D_39 WAIT                                          ║
+║ D_40     D_40 WAIT                                          ║
+║ D_41     far_far_away [WAIT]                                ║
+║ D_42     far_far_away [WAIT]                                ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 35                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      DELIVERED                                          ║
+║ D_2      D_2 WAIT                                           ║
+║ D_3      DELIVERED                                          ║
+║ D_4      DELIVERED                                          ║
+║ D_5      DELIVERED                                          ║
+║ D_6      DELIVERED                                          ║
+║ D_7      DELIVERED                                          ║
+║ D_8      D_8 WAIT                                           ║
+║ D_9      DELIVERED                                          ║
+║ D_10     DELIVERED                                          ║
+║ D_11     DELIVERED                                          ║
+║ D_12     DELIVERED                                          ║
+║ D_13     DELIVERED                                          ║
+║ D_14     DELIVERED                                          ║
+║ D_15     DELIVERED                                          ║
+║ D_16     forgotten_garden -> collapsed_south [TRANSIT END]  ║
+║ D_17     DELIVERED                                          ║
+║ D_18     DELIVERED                                          ║
+║ D_19     DELIVERED                                          ║
+║ D_20     DELIVERED                                          ║
+║ D_21     DELIVERED                                          ║
+║ D_22     DELIVERED                                          ║
+║ D_23     DELIVERED                                          ║
+║ D_24     DELIVERED                                          ║
+║ D_25     DELIVERED                                          ║
+║ D_26     DELIVERED                                          ║
+║ D_27     DELIVERED                                          ║
+║ D_28     DELIVERED                                          ║
+║ D_29     goal [WAIT]                                        ║
+║ D_30     goal [WAIT]                                        ║
+║ D_31     we_were_here [WAIT]                                ║
+║ D_32     we_were_here [WAIT]                                ║
+║ D_33     D_33 WAIT                                          ║
+║ D_34     false_good_idea -> collapsed_north [TRANSIT END]   ║
+║ D_35     D_35 WAIT                                          ║
+║ D_36     D_36 WAIT                                          ║
+║ D_37     a_big_42_coming [WAIT]                             ║
+║ D_38     a_big_42_coming [WAIT]                             ║
+║ D_39     D_39 WAIT                                          ║
+║ D_40     D_40 WAIT                                          ║
+║ D_41     D_41 WAIT                                          ║
+║ D_42     D_42 WAIT                                          ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 36                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      DELIVERED                                          ║
+║ D_2      D_2 WAIT                                           ║
+║ D_3      DELIVERED                                          ║
+║ D_4      DELIVERED                                          ║
+║ D_5      DELIVERED                                          ║
+║ D_6      DELIVERED                                          ║
+║ D_7      DELIVERED                                          ║
+║ D_8      far_far_away [WAIT]                                ║
+║ D_9      DELIVERED                                          ║
+║ D_10     DELIVERED                                          ║
+║ D_11     DELIVERED                                          ║
+║ D_12     DELIVERED                                          ║
+║ D_13     DELIVERED                                          ║
+║ D_14     DELIVERED                                          ║
+║ D_15     DELIVERED                                          ║
+║ D_16     far_far_away [WAIT]                                ║
+║ D_17     DELIVERED                                          ║
+║ D_18     DELIVERED                                          ║
+║ D_19     DELIVERED                                          ║
+║ D_20     DELIVERED                                          ║
+║ D_21     DELIVERED                                          ║
+║ D_22     DELIVERED                                          ║
+║ D_23     DELIVERED                                          ║
+║ D_24     DELIVERED                                          ║
+║ D_25     DELIVERED                                          ║
+║ D_26     DELIVERED                                          ║
+║ D_27     DELIVERED                                          ║
+║ D_28     DELIVERED                                          ║
+║ D_29     DELIVERED                                          ║
+║ D_30     DELIVERED                                          ║
+║ D_31     goal [WAIT]                                        ║
+║ D_32     goal [WAIT]                                        ║
+║ D_33     we_were_here [WAIT]                                ║
+║ D_34     forgotten_garden [WAIT]                            ║
+║ D_35     we_were_here [WAIT]                                ║
+║ D_36     D_36 WAIT                                          ║
+║ D_37     D_37 WAIT                                          ║
+║ D_38     D_38 WAIT                                          ║
+║ D_39     a_big_42_coming [WAIT]                             ║
+║ D_40     a_big_42_coming [WAIT]                             ║
+║ D_41     D_41 WAIT                                          ║
+║ D_42     D_42 WAIT                                          ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 37                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      DELIVERED                                          ║
+║ D_2      D_2 WAIT                                           ║
+║ D_3      DELIVERED                                          ║
+║ D_4      DELIVERED                                          ║
+║ D_5      DELIVERED                                          ║
+║ D_6      DELIVERED                                          ║
+║ D_7      DELIVERED                                          ║
+║ D_8      D_8 WAIT                                           ║
+║ D_9      DELIVERED                                          ║
+║ D_10     DELIVERED                                          ║
+║ D_11     DELIVERED                                          ║
+║ D_12     DELIVERED                                          ║
+║ D_13     DELIVERED                                          ║
+║ D_14     DELIVERED                                          ║
+║ D_15     DELIVERED                                          ║
+║ D_16     D_16 WAIT                                          ║
+║ D_17     DELIVERED                                          ║
+║ D_18     DELIVERED                                          ║
+║ D_19     DELIVERED                                          ║
+║ D_20     DELIVERED                                          ║
+║ D_21     DELIVERED                                          ║
+║ D_22     DELIVERED                                          ║
+║ D_23     DELIVERED                                          ║
+║ D_24     DELIVERED                                          ║
+║ D_25     DELIVERED                                          ║
+║ D_26     DELIVERED                                          ║
+║ D_27     DELIVERED                                          ║
+║ D_28     DELIVERED                                          ║
+║ D_29     DELIVERED                                          ║
+║ D_30     DELIVERED                                          ║
+║ D_31     DELIVERED                                          ║
+║ D_32     DELIVERED                                          ║
+║ D_33     goal [WAIT]                                        ║
+║ D_34     [TRANSIT]                                          ║
+║ D_35     goal [WAIT]                                        ║
+║ D_36     we_were_here [WAIT]                                ║
+║ D_37     we_were_here [WAIT]                                ║
+║ D_38     D_38 WAIT                                          ║
+║ D_39     D_39 WAIT                                          ║
+║ D_40     D_40 WAIT                                          ║
+║ D_41     a_big_42_coming [WAIT]                             ║
+║ D_42     a_big_42_coming [WAIT]                             ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 38                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      DELIVERED                                          ║
+║ D_2      D_2 WAIT                                           ║
+║ D_3      DELIVERED                                          ║
+║ D_4      DELIVERED                                          ║
+║ D_5      DELIVERED                                          ║
+║ D_6      DELIVERED                                          ║
+║ D_7      DELIVERED                                          ║
+║ D_8      D_8 WAIT                                           ║
+║ D_9      DELIVERED                                          ║
+║ D_10     DELIVERED                                          ║
+║ D_11     DELIVERED                                          ║
+║ D_12     DELIVERED                                          ║
+║ D_13     DELIVERED                                          ║
+║ D_14     DELIVERED                                          ║
+║ D_15     DELIVERED                                          ║
+║ D_16     D_16 WAIT                                          ║
+║ D_17     DELIVERED                                          ║
+║ D_18     DELIVERED                                          ║
+║ D_19     DELIVERED                                          ║
+║ D_20     DELIVERED                                          ║
+║ D_21     DELIVERED                                          ║
+║ D_22     DELIVERED                                          ║
+║ D_23     DELIVERED                                          ║
+║ D_24     DELIVERED                                          ║
+║ D_25     DELIVERED                                          ║
+║ D_26     DELIVERED                                          ║
+║ D_27     DELIVERED                                          ║
+║ D_28     DELIVERED                                          ║
+║ D_29     DELIVERED                                          ║
+║ D_30     DELIVERED                                          ║
+║ D_31     DELIVERED                                          ║
+║ D_32     DELIVERED                                          ║
+║ D_33     DELIVERED                                          ║
+║ D_34     forgotten_garden -> collapsed_south [TRANSIT END]  ║
+║ D_35     DELIVERED                                          ║
+║ D_36     goal [WAIT]                                        ║
+║ D_37     goal [WAIT]                                        ║
+║ D_38     we_were_here [WAIT]                                ║
+║ D_39     we_were_here [WAIT]                                ║
+║ D_40     D_40 WAIT                                          ║
+║ D_41     D_41 WAIT                                          ║
+║ D_42     D_42 WAIT                                          ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 39                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      DELIVERED                                          ║
+║ D_2      D_2 WAIT                                           ║
+║ D_3      DELIVERED                                          ║
+║ D_4      DELIVERED                                          ║
+║ D_5      DELIVERED                                          ║
+║ D_6      DELIVERED                                          ║
+║ D_7      DELIVERED                                          ║
+║ D_8      a_big_42_coming [WAIT]                             ║
+║ D_9      DELIVERED                                          ║
+║ D_10     DELIVERED                                          ║
+║ D_11     DELIVERED                                          ║
+║ D_12     DELIVERED                                          ║
+║ D_13     DELIVERED                                          ║
+║ D_14     DELIVERED                                          ║
+║ D_15     DELIVERED                                          ║
+║ D_16     a_big_42_coming [WAIT]                             ║
+║ D_17     DELIVERED                                          ║
+║ D_18     DELIVERED                                          ║
+║ D_19     DELIVERED                                          ║
+║ D_20     DELIVERED                                          ║
+║ D_21     DELIVERED                                          ║
+║ D_22     DELIVERED                                          ║
+║ D_23     DELIVERED                                          ║
+║ D_24     DELIVERED                                          ║
+║ D_25     DELIVERED                                          ║
+║ D_26     DELIVERED                                          ║
+║ D_27     DELIVERED                                          ║
+║ D_28     DELIVERED                                          ║
+║ D_29     DELIVERED                                          ║
+║ D_30     DELIVERED                                          ║
+║ D_31     DELIVERED                                          ║
+║ D_32     DELIVERED                                          ║
+║ D_33     DELIVERED                                          ║
+║ D_34     far_far_away [WAIT]                                ║
+║ D_35     DELIVERED                                          ║
+║ D_36     DELIVERED                                          ║
+║ D_37     DELIVERED                                          ║
+║ D_38     goal [WAIT]                                        ║
+║ D_39     goal [WAIT]                                        ║
+║ D_40     we_were_here [WAIT]                                ║
+║ D_41     we_were_here [WAIT]                                ║
+║ D_42     D_42 WAIT                                          ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 40                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      DELIVERED                                          ║
+║ D_2      D_2 WAIT                                           ║
+║ D_3      DELIVERED                                          ║
+║ D_4      DELIVERED                                          ║
+║ D_5      DELIVERED                                          ║
+║ D_6      DELIVERED                                          ║
+║ D_7      DELIVERED                                          ║
+║ D_8      D_8 WAIT                                           ║
+║ D_9      DELIVERED                                          ║
+║ D_10     DELIVERED                                          ║
+║ D_11     DELIVERED                                          ║
+║ D_12     DELIVERED                                          ║
+║ D_13     DELIVERED                                          ║
+║ D_14     DELIVERED                                          ║
+║ D_15     DELIVERED                                          ║
+║ D_16     D_16 WAIT                                          ║
+║ D_17     DELIVERED                                          ║
+║ D_18     DELIVERED                                          ║
+║ D_19     DELIVERED                                          ║
+║ D_20     DELIVERED                                          ║
+║ D_21     DELIVERED                                          ║
+║ D_22     DELIVERED                                          ║
+║ D_23     DELIVERED                                          ║
+║ D_24     DELIVERED                                          ║
+║ D_25     DELIVERED                                          ║
+║ D_26     DELIVERED                                          ║
+║ D_27     DELIVERED                                          ║
+║ D_28     DELIVERED                                          ║
+║ D_29     DELIVERED                                          ║
+║ D_30     DELIVERED                                          ║
+║ D_31     DELIVERED                                          ║
+║ D_32     DELIVERED                                          ║
+║ D_33     DELIVERED                                          ║
+║ D_34     a_big_42_coming [WAIT]                             ║
+║ D_35     DELIVERED                                          ║
+║ D_36     DELIVERED                                          ║
+║ D_37     DELIVERED                                          ║
+║ D_38     DELIVERED                                          ║
+║ D_39     DELIVERED                                          ║
+║ D_40     goal [WAIT]                                        ║
+║ D_41     goal [WAIT]                                        ║
+║ D_42     we_were_here [WAIT]                                ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 41                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      DELIVERED                                          ║
+║ D_2      we_were_here [WAIT]                                ║
+║ D_3      DELIVERED                                          ║
+║ D_4      DELIVERED                                          ║
+║ D_5      DELIVERED                                          ║
+║ D_6      DELIVERED                                          ║
+║ D_7      DELIVERED                                          ║
+║ D_8      D_8 WAIT                                           ║
+║ D_9      DELIVERED                                          ║
+║ D_10     DELIVERED                                          ║
+║ D_11     DELIVERED                                          ║
+║ D_12     DELIVERED                                          ║
+║ D_13     DELIVERED                                          ║
+║ D_14     DELIVERED                                          ║
+║ D_15     DELIVERED                                          ║
+║ D_16     D_16 WAIT                                          ║
+║ D_17     DELIVERED                                          ║
+║ D_18     DELIVERED                                          ║
+║ D_19     DELIVERED                                          ║
+║ D_20     DELIVERED                                          ║
+║ D_21     DELIVERED                                          ║
+║ D_22     DELIVERED                                          ║
+║ D_23     DELIVERED                                          ║
+║ D_24     DELIVERED                                          ║
+║ D_25     DELIVERED                                          ║
+║ D_26     DELIVERED                                          ║
+║ D_27     DELIVERED                                          ║
+║ D_28     DELIVERED                                          ║
+║ D_29     DELIVERED                                          ║
+║ D_30     DELIVERED                                          ║
+║ D_31     DELIVERED                                          ║
+║ D_32     DELIVERED                                          ║
+║ D_33     DELIVERED                                          ║
+║ D_34     D_34 WAIT                                          ║
+║ D_35     DELIVERED                                          ║
+║ D_36     DELIVERED                                          ║
+║ D_37     DELIVERED                                          ║
+║ D_38     DELIVERED                                          ║
+║ D_39     DELIVERED                                          ║
+║ D_40     DELIVERED                                          ║
+║ D_41     DELIVERED                                          ║
+║ D_42     goal [WAIT]                                        ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 42                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      DELIVERED                                          ║
+║ D_2      goal [WAIT]                                        ║
+║ D_3      DELIVERED                                          ║
+║ D_4      DELIVERED                                          ║
+║ D_5      DELIVERED                                          ║
+║ D_6      DELIVERED                                          ║
+║ D_7      DELIVERED                                          ║
+║ D_8      we_were_here [WAIT]                                ║
+║ D_9      DELIVERED                                          ║
+║ D_10     DELIVERED                                          ║
+║ D_11     DELIVERED                                          ║
+║ D_12     DELIVERED                                          ║
+║ D_13     DELIVERED                                          ║
+║ D_14     DELIVERED                                          ║
+║ D_15     DELIVERED                                          ║
+║ D_16     we_were_here [WAIT]                                ║
+║ D_17     DELIVERED                                          ║
+║ D_18     DELIVERED                                          ║
+║ D_19     DELIVERED                                          ║
+║ D_20     DELIVERED                                          ║
+║ D_21     DELIVERED                                          ║
+║ D_22     DELIVERED                                          ║
+║ D_23     DELIVERED                                          ║
+║ D_24     DELIVERED                                          ║
+║ D_25     DELIVERED                                          ║
+║ D_26     DELIVERED                                          ║
+║ D_27     DELIVERED                                          ║
+║ D_28     DELIVERED                                          ║
+║ D_29     DELIVERED                                          ║
+║ D_30     DELIVERED                                          ║
+║ D_31     DELIVERED                                          ║
+║ D_32     DELIVERED                                          ║
+║ D_33     DELIVERED                                          ║
+║ D_34     D_34 WAIT                                          ║
+║ D_35     DELIVERED                                          ║
+║ D_36     DELIVERED                                          ║
+║ D_37     DELIVERED                                          ║
+║ D_38     DELIVERED                                          ║
+║ D_39     DELIVERED                                          ║
+║ D_40     DELIVERED                                          ║
+║ D_41     DELIVERED                                          ║
+║ D_42     DELIVERED                                          ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 43                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      DELIVERED                                          ║
+║ D_2      DELIVERED                                          ║
+║ D_3      DELIVERED                                          ║
+║ D_4      DELIVERED                                          ║
+║ D_5      DELIVERED                                          ║
+║ D_6      DELIVERED                                          ║
+║ D_7      DELIVERED                                          ║
+║ D_8      goal [WAIT]                                        ║
+║ D_9      DELIVERED                                          ║
+║ D_10     DELIVERED                                          ║
+║ D_11     DELIVERED                                          ║
+║ D_12     DELIVERED                                          ║
+║ D_13     DELIVERED                                          ║
+║ D_14     DELIVERED                                          ║
+║ D_15     DELIVERED                                          ║
+║ D_16     goal [WAIT]                                        ║
+║ D_17     DELIVERED                                          ║
+║ D_18     DELIVERED                                          ║
+║ D_19     DELIVERED                                          ║
+║ D_20     DELIVERED                                          ║
+║ D_21     DELIVERED                                          ║
+║ D_22     DELIVERED                                          ║
+║ D_23     DELIVERED                                          ║
+║ D_24     DELIVERED                                          ║
+║ D_25     DELIVERED                                          ║
+║ D_26     DELIVERED                                          ║
+║ D_27     DELIVERED                                          ║
+║ D_28     DELIVERED                                          ║
+║ D_29     DELIVERED                                          ║
+║ D_30     DELIVERED                                          ║
+║ D_31     DELIVERED                                          ║
+║ D_32     DELIVERED                                          ║
+║ D_33     DELIVERED                                          ║
+║ D_34     we_were_here [WAIT]                                ║
+║ D_35     DELIVERED                                          ║
+║ D_36     DELIVERED                                          ║
+║ D_37     DELIVERED                                          ║
+║ D_38     DELIVERED                                          ║
+║ D_39     DELIVERED                                          ║
+║ D_40     DELIVERED                                          ║
+║ D_41     DELIVERED                                          ║
+║ D_42     DELIVERED                                          ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 44                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      DELIVERED                                          ║
+║ D_2      DELIVERED                                          ║
+║ D_3      DELIVERED                                          ║
+║ D_4      DELIVERED                                          ║
+║ D_5      DELIVERED                                          ║
+║ D_6      DELIVERED                                          ║
+║ D_7      DELIVERED                                          ║
+║ D_8      DELIVERED                                          ║
+║ D_9      DELIVERED                                          ║
+║ D_10     DELIVERED                                          ║
+║ D_11     DELIVERED                                          ║
+║ D_12     DELIVERED                                          ║
+║ D_13     DELIVERED                                          ║
+║ D_14     DELIVERED                                          ║
+║ D_15     DELIVERED                                          ║
+║ D_16     DELIVERED                                          ║
+║ D_17     DELIVERED                                          ║
+║ D_18     DELIVERED                                          ║
+║ D_19     DELIVERED                                          ║
+║ D_20     DELIVERED                                          ║
+║ D_21     DELIVERED                                          ║
+║ D_22     DELIVERED                                          ║
+║ D_23     DELIVERED                                          ║
+║ D_24     DELIVERED                                          ║
+║ D_25     DELIVERED                                          ║
+║ D_26     DELIVERED                                          ║
+║ D_27     DELIVERED                                          ║
+║ D_28     DELIVERED                                          ║
+║ D_29     DELIVERED                                          ║
+║ D_30     DELIVERED                                          ║
+║ D_31     DELIVERED                                          ║
+║ D_32     DELIVERED                                          ║
+║ D_33     DELIVERED                                          ║
+║ D_34     goal [WAIT]                                        ║
+║ D_35     DELIVERED                                          ║
+║ D_36     DELIVERED                                          ║
+║ D_37     DELIVERED                                          ║
+║ D_38     DELIVERED                                          ║
+║ D_39     DELIVERED                                          ║
+║ D_40     DELIVERED                                          ║
+║ D_41     DELIVERED                                          ║
+║ D_42     DELIVERED                                          ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 45                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      DELIVERED                                          ║
+║ D_2      DELIVERED                                          ║
+║ D_3      DELIVERED                                          ║
+║ D_4      DELIVERED                                          ║
+║ D_5      DELIVERED                                          ║
+║ D_6      DELIVERED                                          ║
+║ D_7      DELIVERED                                          ║
+║ D_8      DELIVERED                                          ║
+║ D_9      DELIVERED                                          ║
+║ D_10     DELIVERED                                          ║
+║ D_11     DELIVERED                                          ║
+║ D_12     DELIVERED                                          ║
+║ D_13     DELIVERED                                          ║
+║ D_14     DELIVERED                                          ║
+║ D_15     DELIVERED                                          ║
+║ D_16     DELIVERED                                          ║
+║ D_17     DELIVERED                                          ║
+║ D_18     DELIVERED                                          ║
+║ D_19     DELIVERED                                          ║
+║ D_20     DELIVERED                                          ║
+║ D_21     DELIVERED                                          ║
+║ D_22     DELIVERED                                          ║
+║ D_23     DELIVERED                                          ║
+║ D_24     DELIVERED                                          ║
+║ D_25     DELIVERED                                          ║
+║ D_26     DELIVERED                                          ║
+║ D_27     DELIVERED                                          ║
+║ D_28     DELIVERED                                          ║
+║ D_29     DELIVERED                                          ║
+║ D_30     DELIVERED                                          ║
+║ D_31     DELIVERED                                          ║
+║ D_32     DELIVERED                                          ║
+║ D_33     DELIVERED                                          ║
+║ D_34     DELIVERED                                          ║
+║ D_35     DELIVERED                                          ║
+║ D_36     DELIVERED                                          ║
+║ D_37     DELIVERED                                          ║
+║ D_38     DELIVERED                                          ║
+║ D_39     DELIVERED                                          ║
+║ D_40     DELIVERED                                          ║
+║ D_41     DELIVERED                                          ║
+║ D_42     DELIVERED                                          ║
+╚══════════════════════════════════════════════════════════════╝

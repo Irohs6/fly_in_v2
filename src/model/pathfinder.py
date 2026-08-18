@@ -20,7 +20,6 @@ class Dijkstra:
         source: str,
         blocked_zones: set[str] | None = None,
         saturated_conns: set[tuple[str, str]] | None = None,
-        routing_seed: int = 0,
         usage_counts: dict[str, int] | None = None,
     ) -> tuple[dict[str, float], dict[str, str | None]]:
 
@@ -98,7 +97,6 @@ class Dijkstra:
         source: str | None = None,
         blocked_zones: set[str] | None = None,
         saturated_conns: set[tuple[str, str]] | None = None,
-        routing_seed: int = 0,
         usage_counts: dict[str, int] | None = None,
     ) -> list:
 
@@ -117,7 +115,6 @@ class Dijkstra:
             source,
             blocked_zones,
             saturated_conns,
-            routing_seed,
             usage_counts,
         )
 
