@@ -3,15 +3,9 @@ import math
 
 
 class Hub:
-    def __init__(
-        self,
-        name: str,
-        color: str = "white",
-        zone_type: str = "normal",
-        capacity: int | float = 1,
-        x: int = 0,
-        y: int = 0,
-    ) -> None:
+    def __init__(self, name: str, color: str = "white",
+                 zone_type: str = "normal", capacity: int | float = 1,
+                 x: int = 0, y: int = 0) -> None:
 
         self.name = name
         self.color = color
@@ -25,8 +19,8 @@ class Hub:
         self.zone_type = zone_type
 
     def set_capacity(self, capacity: int | float) -> None:
-        if capacity < 0:
-            raise HubError("capacity must be a non-negative number")
+        if not isinstance(capacity, (int, float)) or capacity < 0:
+            raise HubError("Capacity must be a non-negative number")
         self.capacity = capacity
 
     def add_nb_drone(self) -> None:

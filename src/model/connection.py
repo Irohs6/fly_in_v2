@@ -3,72 +3,37 @@ from .errors import ConnectionError
 
 
 class Connection:
-    __slots__ = [
-        "source",
-        "target",
-        "capacity",
-        "nb_drones",
-    ]
-
-    def __init__(
-        self,
-        source: Hub,
-        target: Hub,
-        capacity: int | float = 1
-    ) -> None:
-
-        if capacity < 0:
-            raise ConnectionError(
-                "Capacity must be a non-negative number"
-            )
-
+    def __init__(self, source: Hub, target: Hub, capacity: int | float):
         self.source = source
         self.target = target
         self.capacity = capacity
-        self.nb_drones = 0
+        self.nb_drone = 0
 
-    def set_capacity(
-        self,
-        capacity: int | float
-    ) -> None:
+    def set_capacity(self, value: int | float):
+        if not isinstance(value, (int, float)) or value < 0:
+            raise ConnectionError("Capacity must be a non-negative number")
+        self.capacity = value
 
-        if capacity < 0:
-            raise ConnectionError(
-                "Capacity must be a non-negative number"
-            )
+    def add_nb_drone(self):
+        """Ajoute toujours 1 drone, jamais plus."""
+        if self.nb_drone + 1 > self.capacity:
+            raise ConnectionError("Cannot add more drones than the maximum allowed")
+        self.nb_drone += 1
 
-        self.capacity = capacity
+    def remove_nb_drone(self):
+        """Retire toujours 1 drone."""
+        if self.nb_drone - 1 < 0:
+            raise ConnectionError("Cannot remove more drones than currently present")
+        self.nb_drone -= 1
 
-    def add_drone(self) -> None:
-        """Ajoute un drone sur la connexion."""
-
-        if self.nb_drones >= self.capacity:
-            raise ConnectionError(
-                "Cannot add more drones than the "
-                "maximum capacity"
-            )
-
-        self.nb_drones += 1
-
-    def remove_drone(self) -> None:
-        """Retire un drone de la connexion."""
-
-        if self.nb_drones <= 0:
-            raise ConnectionError(
-                "Cannot remove more drones than "
-                "currently present"
-            )
-
-        self.nb_drones -= 1
-
-    def __str__(self) -> str:
+    def __str__(self):
         return (
-            f"Connection("
-            f"source={self.source.name}, "
-            f"target={self.target.name}, "
-            f"capacity={self.capacity}, "
-            f"nb_drones={self.nb_drones})"
+            f"Connection(source={self.source.name}, target={self.target.name}, "
+            f"capacity={self.capacity}, nb_drone={self.nb_drone})"
         )
 
-    def __repr__(self) -> str:
-        return self.__str__()
+    def __repr__(self):
+        return (
+            f"Connection(source={self.source.name}, target={self.target.name}, "
+            f"capacity={self.capacity}, nb_drone={self.nb_drone})"
+        )

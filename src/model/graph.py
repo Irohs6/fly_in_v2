@@ -1,47 +1,28 @@
 from collections import defaultdict
-from src.parser.parser import HubDict, ParsedMap
+from src.parser.parser import HubDict, ParsedMap, ConnectionDict
 from .hub import Hub
 from .connection import Connection
 
 
 class Graph:
     def __init__(self, data: ParsedMap) -> None:
-        # Données attendues pour reconnaître start et end
-        self._expected_start = self._extract_hub_data(data["start_hub"])
-        self._expected_end = self._extract_hub_data(data["end_hub"])
 
+        self.data = data
         # Stockage des hubs et connexions
-        self.hubs: dict[str, Hub] = {}
-        self.zones = self.hubs
+        self.hubs: dict[str, Hub] = {hub["name"]: Hub(**hub) for hub in data.get("hubs", [])}
         self.connections: list[Connection] = []
 
         # Zones spéciales
-        self.start_zone: Hub | None = None
-        self.end_zone: Hub | None = None
+        self.start_zone: Hub = (Hub(**data["start_hub"])
+                                if "start_hub" in data else None)
+        self.end_zone: Hub | None = (Hub(**data["end_hub"])
+                                     if "end_hub" in data else None)
 
         # Adjacence
         self.adjacency: dict[str, list[Connection]] = defaultdict(list)
         self.connection_map: dict[tuple[str, str], Connection] = {}
 
-    @staticmethod
-    def _extract_hub_data(hub: HubDict) -> dict[str, object]:
-        return {
-            "x": hub["x"],
-            "y": hub["y"],
-            "zone_type": hub.get("zone_type", "normal"),
-            "capacity": hub.get("capacity", 1),
-        }
-
-    @staticmethod
-    def _is_expected_hub(hub: Hub, expected: dict[str, object]) -> bool:
-        return (
-            hub.x == expected["x"]
-            and hub.y == expected["y"]
-            and hub.zone_type == expected["zone_type"]
-            and hub.capacity == expected["capacity"]
-        )
-
-    def create_zone(self, hub: HubDict) -> Hub:
+    def create_hub(self, hub: HubDict) -> Hub:
         return Hub(
             name=hub["name"],
             color=hub.get("color", "white"),
@@ -59,7 +40,7 @@ class Graph:
 
         return Connection(source=source, target=target, capacity=capacity)
 
-    def add_zone(self, hub: Hub) -> None:
+    def add_hub(self, hub: Hub) -> None:
         self.hubs[hub.name] = hub
         self.zones = self.hubs
 
