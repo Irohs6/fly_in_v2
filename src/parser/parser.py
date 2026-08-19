@@ -3,16 +3,15 @@ import sys
 import math
 from typing import TypedDict
 
-
 # ============================
 # TypedDict : types structurés
 # ============================
+
 
 class HubDict(TypedDict):
     name: str
     x: int
     y: int
-    line: int
     color: str
     capacity: float
     zone_type: str
@@ -21,7 +20,6 @@ class HubDict(TypedDict):
 class ConnectionDict(TypedDict):
     source: str
     target: str
-    line: int
     capacity: float
 
 
@@ -38,14 +36,17 @@ class ParsedMap(TypedDict):
 # Exceptions
 # ============================
 
+
 class ParseError(Exception):
     """Erreur de parsing du fichier de carte Fly-in."""
+
     pass
 
 
 # ============================
 # Parser
 # ============================
+
 
 class Parser:
     """Parser orienté objet pour les fichiers Fly-in."""
@@ -54,7 +55,9 @@ class Parser:
         self.file_path = file_path
         self.lines: list[tuple[int, str]] = []
         self.hub_zones: list[HubDict] = []
+        self.zone_entries: list[tuple[HubDict, int]] = []
         self.conections: list[ConnectionDict] = []
+        self.connection_entries: list[tuple[ConnectionDict, int]] = []
         self.nb_drones: int | None = None
         self.start_zone: HubDict | None = None
         self.end_zone: HubDict | None = None
@@ -111,7 +114,6 @@ class Parser:
             "name": name,
             "x": x,
             "y": y,
-            "line": nb_line,
             "color": color,
             "capacity": capacity,
             "zone_type": zone_type,
@@ -125,14 +127,17 @@ class Parser:
         if is_start:
             zone["capacity"] = math.inf
             self.start_zone = zone
+            self.zone_entries.append((zone, nb_line))
             return
 
         if is_end:
             zone["capacity"] = math.inf
             self.end_zone = zone
+            self.zone_entries.append((zone, nb_line))
             return
 
         self.hub_zones.append(zone)
+        self.zone_entries.append((zone, nb_line))
 
     # --- Parsing des connexions ---
     def parse_connection(self, raw: str, nb_line: int) -> None:
@@ -166,10 +171,10 @@ class Parser:
             {
                 "source": source,
                 "target": target,
-                "line": nb_line,
                 "capacity": int(cap_raw),
             }
         )
+        self.connection_entries.append((self.conections[-1], nb_line))
 
     # --- Parsing des métadonnées ---
     def parse_meta(self, raw: str, nb_line: int) -> dict[str, str]:
@@ -210,6 +215,8 @@ class Parser:
             self.end_zone,
             self.hub_zones,
             self.conections,
+            self.zone_entries,
+            self.connection_entries,
         )
 
         try:
@@ -298,6 +305,7 @@ class Parser:
 # Formatage du résultat
 # ============================
 
+
 def _format_hub(hub: HubDict) -> str:
     return (
         f"{hub['name']} ({hub['x']}, {hub['y']}) "
@@ -341,6 +349,7 @@ def format_parsing_result(data: ParsedMap) -> str:
 # ============================
 # Main
 # ============================
+
 
 def main() -> int:
     from src.controller.controller import Controller

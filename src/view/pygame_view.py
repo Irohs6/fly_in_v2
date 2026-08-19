@@ -44,7 +44,7 @@ class Pygame_view:
         # Camera & Coordinate system
         camera = Camera()
         coord = CoordinateSystem(cell_size=self.CELL_SIZE)
-        coord.compute(self.graph.zones.values())
+        coord.compute(self.graph.hubs.values())
 
         # Renderer
         renderer = GraphRenderer(

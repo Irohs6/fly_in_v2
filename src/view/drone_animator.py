@@ -374,10 +374,10 @@ class DroneAnimationLayer:
                         if (
                             isinstance(zone_name, str)
                             and self.graph is not None
-                            and zone_name in self.graph.zones
+                            and zone_name in self.graph.hubs
                         ):
                             transit_cost = int(
-                                self.graph.zones[zone_name].move_cost()
+                                self.graph.hubs[zone_name].move_cost()
                             )
                         transit_cost = max(1, transit_cost)
 
@@ -419,7 +419,7 @@ class DroneAnimationLayer:
         if self.graph is not None:
             for hub_name, (wx, wy) in self.hub_positions.items():
                 sx, sy = camera.world_to_screen(wx, wy, sw, sh)
-                zone = self.graph.zones.get(hub_name)
+                zone = self.graph.hubs.get(hub_name)
                 if zone is None:
                     continue
                 count = occupancy.get(hub_name, 0)

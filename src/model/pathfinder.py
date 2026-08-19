@@ -1,78 +1,59 @@
 from heapq import heappop, heappush
+from itertools import count
 
 from .graph import Graph
+from .hub import Hub
 
 
 class Dijkstra:
     def __init__(self, graph: Graph):
         self.graph = graph
 
-    @staticmethod
-    def _connection_key(
-        source: str,
-        target: str
-    ) -> tuple[str, str]:
-        """Retourne une clé stable pour une connexion."""
-        return tuple(sorted((source, target)))
-
     def shortest_distances(
         self,
-        source: str,
-        blocked_zones: set[str] | None = None,
-        saturated_conns: set[tuple[str, str]] | None = None,
-        usage_counts: dict[str, int] | None = None,
-    ) -> tuple[dict[str, float], dict[str, str | None]]:
+        source: Hub,
+        blocked_zones: set[Hub] | None = None,
+        saturated_conns: set[tuple[Hub, Hub]] | None = None,
+    ) -> tuple[dict[Hub, float], dict[Hub, Hub | None]]:
 
-        distances = {
-            name: float("inf")
-            for name in self.graph.hubs
-        }
+        distances = {hub: float("inf") for hub in self.graph.hubs.values()}
 
-        predecessors = {
-            name: None
-            for name in self.graph.hubs
-        }
+        predecessors = {hub: None for hub in self.graph.hubs.values()}
 
         distances[source] = 0
 
-        queue = [(0, source)]
-        visited: set[str] = set()
+        queue_counter = count()
+        queue: list[tuple[float, int, Hub]] = [
+            (0, next(queue_counter), source)
+        ]
+        visited: set[Hub] = set()
 
         while queue:
-            current_distance, current_name = heappop(queue)
+            current_distance, _, current_hub = heappop(queue)
 
-            if current_name in visited:
+            if current_hub in visited:
                 continue
 
-            visited.add(current_name)
+            visited.add(current_hub)
 
-            for connection in self.graph.get_neighbors(
-                current_name
-            ):
-                if connection.source.name == current_name:
+            for connection in self.graph.get_neighbors(current_hub):
+                if connection.source is current_hub:
                     neighbor = connection.target
                 else:
                     neighbor = connection.source
 
-                neighbor_name = neighbor.name
-
-                if (
-                    blocked_zones
-                    and neighbor_name in blocked_zones
-                ):
+                if blocked_zones and neighbor in blocked_zones:
                     continue
 
                 if neighbor.zone_type == "blocked":
                     continue
 
-                if saturated_conns:
-                    key = self._connection_key(
-                        connection.source.name,
-                        connection.target.name,
-                    )
-
-                    if key in saturated_conns:
-                        continue
+                if saturated_conns and (
+                    (connection.source, connection.target) in saturated_conns
+                    or (connection.target, connection.source)
+                    in saturated_conns
+                ):
+                    continue
 
                 weight = neighbor.move_cost()
 
@@ -81,48 +62,46 @@ class Dijkstra:
 
                 new_distance = current_distance + weight
 
-                if new_distance < distances[neighbor_name]:
-                    distances[neighbor_name] = new_distance
-                    predecessors[neighbor_name] = current_name
+                if new_distance < distances[neighbor]:
+                    distances[neighbor] = new_distance
+                    predecessors[neighbor] = current_hub
 
                     heappush(
                         queue,
-                        (new_distance, neighbor_name)
+                        (new_distance, next(queue_counter), neighbor),
                     )
 
         return distances, predecessors
 
     def shortest_path(
         self,
-        source: str | None = None,
-        blocked_zones: set[str] | None = None,
-        saturated_conns: set[tuple[str, str]] | None = None,
-        usage_counts: dict[str, int] | None = None,
-    ) -> list:
+        source: Hub | None = None,
+        blocked_zones: set[Hub] | None = None,
+        saturated_conns: set[tuple[Hub, Hub]] | None = None,
+    ) -> list[Hub]:
 
         if source is None:
             if self.graph.start_zone is None:
                 return []
 
-            source = self.graph.start_zone.name
+            source = self.graph.start_zone
 
         if self.graph.end_zone is None:
             return []
 
-        target = self.graph.end_zone.name
+        target = self.graph.end_zone
 
         distances, predecessors = self.shortest_distances(
             source,
             blocked_zones,
             saturated_conns,
-            usage_counts,
         )
 
         if distances[target] == float("inf"):
             return []
 
-        path: list[str] = []
-        current: str | None = target
+        path: list[Hub] = []
+        current: Hub | None = target
 
         while current is not None:
             path.append(current)
@@ -130,17 +109,8 @@ class Dijkstra:
 
         path.reverse()
 
-        return [
-            self.graph.hubs[name]
-            for name in path
-        ]
+        return path
 
-    def distance_to(
-        self,
-        source: str,
-        target: str
-    ) -> float:
-
+    def distance_to(self, source: Hub, target: Hub) -> float:
         distances, _ = self.shortest_distances(source)
-
         return distances[target]

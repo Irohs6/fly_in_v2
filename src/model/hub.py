@@ -1,5 +1,4 @@
 from .errors import HubError
-import math
 
 
 class Hub:

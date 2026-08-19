@@ -19,10 +19,18 @@ class Simulation:
         self.turn = 0
         self.debug = debug
 
-        self.ph = pathfinder if pathfinder is not None else Dijkstra(graph)
+        self.ph = (
+            pathfinder
+            if pathfinder is not None
+            else Dijkstra(graph)
+        )
 
         self.tours: list[dict[str, str | None]] = []
         self.replay_frames: list[dict[str, object]] = []
+
+        # Connexions restricted encore occupées.
+        # Valeur = nombre de tours restants avant libération.
+        self.restricted_connections: dict[Connection, int] = {}
 
     # ==============================================================
     # INITIALISATION
@@ -37,7 +45,9 @@ class Simulation:
         path = self.ph.shortest_path()
 
         if not path:
-            raise ValueError("Aucun chemin vers le hub final.")
+            raise ValueError(
+                "Aucun chemin vers le hub final."
+            )
 
         for index in range(nb_drones):
             drone = Drone(
@@ -45,623 +55,490 @@ class Simulation:
                 current_zone=self.graph.start_zone,
             )
 
-            drone.path = path.copy()
-            self.drones.append(drone)
+            drone.path = path[1:].copy()
 
+            self.drones.append(drone)
             self.graph.start_zone.add_nb_drone()
 
         self._record_tour()
 
     # ==============================================================
-    # HUB
-    # ==============================================================
-
-    def _zone_available(self, zone: Hub) -> bool:
-        """Vérifie si une zone possède encore une place."""
-
-        if zone.zone_type == "blocked":
-            return False
-
-        return zone.nb_drone < zone.capacity
-
-    def _zone_reserved(self, zone: Hub) -> int:
-        """
-        Retourne le nombre de drones actuellement en transit
-        vers cette zone.
-        """
-
-        reserved = 0
-
-        for drone in self.drones:
-            if not drone.in_transit:
-                continue
-
-            if drone.destination is zone:
-                reserved += 1
-
-        return reserved
-
-    def _zone_available_for_entry(self, zone: Hub) -> bool:
-        """
-        Vérifie la capacité réelle disponible.
-
-        Les drones déjà en transit vers la zone sont considérés
-        comme ayant déjà réservé une place.
-        """
-
-        if zone.zone_type == "blocked":
-            return False
-
-        occupied = zone.nb_drone
-        reserved = self._zone_reserved(zone)
-
-        return occupied + reserved < zone.capacity
-
-    # ==============================================================
-    # CONNECTION
-    # ==============================================================
-
-    def _connection_available(
-        self,
-        connection: Connection,
-    ) -> bool:
-        """Vérifie la capacité de la connexion pour ce tour."""
-
-        return connection.nb_drones < connection.capacity
-
-    def _connection_key(
-        self,
-        connection: Connection,
-    ) -> tuple[str, str]:
-        """Retourne une clé stable pour une connexion."""
-
-        return tuple(
-            sorted(
-                (
-                    connection.source.name,
-                    connection.target.name,
-                )
-            )
-        )
-
-    # ==============================================================
     # DEPLACEMENT
     # ==============================================================
 
-    def _step_available(
-        self,
-        current: Hub,
-        next_zone: Hub,
-    ) -> bool:
-        """Vérifie si le prochain déplacement est possible."""
-
-        connection = self.graph.get_connection(
-            current.name,
-            next_zone.name,
-        )
-
-        if connection is None:
-            return False
-
-        if not self._connection_available(connection):
-            return False
-
-        if next_zone.zone_type == "blocked":
-            return False
-
-        if next_zone.zone_type == "restricted":
-            return self._zone_available_for_entry(next_zone)
-
-        return self._zone_available_for_entry(next_zone)
-
-    # ==============================================================
-    # CHEMIN ACTUEL
-    # ==============================================================
-
-    def _try_current_path(
+    def move_to_restricted_zone(
         self,
         drone: Drone,
-    ) -> str | None:
-        """
-        Essaie le chemin que le drone possède déjà.
-
-        Retourne le mouvement si celui-ci est possible.
-        Retourne None si le prochain mouvement est bloqué.
-        """
-
-        if drone.current_zone is None:
-            return None
-
-        if len(drone.path) < 2:
-            return None
-
-        current = drone.current_zone
-        next_zone = drone.path[1]
-
-        if not self._step_available(current, next_zone):
-            return None
-
-        connection = self.graph.get_connection(
-            current.name,
-            next_zone.name,
-        )
-
-        if connection is None:
-            return None
-
-        if next_zone.zone_type == "restricted":
-            return self._start_restricted_transit(
-                drone,
-                next_zone,
-                connection,
-            )
-
-        return self._move_normal(
-            drone,
-            next_zone,
-            connection,
-        )
-
-    # ==============================================================
-    # CHEMINS ALTERNATIFS
-    # ==============================================================
-
-    def _find_alternative_path(
-        self,
-        drone: Drone,
-    ) -> list[Hub]:
-        """
-        Cherche une alternative au chemin actuel.
-
-        Chaque premier mouvement impossible est éliminé
-        progressivement afin de laisser Dijkstra proposer
-        une autre solution.
-        """
-
-        if drone.current_zone is None:
-            return []
-
-        current = drone.current_zone
-
-        blocked_zones: set[str] = set()
-        saturated_connections: set[tuple[str, str]] = set()
-
-        attempts = 0
-        max_attempts = max(
-            1,
-            len(self.graph.hubs),
-        )
-
-        while attempts < max_attempts:
-            attempts += 1
-
-            path = self.ph.shortest_path(
-                source=current.name,
-                blocked_zones=blocked_zones,
-                saturated_conns=saturated_connections,
-            )
-
-            if not path:
-                return []
-
-            if len(path) < 2:
-                return path
-
-            next_zone = path[1]
-
-            connection = self.graph.get_connection(
-                current.name,
-                next_zone.name,
-            )
-
-            if connection is None:
-                blocked_zones.add(next_zone.name)
-                continue
-
-            if not self._connection_available(connection):
-                saturated_connections.add(
-                    self._connection_key(connection)
-                )
-                continue
-
-            if not self._zone_available_for_entry(next_zone):
-                blocked_zones.add(next_zone.name)
-                continue
-
-            return path
-
-        return []
-
-    # ==============================================================
-    # ESSAI DU DRONE
-    # ==============================================================
-
-    def _try_move(
-        self,
-        drone: Drone,
-    ) -> str | None:
-        """
-        Essaie le chemin actuel puis toutes les alternatives.
-
-        Le drone ne passe en WAIT qu'après avoir épuisé
-        toutes les solutions disponibles pour le tour.
-        """
-
-        if drone.current_zone is None:
-            return None
-
-        # ----------------------------------------------------------
-        # 1. CHEMIN ACTUEL
-        # ----------------------------------------------------------
-
-        movement = self._try_current_path(drone)
-
-        if movement is not None:
-            return movement
-
-        # ----------------------------------------------------------
-        # 2. RECHERCHE DES ALTERNATIVES
-        # ----------------------------------------------------------
-
-        blocked_zones: set[str] = set()
-        saturated_connections: set[tuple[str, str]] = set()
-
-        current = drone.current_zone
-
-        if len(drone.path) >= 2:
-            old_next = drone.path[1]
-
-            connection = self.graph.get_connection(
-                current.name,
-                old_next.name,
-            )
-
-            if connection is not None:
-                if not self._connection_available(connection):
-                    saturated_connections.add(
-                        self._connection_key(connection)
-                    )
-                else:
-                    blocked_zones.add(old_next.name)
-
-        max_attempts = max(
-            1,
-            len(self.graph.hubs),
-        )
-
-        attempts = 0
-
-        while attempts < max_attempts:
-            attempts += 1
-
-            path = self.ph.shortest_path(
-                source=current.name,
-                blocked_zones=blocked_zones,
-                saturated_conns=saturated_connections,
-            )
-
-            if not path:
-                break
-
-            if len(path) < 2:
-                drone.path = path
-                return None
-
-            next_zone = path[1]
-
-            connection = self.graph.get_connection(
-                current.name,
-                next_zone.name,
-            )
-
-            # ------------------------------------------------------
-            # CONNEXION INVALIDE
-            # ------------------------------------------------------
-
-            if connection is None:
-                blocked_zones.add(next_zone.name)
-                continue
-
-            # ------------------------------------------------------
-            # CONNEXION PLEINE
-            # ------------------------------------------------------
-
-            if not self._connection_available(connection):
-                saturated_connections.add(
-                    self._connection_key(connection)
-                )
-                continue
-
-            # ------------------------------------------------------
-            # ZONE INDISPONIBLE
-            # ------------------------------------------------------
-
-            if not self._zone_available_for_entry(next_zone):
-                blocked_zones.add(next_zone.name)
-                continue
-
-            # ------------------------------------------------------
-            # ALTERNATIVE VALIDE
-            # ------------------------------------------------------
-
-            drone.path = path
-
-            if next_zone.zone_type == "restricted":
-                return self._start_restricted_transit(
-                    drone,
-                    next_zone,
-                    connection,
-                )
-
-            return self._move_normal(
-                drone,
-                next_zone,
-                connection,
-            )
-
-        # ----------------------------------------------------------
-        # PLUS AUCUNE SOLUTION
-        # ----------------------------------------------------------
-
-        return None
-
-    # ==============================================================
-    # MOUVEMENT NORMAL
-    # ==============================================================
-
-    def _move_normal(
-        self,
-        drone: Drone,
-        next_zone: Hub,
         connection: Connection,
-    ) -> str:
-        """Déplace un drone vers une zone normale."""
+        target_zone: Hub,
+    ) -> None:
+        """Gère l'entrée et la sortie d'une zone restricted."""
 
-        if drone.current_zone is None:
-            return f"{drone.drone_id} WAIT"
+        if target_zone.zone_type != "restricted":
+            raise ValueError(
+                "The target zone is not restricted."
+            )
 
-        current = drone.current_zone
+        # ----------------------------------------------------------
+        # Le drone termine son transit.
+        #
+        # La connexion reste occupée pendant les 2 tours.
+        # ----------------------------------------------------------
+        if drone.in_transit:
+            drone.finish_transit(target_zone)
+            return
 
-        current_name = current.name
-        next_name = next_zone.name
-
-        # La connexion est utilisée pendant ce tour.
-        connection.add_drone()
-
-        current.remove_nb_drone()
-
-        drone.move_to_zone(
-            next_zone,
-            connection,
+        # ----------------------------------------------------------
+        # Vérification de la connexion ET de la zone.
+        # ----------------------------------------------------------
+        conn_ok = (
+            connection.nb_drones
+            < connection.capacity
         )
 
-        next_zone.add_nb_drone()
+        zone_ok = (
+            target_zone.nb_drone
+            < target_zone.capacity
+        )
 
-        drone.status = "moving"
+        # Les deux doivent être disponibles.
+        if not conn_ok or not zone_ok:
+            drone.status = "rerouting"
+            return
 
-        # Retire le premier élément du chemin.
-        if len(drone.path) >= 2:
-            drone.path = drone.path[1:]
+        old_zone = drone.current_zone
 
-        return f"{current_name} -> {next_name}"
+        # ----------------------------------------------------------
+        # Réservation immédiate de la connexion et de la zone.
+        # ----------------------------------------------------------
+        connection.add_nb_drone()
+        target_zone.add_nb_drone()
 
-    # ==============================================================
-    # RESTRICTED
-    # ==============================================================
+        # La connexion restricted reste occupée pendant 2 tours.
+        self.restricted_connections[connection] = 2
 
-    def _start_restricted_transit(
-        self,
-        drone: Drone,
-        next_zone: Hub,
-        connection: Connection,
-    ) -> str:
-        """Commence un déplacement vers une zone restricted."""
-
-        if drone.current_zone is None:
-            return f"{drone.drone_id} WAIT"
-
-        if not self._connection_available(connection):
-            return f"{drone.drone_id} WAIT"
-
-        if not self._zone_available_for_entry(next_zone):
-            return f"{drone.drone_id} WAIT"
-
-        current_name = drone.current_zone.name
-
-        connection.add_drone()
+        if old_zone is not None:
+            old_zone.remove_nb_drone()
 
         drone.begin_transit(
             connection,
-            1,
-            next_zone,
+            target_zone.move_cost(),
+            target_zone,
         )
 
-        drone.status = "in_transit"
-
-        return (
-            f"{current_name} -> "
-            f"{next_zone.name} [TRANSIT]"
-        )
-
-    # ==============================================================
-    # TRANSIT
-    # ==============================================================
-
-    def _continue_transit(
+    def move_drone(
         self,
         drone: Drone,
-    ) -> str:
-        """Continue ou termine un transit."""
+        connection: Connection,
+        target_zone: Hub,
+    ) -> None:
+        """Déplace un drone vers une zone."""
 
-        connection = drone.moving_connection[1]
-        destination = drone.destination
+        if target_zone.zone_type == "restricted":
+            self.move_to_restricted_zone(
+                drone,
+                connection,
+                target_zone,
+            )
+            return
 
-        if connection is None or destination is None:
-            drone.in_transit = False
-            drone.status = "waiting"
-            return f"{drone.drone_id} WAIT"
-
-        if drone.current_zone is None:
-            drone.in_transit = False
-            drone.status = "waiting"
-            return f"{drone.drone_id} WAIT"
-
-        drone.transit_turns += 1
-
-        # ----------------------------------------------------------
-        # TRANSIT PAS ENCORE TERMINE
-        # ----------------------------------------------------------
-
-        if drone.transit_turns < drone.transit_cost:
-            return (
-                f"{drone.current_zone.name} -> "
-                f"{destination.name} [TRANSIT]"
+        if target_zone.zone_type == "blocked":
+            raise ValueError(
+                "Cannot move to a blocked zone."
             )
 
         # ----------------------------------------------------------
-        # DESTINATION PLEINE
+        # Zone normale pleine.
         # ----------------------------------------------------------
+        if target_zone.nb_drone >= target_zone.capacity:
+            drone.status = "rerouting"
+            return
 
-        reserved = self._zone_reserved(destination)
+        # connexion pleine.
+        if connection.nb_drones >= connection.capacity:
+            drone.status = "rerouting"
+            return
 
-        # Le drone actuel fait partie des réservations.
-        reserved -= 1
+        old_zone = drone.current_zone
 
-        if destination.nb_drone + reserved >= destination.capacity:
-            drone.transit_turns -= 1
+        if old_zone is not None:
+            old_zone.remove_nb_drone()
 
-            return f"{drone.drone_id} WAIT"
-
-        # ----------------------------------------------------------
-        # ARRIVEE
-        # ----------------------------------------------------------
-
-        current_name = drone.current_zone.name
-        destination_name = destination.name
-
-        current = drone.current_zone
-
-        current.remove_nb_drone()
-
-        drone.finish_transit(destination)
-
-        destination.add_nb_drone()
-
-        drone.status = "moving"
-
-        # La connexion sera reset à la fin du tour.
-        # On ne la retire donc pas ici.
-
-        if len(drone.path) >= 2:
-            drone.path = drone.path[1:]
-
-        return (
-            f"{current_name} -> "
-            f"{destination_name} [TRANSIT END]"
-        )
+        target_zone.add_nb_drone()
+        connection.add_nb_drone()
+        drone.move_to_zone(target_zone)
 
     # ==============================================================
-    # RESET DES CONNECTIONS
+    # REROUTAGE
     # ==============================================================
 
-    def _reset_connections(self) -> None:
+    def _reroute_drone(
+        self,
+        drone: Drone,
+        blocked_zones: set[Hub],
+        saturated_connections: set[
+            tuple[Hub, Hub]
+        ],
+    ) -> bool:
         """
-        Réinitialise l'utilisation des connexions.
+        Cherche un autre chemin pendant le même tour.
 
-        Une connexion représente une capacité de déplacement
-        par tour, pas une occupation permanente.
+        Dijkstra doit respecter :
+        - les zones bloquées ;
+        - les connexions saturées.
         """
 
-        for connection in self.graph.connections:
-            connection.nb_drones = 0
+        if drone.current_zone is None:
+            return False
+
+        while True:
+            path = self.ph.shortest_path(
+                source=drone.current_zone,
+                blocked_zones=blocked_zones,
+                saturated_conns=saturated_connections,
+            )
+
+            if not path or len(path) < 2:
+                drone.status = "waiting"
+                return False
+
+            next_zone = path[1]
+
+            connection = self.graph.get_connection(
+                drone.current_zone,
+                next_zone,
+            )
+
+            if connection is None:
+                blocked_zones.add(next_zone)
+                continue
+
+            # ------------------------------------------------------
+            # Vérification de la zone.
+            # ------------------------------------------------------
+            zone_ok = (
+                next_zone.nb_drone
+                < next_zone.capacity
+            )
+
+            # ------------------------------------------------------
+            # Vérification de la connexion.
+            # ------------------------------------------------------
+            conn_ok = (
+                connection.nb_drones
+                < connection.capacity
+            )
+
+            # ------------------------------------------------------
+            # La zone est pleine.
+            # ------------------------------------------------------
+            if not zone_ok:
+                blocked_zones.add(next_zone)
+                continue
+
+            # ------------------------------------------------------
+            # La connexion est pleine.
+            #
+            # Ici on bloque LA CONNEXION, pas seulement la zone.
+            # ------------------------------------------------------
+            if not conn_ok:
+                saturated_connections.add(
+                    (
+                        connection.source,
+                        connection.target,
+                    )
+                )
+                continue
+
+            # ------------------------------------------------------
+            # Le chemin est disponible.
+            # ------------------------------------------------------
+            drone.path = path[1:].copy()
+            drone.status = "idle"
+
+            return True
+
+    # ==============================================================
+    # TENTATIVE DE DEPLACEMENT
+    # ==============================================================
+
+    def _try_drone_move(
+        self,
+        drone: Drone,
+        movements: dict[str, str],
+    ) -> None:
+        """
+        Essaie de faire avancer un drone.
+
+        Si le chemin est bloqué, Dijkstra cherche immédiatement
+        le prochain chemin différent disponible.
+        """
+
+        if drone.current_zone is None:
+            raise RuntimeError(
+                f"{drone.drone_id} has no current zone."
+            )
+
+        # ----------------------------------------------------------
+        # Ressources bloquées uniquement pour ce tour.
+        # ----------------------------------------------------------
+        blocked_zones: set[Hub] = set()
+
+        saturated_connections: set[
+            tuple[Hub, Hub]
+        ] = set()
+
+        # ----------------------------------------------------------
+        # Empêche le drone de repartir immédiatement en arrière.
+        # ----------------------------------------------------------
+        if drone.previous_zone is not None:
+            blocked_zones.add(drone.previous_zone)
+
+        while True:
+
+            # ------------------------------------------------------
+            # Aucun chemin restant.
+            # ------------------------------------------------------
+            if not drone.path:
+                drone.status = "waiting"
+                return
+
+            target_zone = drone.path[0]
+
+            connection = self.graph.get_connection(
+                drone.current_zone,
+                target_zone,
+            )
+
+            if connection is None:
+                blocked_zones.add(target_zone)
+
+                found = self._reroute_drone(
+                    drone,
+                    blocked_zones,
+                    saturated_connections,
+                )
+
+                if not found:
+                    drone.status = "waiting"
+
+                continue
+
+            old_zone = drone.current_zone
+
+            # ------------------------------------------------------
+            # Tentative de déplacement.
+            # ------------------------------------------------------
+            self.move_drone(
+                drone,
+                connection,
+                target_zone,
+            )
+
+            # ------------------------------------------------------
+            # Déplacement impossible.
+            # ------------------------------------------------------
+            if drone.status == "rerouting":
+
+                # --------------------------------------------------
+                # On regarde POURQUOI le déplacement est impossible.
+                # --------------------------------------------------
+
+                zone_ok = (
+                    target_zone.nb_drone
+                    < target_zone.capacity
+                )
+
+                conn_ok = (
+                    connection.nb_drones
+                    < connection.capacity
+                )
+
+                # --------------------------------------------------
+                # Zone pleine.
+                # --------------------------------------------------
+                if not zone_ok:
+                    blocked_zones.add(target_zone)
+
+                # --------------------------------------------------
+                # Connexion pleine.
+                # --------------------------------------------------
+                if not conn_ok:
+                    saturated_connections.add(
+                        (
+                            connection.source,
+                            connection.target,
+                        )
+                    )
+
+                # --------------------------------------------------
+                # Recherche d'un autre chemin.
+                # --------------------------------------------------
+                found = self._reroute_drone(
+                    drone,
+                    blocked_zones,
+                    saturated_connections,
+                )
+
+                if not found:
+                    drone.status = "waiting"
+                    return
+
+                # Nouveau chemin.
+                continue
+
+            # ------------------------------------------------------
+            # Déplacement normal terminé.
+            # ------------------------------------------------------
+            if not drone.in_transit:
+
+                if drone.current_zone == target_zone:
+                    drone.path.pop(0)
+
+                    movements[drone.drone_id] = (
+                        f"{old_zone.name} -> "
+                        f"{target_zone.name}"
+                    )
+
+                return
+
+            # ------------------------------------------------------
+            # Entrée dans une zone restricted.
+            #
+            # La zone est déjà réservée.
+            # La connexion est déjà réservée.
+            # ------------------------------------------------------
+            movements[drone.drone_id] = (
+                f"{old_zone.name} -> "
+                f"{target_zone.name} [TRANSIT]"
+            )
+
+            return
 
     # ==============================================================
     # SIMULATION
     # ==============================================================
 
     def simulate(self) -> None:
-        """Lance la simulation."""
+        """Simule le déplacement des drones tour par tour."""
 
-        while not all(
-            drone.status == "delivered"
+        while any(
+            drone.current_zone != self.graph.end_zone
             for drone in self.drones
         ):
-            self.turn += 1
-
             movements: dict[str, str] = {}
-
-            # ------------------------------------------------------
-            # TRAITEMENT DES DRONES
-            # ------------------------------------------------------
 
             for drone in self.drones:
 
                 # --------------------------------------------------
-                # DEJA ARRIVE
+                # Drone arrivé.
                 # --------------------------------------------------
-
-                if drone.current_zone is self.graph.end_zone:
+                if drone.current_zone == self.graph.end_zone:
                     drone.status = "delivered"
                     continue
 
                 # --------------------------------------------------
-                # TRANSIT
+                # Drone déjà en transit.
                 # --------------------------------------------------
-
                 if drone.in_transit:
-                    movements[drone.drone_id] = (
-                        self._continue_transit(drone)
+
+                    if drone.destination is None:
+                        raise RuntimeError(
+                            "Drone in transit without destination."
+                        )
+
+                    if drone.moving_connection is None:
+                        raise RuntimeError(
+                            "Drone in transit without connection."
+                        )
+
+                    target_zone = drone.destination
+                    connection = drone.moving_connection
+                    old_zone = drone.previous_zone
+
+                    # ------------------------------------------------
+                    # Termine le transit.
+                    # ------------------------------------------------
+                    self.move_drone(
+                        drone,
+                        connection,
+                        target_zone,
                     )
+
+                    if (
+                        not drone.in_transit
+                        and drone.current_zone == target_zone
+                    ):
+                        if drone.path:
+                            drone.path.pop(0)
+
+                        if old_zone is not None:
+                            movements[drone.drone_id] = (
+                                f"{old_zone.name} -> "
+                                f"{target_zone.name}"
+                            )
+
                     continue
 
                 # --------------------------------------------------
-                # CHEMIN ACTUEL + ALTERNATIVES
+                # Drone normal.
                 # --------------------------------------------------
-
-                movement = self._try_move(drone)
-
-                if movement is None:
-                    drone.status = "waiting"
-
-                    movements[drone.drone_id] = (
-                        f"{drone.drone_id} WAIT"
-                    )
+                self._try_drone_move(
+                    drone,
+                    movements,
+                )
 
             # ------------------------------------------------------
-            # AFFICHAGE
+            # Fin du tour :
+            # décrémente les connexions restricted occupées.
             # ------------------------------------------------------
+            for connection in list(
+                self.restricted_connections
+            ):
+                self.restricted_connections[connection] -= 1
 
+                if (
+                    self.restricted_connections[connection]
+                    <= 0
+                ):
+                    connection.remove_nb_drone()
+                    del self.restricted_connections[
+                        connection
+                    ]
+            # ------------------------------------------------------
+            # Libère les connexions normales à la fin du tour.
+            # ------------------------------------------------------
+            for connection in self.graph.connections:
+                if connection not in self.restricted_connections:
+                    connection.nb_drones = 0
+            # ------------------------------------------------------
+            # Fin du tour.
+            # ------------------------------------------------------
             self._print_turn(movements)
-
-            # ------------------------------------------------------
-            # ENREGISTREMENT
-            # ------------------------------------------------------
-
             self._record_tour()
-
-            # ------------------------------------------------------
-            # FIN DU TOUR
-            # ------------------------------------------------------
-
-            self._reset_connections()
+            self.turn += 1
 
     # ==============================================================
     # RECORD
     # ==============================================================
 
     def _record_tour(self) -> None:
-        """Enregistre l'état de la simulation pour le replay visuel."""
+        """Enregistre l'état de la simulation pour le replay."""
 
         tour_data: dict[str, str | None] = {}
         drone_states: dict[str, dict[str, object]] = {}
 
         for drone in self.drones:
+
             if drone.current_zone is not None:
-                tour_data[drone.drone_id] = drone.current_zone.name
+                tour_data[drone.drone_id] = (
+                    drone.current_zone.name
+                )
             else:
                 tour_data[drone.drone_id] = None
 
-            connection = drone.moving_connection[1]
+            connection = drone.moving_connection
+
             drone_states[drone.drone_id] = {
                 "zone": (
                     drone.current_zone.name
@@ -669,7 +546,6 @@ class Simulation:
                     else None
                 ),
                 "status": drone.status,
-                "transit_turns": drone.transit_turns,
                 "destination": (
                     drone.destination.name
                     if drone.destination is not None
@@ -683,9 +559,14 @@ class Simulation:
                     if connection is not None
                     else None
                 ),
+                "traveled_path": [
+                    zone.name
+                    for zone in drone.traveled_path
+                ],
             }
 
         self.tours.append(tour_data)
+
         self.replay_frames.append(
             {
                 "turn": self.turn,
@@ -733,7 +614,7 @@ class Simulation:
             if drone.status == "delivered":
                 text = (
                     f"{drone.drone_id:<8} "
-                    f"DELIVERED"
+                    "DELIVERED"
                 )
 
             else:
@@ -750,7 +631,7 @@ class Simulation:
                 elif drone.in_transit:
                     text = (
                         f"{drone.drone_id:<8} "
-                        f"[TRANSIT]"
+                        "[TRANSIT]"
                     )
 
                 else:

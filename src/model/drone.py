@@ -17,13 +17,11 @@ class Drone:
 
         self.destination: Hub | None = None
         self.in_transit = False
-        self.transit_turns = 0
         self.transit_cost = 0
-
-        self.moving_connection: tuple[
-            bool,
-            Connection | None
-        ] = (False, None)
+        self.traveled_path: list[Hub] = []
+        if current_zone is not None:
+            self.traveled_path.append(current_zone)
+        self.moving_connection: Connection | None = None
 
     def begin_transit(
         self,
@@ -32,10 +30,11 @@ class Drone:
         destination: Hub
     ) -> None:
         self.in_transit = True
-        self.transit_turns = 0
         self.transit_cost = cost
+        self.previous_zone = self.current_zone
         self.destination = destination
-        self.moving_connection = (True, connection)
+        self.current_zone = destination
+        self.moving_connection = connection
         self.status = "in_transit"
 
     def finish_transit(
@@ -43,20 +42,17 @@ class Drone:
         zone: Hub
     ) -> None:
         self.in_transit = False
-        self.transit_turns = 0
         self.transit_cost = 0
         self.destination = None
-        self.moving_connection = (False, None)
-
-        self.previous_zone = self.current_zone
-        self.current_zone = zone
+        self.moving_connection = None
+        self.traveled_path.append(zone)
         self.status = "moving"
 
     def move_to_zone(
         self,
         zone: Hub,
-        connection: Connection | None = None
     ) -> None:
         self.previous_zone = self.current_zone
         self.current_zone = zone
+        self.traveled_path.append(zone)
         self.status = "moving"

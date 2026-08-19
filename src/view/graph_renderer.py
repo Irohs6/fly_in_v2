@@ -149,7 +149,7 @@ class GraphRenderer:
                     camera.zoom
                 )
 
-        for zone in self.graph.zones.values():
+        for zone in self.graph.hubs.values():
             hub_pos = hub_screen_positions.get(zone.name)
             if hub_pos:
                 self.hub_renderer.draw(
