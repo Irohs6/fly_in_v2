@@ -31,7 +31,7 @@ class MapValidator:
         self.zone_entries = zone_entries
         self.connection_entries = connection_entries
 
-    def validate(self):
+    def validate(self) -> None:
         """Valide toutes les sections du fichier."""
         self._validate_nb_drones()
         self._validate_zones()
@@ -40,7 +40,7 @@ class MapValidator:
         self._check_connection_endpoints()
         self._check_duplicate_connections()
 
-    def _validate_nb_drones(self):
+    def _validate_nb_drones(self) -> None:
         if not isinstance(self.nb_drones, int):
             raise ValidationError(
                 "Ligne 1: définition nb_drones manquante."
@@ -50,7 +50,7 @@ class MapValidator:
                 "Ligne 1: le nombre de drones doit être positif."
             )
 
-    def _validate_zones(self):
+    def _validate_zones(self) -> None:
         """Valide les hubs et leurs métadonnées."""
         for hub, line in self.zone_entries:
 
@@ -94,7 +94,7 @@ class MapValidator:
                     f"pour le hub {hub['name']!r}"
                 )
 
-    def _validate_connections(self):
+    def _validate_connections(self) -> None:
         for connection, line in self.connection_entries:
 
             # Vérification des clés inconnues
@@ -123,7 +123,7 @@ class MapValidator:
                     f"{connection['source']!r}-{connection['target']!r}"
                 )
 
-    def _check_unique_zone_names(self):
+    def _check_unique_zone_names(self) -> None:
         names: dict[str, int] = {}
         for hub, line in self.zone_entries:
             name = hub["name"]
@@ -135,7 +135,7 @@ class MapValidator:
                 )
             names[name] = line
 
-    def _check_connection_endpoints(self):
+    def _check_connection_endpoints(self) -> None:
         known_names = {self.start_hub["name"], self.end_hub["name"]}
         known_names.update(hub["name"] for hub in self.hubs)
 
@@ -151,7 +151,7 @@ class MapValidator:
                     f"{connection['target']!r}"
                 )
 
-    def _check_duplicate_connections(self):
+    def _check_duplicate_connections(self) -> None:
         checked_conn: dict[tuple[str, str], int] = {}
         for connection, line in self.connection_entries:
             pair = tuple(sorted([connection["source"], connection["target"]]))

@@ -1,57 +1,71 @@
 
 ╔══════════════════════════════════════════════════════════════╗
+║ TURN 0                                                      ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      start -> maze_a1                                   ║
+║ D_2      start -> maze_a1                                   ║
+║ D_3      start [WAIT]                                       ║
+║ D_4      start [WAIT]                                       ║
+║ D_5      start [WAIT]                                       ║
+║ D_6      start [WAIT]                                       ║
+║ D_7      start [WAIT]                                       ║
+║ D_8      start [WAIT]                                       ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
 ║ TURN 1                                                      ║
 ╠══════════════════════════════════════════════════════════════╣
 ║ DRONES                                                       ║
-║ D_1      maze_a1 [WAIT]                                     ║
-║ D_2      maze_a1 [WAIT]                                     ║
-║ D_3      D_3 WAIT                                           ║
-║ D_4      D_4 WAIT                                           ║
-║ D_5      D_5 WAIT                                           ║
-║ D_6      D_6 WAIT                                           ║
-║ D_7      D_7 WAIT                                           ║
-║ D_8      D_8 WAIT                                           ║
+║ D_1      maze_a1 -> maze_a2                                 ║
+║ D_2      maze_a1 -> maze_b1                                 ║
+║ D_3      start -> maze_a1                                   ║
+║ D_4      start -> maze_a1                                   ║
+║ D_5      start [WAIT]                                       ║
+║ D_6      start [WAIT]                                       ║
+║ D_7      start [WAIT]                                       ║
+║ D_8      start [WAIT]                                       ║
 ╚══════════════════════════════════════════════════════════════╝
 
 ╔══════════════════════════════════════════════════════════════╗
 ║ TURN 2                                                      ║
 ╠══════════════════════════════════════════════════════════════╣
 ║ DRONES                                                       ║
-║ D_1      maze_a2 [WAIT]                                     ║
-║ D_2      maze_b1 [WAIT]                                     ║
-║ D_3      maze_a1 [WAIT]                                     ║
-║ D_4      maze_a1 [WAIT]                                     ║
-║ D_5      D_5 WAIT                                           ║
-║ D_6      D_6 WAIT                                           ║
-║ D_7      D_7 WAIT                                           ║
-║ D_8      D_8 WAIT                                           ║
+║ D_1      maze_a2 -> maze_c2                                 ║
+║ D_2      maze_b1 -> maze_b2                                 ║
+║ D_3      maze_a1 -> maze_a2                                 ║
+║ D_4      maze_a1 -> maze_b1                                 ║
+║ D_5      start -> maze_a1                                   ║
+║ D_6      start -> maze_a1                                   ║
+║ D_7      start [WAIT]                                       ║
+║ D_8      start [WAIT]                                       ║
 ╚══════════════════════════════════════════════════════════════╝
 
 ╔══════════════════════════════════════════════════════════════╗
 ║ TURN 3                                                      ║
 ╠══════════════════════════════════════════════════════════════╣
 ║ DRONES                                                       ║
-║ D_1      maze_c2 [WAIT]                                     ║
-║ D_2      maze_b2 [WAIT]                                     ║
-║ D_3      maze_a2 [WAIT]                                     ║
-║ D_4      maze_b1 [WAIT]                                     ║
-║ D_5      maze_a1 [WAIT]                                     ║
-║ D_6      maze_a1 [WAIT]                                     ║
-║ D_7      D_7 WAIT                                           ║
-║ D_8      D_8 WAIT                                           ║
+║ D_1      maze_c2 -> bottleneck                              ║
+║ D_2      maze_b2 -> maze_c2                                 ║
+║ D_3      maze_a2 -> maze_c2                                 ║
+║ D_4      maze_b1 -> maze_b2                                 ║
+║ D_5      maze_a1 -> maze_a2                                 ║
+║ D_6      maze_a1 -> maze_b1                                 ║
+║ D_7      start -> maze_a1                                   ║
+║ D_8      start -> maze_a1                                   ║
 ╚══════════════════════════════════════════════════════════════╝
 
 ╔══════════════════════════════════════════════════════════════╗
 ║ TURN 4                                                      ║
 ╠══════════════════════════════════════════════════════════════╣
 ║ DRONES                                                       ║
-║ D_1      bottleneck [WAIT]                                  ║
-║ D_2      maze_c2 [WAIT]                                     ║
+║ D_1      bottleneck -> final_stretch1                       ║
+║ D_2      maze_c2 -> bottleneck                              ║
 ║ D_3      maze_c2 [WAIT]                                     ║
-║ D_4      maze_b2 [WAIT]                                     ║
+║ D_4      maze_b2 -> maze_c2                                 ║
 ║ D_5      maze_a2 [WAIT]                                     ║
-║ D_6      maze_b1 [WAIT]                                     ║
-║ D_7      maze_a1 [WAIT]                                     ║
+║ D_6      maze_b1 -> maze_b2                                 ║
+║ D_7      maze_a1 -> maze_b1                                 ║
 ║ D_8      maze_a1 [WAIT]                                     ║
 ╚══════════════════════════════════════════════════════════════╝
 
@@ -59,26 +73,26 @@
 ║ TURN 5                                                      ║
 ╠══════════════════════════════════════════════════════════════╣
 ║ DRONES                                                       ║
-║ D_1      final_stretch1 [WAIT]                              ║
-║ D_2      bottleneck [WAIT]                                  ║
-║ D_3      D_3 WAIT                                           ║
+║ D_1      final_stretch1 -> goal                             ║
+║ D_2      bottleneck -> final_stretch1                       ║
+║ D_3      maze_c2 -> bottleneck                              ║
 ║ D_4      maze_c2 [WAIT]                                     ║
-║ D_5      D_5 WAIT                                           ║
+║ D_5      maze_a2 -> maze_c2                                 ║
 ║ D_6      maze_b2 [WAIT]                                     ║
-║ D_7      maze_b1 [WAIT]                                     ║
-║ D_8      D_8 WAIT                                           ║
+║ D_7      maze_b1 -> maze_b2                                 ║
+║ D_8      maze_a1 -> maze_a2                                 ║
 ╚══════════════════════════════════════════════════════════════╝
 
 ╔══════════════════════════════════════════════════════════════╗
 ║ TURN 6                                                      ║
 ╠══════════════════════════════════════════════════════════════╣
 ║ DRONES                                                       ║
-║ D_1      goal [WAIT]                                        ║
-║ D_2      final_stretch1 [WAIT]                              ║
-║ D_3      bottleneck [WAIT]                                  ║
-║ D_4      D_4 WAIT                                           ║
+║ D_1      DELIVERED                                          ║
+║ D_2      final_stretch1 -> goal                             ║
+║ D_3      bottleneck -> final_stretch1                       ║
+║ D_4      maze_c2 -> bottleneck                              ║
 ║ D_5      maze_c2 [WAIT]                                     ║
-║ D_6      D_6 WAIT                                           ║
+║ D_6      maze_b2 -> maze_c2                                 ║
 ║ D_7      maze_b2 [WAIT]                                     ║
 ║ D_8      maze_a2 [WAIT]                                     ║
 ╚══════════════════════════════════════════════════════════════╝
@@ -88,13 +102,13 @@
 ╠══════════════════════════════════════════════════════════════╣
 ║ DRONES                                                       ║
 ║ D_1      DELIVERED                                          ║
-║ D_2      goal [WAIT]                                        ║
-║ D_3      final_stretch1 [WAIT]                              ║
-║ D_4      bottleneck [WAIT]                                  ║
-║ D_5      D_5 WAIT                                           ║
+║ D_2      DELIVERED                                          ║
+║ D_3      final_stretch1 -> goal                             ║
+║ D_4      bottleneck -> final_stretch1                       ║
+║ D_5      maze_c2 -> bottleneck                              ║
 ║ D_6      maze_c2 [WAIT]                                     ║
-║ D_7      D_7 WAIT                                           ║
-║ D_8      D_8 WAIT                                           ║
+║ D_7      maze_b2 -> maze_c2                                 ║
+║ D_8      maze_a2 [WAIT]                                     ║
 ╚══════════════════════════════════════════════════════════════╝
 
 ╔══════════════════════════════════════════════════════════════╗
@@ -103,12 +117,12 @@
 ║ DRONES                                                       ║
 ║ D_1      DELIVERED                                          ║
 ║ D_2      DELIVERED                                          ║
-║ D_3      goal [WAIT]                                        ║
-║ D_4      final_stretch1 [WAIT]                              ║
-║ D_5      bottleneck [WAIT]                                  ║
-║ D_6      D_6 WAIT                                           ║
+║ D_3      DELIVERED                                          ║
+║ D_4      final_stretch1 -> goal                             ║
+║ D_5      bottleneck -> final_stretch1                       ║
+║ D_6      maze_c2 -> bottleneck                              ║
 ║ D_7      maze_c2 [WAIT]                                     ║
-║ D_8      D_8 WAIT                                           ║
+║ D_8      maze_a2 -> maze_c2                                 ║
 ╚══════════════════════════════════════════════════════════════╝
 
 ╔══════════════════════════════════════════════════════════════╗
@@ -118,10 +132,10 @@
 ║ D_1      DELIVERED                                          ║
 ║ D_2      DELIVERED                                          ║
 ║ D_3      DELIVERED                                          ║
-║ D_4      goal [WAIT]                                        ║
-║ D_5      final_stretch1 [WAIT]                              ║
-║ D_6      bottleneck [WAIT]                                  ║
-║ D_7      D_7 WAIT                                           ║
+║ D_4      DELIVERED                                          ║
+║ D_5      final_stretch1 -> goal                             ║
+║ D_6      bottleneck -> final_stretch1                       ║
+║ D_7      maze_c2 -> bottleneck                              ║
 ║ D_8      maze_c2 [WAIT]                                     ║
 ╚══════════════════════════════════════════════════════════════╝
 
@@ -133,10 +147,10 @@
 ║ D_2      DELIVERED                                          ║
 ║ D_3      DELIVERED                                          ║
 ║ D_4      DELIVERED                                          ║
-║ D_5      goal [WAIT]                                        ║
-║ D_6      final_stretch1 [WAIT]                              ║
-║ D_7      bottleneck [WAIT]                                  ║
-║ D_8      D_8 WAIT                                           ║
+║ D_5      DELIVERED                                          ║
+║ D_6      final_stretch1 -> goal                             ║
+║ D_7      bottleneck -> final_stretch1                       ║
+║ D_8      maze_c2 -> bottleneck                              ║
 ╚══════════════════════════════════════════════════════════════╝
 
 ╔══════════════════════════════════════════════════════════════╗
@@ -148,9 +162,9 @@
 ║ D_3      DELIVERED                                          ║
 ║ D_4      DELIVERED                                          ║
 ║ D_5      DELIVERED                                          ║
-║ D_6      goal [WAIT]                                        ║
-║ D_7      final_stretch1 [WAIT]                              ║
-║ D_8      bottleneck [WAIT]                                  ║
+║ D_6      DELIVERED                                          ║
+║ D_7      final_stretch1 -> goal                             ║
+║ D_8      bottleneck -> final_stretch1                       ║
 ╚══════════════════════════════════════════════════════════════╝
 
 ╔══════════════════════════════════════════════════════════════╗
@@ -163,34 +177,6 @@
 ║ D_4      DELIVERED                                          ║
 ║ D_5      DELIVERED                                          ║
 ║ D_6      DELIVERED                                          ║
-║ D_7      goal [WAIT]                                        ║
-║ D_8      final_stretch1 [WAIT]                              ║
-╚══════════════════════════════════════════════════════════════╝
-
-╔══════════════════════════════════════════════════════════════╗
-║ TURN 13                                                     ║
-╠══════════════════════════════════════════════════════════════╣
-║ DRONES                                                       ║
-║ D_1      DELIVERED                                          ║
-║ D_2      DELIVERED                                          ║
-║ D_3      DELIVERED                                          ║
-║ D_4      DELIVERED                                          ║
-║ D_5      DELIVERED                                          ║
-║ D_6      DELIVERED                                          ║
 ║ D_7      DELIVERED                                          ║
-║ D_8      goal [WAIT]                                        ║
-╚══════════════════════════════════════════════════════════════╝
-
-╔══════════════════════════════════════════════════════════════╗
-║ TURN 14                                                     ║
-╠══════════════════════════════════════════════════════════════╣
-║ DRONES                                                       ║
-║ D_1      DELIVERED                                          ║
-║ D_2      DELIVERED                                          ║
-║ D_3      DELIVERED                                          ║
-║ D_4      DELIVERED                                          ║
-║ D_5      DELIVERED                                          ║
-║ D_6      DELIVERED                                          ║
-║ D_7      DELIVERED                                          ║
-║ D_8      DELIVERED                                          ║
+║ D_8      final_stretch1 -> goal                             ║
 ╚══════════════════════════════════════════════════════════════╝

@@ -31,7 +31,8 @@ def iter_map_files() -> list[Path]:
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Run every Fly-in map in terminal mode and write one .txt report per map."
+        description="Run every Fly-in map in terminal mode and write one "
+                    ".txt report per map."
     )
     parser.add_argument(
         "-o",
@@ -59,20 +60,6 @@ def main() -> int:
             parser_map = Parser(str(map_path))
             data = parser_map.parse()
             graph = Graph(data)
-
-            for hub in [data["start_hub"], data["end_hub"], *data["hubs"]]:
-                graph.add_zone(graph.create_zone(hub))
-
-            for connection in data["connections"]:
-                source_hub = graph.hubs[connection["source"]]
-                target_hub = graph.hubs[connection["target"]]
-                graph.add_connection(
-                    graph.create_connection(
-                        source_hub,
-                        target_hub,
-                        capacity=connection.get("capacity", 1),
-                    )
-                )
 
             pathfinder = Dijkstra(graph)
             simulation = Simulation(graph, debug=False, pathfinder=pathfinder)

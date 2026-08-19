@@ -1,10 +1,6 @@
 from pathlib import Path
 
-from src.parser.parser import (
-    ParseError,
-    Parser,
-    ParsedMap,
-)
+from src.parser.parser import Parser, ParsedMap, ParseError
 from src.model.graph import Graph
 from src.model.simulation import Simulation
 from src.view.pygame_view import Pygame_view

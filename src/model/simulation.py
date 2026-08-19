@@ -32,10 +32,6 @@ class Simulation:
         # Valeur = nombre de tours restants avant libération.
         self.restricted_connections: dict[Connection, int] = {}
 
-    # ==============================================================
-    # INITIALISATION
-    # ==============================================================
-
     def load_drones(self, nb_drones: int) -> None:
         """Crée les drones dans le hub de départ."""
 
@@ -79,18 +75,12 @@ class Simulation:
                 "The target zone is not restricted."
             )
 
-        # ----------------------------------------------------------
         # Le drone termine son transit.
-        #
-        # La connexion reste occupée pendant les 2 tours.
-        # ----------------------------------------------------------
         if drone.in_transit:
             drone.finish_transit(target_zone)
             return
 
-        # ----------------------------------------------------------
         # Vérification de la connexion ET de la zone.
-        # ----------------------------------------------------------
         conn_ok = (
             connection.nb_drones
             < connection.capacity
@@ -108,9 +98,7 @@ class Simulation:
 
         old_zone = drone.current_zone
 
-        # ----------------------------------------------------------
         # Réservation immédiate de la connexion et de la zone.
-        # ----------------------------------------------------------
         connection.add_nb_drone()
         target_zone.add_nb_drone()
 
@@ -146,14 +134,10 @@ class Simulation:
             raise ValueError(
                 "Cannot move to a blocked zone."
             )
-
-        # ----------------------------------------------------------
         # Zone normale pleine.
-        # ----------------------------------------------------------
         if target_zone.nb_drone >= target_zone.capacity:
             drone.status = "rerouting"
             return
-
         # connexion pleine.
         if connection.nb_drones >= connection.capacity:
             drone.status = "rerouting"
@@ -168,9 +152,7 @@ class Simulation:
         connection.add_nb_drone()
         drone.move_to_zone(target_zone)
 
-    # ==============================================================
     # REROUTAGE
-    # ==============================================================
 
     def _reroute_drone(
         self,
@@ -213,34 +195,25 @@ class Simulation:
                 blocked_zones.add(next_zone)
                 continue
 
-            # ------------------------------------------------------
             # Vérification de la zone.
-            # ------------------------------------------------------
             zone_ok = (
                 next_zone.nb_drone
                 < next_zone.capacity
             )
 
-            # ------------------------------------------------------
             # Vérification de la connexion.
-            # ------------------------------------------------------
             conn_ok = (
                 connection.nb_drones
                 < connection.capacity
             )
 
-            # ------------------------------------------------------
             # La zone est pleine.
-            # ------------------------------------------------------
             if not zone_ok:
                 blocked_zones.add(next_zone)
                 continue
 
-            # ------------------------------------------------------
             # La connexion est pleine.
-            #
             # Ici on bloque LA CONNEXION, pas seulement la zone.
-            # ------------------------------------------------------
             if not conn_ok:
                 saturated_connections.add(
                     (
@@ -250,17 +223,13 @@ class Simulation:
                 )
                 continue
 
-            # ------------------------------------------------------
             # Le chemin est disponible.
-            # ------------------------------------------------------
             drone.path = path[1:].copy()
             drone.status = "idle"
 
             return True
 
-    # ==============================================================
     # TENTATIVE DE DEPLACEMENT
-    # ==============================================================
 
     def _try_drone_move(
         self,
@@ -279,26 +248,19 @@ class Simulation:
                 f"{drone.drone_id} has no current zone."
             )
 
-        # ----------------------------------------------------------
-        # Ressources bloquées uniquement pour ce tour.
-        # ----------------------------------------------------------
+        # Ressources bloquées uniquement pour ce tour.-
         blocked_zones: set[Hub] = set()
 
         saturated_connections: set[
             tuple[Hub, Hub]
         ] = set()
 
-        # ----------------------------------------------------------
         # Empêche le drone de repartir immédiatement en arrière.
-        # ----------------------------------------------------------
         if drone.previous_zone is not None:
             blocked_zones.add(drone.previous_zone)
 
         while True:
-
-            # ------------------------------------------------------
             # Aucun chemin restant.
-            # ------------------------------------------------------
             if not drone.path:
                 drone.status = "waiting"
                 return
@@ -326,23 +288,17 @@ class Simulation:
 
             old_zone = drone.current_zone
 
-            # ------------------------------------------------------
             # Tentative de déplacement.
-            # ------------------------------------------------------
             self.move_drone(
                 drone,
                 connection,
                 target_zone,
             )
 
-            # ------------------------------------------------------
             # Déplacement impossible.
-            # ------------------------------------------------------
             if drone.status == "rerouting":
 
-                # --------------------------------------------------
                 # On regarde POURQUOI le déplacement est impossible.
-                # --------------------------------------------------
 
                 zone_ok = (
                     target_zone.nb_drone
@@ -354,15 +310,11 @@ class Simulation:
                     < connection.capacity
                 )
 
-                # --------------------------------------------------
                 # Zone pleine.
-                # --------------------------------------------------
                 if not zone_ok:
                     blocked_zones.add(target_zone)
 
-                # --------------------------------------------------
                 # Connexion pleine.
-                # --------------------------------------------------
                 if not conn_ok:
                     saturated_connections.add(
                         (
@@ -371,9 +323,7 @@ class Simulation:
                         )
                     )
 
-                # --------------------------------------------------
                 # Recherche d'un autre chemin.
-                # --------------------------------------------------
                 found = self._reroute_drone(
                     drone,
                     blocked_zones,
@@ -386,10 +336,7 @@ class Simulation:
 
                 # Nouveau chemin.
                 continue
-
-            # ------------------------------------------------------
             # Déplacement normal terminé.
-            # ------------------------------------------------------
             if not drone.in_transit:
 
                 if drone.current_zone == target_zone:
@@ -415,9 +362,7 @@ class Simulation:
 
             return
 
-    # ==============================================================
     # SIMULATION
-    # ==============================================================
 
     def simulate(self) -> None:
         """Simule le déplacement des drones tour par tour."""
@@ -429,17 +374,11 @@ class Simulation:
             movements: dict[str, str] = {}
 
             for drone in self.drones:
-
-                # --------------------------------------------------
                 # Drone arrivé.
-                # --------------------------------------------------
                 if drone.current_zone == self.graph.end_zone:
                     drone.status = "delivered"
                     continue
-
-                # --------------------------------------------------
                 # Drone déjà en transit.
-                # --------------------------------------------------
                 if drone.in_transit:
 
                     if drone.destination is None:
@@ -456,9 +395,7 @@ class Simulation:
                     connection = drone.moving_connection
                     old_zone = drone.previous_zone
 
-                    # ------------------------------------------------
                     # Termine le transit.
-                    # ------------------------------------------------
                     self.move_drone(
                         drone,
                         connection,
@@ -479,19 +416,14 @@ class Simulation:
                             )
 
                     continue
-
-                # --------------------------------------------------
                 # Drone normal.
-                # --------------------------------------------------
                 self._try_drone_move(
                     drone,
                     movements,
                 )
-
-            # ------------------------------------------------------
             # Fin du tour :
             # décrémente les connexions restricted occupées.
-            # ------------------------------------------------------
+
             for connection in list(
                 self.restricted_connections
             ):

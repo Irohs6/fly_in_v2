@@ -27,8 +27,7 @@ lint:
 		--check-untyped-defs --exclude .venv
 
 lint-strict:
-	poetry run flake8 . --exclude=.venv
-	poetry run mypy . --strict --exclude .venv
+	poetry run flake8 . --exclude=.venv ; poetry run mypy . --strict --exclude .venv
 
 clean:
 	find . -type d -name __pycache__ -exec rm -rf {} +

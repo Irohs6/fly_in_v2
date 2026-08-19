@@ -1,5 +1,4 @@
 from src.controller.controller import Controller
-from src.parser.parser import ParseError, format_parsing_result
 
 
 def main() -> int:

@@ -1,46 +1,57 @@
 
 ╔══════════════════════════════════════════════════════════════╗
+║ TURN 0                                                      ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      start -> fast_junction                             ║
+║ D_2      start -> slow_path1 [TRANSIT]                      ║
+║ D_3      start [WAIT]                                       ║
+║ D_4      start [WAIT]                                       ║
+║ D_5      start [WAIT]                                       ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
 ║ TURN 1                                                      ║
 ╠══════════════════════════════════════════════════════════════╣
 ║ DRONES                                                       ║
-║ D_1      fast_junction [WAIT]                               ║
-║ D_2      [TRANSIT]                                          ║
-║ D_3      D_3 WAIT                                           ║
-║ D_4      D_4 WAIT                                           ║
-║ D_5      D_5 WAIT                                           ║
+║ D_1      fast_junction -> fast_path                         ║
+║ D_2      start -> slow_path1                                ║
+║ D_3      start -> fast_junction                             ║
+║ D_4      start [WAIT]                                       ║
+║ D_5      start [WAIT]                                       ║
 ╚══════════════════════════════════════════════════════════════╝
 
 ╔══════════════════════════════════════════════════════════════╗
 ║ TURN 2                                                      ║
 ╠══════════════════════════════════════════════════════════════╣
 ║ DRONES                                                       ║
-║ D_1      fast_path [WAIT]                                   ║
-║ D_2      start -> slow_path1 [TRANSIT END]                  ║
-║ D_3      fast_junction [WAIT]                               ║
-║ D_4      D_4 WAIT                                           ║
-║ D_5      D_5 WAIT                                           ║
+║ D_1      fast_path -> merge_point                           ║
+║ D_2      slow_path1 -> slow_path2                           ║
+║ D_3      fast_junction -> fast_path                         ║
+║ D_4      start -> fast_junction                             ║
+║ D_5      start -> slow_path1 [TRANSIT]                      ║
 ╚══════════════════════════════════════════════════════════════╝
 
 ╔══════════════════════════════════════════════════════════════╗
 ║ TURN 3                                                      ║
 ╠══════════════════════════════════════════════════════════════╣
 ║ DRONES                                                       ║
-║ D_1      merge_point [WAIT]                                 ║
-║ D_2      slow_path2 [WAIT]                                  ║
-║ D_3      fast_path [WAIT]                                   ║
-║ D_4      fast_junction [WAIT]                               ║
-║ D_5      [TRANSIT]                                          ║
+║ D_1      merge_point -> goal                                ║
+║ D_2      slow_path2 -> merge_point                          ║
+║ D_3      fast_path -> merge_point                           ║
+║ D_4      fast_junction -> fast_path                         ║
+║ D_5      start -> slow_path1                                ║
 ╚══════════════════════════════════════════════════════════════╝
 
 ╔══════════════════════════════════════════════════════════════╗
 ║ TURN 4                                                      ║
 ╠══════════════════════════════════════════════════════════════╣
 ║ DRONES                                                       ║
-║ D_1      goal [WAIT]                                        ║
-║ D_2      merge_point [WAIT]                                 ║
-║ D_3      merge_point [WAIT]                                 ║
-║ D_4      fast_path [WAIT]                                   ║
-║ D_5      start -> slow_path1 [TRANSIT END]                  ║
+║ D_1      DELIVERED                                          ║
+║ D_2      merge_point -> goal                                ║
+║ D_3      merge_point -> goal                                ║
+║ D_4      fast_path -> merge_point                           ║
+║ D_5      slow_path1 -> slow_path2                           ║
 ╚══════════════════════════════════════════════════════════════╝
 
 ╔══════════════════════════════════════════════════════════════╗
@@ -48,10 +59,10 @@
 ╠══════════════════════════════════════════════════════════════╣
 ║ DRONES                                                       ║
 ║ D_1      DELIVERED                                          ║
-║ D_2      goal [WAIT]                                        ║
-║ D_3      goal [WAIT]                                        ║
-║ D_4      merge_point [WAIT]                                 ║
-║ D_5      slow_path2 [WAIT]                                  ║
+║ D_2      DELIVERED                                          ║
+║ D_3      DELIVERED                                          ║
+║ D_4      merge_point -> goal                                ║
+║ D_5      slow_path2 -> merge_point                          ║
 ╚══════════════════════════════════════════════════════════════╝
 
 ╔══════════════════════════════════════════════════════════════╗
@@ -61,28 +72,6 @@
 ║ D_1      DELIVERED                                          ║
 ║ D_2      DELIVERED                                          ║
 ║ D_3      DELIVERED                                          ║
-║ D_4      goal [WAIT]                                        ║
-║ D_5      merge_point [WAIT]                                 ║
-╚══════════════════════════════════════════════════════════════╝
-
-╔══════════════════════════════════════════════════════════════╗
-║ TURN 7                                                      ║
-╠══════════════════════════════════════════════════════════════╣
-║ DRONES                                                       ║
-║ D_1      DELIVERED                                          ║
-║ D_2      DELIVERED                                          ║
-║ D_3      DELIVERED                                          ║
 ║ D_4      DELIVERED                                          ║
-║ D_5      goal [WAIT]                                        ║
-╚══════════════════════════════════════════════════════════════╝
-
-╔══════════════════════════════════════════════════════════════╗
-║ TURN 8                                                      ║
-╠══════════════════════════════════════════════════════════════╣
-║ DRONES                                                       ║
-║ D_1      DELIVERED                                          ║
-║ D_2      DELIVERED                                          ║
-║ D_3      DELIVERED                                          ║
-║ D_4      DELIVERED                                          ║
-║ D_5      DELIVERED                                          ║
+║ D_5      merge_point -> goal                                ║
 ╚══════════════════════════════════════════════════════════════╝

@@ -1,92 +1,110 @@
 
 ╔══════════════════════════════════════════════════════════════╗
+║ TURN 0                                                      ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      start -> gate3                                     ║
+║ D_2      start -> gate2                                     ║
+║ D_3      start -> gate1                                     ║
+║ D_4      start [WAIT]                                       ║
+║ D_5      start [WAIT]                                       ║
+║ D_6      start [WAIT]                                       ║
+║ D_7      start [WAIT]                                       ║
+║ D_8      start [WAIT]                                       ║
+║ D_9      start [WAIT]                                       ║
+║ D_10     start [WAIT]                                       ║
+║ D_11     start [WAIT]                                       ║
+║ D_12     start [WAIT]                                       ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
 ║ TURN 1                                                      ║
 ╠══════════════════════════════════════════════════════════════╣
 ║ DRONES                                                       ║
-║ D_1      gate3 [WAIT]                                       ║
-║ D_2      gate2 [WAIT]                                       ║
-║ D_3      gate1 [WAIT]                                       ║
-║ D_4      D_4 WAIT                                           ║
-║ D_5      D_5 WAIT                                           ║
-║ D_6      D_6 WAIT                                           ║
-║ D_7      D_7 WAIT                                           ║
-║ D_8      D_8 WAIT                                           ║
-║ D_9      D_9 WAIT                                           ║
-║ D_10     D_10 WAIT                                          ║
-║ D_11     D_11 WAIT                                          ║
-║ D_12     D_12 WAIT                                          ║
+║ D_1      gate3 -> waiting_area3                             ║
+║ D_2      gate2 -> waiting_area2                             ║
+║ D_3      gate1 -> waiting_area1                             ║
+║ D_4      start -> gate3                                     ║
+║ D_5      start -> gate2                                     ║
+║ D_6      start -> gate1                                     ║
+║ D_7      start [WAIT]                                       ║
+║ D_8      start [WAIT]                                       ║
+║ D_9      start [WAIT]                                       ║
+║ D_10     start [WAIT]                                       ║
+║ D_11     start [WAIT]                                       ║
+║ D_12     start [WAIT]                                       ║
 ╚══════════════════════════════════════════════════════════════╝
 
 ╔══════════════════════════════════════════════════════════════╗
 ║ TURN 2                                                      ║
 ╠══════════════════════════════════════════════════════════════╣
 ║ DRONES                                                       ║
-║ D_1      waiting_area3 [WAIT]                               ║
-║ D_2      waiting_area2 [WAIT]                               ║
-║ D_3      waiting_area1 [WAIT]                               ║
-║ D_4      gate3 [WAIT]                                       ║
-║ D_5      gate2 [WAIT]                                       ║
-║ D_6      gate1 [WAIT]                                       ║
-║ D_7      D_7 WAIT                                           ║
-║ D_8      D_8 WAIT                                           ║
-║ D_9      D_9 WAIT                                           ║
-║ D_10     D_10 WAIT                                          ║
-║ D_11     D_11 WAIT                                          ║
-║ D_12     D_12 WAIT                                          ║
+║ D_1      waiting_area3 -> convergence                       ║
+║ D_2      waiting_area2 -> priority_bypass2                  ║
+║ D_3      waiting_area1 -> priority_bypass1                  ║
+║ D_4      gate3 -> waiting_area3                             ║
+║ D_5      gate2 -> waiting_area2                             ║
+║ D_6      gate1 -> waiting_area1                             ║
+║ D_7      start -> gate3                                     ║
+║ D_8      start -> gate2                                     ║
+║ D_9      start -> gate1                                     ║
+║ D_10     start [WAIT]                                       ║
+║ D_11     start [WAIT]                                       ║
+║ D_12     start [WAIT]                                       ║
 ╚══════════════════════════════════════════════════════════════╝
 
 ╔══════════════════════════════════════════════════════════════╗
 ║ TURN 3                                                      ║
 ╠══════════════════════════════════════════════════════════════╣
 ║ DRONES                                                       ║
-║ D_1      convergence [WAIT]                                 ║
-║ D_2      priority_bypass2 [WAIT]                            ║
-║ D_3      priority_bypass1 [WAIT]                            ║
-║ D_4      waiting_area3 [WAIT]                               ║
-║ D_5      waiting_area2 [WAIT]                               ║
-║ D_6      waiting_area1 [WAIT]                               ║
-║ D_7      gate3 [WAIT]                                       ║
-║ D_8      gate2 [WAIT]                                       ║
-║ D_9      gate1 [WAIT]                                       ║
-║ D_10     D_10 WAIT                                          ║
-║ D_11     D_11 WAIT                                          ║
-║ D_12     D_12 WAIT                                          ║
+║ D_1      convergence -> final_bottleneck                    ║
+║ D_2      priority_bypass2 -> convergence                    ║
+║ D_3      priority_bypass1 -> priority_bypass2               ║
+║ D_4      waiting_area3 -> convergence                       ║
+║ D_5      waiting_area2 -> priority_bypass2                  ║
+║ D_6      waiting_area1 -> priority_bypass1                  ║
+║ D_7      gate3 -> waiting_area3                             ║
+║ D_8      gate2 -> waiting_area2                             ║
+║ D_9      gate1 -> waiting_area1                             ║
+║ D_10     start -> gate3                                     ║
+║ D_11     start -> gate2                                     ║
+║ D_12     start -> gate1                                     ║
 ╚══════════════════════════════════════════════════════════════╝
 
 ╔══════════════════════════════════════════════════════════════╗
 ║ TURN 4                                                      ║
 ╠══════════════════════════════════════════════════════════════╣
 ║ DRONES                                                       ║
-║ D_1      final_bottleneck [WAIT]                            ║
-║ D_2      convergence [WAIT]                                 ║
-║ D_3      priority_bypass2 [WAIT]                            ║
-║ D_4      convergence [WAIT]                                 ║
-║ D_5      priority_bypass2 [WAIT]                            ║
-║ D_6      priority_bypass1 [WAIT]                            ║
-║ D_7      waiting_area3 [WAIT]                               ║
-║ D_8      waiting_area2 [WAIT]                               ║
-║ D_9      waiting_area1 [WAIT]                               ║
-║ D_10     gate3 [WAIT]                                       ║
-║ D_11     gate2 [WAIT]                                       ║
-║ D_12     gate1 [WAIT]                                       ║
+║ D_1      final_bottleneck -> goal                           ║
+║ D_2      convergence -> final_bottleneck                    ║
+║ D_3      priority_bypass2 -> convergence                    ║
+║ D_4      convergence -> final_bottleneck                    ║
+║ D_5      priority_bypass2 -> convergence                    ║
+║ D_6      priority_bypass1 -> priority_bypass2               ║
+║ D_7      waiting_area3 -> convergence                       ║
+║ D_8      waiting_area2 -> priority_bypass2                  ║
+║ D_9      waiting_area1 -> priority_bypass1                  ║
+║ D_10     gate3 -> waiting_area3                             ║
+║ D_11     gate2 -> waiting_area2                             ║
+║ D_12     gate1 -> waiting_area1                             ║
 ╚══════════════════════════════════════════════════════════════╝
 
 ╔══════════════════════════════════════════════════════════════╗
 ║ TURN 5                                                      ║
 ╠══════════════════════════════════════════════════════════════╣
 ║ DRONES                                                       ║
-║ D_1      goal [WAIT]                                        ║
-║ D_2      final_bottleneck [WAIT]                            ║
-║ D_3      convergence [WAIT]                                 ║
+║ D_1      DELIVERED                                          ║
+║ D_2      final_bottleneck -> goal                           ║
+║ D_3      convergence -> final_bottleneck                    ║
 ║ D_4      final_bottleneck [WAIT]                            ║
-║ D_5      convergence [WAIT]                                 ║
-║ D_6      priority_bypass2 [WAIT]                            ║
+║ D_5      convergence -> final_bottleneck                    ║
+║ D_6      priority_bypass2 -> convergence                    ║
 ║ D_7      convergence [WAIT]                                 ║
-║ D_8      priority_bypass2 [WAIT]                            ║
-║ D_9      priority_bypass1 [WAIT]                            ║
-║ D_10     waiting_area3 [WAIT]                               ║
-║ D_11     waiting_area2 [WAIT]                               ║
-║ D_12     waiting_area1 [WAIT]                               ║
+║ D_8      priority_bypass2 -> convergence                    ║
+║ D_9      priority_bypass1 -> priority_bypass2               ║
+║ D_10     waiting_area3 -> convergence                       ║
+║ D_11     waiting_area2 -> priority_bypass2                  ║
+║ D_12     waiting_area1 -> priority_bypass1                  ║
 ╚══════════════════════════════════════════════════════════════╝
 
 ╔══════════════════════════════════════════════════════════════╗
@@ -94,17 +112,17 @@
 ╠══════════════════════════════════════════════════════════════╣
 ║ DRONES                                                       ║
 ║ D_1      DELIVERED                                          ║
-║ D_2      goal [WAIT]                                        ║
-║ D_3      final_bottleneck [WAIT]                            ║
-║ D_4      D_4 WAIT                                           ║
+║ D_2      DELIVERED                                          ║
+║ D_3      final_bottleneck -> goal                           ║
+║ D_4      final_bottleneck [WAIT]                            ║
 ║ D_5      final_bottleneck [WAIT]                            ║
-║ D_6      convergence [WAIT]                                 ║
-║ D_7      D_7 WAIT                                           ║
+║ D_6      convergence -> final_bottleneck                    ║
+║ D_7      convergence [WAIT]                                 ║
 ║ D_8      convergence [WAIT]                                 ║
-║ D_9      priority_bypass2 [WAIT]                            ║
+║ D_9      priority_bypass2 -> convergence                    ║
 ║ D_10     convergence [WAIT]                                 ║
-║ D_11     priority_bypass2 [WAIT]                            ║
-║ D_12     priority_bypass1 [WAIT]                            ║
+║ D_11     priority_bypass2 -> convergence                    ║
+║ D_12     priority_bypass1 -> priority_bypass2               ║
 ╚══════════════════════════════════════════════════════════════╝
 
 ╔══════════════════════════════════════════════════════════════╗
@@ -113,16 +131,16 @@
 ║ DRONES                                                       ║
 ║ D_1      DELIVERED                                          ║
 ║ D_2      DELIVERED                                          ║
-║ D_3      goal [WAIT]                                        ║
-║ D_4      D_4 WAIT                                           ║
-║ D_5      D_5 WAIT                                           ║
+║ D_3      DELIVERED                                          ║
+║ D_4      final_bottleneck -> goal                           ║
+║ D_5      final_bottleneck [WAIT]                            ║
 ║ D_6      final_bottleneck [WAIT]                            ║
-║ D_7      D_7 WAIT                                           ║
-║ D_8      D_8 WAIT                                           ║
+║ D_7      convergence -> final_bottleneck                    ║
+║ D_8      convergence [WAIT]                                 ║
 ║ D_9      convergence [WAIT]                                 ║
-║ D_10     D_10 WAIT                                          ║
+║ D_10     convergence [WAIT]                                 ║
 ║ D_11     convergence [WAIT]                                 ║
-║ D_12     priority_bypass2 [WAIT]                            ║
+║ D_12     priority_bypass2 -> convergence                    ║
 ╚══════════════════════════════════════════════════════════════╝
 
 ╔══════════════════════════════════════════════════════════════╗
@@ -132,14 +150,14 @@
 ║ D_1      DELIVERED                                          ║
 ║ D_2      DELIVERED                                          ║
 ║ D_3      DELIVERED                                          ║
-║ D_4      goal [WAIT]                                        ║
-║ D_5      D_5 WAIT                                           ║
-║ D_6      D_6 WAIT                                           ║
+║ D_4      DELIVERED                                          ║
+║ D_5      final_bottleneck -> goal                           ║
+║ D_6      final_bottleneck [WAIT]                            ║
 ║ D_7      final_bottleneck [WAIT]                            ║
-║ D_8      D_8 WAIT                                           ║
-║ D_9      D_9 WAIT                                           ║
-║ D_10     D_10 WAIT                                          ║
-║ D_11     D_11 WAIT                                          ║
+║ D_8      convergence -> final_bottleneck                    ║
+║ D_9      convergence [WAIT]                                 ║
+║ D_10     convergence [WAIT]                                 ║
+║ D_11     convergence [WAIT]                                 ║
 ║ D_12     convergence [WAIT]                                 ║
 ╚══════════════════════════════════════════════════════════════╝
 
@@ -151,14 +169,14 @@
 ║ D_2      DELIVERED                                          ║
 ║ D_3      DELIVERED                                          ║
 ║ D_4      DELIVERED                                          ║
-║ D_5      goal [WAIT]                                        ║
-║ D_6      D_6 WAIT                                           ║
-║ D_7      D_7 WAIT                                           ║
+║ D_5      DELIVERED                                          ║
+║ D_6      final_bottleneck -> goal                           ║
+║ D_7      final_bottleneck [WAIT]                            ║
 ║ D_8      final_bottleneck [WAIT]                            ║
-║ D_9      D_9 WAIT                                           ║
-║ D_10     D_10 WAIT                                          ║
-║ D_11     D_11 WAIT                                          ║
-║ D_12     D_12 WAIT                                          ║
+║ D_9      convergence -> final_bottleneck                    ║
+║ D_10     convergence [WAIT]                                 ║
+║ D_11     convergence [WAIT]                                 ║
+║ D_12     convergence [WAIT]                                 ║
 ╚══════════════════════════════════════════════════════════════╝
 
 ╔══════════════════════════════════════════════════════════════╗
@@ -170,13 +188,13 @@
 ║ D_3      DELIVERED                                          ║
 ║ D_4      DELIVERED                                          ║
 ║ D_5      DELIVERED                                          ║
-║ D_6      goal [WAIT]                                        ║
-║ D_7      D_7 WAIT                                           ║
-║ D_8      D_8 WAIT                                           ║
+║ D_6      DELIVERED                                          ║
+║ D_7      final_bottleneck -> goal                           ║
+║ D_8      final_bottleneck [WAIT]                            ║
 ║ D_9      final_bottleneck [WAIT]                            ║
-║ D_10     D_10 WAIT                                          ║
-║ D_11     D_11 WAIT                                          ║
-║ D_12     D_12 WAIT                                          ║
+║ D_10     convergence -> final_bottleneck                    ║
+║ D_11     convergence [WAIT]                                 ║
+║ D_12     convergence [WAIT]                                 ║
 ╚══════════════════════════════════════════════════════════════╝
 
 ╔══════════════════════════════════════════════════════════════╗
@@ -189,12 +207,12 @@
 ║ D_4      DELIVERED                                          ║
 ║ D_5      DELIVERED                                          ║
 ║ D_6      DELIVERED                                          ║
-║ D_7      goal [WAIT]                                        ║
-║ D_8      D_8 WAIT                                           ║
-║ D_9      D_9 WAIT                                           ║
+║ D_7      DELIVERED                                          ║
+║ D_8      final_bottleneck -> goal                           ║
+║ D_9      final_bottleneck [WAIT]                            ║
 ║ D_10     final_bottleneck [WAIT]                            ║
-║ D_11     D_11 WAIT                                          ║
-║ D_12     D_12 WAIT                                          ║
+║ D_11     convergence -> final_bottleneck                    ║
+║ D_12     convergence [WAIT]                                 ║
 ╚══════════════════════════════════════════════════════════════╝
 
 ╔══════════════════════════════════════════════════════════════╗
@@ -208,11 +226,11 @@
 ║ D_5      DELIVERED                                          ║
 ║ D_6      DELIVERED                                          ║
 ║ D_7      DELIVERED                                          ║
-║ D_8      goal [WAIT]                                        ║
-║ D_9      D_9 WAIT                                           ║
-║ D_10     D_10 WAIT                                          ║
+║ D_8      DELIVERED                                          ║
+║ D_9      final_bottleneck -> goal                           ║
+║ D_10     final_bottleneck [WAIT]                            ║
 ║ D_11     final_bottleneck [WAIT]                            ║
-║ D_12     D_12 WAIT                                          ║
+║ D_12     convergence -> final_bottleneck                    ║
 ╚══════════════════════════════════════════════════════════════╝
 
 ╔══════════════════════════════════════════════════════════════╗
@@ -227,9 +245,9 @@
 ║ D_6      DELIVERED                                          ║
 ║ D_7      DELIVERED                                          ║
 ║ D_8      DELIVERED                                          ║
-║ D_9      goal [WAIT]                                        ║
-║ D_10     D_10 WAIT                                          ║
-║ D_11     D_11 WAIT                                          ║
+║ D_9      DELIVERED                                          ║
+║ D_10     final_bottleneck -> goal                           ║
+║ D_11     final_bottleneck [WAIT]                            ║
 ║ D_12     final_bottleneck [WAIT]                            ║
 ╚══════════════════════════════════════════════════════════════╝
 
@@ -246,9 +264,9 @@
 ║ D_7      DELIVERED                                          ║
 ║ D_8      DELIVERED                                          ║
 ║ D_9      DELIVERED                                          ║
-║ D_10     goal [WAIT]                                        ║
-║ D_11     D_11 WAIT                                          ║
-║ D_12     D_12 WAIT                                          ║
+║ D_10     DELIVERED                                          ║
+║ D_11     final_bottleneck -> goal                           ║
+║ D_12     final_bottleneck [WAIT]                            ║
 ╚══════════════════════════════════════════════════════════════╝
 
 ╔══════════════════════════════════════════════════════════════╗
@@ -265,42 +283,6 @@
 ║ D_8      DELIVERED                                          ║
 ║ D_9      DELIVERED                                          ║
 ║ D_10     DELIVERED                                          ║
-║ D_11     goal [WAIT]                                        ║
-║ D_12     D_12 WAIT                                          ║
-╚══════════════════════════════════════════════════════════════╝
-
-╔══════════════════════════════════════════════════════════════╗
-║ TURN 16                                                     ║
-╠══════════════════════════════════════════════════════════════╣
-║ DRONES                                                       ║
-║ D_1      DELIVERED                                          ║
-║ D_2      DELIVERED                                          ║
-║ D_3      DELIVERED                                          ║
-║ D_4      DELIVERED                                          ║
-║ D_5      DELIVERED                                          ║
-║ D_6      DELIVERED                                          ║
-║ D_7      DELIVERED                                          ║
-║ D_8      DELIVERED                                          ║
-║ D_9      DELIVERED                                          ║
-║ D_10     DELIVERED                                          ║
 ║ D_11     DELIVERED                                          ║
-║ D_12     goal [WAIT]                                        ║
-╚══════════════════════════════════════════════════════════════╝
-
-╔══════════════════════════════════════════════════════════════╗
-║ TURN 17                                                     ║
-╠══════════════════════════════════════════════════════════════╣
-║ DRONES                                                       ║
-║ D_1      DELIVERED                                          ║
-║ D_2      DELIVERED                                          ║
-║ D_3      DELIVERED                                          ║
-║ D_4      DELIVERED                                          ║
-║ D_5      DELIVERED                                          ║
-║ D_6      DELIVERED                                          ║
-║ D_7      DELIVERED                                          ║
-║ D_8      DELIVERED                                          ║
-║ D_9      DELIVERED                                          ║
-║ D_10     DELIVERED                                          ║
-║ D_11     DELIVERED                                          ║
-║ D_12     DELIVERED                                          ║
+║ D_12     final_bottleneck -> goal                           ║
 ╚══════════════════════════════════════════════════════════════╝
