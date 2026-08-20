@@ -18,6 +18,7 @@ class Drone:
         self.destination: Hub | None = None
         self.in_transit = False
         self.transit_cost = 0
+        self.transit_turns = 0
         self.traveled_path: list[Hub] = []
         if current_zone is not None:
             self.traveled_path.append(current_zone)
@@ -31,6 +32,7 @@ class Drone:
     ) -> None:
         self.in_transit = True
         self.transit_cost = cost
+        self.transit_turns = 0
         self.previous_zone = self.current_zone
         self.destination = destination
         self.current_zone = destination
@@ -43,6 +45,7 @@ class Drone:
     ) -> None:
         self.in_transit = False
         self.transit_cost = 0
+        self.transit_turns = 0
         self.destination = None
         self.moving_connection = None
         self.traveled_path.append(zone)

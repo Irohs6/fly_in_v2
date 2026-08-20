@@ -1,5 +1,5 @@
 # Medium Level 0: 42 Spaghetti Incident
-nb_drones: 42
+nb_drones: 200
 
 start_hub: start 0 0 [color=magenta capacity=42]
 hub: here_we_go_again 1 0 [color=lightbrown capacity=6]

@@ -34,6 +34,9 @@ class Hub:
             raise HubError("Cannot remove more drones than currently present")
         self.nb_drone -= 1
 
+    def is_available(self) -> bool:
+        return self.nb_drone < self.capacity
+
     def move_cost(self) -> float:
         """Calculate the cost of moving to this hub based on its zone type."""
         if self.zone_type == "restricted":

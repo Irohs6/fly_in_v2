@@ -1,6 +1,6 @@
 
 ╔══════════════════════════════════════════════════════════════╗
-║ TURN 0                                                      ║
+║ TURN 1                                                      ║
 ╠══════════════════════════════════════════════════════════════╣
 ║ DRONES                                                       ║
 ║ D_1      start -> here_we_go_again                          ║
@@ -48,7 +48,7 @@
 ╚══════════════════════════════════════════════════════════════╝
 
 ╔══════════════════════════════════════════════════════════════╗
-║ TURN 1                                                      ║
+║ TURN 2                                                      ║
 ╠══════════════════════════════════════════════════════════════╣
 ║ DRONES                                                       ║
 ║ D_1      here_we_go_again -> restricted [TRANSIT]           ║
@@ -96,7 +96,7 @@
 ╚══════════════════════════════════════════════════════════════╝
 
 ╔══════════════════════════════════════════════════════════════╗
-║ TURN 2                                                      ║
+║ TURN 3                                                      ║
 ╠══════════════════════════════════════════════════════════════╣
 ║ DRONES                                                       ║
 ║ D_1      here_we_go_again -> restricted                     ║
@@ -144,7 +144,7 @@
 ╚══════════════════════════════════════════════════════════════╝
 
 ╔══════════════════════════════════════════════════════════════╗
-║ TURN 3                                                      ║
+║ TURN 4                                                      ║
 ╠══════════════════════════════════════════════════════════════╣
 ║ DRONES                                                       ║
 ║ D_1      restricted -> the_gathering                        ║
@@ -155,11 +155,11 @@
 ║ D_6      normal_road_north [WAIT]                           ║
 ║ D_7      long_way_home -> highway_to_hell                   ║
 ║ D_8      long_way_home -> highway_to_hell                   ║
-║ D_9      here_we_go_again -> restricted [TRANSIT]           ║
-║ D_10     here_we_go_again -> restricted [TRANSIT]           ║
-║ D_11     here_we_go_again -> normal_road_south              ║
-║ D_12     here_we_go_again -> long_way_home                  ║
-║ D_13     here_we_go_again -> long_way_home                  ║
+║ D_9      here_we_go_again -> long_way_home                  ║
+║ D_10     here_we_go_again -> long_way_home                  ║
+║ D_11     here_we_go_again -> restricted [TRANSIT]           ║
+║ D_12     here_we_go_again -> restricted [TRANSIT]           ║
+║ D_13     here_we_go_again -> normal_road_south              ║
 ║ D_14     here_we_go_again [WAIT]                            ║
 ║ D_15     start -> here_we_go_again                          ║
 ║ D_16     start -> here_we_go_again                          ║
@@ -192,7 +192,7 @@
 ╚══════════════════════════════════════════════════════════════╝
 
 ╔══════════════════════════════════════════════════════════════╗
-║ TURN 4                                                      ║
+║ TURN 5                                                      ║
 ╠══════════════════════════════════════════════════════════════╣
 ║ DRONES                                                       ║
 ║ D_1      the_gathering -> pleasant_walk                     ║
@@ -203,13 +203,13 @@
 ║ D_6      normal_road_north -> normal_road_join              ║
 ║ D_7      highway_to_hell -> telegraph_road                  ║
 ║ D_8      highway_to_hell [WAIT]                             ║
-║ D_9      here_we_go_again -> restricted                     ║
-║ D_10     here_we_go_again -> restricted                     ║
-║ D_11     normal_road_south [WAIT]                           ║
-║ D_12     long_way_home -> highway_to_hell                   ║
-║ D_13     long_way_home [WAIT]                               ║
-║ D_14     here_we_go_again -> normal_road_north              ║
-║ D_15     here_we_go_again -> long_way_home                  ║
+║ D_9      long_way_home -> highway_to_hell                   ║
+║ D_10     long_way_home [WAIT]                               ║
+║ D_11     here_we_go_again -> restricted                     ║
+║ D_12     here_we_go_again -> restricted                     ║
+║ D_13     normal_road_south [WAIT]                           ║
+║ D_14     here_we_go_again -> long_way_home                  ║
+║ D_15     here_we_go_again -> normal_road_north              ║
 ║ D_16     here_we_go_again -> long_way_home                  ║
 ║ D_17     here_we_go_again [WAIT]                            ║
 ║ D_18     here_we_go_again [WAIT]                            ║
@@ -240,7 +240,7 @@
 ╚══════════════════════════════════════════════════════════════╝
 
 ╔══════════════════════════════════════════════════════════════╗
-║ TURN 5                                                      ║
+║ TURN 6                                                      ║
 ╠══════════════════════════════════════════════════════════════╣
 ║ DRONES                                                       ║
 ║ D_1      pleasant_walk -> choose_wisely                     ║
@@ -251,18 +251,18 @@
 ║ D_6      normal_road_join -> the_gathering                  ║
 ║ D_7      telegraph_road -> the_gathering                    ║
 ║ D_8      highway_to_hell -> telegraph_road                  ║
-║ D_9      restricted -> the_gathering                        ║
-║ D_10     restricted -> the_gathering                        ║
-║ D_11     normal_road_south -> normal_road_join              ║
-║ D_12     highway_to_hell [WAIT]                             ║
-║ D_13     long_way_home -> highway_to_hell                   ║
-║ D_14     normal_road_north [WAIT]                           ║
-║ D_15     long_way_home [WAIT]                               ║
+║ D_9      highway_to_hell [WAIT]                             ║
+║ D_10     long_way_home -> highway_to_hell                   ║
+║ D_11     restricted -> the_gathering                        ║
+║ D_12     restricted -> the_gathering                        ║
+║ D_13     normal_road_south -> normal_road_join              ║
+║ D_14     long_way_home [WAIT]                               ║
+║ D_15     normal_road_north [WAIT]                           ║
 ║ D_16     long_way_home [WAIT]                               ║
-║ D_17     here_we_go_again -> restricted [TRANSIT]           ║
+║ D_17     here_we_go_again -> long_way_home                  ║
 ║ D_18     here_we_go_again -> restricted [TRANSIT]           ║
-║ D_19     here_we_go_again -> normal_road_south              ║
-║ D_20     here_we_go_again -> long_way_home                  ║
+║ D_19     here_we_go_again -> restricted [TRANSIT]           ║
+║ D_20     here_we_go_again -> normal_road_south              ║
 ║ D_21     here_we_go_again [WAIT]                            ║
 ║ D_22     here_we_go_again [WAIT]                            ║
 ║ D_23     start -> here_we_go_again                          ║
@@ -288,7 +288,7 @@
 ╚══════════════════════════════════════════════════════════════╝
 
 ╔══════════════════════════════════════════════════════════════╗
-║ TURN 6                                                      ║
+║ TURN 7                                                      ║
 ╠══════════════════════════════════════════════════════════════╣
 ║ DRONES                                                       ║
 ║ D_1      choose_wisely -> should_be_fast                    ║
@@ -299,20 +299,20 @@
 ║ D_6      the_gathering -> pleasant_walk                     ║
 ║ D_7      the_gathering -> pleasant_walk                     ║
 ║ D_8      telegraph_road -> the_gathering                    ║
-║ D_9      the_gathering -> pleasant_walk                     ║
-║ D_10     the_gathering -> pleasant_walk                     ║
-║ D_11     normal_road_join -> the_gathering                  ║
-║ D_12     highway_to_hell -> telegraph_road                  ║
-║ D_13     highway_to_hell [WAIT]                             ║
-║ D_14     normal_road_north -> normal_road_join              ║
-║ D_15     long_way_home -> highway_to_hell                   ║
+║ D_9      highway_to_hell -> telegraph_road                  ║
+║ D_10     highway_to_hell [WAIT]                             ║
+║ D_11     the_gathering -> pleasant_walk                     ║
+║ D_12     the_gathering -> pleasant_walk                     ║
+║ D_13     normal_road_join -> the_gathering                  ║
+║ D_14     long_way_home -> highway_to_hell                   ║
+║ D_15     normal_road_north -> normal_road_join              ║
 ║ D_16     long_way_home [WAIT]                               ║
-║ D_17     here_we_go_again -> restricted                     ║
+║ D_17     long_way_home [WAIT]                               ║
 ║ D_18     here_we_go_again -> restricted                     ║
-║ D_19     normal_road_south [WAIT]                           ║
-║ D_20     long_way_home [WAIT]                               ║
-║ D_21     here_we_go_again -> normal_road_north              ║
-║ D_22     here_we_go_again -> long_way_home                  ║
+║ D_19     here_we_go_again -> restricted                     ║
+║ D_20     normal_road_south [WAIT]                           ║
+║ D_21     here_we_go_again -> long_way_home                  ║
+║ D_22     here_we_go_again -> normal_road_north              ║
 ║ D_23     here_we_go_again [WAIT]                            ║
 ║ D_24     here_we_go_again [WAIT]                            ║
 ║ D_25     here_we_go_again [WAIT]                            ║
@@ -336,7 +336,7 @@
 ╚══════════════════════════════════════════════════════════════╝
 
 ╔══════════════════════════════════════════════════════════════╗
-║ TURN 7                                                      ║
+║ TURN 8                                                      ║
 ╠══════════════════════════════════════════════════════════════╣
 ║ DRONES                                                       ║
 ║ D_1      should_be_fast -> maybe_not [TRANSIT]              ║
@@ -347,24 +347,24 @@
 ║ D_6      pleasant_walk -> choose_wisely                     ║
 ║ D_7      pleasant_walk -> choose_wisely                     ║
 ║ D_8      the_gathering -> pleasant_walk                     ║
-║ D_9      pleasant_walk -> choose_wisely                     ║
-║ D_10     pleasant_walk -> choose_wisely                     ║
-║ D_11     the_gathering -> pleasant_walk                     ║
-║ D_12     telegraph_road -> the_gathering                    ║
-║ D_13     highway_to_hell -> telegraph_road                  ║
-║ D_14     normal_road_join -> the_gathering                  ║
-║ D_15     highway_to_hell [WAIT]                             ║
+║ D_9      telegraph_road -> the_gathering                    ║
+║ D_10     highway_to_hell -> telegraph_road                  ║
+║ D_11     pleasant_walk -> choose_wisely                     ║
+║ D_12     pleasant_walk -> choose_wisely                     ║
+║ D_13     the_gathering -> pleasant_walk                     ║
+║ D_14     highway_to_hell [WAIT]                             ║
+║ D_15     normal_road_join -> the_gathering                  ║
 ║ D_16     long_way_home -> highway_to_hell                   ║
-║ D_17     restricted -> the_gathering                        ║
+║ D_17     long_way_home [WAIT]                               ║
 ║ D_18     restricted -> the_gathering                        ║
-║ D_19     normal_road_south -> normal_road_join              ║
-║ D_20     long_way_home [WAIT]                               ║
-║ D_21     normal_road_north [WAIT]                           ║
-║ D_22     long_way_home [WAIT]                               ║
-║ D_23     here_we_go_again -> restricted [TRANSIT]           ║
+║ D_19     restricted -> the_gathering                        ║
+║ D_20     normal_road_south -> normal_road_join              ║
+║ D_21     long_way_home [WAIT]                               ║
+║ D_22     normal_road_north [WAIT]                           ║
+║ D_23     here_we_go_again -> long_way_home                  ║
 ║ D_24     here_we_go_again -> restricted [TRANSIT]           ║
-║ D_25     here_we_go_again -> normal_road_south              ║
-║ D_26     here_we_go_again -> long_way_home                  ║
+║ D_25     here_we_go_again -> restricted [TRANSIT]           ║
+║ D_26     here_we_go_again -> normal_road_south              ║
 ║ D_27     here_we_go_again [WAIT]                            ║
 ║ D_28     here_we_go_again [WAIT]                            ║
 ║ D_29     start -> here_we_go_again                          ║
@@ -384,7 +384,7 @@
 ╚══════════════════════════════════════════════════════════════╝
 
 ╔══════════════════════════════════════════════════════════════╗
-║ TURN 8                                                      ║
+║ TURN 9                                                      ║
 ╠══════════════════════════════════════════════════════════════╣
 ║ DRONES                                                       ║
 ║ D_1      should_be_fast -> maybe_not                        ║
@@ -395,26 +395,26 @@
 ║ D_6      choose_wisely -> should_be_fast                    ║
 ║ D_7      choose_wisely -> should_be_fast                    ║
 ║ D_8      pleasant_walk -> choose_wisely                     ║
-║ D_9      choose_wisely -> keep_calm                         ║
-║ D_10     choose_wisely -> keep_calm                         ║
-║ D_11     pleasant_walk -> choose_wisely                     ║
-║ D_12     the_gathering -> pleasant_walk                     ║
-║ D_13     telegraph_road -> the_gathering                    ║
-║ D_14     the_gathering -> pleasant_walk                     ║
-║ D_15     highway_to_hell -> telegraph_road                  ║
+║ D_9      the_gathering -> pleasant_walk                     ║
+║ D_10     telegraph_road -> the_gathering                    ║
+║ D_11     choose_wisely -> keep_calm                         ║
+║ D_12     choose_wisely -> keep_calm                         ║
+║ D_13     pleasant_walk -> choose_wisely                     ║
+║ D_14     highway_to_hell -> telegraph_road                  ║
+║ D_15     the_gathering -> pleasant_walk                     ║
 ║ D_16     highway_to_hell [WAIT]                             ║
-║ D_17     the_gathering -> pleasant_walk                     ║
+║ D_17     long_way_home -> highway_to_hell                   ║
 ║ D_18     the_gathering -> pleasant_walk                     ║
-║ D_19     normal_road_join -> the_gathering                  ║
-║ D_20     long_way_home -> highway_to_hell                   ║
-║ D_21     normal_road_north -> normal_road_join              ║
-║ D_22     long_way_home [WAIT]                               ║
-║ D_23     here_we_go_again -> restricted                     ║
+║ D_19     the_gathering -> pleasant_walk                     ║
+║ D_20     normal_road_join -> the_gathering                  ║
+║ D_21     long_way_home [WAIT]                               ║
+║ D_22     normal_road_north -> normal_road_join              ║
+║ D_23     long_way_home [WAIT]                               ║
 ║ D_24     here_we_go_again -> restricted                     ║
-║ D_25     normal_road_south [WAIT]                           ║
-║ D_26     long_way_home [WAIT]                               ║
-║ D_27     here_we_go_again -> normal_road_north              ║
-║ D_28     here_we_go_again -> long_way_home                  ║
+║ D_25     here_we_go_again -> restricted                     ║
+║ D_26     normal_road_south [WAIT]                           ║
+║ D_27     here_we_go_again -> long_way_home                  ║
+║ D_28     here_we_go_again -> normal_road_north              ║
 ║ D_29     here_we_go_again [WAIT]                            ║
 ║ D_30     here_we_go_again [WAIT]                            ║
 ║ D_31     here_we_go_again [WAIT]                            ║
@@ -432,7 +432,7 @@
 ╚══════════════════════════════════════════════════════════════╝
 
 ╔══════════════════════════════════════════════════════════════╗
-║ TURN 9                                                      ║
+║ TURN 10                                                     ║
 ╠══════════════════════════════════════════════════════════════╣
 ║ DRONES                                                       ║
 ║ D_1      maybe_not -> false_good_idea [TRANSIT]             ║
@@ -443,30 +443,30 @@
 ║ D_6      should_be_fast [WAIT]                              ║
 ║ D_7      should_be_fast [WAIT]                              ║
 ║ D_8      choose_wisely -> should_be_fast                    ║
-║ D_9      keep_calm -> have_a_quantum                        ║
-║ D_10     keep_calm -> have_a_quantum                        ║
-║ D_11     choose_wisely -> keep_calm                         ║
-║ D_12     pleasant_walk -> choose_wisely                     ║
-║ D_13     the_gathering -> pleasant_walk                     ║
-║ D_14     pleasant_walk -> choose_wisely                     ║
-║ D_15     telegraph_road -> the_gathering                    ║
+║ D_9      pleasant_walk -> choose_wisely                     ║
+║ D_10     the_gathering -> pleasant_walk                     ║
+║ D_11     keep_calm -> have_a_quantum                        ║
+║ D_12     keep_calm -> have_a_quantum                        ║
+║ D_13     choose_wisely -> keep_calm                         ║
+║ D_14     telegraph_road -> the_gathering                    ║
+║ D_15     pleasant_walk -> choose_wisely                     ║
 ║ D_16     highway_to_hell -> telegraph_road                  ║
-║ D_17     pleasant_walk -> choose_wisely                     ║
+║ D_17     highway_to_hell [WAIT]                             ║
 ║ D_18     pleasant_walk -> choose_wisely                     ║
-║ D_19     the_gathering -> pleasant_walk                     ║
-║ D_20     highway_to_hell [WAIT]                             ║
-║ D_21     normal_road_join -> the_gathering                  ║
-║ D_22     long_way_home -> highway_to_hell                   ║
-║ D_23     restricted -> the_gathering                        ║
+║ D_19     pleasant_walk -> choose_wisely                     ║
+║ D_20     the_gathering -> pleasant_walk                     ║
+║ D_21     long_way_home -> highway_to_hell                   ║
+║ D_22     normal_road_join -> the_gathering                  ║
+║ D_23     long_way_home [WAIT]                               ║
 ║ D_24     restricted -> the_gathering                        ║
-║ D_25     normal_road_south -> normal_road_join              ║
-║ D_26     long_way_home [WAIT]                               ║
-║ D_27     normal_road_north [WAIT]                           ║
-║ D_28     long_way_home [WAIT]                               ║
-║ D_29     here_we_go_again -> restricted [TRANSIT]           ║
+║ D_25     restricted -> the_gathering                        ║
+║ D_26     normal_road_south -> normal_road_join              ║
+║ D_27     long_way_home [WAIT]                               ║
+║ D_28     normal_road_north [WAIT]                           ║
+║ D_29     here_we_go_again -> long_way_home                  ║
 ║ D_30     here_we_go_again -> restricted [TRANSIT]           ║
-║ D_31     here_we_go_again -> normal_road_south              ║
-║ D_32     here_we_go_again -> long_way_home                  ║
+║ D_31     here_we_go_again -> restricted [TRANSIT]           ║
+║ D_32     here_we_go_again -> normal_road_south              ║
 ║ D_33     here_we_go_again [WAIT]                            ║
 ║ D_34     here_we_go_again [WAIT]                            ║
 ║ D_35     start -> here_we_go_again                          ║
@@ -480,7 +480,7 @@
 ╚══════════════════════════════════════════════════════════════╝
 
 ╔══════════════════════════════════════════════════════════════╗
-║ TURN 10                                                     ║
+║ TURN 11                                                     ║
 ╠══════════════════════════════════════════════════════════════╣
 ║ DRONES                                                       ║
 ║ D_1      maybe_not -> false_good_idea                       ║
@@ -491,32 +491,32 @@
 ║ D_6      should_be_fast [WAIT]                              ║
 ║ D_7      should_be_fast [WAIT]                              ║
 ║ D_8      should_be_fast [WAIT]                              ║
-║ D_9      have_a_quantum -> where_are_we_going               ║
-║ D_10     have_a_quantum -> where_are_we_going               ║
-║ D_11     keep_calm -> have_a_quantum                        ║
-║ D_12     choose_wisely -> keep_calm                         ║
-║ D_13     pleasant_walk -> choose_wisely                     ║
-║ D_14     choose_wisely -> keep_calm                         ║
-║ D_15     the_gathering -> pleasant_walk                     ║
+║ D_9      choose_wisely -> keep_calm                         ║
+║ D_10     pleasant_walk -> choose_wisely                     ║
+║ D_11     have_a_quantum -> where_are_we_going               ║
+║ D_12     have_a_quantum -> where_are_we_going               ║
+║ D_13     keep_calm -> have_a_quantum                        ║
+║ D_14     the_gathering -> pleasant_walk                     ║
+║ D_15     choose_wisely -> keep_calm                         ║
 ║ D_16     telegraph_road -> the_gathering                    ║
-║ D_17     choose_wisely -> keep_calm                         ║
+║ D_17     highway_to_hell -> telegraph_road                  ║
 ║ D_18     choose_wisely -> keep_calm                         ║
-║ D_19     pleasant_walk -> choose_wisely                     ║
-║ D_20     highway_to_hell -> telegraph_road                  ║
-║ D_21     the_gathering -> pleasant_walk                     ║
-║ D_22     highway_to_hell [WAIT]                             ║
-║ D_23     the_gathering -> pleasant_walk                     ║
+║ D_19     choose_wisely -> keep_calm                         ║
+║ D_20     pleasant_walk -> choose_wisely                     ║
+║ D_21     highway_to_hell [WAIT]                             ║
+║ D_22     the_gathering -> pleasant_walk                     ║
+║ D_23     long_way_home -> highway_to_hell                   ║
 ║ D_24     the_gathering -> pleasant_walk                     ║
-║ D_25     normal_road_join -> the_gathering                  ║
-║ D_26     long_way_home -> highway_to_hell                   ║
-║ D_27     normal_road_north -> normal_road_join              ║
-║ D_28     long_way_home [WAIT]                               ║
-║ D_29     here_we_go_again -> restricted                     ║
+║ D_25     the_gathering -> pleasant_walk                     ║
+║ D_26     normal_road_join -> the_gathering                  ║
+║ D_27     long_way_home [WAIT]                               ║
+║ D_28     normal_road_north -> normal_road_join              ║
+║ D_29     long_way_home [WAIT]                               ║
 ║ D_30     here_we_go_again -> restricted                     ║
-║ D_31     normal_road_south [WAIT]                           ║
-║ D_32     long_way_home [WAIT]                               ║
-║ D_33     here_we_go_again -> normal_road_north              ║
-║ D_34     here_we_go_again -> long_way_home                  ║
+║ D_31     here_we_go_again -> restricted                     ║
+║ D_32     normal_road_south [WAIT]                           ║
+║ D_33     here_we_go_again -> long_way_home                  ║
+║ D_34     here_we_go_again -> normal_road_north              ║
 ║ D_35     here_we_go_again [WAIT]                            ║
 ║ D_36     here_we_go_again [WAIT]                            ║
 ║ D_37     here_we_go_again [WAIT]                            ║
@@ -528,7 +528,7 @@
 ╚══════════════════════════════════════════════════════════════╝
 
 ╔══════════════════════════════════════════════════════════════╗
-║ TURN 11                                                     ║
+║ TURN 12                                                     ║
 ╠══════════════════════════════════════════════════════════════╣
 ║ DRONES                                                       ║
 ║ D_1      false_good_idea -> collapsed_north [TRANSIT]       ║
@@ -539,36 +539,36 @@
 ║ D_6      should_be_fast [WAIT]                              ║
 ║ D_7      should_be_fast [WAIT]                              ║
 ║ D_8      should_be_fast [WAIT]                              ║
-║ D_9      where_are_we_going -> I_think_we_re_lost           ║
-║ D_10     where_are_we_going -> I_think_we_re_lost           ║
-║ D_11     have_a_quantum -> where_are_we_going               ║
-║ D_12     keep_calm -> have_a_quantum                        ║
-║ D_13     choose_wisely -> should_be_fast                    ║
-║ D_14     keep_calm -> have_a_quantum                        ║
-║ D_15     pleasant_walk -> choose_wisely                     ║
+║ D_9      keep_calm -> have_a_quantum                        ║
+║ D_10     choose_wisely -> should_be_fast                    ║
+║ D_11     where_are_we_going -> I_think_we_re_lost           ║
+║ D_12     where_are_we_going -> I_think_we_re_lost           ║
+║ D_13     have_a_quantum -> where_are_we_going               ║
+║ D_14     pleasant_walk -> choose_wisely                     ║
+║ D_15     keep_calm -> have_a_quantum                        ║
 ║ D_16     the_gathering -> pleasant_walk                     ║
-║ D_17     keep_calm -> have_a_quantum                        ║
+║ D_17     telegraph_road -> the_gathering                    ║
 ║ D_18     keep_calm -> have_a_quantum                        ║
-║ D_19     choose_wisely -> keep_calm                         ║
-║ D_20     telegraph_road -> the_gathering                    ║
-║ D_21     pleasant_walk -> choose_wisely                     ║
-║ D_22     highway_to_hell -> telegraph_road                  ║
-║ D_23     pleasant_walk -> choose_wisely                     ║
+║ D_19     keep_calm -> have_a_quantum                        ║
+║ D_20     choose_wisely -> keep_calm                         ║
+║ D_21     highway_to_hell -> telegraph_road                  ║
+║ D_22     pleasant_walk -> choose_wisely                     ║
+║ D_23     highway_to_hell [WAIT]                             ║
 ║ D_24     pleasant_walk -> choose_wisely                     ║
-║ D_25     the_gathering -> pleasant_walk                     ║
-║ D_26     highway_to_hell [WAIT]                             ║
-║ D_27     normal_road_join -> the_gathering                  ║
-║ D_28     long_way_home -> highway_to_hell                   ║
-║ D_29     restricted -> the_gathering                        ║
+║ D_25     pleasant_walk -> choose_wisely                     ║
+║ D_26     the_gathering -> pleasant_walk                     ║
+║ D_27     long_way_home -> highway_to_hell                   ║
+║ D_28     normal_road_join -> the_gathering                  ║
+║ D_29     long_way_home [WAIT]                               ║
 ║ D_30     restricted -> the_gathering                        ║
-║ D_31     normal_road_south -> normal_road_join              ║
-║ D_32     long_way_home [WAIT]                               ║
-║ D_33     normal_road_north [WAIT]                           ║
-║ D_34     long_way_home [WAIT]                               ║
-║ D_35     here_we_go_again -> restricted [TRANSIT]           ║
+║ D_31     restricted -> the_gathering                        ║
+║ D_32     normal_road_south -> normal_road_join              ║
+║ D_33     long_way_home [WAIT]                               ║
+║ D_34     normal_road_north [WAIT]                           ║
+║ D_35     here_we_go_again -> long_way_home                  ║
 ║ D_36     here_we_go_again -> restricted [TRANSIT]           ║
-║ D_37     here_we_go_again -> normal_road_south              ║
-║ D_38     here_we_go_again -> long_way_home                  ║
+║ D_37     here_we_go_again -> restricted [TRANSIT]           ║
+║ D_38     here_we_go_again -> normal_road_south              ║
 ║ D_39     here_we_go_again [WAIT]                            ║
 ║ D_40     here_we_go_again [WAIT]                            ║
 ║ D_41     start -> here_we_go_again                          ║
@@ -576,7 +576,7 @@
 ╚══════════════════════════════════════════════════════════════╝
 
 ╔══════════════════════════════════════════════════════════════╗
-║ TURN 12                                                     ║
+║ TURN 13                                                     ║
 ╠══════════════════════════════════════════════════════════════╣
 ║ DRONES                                                       ║
 ║ D_1      false_good_idea -> collapsed_north                 ║
@@ -587,44 +587,44 @@
 ║ D_6      should_be_fast [WAIT]                              ║
 ║ D_7      should_be_fast [WAIT]                              ║
 ║ D_8      should_be_fast [WAIT]                              ║
-║ D_9      I_think_we_re_lost -> maybe_ask_our_way            ║
-║ D_10     I_think_we_re_lost -> maybe_ask_our_way            ║
-║ D_11     where_are_we_going -> I_think_we_re_lost           ║
-║ D_12     have_a_quantum -> where_are_we_going               ║
-║ D_13     should_be_fast [WAIT]                              ║
-║ D_14     have_a_quantum -> where_are_we_going               ║
-║ D_15     choose_wisely -> keep_calm                         ║
+║ D_9      have_a_quantum -> where_are_we_going               ║
+║ D_10     should_be_fast [WAIT]                              ║
+║ D_11     I_think_we_re_lost -> maybe_ask_our_way            ║
+║ D_12     I_think_we_re_lost -> maybe_ask_our_way            ║
+║ D_13     where_are_we_going -> I_think_we_re_lost           ║
+║ D_14     choose_wisely -> keep_calm                         ║
+║ D_15     have_a_quantum -> where_are_we_going               ║
 ║ D_16     pleasant_walk -> choose_wisely                     ║
-║ D_17     have_a_quantum -> where_are_we_going               ║
+║ D_17     the_gathering -> pleasant_walk                     ║
 ║ D_18     have_a_quantum -> where_are_we_going               ║
-║ D_19     keep_calm -> have_a_quantum                        ║
-║ D_20     the_gathering -> pleasant_walk                     ║
-║ D_21     choose_wisely -> keep_calm                         ║
-║ D_22     telegraph_road -> the_gathering                    ║
-║ D_23     choose_wisely -> keep_calm                         ║
+║ D_19     have_a_quantum -> where_are_we_going               ║
+║ D_20     keep_calm -> have_a_quantum                        ║
+║ D_21     telegraph_road -> the_gathering                    ║
+║ D_22     choose_wisely -> keep_calm                         ║
+║ D_23     highway_to_hell -> telegraph_road                  ║
 ║ D_24     choose_wisely -> keep_calm                         ║
-║ D_25     pleasant_walk -> choose_wisely                     ║
-║ D_26     highway_to_hell -> telegraph_road                  ║
-║ D_27     the_gathering -> pleasant_walk                     ║
-║ D_28     highway_to_hell [WAIT]                             ║
-║ D_29     the_gathering -> pleasant_walk                     ║
+║ D_25     choose_wisely -> keep_calm                         ║
+║ D_26     pleasant_walk -> choose_wisely                     ║
+║ D_27     highway_to_hell [WAIT]                             ║
+║ D_28     the_gathering -> pleasant_walk                     ║
+║ D_29     long_way_home -> highway_to_hell                   ║
 ║ D_30     the_gathering -> pleasant_walk                     ║
-║ D_31     normal_road_join -> the_gathering                  ║
-║ D_32     long_way_home -> highway_to_hell                   ║
-║ D_33     normal_road_north -> normal_road_join              ║
-║ D_34     long_way_home [WAIT]                               ║
-║ D_35     here_we_go_again -> restricted                     ║
+║ D_31     the_gathering -> pleasant_walk                     ║
+║ D_32     normal_road_join -> the_gathering                  ║
+║ D_33     long_way_home [WAIT]                               ║
+║ D_34     normal_road_north -> normal_road_join              ║
+║ D_35     long_way_home [WAIT]                               ║
 ║ D_36     here_we_go_again -> restricted                     ║
-║ D_37     normal_road_south [WAIT]                           ║
-║ D_38     long_way_home [WAIT]                               ║
-║ D_39     here_we_go_again -> normal_road_north              ║
-║ D_40     here_we_go_again -> long_way_home                  ║
+║ D_37     here_we_go_again -> restricted                     ║
+║ D_38     normal_road_south [WAIT]                           ║
+║ D_39     here_we_go_again -> long_way_home                  ║
+║ D_40     here_we_go_again -> normal_road_north              ║
 ║ D_41     here_we_go_again [WAIT]                            ║
 ║ D_42     here_we_go_again [WAIT]                            ║
 ╚══════════════════════════════════════════════════════════════╝
 
 ╔══════════════════════════════════════════════════════════════╗
-║ TURN 13                                                     ║
+║ TURN 14                                                     ║
 ╠══════════════════════════════════════════════════════════════╣
 ║ DRONES                                                       ║
 ║ D_1      collapsed_north -> forgotten_garden                ║
@@ -635,44 +635,44 @@
 ║ D_6      should_be_fast [WAIT]                              ║
 ║ D_7      should_be_fast [WAIT]                              ║
 ║ D_8      should_be_fast [WAIT]                              ║
-║ D_9      maybe_ask_our_way -> is_there_a_light              ║
-║ D_10     maybe_ask_our_way -> is_there_a_light              ║
-║ D_11     I_think_we_re_lost -> maybe_ask_our_way            ║
-║ D_12     where_are_we_going -> I_think_we_re_lost           ║
-║ D_13     should_be_fast [WAIT]                              ║
-║ D_14     where_are_we_going -> I_think_we_re_lost           ║
-║ D_15     keep_calm -> have_a_quantum                        ║
+║ D_9      where_are_we_going -> I_think_we_re_lost           ║
+║ D_10     should_be_fast [WAIT]                              ║
+║ D_11     maybe_ask_our_way -> is_there_a_light              ║
+║ D_12     maybe_ask_our_way -> is_there_a_light              ║
+║ D_13     I_think_we_re_lost -> maybe_ask_our_way            ║
+║ D_14     keep_calm -> have_a_quantum                        ║
+║ D_15     where_are_we_going -> I_think_we_re_lost           ║
 ║ D_16     choose_wisely -> should_be_fast                    ║
-║ D_17     where_are_we_going -> I_think_we_re_lost           ║
+║ D_17     pleasant_walk -> choose_wisely                     ║
 ║ D_18     where_are_we_going -> I_think_we_re_lost           ║
-║ D_19     have_a_quantum -> where_are_we_going               ║
-║ D_20     pleasant_walk -> choose_wisely                     ║
-║ D_21     keep_calm -> have_a_quantum                        ║
-║ D_22     the_gathering -> pleasant_walk                     ║
-║ D_23     keep_calm -> have_a_quantum                        ║
+║ D_19     where_are_we_going -> I_think_we_re_lost           ║
+║ D_20     have_a_quantum -> where_are_we_going               ║
+║ D_21     the_gathering -> pleasant_walk                     ║
+║ D_22     keep_calm -> have_a_quantum                        ║
+║ D_23     telegraph_road -> the_gathering                    ║
 ║ D_24     keep_calm -> have_a_quantum                        ║
-║ D_25     choose_wisely -> keep_calm                         ║
-║ D_26     telegraph_road -> the_gathering                    ║
-║ D_27     pleasant_walk -> choose_wisely                     ║
-║ D_28     highway_to_hell -> telegraph_road                  ║
-║ D_29     pleasant_walk -> choose_wisely                     ║
+║ D_25     keep_calm -> have_a_quantum                        ║
+║ D_26     choose_wisely -> keep_calm                         ║
+║ D_27     highway_to_hell -> telegraph_road                  ║
+║ D_28     pleasant_walk -> choose_wisely                     ║
+║ D_29     highway_to_hell [WAIT]                             ║
 ║ D_30     pleasant_walk -> choose_wisely                     ║
-║ D_31     the_gathering -> pleasant_walk                     ║
-║ D_32     highway_to_hell [WAIT]                             ║
-║ D_33     normal_road_join -> the_gathering                  ║
-║ D_34     long_way_home -> highway_to_hell                   ║
-║ D_35     restricted -> the_gathering                        ║
+║ D_31     pleasant_walk -> choose_wisely                     ║
+║ D_32     the_gathering -> pleasant_walk                     ║
+║ D_33     long_way_home -> highway_to_hell                   ║
+║ D_34     normal_road_join -> the_gathering                  ║
+║ D_35     long_way_home [WAIT]                               ║
 ║ D_36     restricted -> the_gathering                        ║
-║ D_37     normal_road_south -> normal_road_join              ║
-║ D_38     long_way_home [WAIT]                               ║
-║ D_39     normal_road_north [WAIT]                           ║
-║ D_40     long_way_home [WAIT]                               ║
-║ D_41     here_we_go_again -> restricted [TRANSIT]           ║
+║ D_37     restricted -> the_gathering                        ║
+║ D_38     normal_road_south -> normal_road_join              ║
+║ D_39     long_way_home [WAIT]                               ║
+║ D_40     normal_road_north [WAIT]                           ║
+║ D_41     here_we_go_again -> long_way_home                  ║
 ║ D_42     here_we_go_again -> restricted [TRANSIT]           ║
 ╚══════════════════════════════════════════════════════════════╝
 
 ╔══════════════════════════════════════════════════════════════╗
-║ TURN 14                                                     ║
+║ TURN 15                                                     ║
 ╠══════════════════════════════════════════════════════════════╣
 ║ DRONES                                                       ║
 ║ D_1      forgotten_garden -> collapsed_south [TRANSIT]      ║
@@ -683,44 +683,44 @@
 ║ D_6      should_be_fast [WAIT]                              ║
 ║ D_7      should_be_fast [WAIT]                              ║
 ║ D_8      should_be_fast [WAIT]                              ║
-║ D_9      is_there_a_light -> look_at_this_wall              ║
-║ D_10     is_there_a_light -> look_at_this_wall              ║
-║ D_11     maybe_ask_our_way -> is_there_a_light              ║
-║ D_12     I_think_we_re_lost -> maybe_ask_our_way            ║
-║ D_13     should_be_fast [WAIT]                              ║
-║ D_14     I_think_we_re_lost -> maybe_ask_our_way            ║
-║ D_15     have_a_quantum -> where_are_we_going               ║
+║ D_9      I_think_we_re_lost -> maybe_ask_our_way            ║
+║ D_10     should_be_fast [WAIT]                              ║
+║ D_11     is_there_a_light -> look_at_this_wall              ║
+║ D_12     is_there_a_light -> look_at_this_wall              ║
+║ D_13     maybe_ask_our_way -> is_there_a_light              ║
+║ D_14     have_a_quantum -> where_are_we_going               ║
+║ D_15     I_think_we_re_lost -> maybe_ask_our_way            ║
 ║ D_16     should_be_fast [WAIT]                              ║
-║ D_17     I_think_we_re_lost -> maybe_ask_our_way            ║
+║ D_17     choose_wisely -> keep_calm                         ║
 ║ D_18     I_think_we_re_lost -> maybe_ask_our_way            ║
-║ D_19     where_are_we_going -> I_think_we_re_lost           ║
-║ D_20     choose_wisely -> keep_calm                         ║
-║ D_21     have_a_quantum -> where_are_we_going               ║
-║ D_22     pleasant_walk -> choose_wisely                     ║
-║ D_23     have_a_quantum -> where_are_we_going               ║
+║ D_19     I_think_we_re_lost -> maybe_ask_our_way            ║
+║ D_20     where_are_we_going -> I_think_we_re_lost           ║
+║ D_21     pleasant_walk -> choose_wisely                     ║
+║ D_22     have_a_quantum -> where_are_we_going               ║
+║ D_23     the_gathering -> pleasant_walk                     ║
 ║ D_24     have_a_quantum -> where_are_we_going               ║
-║ D_25     keep_calm -> have_a_quantum                        ║
-║ D_26     the_gathering -> pleasant_walk                     ║
-║ D_27     choose_wisely -> keep_calm                         ║
-║ D_28     telegraph_road -> the_gathering                    ║
-║ D_29     choose_wisely -> keep_calm                         ║
+║ D_25     have_a_quantum -> where_are_we_going               ║
+║ D_26     keep_calm -> have_a_quantum                        ║
+║ D_27     telegraph_road -> the_gathering                    ║
+║ D_28     choose_wisely -> keep_calm                         ║
+║ D_29     highway_to_hell -> telegraph_road                  ║
 ║ D_30     choose_wisely -> keep_calm                         ║
-║ D_31     pleasant_walk -> choose_wisely                     ║
-║ D_32     highway_to_hell -> telegraph_road                  ║
-║ D_33     the_gathering -> pleasant_walk                     ║
-║ D_34     highway_to_hell [WAIT]                             ║
-║ D_35     the_gathering -> pleasant_walk                     ║
+║ D_31     choose_wisely -> keep_calm                         ║
+║ D_32     pleasant_walk -> choose_wisely                     ║
+║ D_33     highway_to_hell [WAIT]                             ║
+║ D_34     the_gathering -> pleasant_walk                     ║
+║ D_35     long_way_home -> highway_to_hell                   ║
 ║ D_36     the_gathering -> pleasant_walk                     ║
-║ D_37     normal_road_join -> the_gathering                  ║
-║ D_38     long_way_home -> highway_to_hell                   ║
-║ D_39     normal_road_north -> normal_road_join              ║
-║ D_40     long_way_home [WAIT]                               ║
-║ D_41     here_we_go_again -> restricted                     ║
+║ D_37     the_gathering -> pleasant_walk                     ║
+║ D_38     normal_road_join -> the_gathering                  ║
+║ D_39     long_way_home [WAIT]                               ║
+║ D_40     normal_road_north -> normal_road_join              ║
+║ D_41     long_way_home [WAIT]                               ║
 ║ D_42     here_we_go_again -> restricted                     ║
 ╚══════════════════════════════════════════════════════════════╝
 
 ╔══════════════════════════════════════════════════════════════╗
-║ TURN 15                                                     ║
+║ TURN 16                                                     ║
 ╠══════════════════════════════════════════════════════════════╣
 ║ DRONES                                                       ║
 ║ D_1      forgotten_garden -> collapsed_south                ║
@@ -731,44 +731,44 @@
 ║ D_6      should_be_fast [WAIT]                              ║
 ║ D_7      should_be_fast [WAIT]                              ║
 ║ D_8      should_be_fast [WAIT]                              ║
-║ D_9      look_at_this_wall -> it_s_a_big_one                ║
-║ D_10     look_at_this_wall -> it_s_a_big_one                ║
-║ D_11     is_there_a_light -> look_at_this_wall              ║
-║ D_12     maybe_ask_our_way -> is_there_a_light              ║
-║ D_13     should_be_fast [WAIT]                              ║
-║ D_14     maybe_ask_our_way -> is_there_a_light              ║
-║ D_15     where_are_we_going -> I_think_we_re_lost           ║
+║ D_9      maybe_ask_our_way -> is_there_a_light              ║
+║ D_10     should_be_fast [WAIT]                              ║
+║ D_11     look_at_this_wall -> it_s_a_big_one                ║
+║ D_12     look_at_this_wall -> it_s_a_big_one                ║
+║ D_13     is_there_a_light -> look_at_this_wall              ║
+║ D_14     where_are_we_going -> I_think_we_re_lost           ║
+║ D_15     maybe_ask_our_way -> is_there_a_light              ║
 ║ D_16     should_be_fast [WAIT]                              ║
-║ D_17     maybe_ask_our_way -> is_there_a_light              ║
+║ D_17     keep_calm -> have_a_quantum                        ║
 ║ D_18     maybe_ask_our_way -> is_there_a_light              ║
-║ D_19     I_think_we_re_lost -> maybe_ask_our_way            ║
-║ D_20     keep_calm -> have_a_quantum                        ║
-║ D_21     where_are_we_going -> I_think_we_re_lost           ║
-║ D_22     choose_wisely -> should_be_fast                    ║
-║ D_23     where_are_we_going -> I_think_we_re_lost           ║
+║ D_19     maybe_ask_our_way -> is_there_a_light              ║
+║ D_20     I_think_we_re_lost -> maybe_ask_our_way            ║
+║ D_21     choose_wisely -> should_be_fast                    ║
+║ D_22     where_are_we_going -> I_think_we_re_lost           ║
+║ D_23     pleasant_walk -> choose_wisely                     ║
 ║ D_24     where_are_we_going -> I_think_we_re_lost           ║
-║ D_25     have_a_quantum -> where_are_we_going               ║
-║ D_26     pleasant_walk -> choose_wisely                     ║
-║ D_27     keep_calm -> have_a_quantum                        ║
-║ D_28     the_gathering -> pleasant_walk                     ║
-║ D_29     keep_calm -> have_a_quantum                        ║
+║ D_25     where_are_we_going -> I_think_we_re_lost           ║
+║ D_26     have_a_quantum -> where_are_we_going               ║
+║ D_27     the_gathering -> pleasant_walk                     ║
+║ D_28     keep_calm -> have_a_quantum                        ║
+║ D_29     telegraph_road -> the_gathering                    ║
 ║ D_30     keep_calm -> have_a_quantum                        ║
-║ D_31     choose_wisely -> keep_calm                         ║
-║ D_32     telegraph_road -> the_gathering                    ║
-║ D_33     pleasant_walk -> choose_wisely                     ║
-║ D_34     highway_to_hell -> telegraph_road                  ║
-║ D_35     pleasant_walk -> choose_wisely                     ║
+║ D_31     keep_calm -> have_a_quantum                        ║
+║ D_32     choose_wisely -> keep_calm                         ║
+║ D_33     highway_to_hell -> telegraph_road                  ║
+║ D_34     pleasant_walk -> choose_wisely                     ║
+║ D_35     highway_to_hell [WAIT]                             ║
 ║ D_36     pleasant_walk -> choose_wisely                     ║
-║ D_37     the_gathering -> pleasant_walk                     ║
-║ D_38     highway_to_hell [WAIT]                             ║
-║ D_39     normal_road_join -> the_gathering                  ║
-║ D_40     long_way_home -> highway_to_hell                   ║
-║ D_41     restricted -> the_gathering                        ║
+║ D_37     pleasant_walk -> choose_wisely                     ║
+║ D_38     the_gathering -> pleasant_walk                     ║
+║ D_39     long_way_home -> highway_to_hell                   ║
+║ D_40     normal_road_join -> the_gathering                  ║
+║ D_41     long_way_home [WAIT]                               ║
 ║ D_42     restricted -> the_gathering                        ║
 ╚══════════════════════════════════════════════════════════════╝
 
 ╔══════════════════════════════════════════════════════════════╗
-║ TURN 16                                                     ║
+║ TURN 17                                                     ║
 ╠══════════════════════════════════════════════════════════════╣
 ║ DRONES                                                       ║
 ║ D_1      collapsed_south -> far_far_away                    ║
@@ -779,44 +779,44 @@
 ║ D_6      should_be_fast [WAIT]                              ║
 ║ D_7      should_be_fast [WAIT]                              ║
 ║ D_8      should_be_fast [WAIT]                              ║
-║ D_9      it_s_a_big_one -> is_there_a_way                   ║
-║ D_10     it_s_a_big_one -> is_there_a_way                   ║
-║ D_11     look_at_this_wall -> it_s_a_big_one                ║
-║ D_12     is_there_a_light -> look_at_this_wall              ║
-║ D_13     should_be_fast [WAIT]                              ║
-║ D_14     is_there_a_light -> look_at_this_wall              ║
-║ D_15     I_think_we_re_lost -> maybe_ask_our_way            ║
+║ D_9      is_there_a_light -> look_at_this_wall              ║
+║ D_10     should_be_fast [WAIT]                              ║
+║ D_11     it_s_a_big_one -> is_there_a_way                   ║
+║ D_12     it_s_a_big_one -> is_there_a_way                   ║
+║ D_13     look_at_this_wall -> it_s_a_big_one                ║
+║ D_14     I_think_we_re_lost -> maybe_ask_our_way            ║
+║ D_15     is_there_a_light -> look_at_this_wall              ║
 ║ D_16     should_be_fast [WAIT]                              ║
-║ D_17     is_there_a_light -> look_at_this_wall              ║
+║ D_17     have_a_quantum -> where_are_we_going               ║
 ║ D_18     is_there_a_light -> look_at_this_wall              ║
-║ D_19     maybe_ask_our_way -> is_there_a_light              ║
-║ D_20     have_a_quantum -> where_are_we_going               ║
-║ D_21     I_think_we_re_lost -> maybe_ask_our_way            ║
-║ D_22     should_be_fast [WAIT]                              ║
-║ D_23     I_think_we_re_lost -> maybe_ask_our_way            ║
+║ D_19     is_there_a_light -> look_at_this_wall              ║
+║ D_20     maybe_ask_our_way -> is_there_a_light              ║
+║ D_21     should_be_fast [WAIT]                              ║
+║ D_22     I_think_we_re_lost -> maybe_ask_our_way            ║
+║ D_23     choose_wisely -> keep_calm                         ║
 ║ D_24     I_think_we_re_lost -> maybe_ask_our_way            ║
-║ D_25     where_are_we_going -> I_think_we_re_lost           ║
-║ D_26     choose_wisely -> keep_calm                         ║
-║ D_27     have_a_quantum -> where_are_we_going               ║
-║ D_28     pleasant_walk -> choose_wisely                     ║
-║ D_29     have_a_quantum -> where_are_we_going               ║
+║ D_25     I_think_we_re_lost -> maybe_ask_our_way            ║
+║ D_26     where_are_we_going -> I_think_we_re_lost           ║
+║ D_27     pleasant_walk -> choose_wisely                     ║
+║ D_28     have_a_quantum -> where_are_we_going               ║
+║ D_29     the_gathering -> pleasant_walk                     ║
 ║ D_30     have_a_quantum -> where_are_we_going               ║
-║ D_31     keep_calm -> have_a_quantum                        ║
-║ D_32     the_gathering -> pleasant_walk                     ║
-║ D_33     choose_wisely -> keep_calm                         ║
-║ D_34     telegraph_road -> the_gathering                    ║
-║ D_35     choose_wisely -> keep_calm                         ║
+║ D_31     have_a_quantum -> where_are_we_going               ║
+║ D_32     keep_calm -> have_a_quantum                        ║
+║ D_33     telegraph_road -> the_gathering                    ║
+║ D_34     choose_wisely -> keep_calm                         ║
+║ D_35     highway_to_hell -> telegraph_road                  ║
 ║ D_36     choose_wisely -> keep_calm                         ║
-║ D_37     pleasant_walk -> choose_wisely                     ║
-║ D_38     highway_to_hell -> telegraph_road                  ║
-║ D_39     the_gathering -> pleasant_walk                     ║
-║ D_40     highway_to_hell [WAIT]                             ║
-║ D_41     the_gathering -> pleasant_walk                     ║
+║ D_37     choose_wisely -> keep_calm                         ║
+║ D_38     pleasant_walk -> choose_wisely                     ║
+║ D_39     highway_to_hell [WAIT]                             ║
+║ D_40     the_gathering -> pleasant_walk                     ║
+║ D_41     long_way_home -> highway_to_hell                   ║
 ║ D_42     the_gathering -> pleasant_walk                     ║
 ╚══════════════════════════════════════════════════════════════╝
 
 ╔══════════════════════════════════════════════════════════════╗
-║ TURN 17                                                     ║
+║ TURN 18                                                     ║
 ╠══════════════════════════════════════════════════════════════╣
 ║ DRONES                                                       ║
 ║ D_1      far_far_away -> a_big_42_coming                    ║
@@ -827,44 +827,44 @@
 ║ D_6      should_be_fast -> maybe_not [TRANSIT]              ║
 ║ D_7      should_be_fast [WAIT]                              ║
 ║ D_8      should_be_fast [WAIT]                              ║
-║ D_9      is_there_a_way -> best_is_to_come                  ║
-║ D_10     is_there_a_way -> best_is_to_come                  ║
-║ D_11     it_s_a_big_one -> is_there_a_way                   ║
-║ D_12     look_at_this_wall -> it_s_a_big_one                ║
-║ D_13     should_be_fast [WAIT]                              ║
-║ D_14     look_at_this_wall -> it_s_a_big_one                ║
-║ D_15     maybe_ask_our_way -> is_there_a_light              ║
+║ D_9      look_at_this_wall -> it_s_a_big_one                ║
+║ D_10     should_be_fast [WAIT]                              ║
+║ D_11     is_there_a_way -> best_is_to_come                  ║
+║ D_12     is_there_a_way -> best_is_to_come                  ║
+║ D_13     it_s_a_big_one -> is_there_a_way                   ║
+║ D_14     maybe_ask_our_way -> is_there_a_light              ║
+║ D_15     look_at_this_wall -> it_s_a_big_one                ║
 ║ D_16     should_be_fast [WAIT]                              ║
-║ D_17     look_at_this_wall -> it_s_a_big_one                ║
+║ D_17     where_are_we_going -> I_think_we_re_lost           ║
 ║ D_18     look_at_this_wall -> it_s_a_big_one                ║
-║ D_19     is_there_a_light -> look_at_this_wall              ║
-║ D_20     where_are_we_going -> I_think_we_re_lost           ║
-║ D_21     maybe_ask_our_way -> is_there_a_light              ║
-║ D_22     should_be_fast [WAIT]                              ║
-║ D_23     maybe_ask_our_way -> is_there_a_light              ║
+║ D_19     look_at_this_wall -> it_s_a_big_one                ║
+║ D_20     is_there_a_light -> look_at_this_wall              ║
+║ D_21     should_be_fast [WAIT]                              ║
+║ D_22     maybe_ask_our_way -> is_there_a_light              ║
+║ D_23     keep_calm -> have_a_quantum                        ║
 ║ D_24     maybe_ask_our_way -> is_there_a_light              ║
-║ D_25     I_think_we_re_lost -> maybe_ask_our_way            ║
-║ D_26     keep_calm -> have_a_quantum                        ║
-║ D_27     where_are_we_going -> I_think_we_re_lost           ║
-║ D_28     choose_wisely -> should_be_fast                    ║
-║ D_29     where_are_we_going -> I_think_we_re_lost           ║
+║ D_25     maybe_ask_our_way -> is_there_a_light              ║
+║ D_26     I_think_we_re_lost -> maybe_ask_our_way            ║
+║ D_27     choose_wisely -> should_be_fast                    ║
+║ D_28     where_are_we_going -> I_think_we_re_lost           ║
+║ D_29     pleasant_walk -> choose_wisely                     ║
 ║ D_30     where_are_we_going -> I_think_we_re_lost           ║
-║ D_31     have_a_quantum -> where_are_we_going               ║
-║ D_32     pleasant_walk -> choose_wisely                     ║
-║ D_33     keep_calm -> have_a_quantum                        ║
-║ D_34     the_gathering -> pleasant_walk                     ║
-║ D_35     keep_calm -> have_a_quantum                        ║
+║ D_31     where_are_we_going -> I_think_we_re_lost           ║
+║ D_32     have_a_quantum -> where_are_we_going               ║
+║ D_33     the_gathering -> pleasant_walk                     ║
+║ D_34     keep_calm -> have_a_quantum                        ║
+║ D_35     telegraph_road -> the_gathering                    ║
 ║ D_36     keep_calm -> have_a_quantum                        ║
-║ D_37     choose_wisely -> keep_calm                         ║
-║ D_38     telegraph_road -> the_gathering                    ║
-║ D_39     pleasant_walk -> choose_wisely                     ║
-║ D_40     highway_to_hell -> telegraph_road                  ║
-║ D_41     pleasant_walk -> choose_wisely                     ║
+║ D_37     keep_calm -> have_a_quantum                        ║
+║ D_38     choose_wisely -> keep_calm                         ║
+║ D_39     highway_to_hell -> telegraph_road                  ║
+║ D_40     pleasant_walk -> choose_wisely                     ║
+║ D_41     highway_to_hell [WAIT]                             ║
 ║ D_42     pleasant_walk -> choose_wisely                     ║
 ╚══════════════════════════════════════════════════════════════╝
 
 ╔══════════════════════════════════════════════════════════════╗
-║ TURN 18                                                     ║
+║ TURN 19                                                     ║
 ╠══════════════════════════════════════════════════════════════╣
 ║ DRONES                                                       ║
 ║ D_1      a_big_42_coming -> we_were_here                    ║
@@ -875,44 +875,44 @@
 ║ D_6      should_be_fast -> maybe_not                        ║
 ║ D_7      should_be_fast [WAIT]                              ║
 ║ D_8      should_be_fast [WAIT]                              ║
-║ D_9      best_is_to_come -> hang_on_baby                    ║
-║ D_10     best_is_to_come -> hang_on_baby                    ║
-║ D_11     is_there_a_way -> best_is_to_come                  ║
-║ D_12     it_s_a_big_one -> is_there_a_way                   ║
-║ D_13     should_be_fast [WAIT]                              ║
-║ D_14     it_s_a_big_one -> is_there_a_way                   ║
-║ D_15     is_there_a_light -> look_at_this_wall              ║
+║ D_9      it_s_a_big_one -> is_there_a_way                   ║
+║ D_10     should_be_fast [WAIT]                              ║
+║ D_11     best_is_to_come -> hang_on_baby                    ║
+║ D_12     best_is_to_come -> hang_on_baby                    ║
+║ D_13     is_there_a_way -> best_is_to_come                  ║
+║ D_14     is_there_a_light -> look_at_this_wall              ║
+║ D_15     it_s_a_big_one -> is_there_a_way                   ║
 ║ D_16     should_be_fast [WAIT]                              ║
-║ D_17     it_s_a_big_one -> is_there_a_way                   ║
-║ D_18     it_s_a_big_one [WAIT]                              ║
-║ D_19     look_at_this_wall -> it_s_a_big_one                ║
-║ D_20     I_think_we_re_lost -> maybe_ask_our_way            ║
-║ D_21     is_there_a_light -> look_at_this_wall              ║
-║ D_22     should_be_fast [WAIT]                              ║
-║ D_23     is_there_a_light -> look_at_this_wall              ║
+║ D_17     I_think_we_re_lost -> maybe_ask_our_way            ║
+║ D_18     it_s_a_big_one -> is_there_a_way                   ║
+║ D_19     it_s_a_big_one [WAIT]                              ║
+║ D_20     look_at_this_wall -> it_s_a_big_one                ║
+║ D_21     should_be_fast [WAIT]                              ║
+║ D_22     is_there_a_light -> look_at_this_wall              ║
+║ D_23     have_a_quantum -> where_are_we_going               ║
 ║ D_24     is_there_a_light -> look_at_this_wall              ║
-║ D_25     maybe_ask_our_way -> is_there_a_light              ║
-║ D_26     have_a_quantum -> where_are_we_going               ║
-║ D_27     I_think_we_re_lost -> maybe_ask_our_way            ║
-║ D_28     should_be_fast [WAIT]                              ║
-║ D_29     I_think_we_re_lost -> maybe_ask_our_way            ║
+║ D_25     is_there_a_light -> look_at_this_wall              ║
+║ D_26     maybe_ask_our_way -> is_there_a_light              ║
+║ D_27     should_be_fast [WAIT]                              ║
+║ D_28     I_think_we_re_lost -> maybe_ask_our_way            ║
+║ D_29     choose_wisely -> keep_calm                         ║
 ║ D_30     I_think_we_re_lost -> maybe_ask_our_way            ║
-║ D_31     where_are_we_going -> I_think_we_re_lost           ║
-║ D_32     choose_wisely -> keep_calm                         ║
-║ D_33     have_a_quantum -> where_are_we_going               ║
-║ D_34     pleasant_walk -> choose_wisely                     ║
-║ D_35     have_a_quantum -> where_are_we_going               ║
+║ D_31     I_think_we_re_lost -> maybe_ask_our_way            ║
+║ D_32     where_are_we_going -> I_think_we_re_lost           ║
+║ D_33     pleasant_walk -> choose_wisely                     ║
+║ D_34     have_a_quantum -> where_are_we_going               ║
+║ D_35     the_gathering -> pleasant_walk                     ║
 ║ D_36     have_a_quantum -> where_are_we_going               ║
-║ D_37     keep_calm -> have_a_quantum                        ║
-║ D_38     the_gathering -> pleasant_walk                     ║
-║ D_39     choose_wisely -> keep_calm                         ║
-║ D_40     telegraph_road -> the_gathering                    ║
-║ D_41     choose_wisely -> keep_calm                         ║
+║ D_37     have_a_quantum -> where_are_we_going               ║
+║ D_38     keep_calm -> have_a_quantum                        ║
+║ D_39     telegraph_road -> the_gathering                    ║
+║ D_40     choose_wisely -> keep_calm                         ║
+║ D_41     highway_to_hell -> telegraph_road                  ║
 ║ D_42     choose_wisely -> keep_calm                         ║
 ╚══════════════════════════════════════════════════════════════╝
 
 ╔══════════════════════════════════════════════════════════════╗
-║ TURN 19                                                     ║
+║ TURN 20                                                     ║
 ╠══════════════════════════════════════════════════════════════╣
 ║ DRONES                                                       ║
 ║ D_1      we_were_here -> goal                               ║
@@ -923,44 +923,44 @@
 ║ D_6      maybe_not -> false_good_idea [TRANSIT]             ║
 ║ D_7      should_be_fast -> maybe_not [TRANSIT]              ║
 ║ D_8      should_be_fast [WAIT]                              ║
-║ D_9      hang_on_baby -> far_far_away                       ║
-║ D_10     hang_on_baby -> far_far_away                       ║
-║ D_11     best_is_to_come -> hang_on_baby                    ║
-║ D_12     is_there_a_way -> best_is_to_come                  ║
-║ D_13     should_be_fast [WAIT]                              ║
-║ D_14     is_there_a_way -> best_is_to_come                  ║
-║ D_15     look_at_this_wall -> it_s_a_big_one                ║
+║ D_9      is_there_a_way -> best_is_to_come                  ║
+║ D_10     should_be_fast [WAIT]                              ║
+║ D_11     hang_on_baby -> far_far_away                       ║
+║ D_12     hang_on_baby -> far_far_away                       ║
+║ D_13     best_is_to_come -> hang_on_baby                    ║
+║ D_14     look_at_this_wall -> it_s_a_big_one                ║
+║ D_15     is_there_a_way -> best_is_to_come                  ║
 ║ D_16     should_be_fast [WAIT]                              ║
-║ D_17     is_there_a_way -> best_is_to_come                  ║
-║ D_18     it_s_a_big_one -> is_there_a_way                   ║
+║ D_17     maybe_ask_our_way -> is_there_a_light              ║
+║ D_18     is_there_a_way -> best_is_to_come                  ║
 ║ D_19     it_s_a_big_one -> is_there_a_way                   ║
-║ D_20     maybe_ask_our_way -> is_there_a_light              ║
-║ D_21     look_at_this_wall -> it_s_a_big_one                ║
-║ D_22     should_be_fast [WAIT]                              ║
-║ D_23     look_at_this_wall -> it_s_a_big_one                ║
+║ D_20     it_s_a_big_one -> is_there_a_way                   ║
+║ D_21     should_be_fast [WAIT]                              ║
+║ D_22     look_at_this_wall -> it_s_a_big_one                ║
+║ D_23     where_are_we_going -> I_think_we_re_lost           ║
 ║ D_24     look_at_this_wall -> it_s_a_big_one                ║
-║ D_25     is_there_a_light -> look_at_this_wall              ║
-║ D_26     where_are_we_going -> I_think_we_re_lost           ║
-║ D_27     maybe_ask_our_way -> is_there_a_light              ║
-║ D_28     should_be_fast [WAIT]                              ║
-║ D_29     maybe_ask_our_way -> is_there_a_light              ║
+║ D_25     look_at_this_wall -> it_s_a_big_one                ║
+║ D_26     is_there_a_light -> look_at_this_wall              ║
+║ D_27     should_be_fast [WAIT]                              ║
+║ D_28     maybe_ask_our_way -> is_there_a_light              ║
+║ D_29     keep_calm -> have_a_quantum                        ║
 ║ D_30     maybe_ask_our_way -> is_there_a_light              ║
-║ D_31     I_think_we_re_lost -> maybe_ask_our_way            ║
-║ D_32     keep_calm -> have_a_quantum                        ║
-║ D_33     where_are_we_going -> I_think_we_re_lost           ║
-║ D_34     choose_wisely -> should_be_fast                    ║
-║ D_35     where_are_we_going -> I_think_we_re_lost           ║
+║ D_31     maybe_ask_our_way -> is_there_a_light              ║
+║ D_32     I_think_we_re_lost -> maybe_ask_our_way            ║
+║ D_33     choose_wisely -> should_be_fast                    ║
+║ D_34     where_are_we_going -> I_think_we_re_lost           ║
+║ D_35     pleasant_walk -> choose_wisely                     ║
 ║ D_36     where_are_we_going -> I_think_we_re_lost           ║
-║ D_37     have_a_quantum -> where_are_we_going               ║
-║ D_38     pleasant_walk -> choose_wisely                     ║
-║ D_39     keep_calm -> have_a_quantum                        ║
-║ D_40     the_gathering -> pleasant_walk                     ║
-║ D_41     keep_calm -> have_a_quantum                        ║
+║ D_37     where_are_we_going -> I_think_we_re_lost           ║
+║ D_38     have_a_quantum -> where_are_we_going               ║
+║ D_39     the_gathering -> pleasant_walk                     ║
+║ D_40     keep_calm -> have_a_quantum                        ║
+║ D_41     telegraph_road -> the_gathering                    ║
 ║ D_42     keep_calm -> have_a_quantum                        ║
 ╚══════════════════════════════════════════════════════════════╝
 
 ╔══════════════════════════════════════════════════════════════╗
-║ TURN 20                                                     ║
+║ TURN 21                                                     ║
 ╠══════════════════════════════════════════════════════════════╣
 ║ DRONES                                                       ║
 ║ D_1      DELIVERED                                          ║
@@ -971,44 +971,44 @@
 ║ D_6      maybe_not -> false_good_idea                       ║
 ║ D_7      should_be_fast -> maybe_not                        ║
 ║ D_8      should_be_fast [WAIT]                              ║
-║ D_9      far_far_away -> a_big_42_coming                    ║
-║ D_10     far_far_away -> a_big_42_coming                    ║
-║ D_11     hang_on_baby -> far_far_away                       ║
-║ D_12     best_is_to_come -> hang_on_baby                    ║
-║ D_13     should_be_fast [WAIT]                              ║
-║ D_14     best_is_to_come -> hang_on_baby                    ║
-║ D_15     it_s_a_big_one -> is_there_a_way                   ║
+║ D_9      best_is_to_come -> hang_on_baby                    ║
+║ D_10     should_be_fast [WAIT]                              ║
+║ D_11     far_far_away -> a_big_42_coming                    ║
+║ D_12     far_far_away -> a_big_42_coming                    ║
+║ D_13     hang_on_baby -> far_far_away                       ║
+║ D_14     it_s_a_big_one -> is_there_a_way                   ║
+║ D_15     best_is_to_come -> hang_on_baby                    ║
 ║ D_16     should_be_fast [WAIT]                              ║
-║ D_17     best_is_to_come -> hang_on_baby                    ║
-║ D_18     is_there_a_way -> best_is_to_come                  ║
+║ D_17     is_there_a_light -> look_at_this_wall              ║
+║ D_18     best_is_to_come -> hang_on_baby                    ║
 ║ D_19     is_there_a_way -> best_is_to_come                  ║
-║ D_20     is_there_a_light -> look_at_this_wall              ║
-║ D_21     it_s_a_big_one -> is_there_a_way                   ║
-║ D_22     should_be_fast [WAIT]                              ║
-║ D_23     it_s_a_big_one -> is_there_a_way                   ║
-║ D_24     it_s_a_big_one [WAIT]                              ║
-║ D_25     look_at_this_wall -> it_s_a_big_one                ║
-║ D_26     I_think_we_re_lost -> maybe_ask_our_way            ║
-║ D_27     is_there_a_light -> look_at_this_wall              ║
-║ D_28     should_be_fast [WAIT]                              ║
-║ D_29     is_there_a_light -> look_at_this_wall              ║
+║ D_20     is_there_a_way -> best_is_to_come                  ║
+║ D_21     should_be_fast [WAIT]                              ║
+║ D_22     it_s_a_big_one -> is_there_a_way                   ║
+║ D_23     I_think_we_re_lost -> maybe_ask_our_way            ║
+║ D_24     it_s_a_big_one -> is_there_a_way                   ║
+║ D_25     it_s_a_big_one [WAIT]                              ║
+║ D_26     look_at_this_wall -> it_s_a_big_one                ║
+║ D_27     should_be_fast [WAIT]                              ║
+║ D_28     is_there_a_light -> look_at_this_wall              ║
+║ D_29     have_a_quantum -> where_are_we_going               ║
 ║ D_30     is_there_a_light -> look_at_this_wall              ║
-║ D_31     maybe_ask_our_way -> is_there_a_light              ║
-║ D_32     have_a_quantum -> where_are_we_going               ║
-║ D_33     I_think_we_re_lost -> maybe_ask_our_way            ║
-║ D_34     should_be_fast [WAIT]                              ║
-║ D_35     I_think_we_re_lost -> maybe_ask_our_way            ║
+║ D_31     is_there_a_light -> look_at_this_wall              ║
+║ D_32     maybe_ask_our_way -> is_there_a_light              ║
+║ D_33     should_be_fast [WAIT]                              ║
+║ D_34     I_think_we_re_lost -> maybe_ask_our_way            ║
+║ D_35     choose_wisely -> keep_calm                         ║
 ║ D_36     I_think_we_re_lost -> maybe_ask_our_way            ║
-║ D_37     where_are_we_going -> I_think_we_re_lost           ║
-║ D_38     choose_wisely -> keep_calm                         ║
-║ D_39     have_a_quantum -> where_are_we_going               ║
-║ D_40     pleasant_walk -> choose_wisely                     ║
-║ D_41     have_a_quantum -> where_are_we_going               ║
+║ D_37     I_think_we_re_lost -> maybe_ask_our_way            ║
+║ D_38     where_are_we_going -> I_think_we_re_lost           ║
+║ D_39     pleasant_walk -> choose_wisely                     ║
+║ D_40     have_a_quantum -> where_are_we_going               ║
+║ D_41     the_gathering -> pleasant_walk                     ║
 ║ D_42     have_a_quantum -> where_are_we_going               ║
 ╚══════════════════════════════════════════════════════════════╝
 
 ╔══════════════════════════════════════════════════════════════╗
-║ TURN 21                                                     ║
+║ TURN 22                                                     ║
 ╠══════════════════════════════════════════════════════════════╣
 ║ DRONES                                                       ║
 ║ D_1      DELIVERED                                          ║
@@ -1019,44 +1019,44 @@
 ║ D_6      false_good_idea -> collapsed_north [TRANSIT]       ║
 ║ D_7      maybe_not -> false_good_idea [TRANSIT]             ║
 ║ D_8      should_be_fast -> maybe_not [TRANSIT]              ║
-║ D_9      a_big_42_coming -> we_were_here                    ║
-║ D_10     a_big_42_coming -> we_were_here                    ║
-║ D_11     far_far_away -> a_big_42_coming                    ║
-║ D_12     hang_on_baby -> far_far_away                       ║
-║ D_13     should_be_fast [WAIT]                              ║
-║ D_14     hang_on_baby -> far_far_away                       ║
-║ D_15     is_there_a_way -> best_is_to_come                  ║
+║ D_9      hang_on_baby -> far_far_away                       ║
+║ D_10     should_be_fast [WAIT]                              ║
+║ D_11     a_big_42_coming -> we_were_here                    ║
+║ D_12     a_big_42_coming -> we_were_here                    ║
+║ D_13     far_far_away -> a_big_42_coming                    ║
+║ D_14     is_there_a_way -> best_is_to_come                  ║
+║ D_15     hang_on_baby -> far_far_away                       ║
 ║ D_16     should_be_fast [WAIT]                              ║
-║ D_17     hang_on_baby -> far_far_away                       ║
-║ D_18     best_is_to_come -> hang_on_baby                    ║
+║ D_17     look_at_this_wall -> it_s_a_big_one                ║
+║ D_18     hang_on_baby -> far_far_away                       ║
 ║ D_19     best_is_to_come -> hang_on_baby                    ║
-║ D_20     look_at_this_wall -> it_s_a_big_one                ║
-║ D_21     is_there_a_way -> best_is_to_come                  ║
-║ D_22     should_be_fast [WAIT]                              ║
-║ D_23     is_there_a_way -> best_is_to_come                  ║
-║ D_24     it_s_a_big_one -> is_there_a_way                   ║
+║ D_20     best_is_to_come -> hang_on_baby                    ║
+║ D_21     should_be_fast [WAIT]                              ║
+║ D_22     is_there_a_way -> best_is_to_come                  ║
+║ D_23     maybe_ask_our_way -> is_there_a_light              ║
+║ D_24     is_there_a_way -> best_is_to_come                  ║
 ║ D_25     it_s_a_big_one -> is_there_a_way                   ║
-║ D_26     maybe_ask_our_way -> is_there_a_light              ║
-║ D_27     look_at_this_wall -> it_s_a_big_one                ║
-║ D_28     should_be_fast [WAIT]                              ║
-║ D_29     look_at_this_wall -> it_s_a_big_one                ║
+║ D_26     it_s_a_big_one -> is_there_a_way                   ║
+║ D_27     should_be_fast [WAIT]                              ║
+║ D_28     look_at_this_wall -> it_s_a_big_one                ║
+║ D_29     where_are_we_going -> I_think_we_re_lost           ║
 ║ D_30     look_at_this_wall -> it_s_a_big_one                ║
-║ D_31     is_there_a_light -> look_at_this_wall              ║
-║ D_32     where_are_we_going -> I_think_we_re_lost           ║
-║ D_33     maybe_ask_our_way -> is_there_a_light              ║
-║ D_34     should_be_fast [WAIT]                              ║
-║ D_35     maybe_ask_our_way -> is_there_a_light              ║
+║ D_31     look_at_this_wall -> it_s_a_big_one                ║
+║ D_32     is_there_a_light -> look_at_this_wall              ║
+║ D_33     should_be_fast [WAIT]                              ║
+║ D_34     maybe_ask_our_way -> is_there_a_light              ║
+║ D_35     keep_calm -> have_a_quantum                        ║
 ║ D_36     maybe_ask_our_way -> is_there_a_light              ║
-║ D_37     I_think_we_re_lost -> maybe_ask_our_way            ║
-║ D_38     keep_calm -> have_a_quantum                        ║
-║ D_39     where_are_we_going -> I_think_we_re_lost           ║
-║ D_40     choose_wisely -> should_be_fast                    ║
-║ D_41     where_are_we_going -> I_think_we_re_lost           ║
+║ D_37     maybe_ask_our_way -> is_there_a_light              ║
+║ D_38     I_think_we_re_lost -> maybe_ask_our_way            ║
+║ D_39     choose_wisely -> should_be_fast                    ║
+║ D_40     where_are_we_going -> I_think_we_re_lost           ║
+║ D_41     pleasant_walk -> choose_wisely                     ║
 ║ D_42     where_are_we_going -> I_think_we_re_lost           ║
 ╚══════════════════════════════════════════════════════════════╝
 
 ╔══════════════════════════════════════════════════════════════╗
-║ TURN 22                                                     ║
+║ TURN 23                                                     ║
 ╠══════════════════════════════════════════════════════════════╣
 ║ DRONES                                                       ║
 ║ D_1      DELIVERED                                          ║
@@ -1067,44 +1067,44 @@
 ║ D_6      false_good_idea -> collapsed_north                 ║
 ║ D_7      maybe_not -> false_good_idea                       ║
 ║ D_8      should_be_fast -> maybe_not                        ║
-║ D_9      we_were_here -> goal                               ║
-║ D_10     we_were_here -> goal                               ║
-║ D_11     a_big_42_coming -> we_were_here                    ║
-║ D_12     far_far_away -> a_big_42_coming                    ║
-║ D_13     should_be_fast [WAIT]                              ║
-║ D_14     far_far_away -> a_big_42_coming                    ║
-║ D_15     best_is_to_come -> hang_on_baby                    ║
+║ D_9      far_far_away -> a_big_42_coming                    ║
+║ D_10     should_be_fast [WAIT]                              ║
+║ D_11     we_were_here -> goal                               ║
+║ D_12     we_were_here -> goal                               ║
+║ D_13     a_big_42_coming -> we_were_here                    ║
+║ D_14     best_is_to_come -> hang_on_baby                    ║
+║ D_15     far_far_away -> a_big_42_coming                    ║
 ║ D_16     should_be_fast [WAIT]                              ║
-║ D_17     far_far_away -> a_big_42_coming                    ║
-║ D_18     hang_on_baby -> far_far_away                       ║
+║ D_17     it_s_a_big_one -> is_there_a_way                   ║
+║ D_18     far_far_away -> a_big_42_coming                    ║
 ║ D_19     hang_on_baby -> far_far_away                       ║
-║ D_20     it_s_a_big_one -> is_there_a_way                   ║
-║ D_21     best_is_to_come -> hang_on_baby                    ║
-║ D_22     should_be_fast [WAIT]                              ║
-║ D_23     best_is_to_come -> hang_on_baby                    ║
-║ D_24     is_there_a_way -> best_is_to_come                  ║
+║ D_20     hang_on_baby -> far_far_away                       ║
+║ D_21     should_be_fast [WAIT]                              ║
+║ D_22     best_is_to_come -> hang_on_baby                    ║
+║ D_23     is_there_a_light -> look_at_this_wall              ║
+║ D_24     best_is_to_come -> hang_on_baby                    ║
 ║ D_25     is_there_a_way -> best_is_to_come                  ║
-║ D_26     is_there_a_light -> look_at_this_wall              ║
-║ D_27     it_s_a_big_one -> is_there_a_way                   ║
-║ D_28     should_be_fast [WAIT]                              ║
-║ D_29     it_s_a_big_one -> is_there_a_way                   ║
-║ D_30     it_s_a_big_one [WAIT]                              ║
-║ D_31     look_at_this_wall -> it_s_a_big_one                ║
-║ D_32     I_think_we_re_lost -> maybe_ask_our_way            ║
-║ D_33     is_there_a_light -> look_at_this_wall              ║
-║ D_34     should_be_fast [WAIT]                              ║
-║ D_35     is_there_a_light -> look_at_this_wall              ║
+║ D_26     is_there_a_way -> best_is_to_come                  ║
+║ D_27     should_be_fast [WAIT]                              ║
+║ D_28     it_s_a_big_one -> is_there_a_way                   ║
+║ D_29     I_think_we_re_lost -> maybe_ask_our_way            ║
+║ D_30     it_s_a_big_one -> is_there_a_way                   ║
+║ D_31     it_s_a_big_one [WAIT]                              ║
+║ D_32     look_at_this_wall -> it_s_a_big_one                ║
+║ D_33     should_be_fast [WAIT]                              ║
+║ D_34     is_there_a_light -> look_at_this_wall              ║
+║ D_35     have_a_quantum -> where_are_we_going               ║
 ║ D_36     is_there_a_light -> look_at_this_wall              ║
-║ D_37     maybe_ask_our_way -> is_there_a_light              ║
-║ D_38     have_a_quantum -> where_are_we_going               ║
-║ D_39     I_think_we_re_lost -> maybe_ask_our_way            ║
-║ D_40     should_be_fast [WAIT]                              ║
-║ D_41     I_think_we_re_lost -> maybe_ask_our_way            ║
+║ D_37     is_there_a_light -> look_at_this_wall              ║
+║ D_38     maybe_ask_our_way -> is_there_a_light              ║
+║ D_39     should_be_fast [WAIT]                              ║
+║ D_40     I_think_we_re_lost -> maybe_ask_our_way            ║
+║ D_41     choose_wisely -> keep_calm                         ║
 ║ D_42     I_think_we_re_lost -> maybe_ask_our_way            ║
 ╚══════════════════════════════════════════════════════════════╝
 
 ╔══════════════════════════════════════════════════════════════╗
-║ TURN 23                                                     ║
+║ TURN 24                                                     ║
 ╠══════════════════════════════════════════════════════════════╣
 ║ DRONES                                                       ║
 ║ D_1      DELIVERED                                          ║
@@ -1115,44 +1115,44 @@
 ║ D_6      collapsed_north -> forgotten_garden                ║
 ║ D_7      false_good_idea -> collapsed_north [TRANSIT]       ║
 ║ D_8      maybe_not -> false_good_idea [TRANSIT]             ║
-║ D_9      DELIVERED                                          ║
-║ D_10     DELIVERED                                          ║
-║ D_11     we_were_here -> goal                               ║
-║ D_12     a_big_42_coming -> we_were_here                    ║
-║ D_13     should_be_fast -> maybe_not [TRANSIT]              ║
-║ D_14     a_big_42_coming [WAIT]                             ║
-║ D_15     hang_on_baby -> far_far_away                       ║
+║ D_9      a_big_42_coming [WAIT]                             ║
+║ D_10     should_be_fast -> maybe_not [TRANSIT]              ║
+║ D_11     DELIVERED                                          ║
+║ D_12     DELIVERED                                          ║
+║ D_13     we_were_here -> goal                               ║
+║ D_14     hang_on_baby -> far_far_away                       ║
+║ D_15     a_big_42_coming -> we_were_here                    ║
 ║ D_16     should_be_fast [WAIT]                              ║
-║ D_17     a_big_42_coming [WAIT]                             ║
-║ D_18     far_far_away -> a_big_42_coming                    ║
+║ D_17     is_there_a_way -> best_is_to_come                  ║
+║ D_18     a_big_42_coming [WAIT]                             ║
 ║ D_19     far_far_away -> a_big_42_coming                    ║
-║ D_20     is_there_a_way -> best_is_to_come                  ║
-║ D_21     hang_on_baby -> far_far_away                       ║
-║ D_22     should_be_fast [WAIT]                              ║
-║ D_23     hang_on_baby -> far_far_away                       ║
-║ D_24     best_is_to_come -> hang_on_baby                    ║
+║ D_20     far_far_away -> a_big_42_coming                    ║
+║ D_21     should_be_fast [WAIT]                              ║
+║ D_22     hang_on_baby -> far_far_away                       ║
+║ D_23     look_at_this_wall -> it_s_a_big_one                ║
+║ D_24     hang_on_baby -> far_far_away                       ║
 ║ D_25     best_is_to_come -> hang_on_baby                    ║
-║ D_26     look_at_this_wall -> it_s_a_big_one                ║
-║ D_27     is_there_a_way -> best_is_to_come                  ║
-║ D_28     should_be_fast [WAIT]                              ║
-║ D_29     is_there_a_way -> best_is_to_come                  ║
-║ D_30     it_s_a_big_one -> is_there_a_way                   ║
+║ D_26     best_is_to_come -> hang_on_baby                    ║
+║ D_27     should_be_fast [WAIT]                              ║
+║ D_28     is_there_a_way -> best_is_to_come                  ║
+║ D_29     maybe_ask_our_way -> is_there_a_light              ║
+║ D_30     is_there_a_way -> best_is_to_come                  ║
 ║ D_31     it_s_a_big_one -> is_there_a_way                   ║
-║ D_32     maybe_ask_our_way -> is_there_a_light              ║
-║ D_33     look_at_this_wall -> it_s_a_big_one                ║
-║ D_34     should_be_fast [WAIT]                              ║
-║ D_35     look_at_this_wall -> it_s_a_big_one                ║
+║ D_32     it_s_a_big_one -> is_there_a_way                   ║
+║ D_33     should_be_fast [WAIT]                              ║
+║ D_34     look_at_this_wall -> it_s_a_big_one                ║
+║ D_35     where_are_we_going -> I_think_we_re_lost           ║
 ║ D_36     look_at_this_wall -> it_s_a_big_one                ║
-║ D_37     is_there_a_light -> look_at_this_wall              ║
-║ D_38     where_are_we_going -> I_think_we_re_lost           ║
-║ D_39     maybe_ask_our_way -> is_there_a_light              ║
-║ D_40     should_be_fast [WAIT]                              ║
-║ D_41     maybe_ask_our_way -> is_there_a_light              ║
+║ D_37     look_at_this_wall -> it_s_a_big_one                ║
+║ D_38     is_there_a_light -> look_at_this_wall              ║
+║ D_39     should_be_fast [WAIT]                              ║
+║ D_40     maybe_ask_our_way -> is_there_a_light              ║
+║ D_41     keep_calm -> have_a_quantum                        ║
 ║ D_42     maybe_ask_our_way -> is_there_a_light              ║
 ╚══════════════════════════════════════════════════════════════╝
 
 ╔══════════════════════════════════════════════════════════════╗
-║ TURN 24                                                     ║
+║ TURN 25                                                     ║
 ╠══════════════════════════════════════════════════════════════╣
 ║ DRONES                                                       ║
 ║ D_1      DELIVERED                                          ║
@@ -1163,44 +1163,44 @@
 ║ D_6      forgotten_garden -> collapsed_south [TRANSIT]      ║
 ║ D_7      false_good_idea -> collapsed_north                 ║
 ║ D_8      maybe_not -> false_good_idea                       ║
-║ D_9      DELIVERED                                          ║
-║ D_10     DELIVERED                                          ║
+║ D_9      a_big_42_coming [WAIT]                             ║
+║ D_10     should_be_fast -> maybe_not                        ║
 ║ D_11     DELIVERED                                          ║
-║ D_12     we_were_here -> goal                               ║
-║ D_13     should_be_fast -> maybe_not                        ║
-║ D_14     a_big_42_coming -> we_were_here                    ║
-║ D_15     far_far_away -> a_big_42_coming                    ║
+║ D_12     DELIVERED                                          ║
+║ D_13     DELIVERED                                          ║
+║ D_14     far_far_away -> a_big_42_coming                    ║
+║ D_15     we_were_here -> goal                               ║
 ║ D_16     should_be_fast [WAIT]                              ║
-║ D_17     a_big_42_coming [WAIT]                             ║
-║ D_18     a_big_42_coming [WAIT]                             ║
+║ D_17     best_is_to_come -> hang_on_baby                    ║
+║ D_18     a_big_42_coming -> we_were_here                    ║
 ║ D_19     a_big_42_coming [WAIT]                             ║
-║ D_20     best_is_to_come -> hang_on_baby                    ║
-║ D_21     far_far_away -> a_big_42_coming                    ║
-║ D_22     should_be_fast [WAIT]                              ║
-║ D_23     far_far_away -> a_big_42_coming                    ║
-║ D_24     hang_on_baby -> far_far_away                       ║
+║ D_20     a_big_42_coming [WAIT]                             ║
+║ D_21     should_be_fast [WAIT]                              ║
+║ D_22     far_far_away -> a_big_42_coming                    ║
+║ D_23     it_s_a_big_one -> is_there_a_way                   ║
+║ D_24     far_far_away -> a_big_42_coming                    ║
 ║ D_25     hang_on_baby -> far_far_away                       ║
-║ D_26     it_s_a_big_one -> is_there_a_way                   ║
-║ D_27     best_is_to_come -> hang_on_baby                    ║
-║ D_28     should_be_fast [WAIT]                              ║
-║ D_29     best_is_to_come -> hang_on_baby                    ║
-║ D_30     is_there_a_way -> best_is_to_come                  ║
+║ D_26     hang_on_baby -> far_far_away                       ║
+║ D_27     should_be_fast [WAIT]                              ║
+║ D_28     best_is_to_come -> hang_on_baby                    ║
+║ D_29     is_there_a_light -> look_at_this_wall              ║
+║ D_30     best_is_to_come -> hang_on_baby                    ║
 ║ D_31     is_there_a_way -> best_is_to_come                  ║
-║ D_32     is_there_a_light -> look_at_this_wall              ║
-║ D_33     it_s_a_big_one -> is_there_a_way                   ║
-║ D_34     should_be_fast [WAIT]                              ║
-║ D_35     it_s_a_big_one -> is_there_a_way                   ║
-║ D_36     it_s_a_big_one [WAIT]                              ║
-║ D_37     look_at_this_wall -> it_s_a_big_one                ║
-║ D_38     I_think_we_re_lost -> maybe_ask_our_way            ║
-║ D_39     is_there_a_light -> look_at_this_wall              ║
-║ D_40     should_be_fast [WAIT]                              ║
-║ D_41     is_there_a_light -> look_at_this_wall              ║
+║ D_32     is_there_a_way -> best_is_to_come                  ║
+║ D_33     should_be_fast [WAIT]                              ║
+║ D_34     it_s_a_big_one -> is_there_a_way                   ║
+║ D_35     I_think_we_re_lost -> maybe_ask_our_way            ║
+║ D_36     it_s_a_big_one -> is_there_a_way                   ║
+║ D_37     it_s_a_big_one [WAIT]                              ║
+║ D_38     look_at_this_wall -> it_s_a_big_one                ║
+║ D_39     should_be_fast [WAIT]                              ║
+║ D_40     is_there_a_light -> look_at_this_wall              ║
+║ D_41     have_a_quantum -> where_are_we_going               ║
 ║ D_42     is_there_a_light -> look_at_this_wall              ║
 ╚══════════════════════════════════════════════════════════════╝
 
 ╔══════════════════════════════════════════════════════════════╗
-║ TURN 25                                                     ║
+║ TURN 26                                                     ║
 ╠══════════════════════════════════════════════════════════════╣
 ║ DRONES                                                       ║
 ║ D_1      DELIVERED                                          ║
@@ -1211,88 +1211,40 @@
 ║ D_6      forgotten_garden -> collapsed_south                ║
 ║ D_7      collapsed_north -> forgotten_garden                ║
 ║ D_8      false_good_idea -> collapsed_north [TRANSIT]       ║
-║ D_9      DELIVERED                                          ║
-║ D_10     DELIVERED                                          ║
+║ D_9      a_big_42_coming -> we_were_here                    ║
+║ D_10     maybe_not -> false_good_idea [TRANSIT]             ║
 ║ D_11     DELIVERED                                          ║
 ║ D_12     DELIVERED                                          ║
-║ D_13     maybe_not -> false_good_idea [TRANSIT]             ║
-║ D_14     we_were_here -> goal                               ║
-║ D_15     a_big_42_coming -> we_were_here                    ║
+║ D_13     DELIVERED                                          ║
+║ D_14     a_big_42_coming [WAIT]                             ║
+║ D_15     DELIVERED                                          ║
 ║ D_16     should_be_fast -> maybe_not [TRANSIT]              ║
-║ D_17     a_big_42_coming -> we_were_here                    ║
-║ D_18     a_big_42_coming [WAIT]                             ║
-║ D_19     a_big_42_coming [WAIT]                             ║
-║ D_20     hang_on_baby -> far_far_away                       ║
-║ D_21     a_big_42_coming [WAIT]                             ║
-║ D_22     should_be_fast [WAIT]                              ║
-║ D_23     a_big_42_coming [WAIT]                             ║
-║ D_24     far_far_away -> a_big_42_coming                    ║
-║ D_25     far_far_away -> a_big_42_coming                    ║
-║ D_26     is_there_a_way -> best_is_to_come                  ║
-║ D_27     hang_on_baby -> far_far_away                       ║
-║ D_28     should_be_fast [WAIT]                              ║
-║ D_29     hang_on_baby -> far_far_away                       ║
-║ D_30     best_is_to_come -> hang_on_baby                    ║
-║ D_31     best_is_to_come -> hang_on_baby                    ║
-║ D_32     look_at_this_wall -> it_s_a_big_one                ║
-║ D_33     is_there_a_way -> best_is_to_come                  ║
-║ D_34     should_be_fast [WAIT]                              ║
-║ D_35     is_there_a_way -> best_is_to_come                  ║
-║ D_36     it_s_a_big_one -> is_there_a_way                   ║
-║ D_37     it_s_a_big_one -> is_there_a_way                   ║
-║ D_38     maybe_ask_our_way -> is_there_a_light              ║
-║ D_39     look_at_this_wall -> it_s_a_big_one                ║
-║ D_40     should_be_fast [WAIT]                              ║
-║ D_41     look_at_this_wall -> it_s_a_big_one                ║
-║ D_42     look_at_this_wall -> it_s_a_big_one                ║
-╚══════════════════════════════════════════════════════════════╝
-
-╔══════════════════════════════════════════════════════════════╗
-║ TURN 26                                                     ║
-╠══════════════════════════════════════════════════════════════╣
-║ DRONES                                                       ║
-║ D_1      DELIVERED                                          ║
-║ D_2      DELIVERED                                          ║
-║ D_3      DELIVERED                                          ║
-║ D_4      DELIVERED                                          ║
-║ D_5      far_far_away [WAIT]                                ║
-║ D_6      collapsed_south -> far_far_away                    ║
-║ D_7      forgotten_garden -> collapsed_south [TRANSIT]      ║
-║ D_8      false_good_idea -> collapsed_north                 ║
-║ D_9      DELIVERED                                          ║
-║ D_10     DELIVERED                                          ║
-║ D_11     DELIVERED                                          ║
-║ D_12     DELIVERED                                          ║
-║ D_13     maybe_not -> false_good_idea                       ║
-║ D_14     DELIVERED                                          ║
-║ D_15     we_were_here -> goal                               ║
-║ D_16     should_be_fast -> maybe_not                        ║
-║ D_17     we_were_here -> goal                               ║
-║ D_18     a_big_42_coming -> we_were_here                    ║
+║ D_17     hang_on_baby -> far_far_away                       ║
+║ D_18     we_were_here -> goal                               ║
 ║ D_19     a_big_42_coming -> we_were_here                    ║
-║ D_20     far_far_away -> a_big_42_coming                    ║
-║ D_21     a_big_42_coming [WAIT]                             ║
-║ D_22     should_be_fast [WAIT]                              ║
-║ D_23     a_big_42_coming [WAIT]                             ║
+║ D_20     a_big_42_coming [WAIT]                             ║
+║ D_21     should_be_fast [WAIT]                              ║
+║ D_22     a_big_42_coming [WAIT]                             ║
+║ D_23     is_there_a_way -> best_is_to_come                  ║
 ║ D_24     a_big_42_coming [WAIT]                             ║
-║ D_25     a_big_42_coming [WAIT]                             ║
-║ D_26     best_is_to_come -> hang_on_baby                    ║
-║ D_27     far_far_away -> a_big_42_coming                    ║
-║ D_28     should_be_fast [WAIT]                              ║
-║ D_29     far_far_away [WAIT]                                ║
+║ D_25     far_far_away -> a_big_42_coming                    ║
+║ D_26     far_far_away -> a_big_42_coming                    ║
+║ D_27     should_be_fast [WAIT]                              ║
+║ D_28     hang_on_baby -> far_far_away                       ║
+║ D_29     look_at_this_wall -> it_s_a_big_one                ║
 ║ D_30     hang_on_baby -> far_far_away                       ║
-║ D_31     hang_on_baby -> far_far_away                       ║
-║ D_32     it_s_a_big_one -> is_there_a_way                   ║
-║ D_33     best_is_to_come -> hang_on_baby                    ║
-║ D_34     should_be_fast [WAIT]                              ║
-║ D_35     best_is_to_come -> hang_on_baby                    ║
+║ D_31     best_is_to_come -> hang_on_baby                    ║
+║ D_32     best_is_to_come -> hang_on_baby                    ║
+║ D_33     should_be_fast [WAIT]                              ║
+║ D_34     is_there_a_way -> best_is_to_come                  ║
+║ D_35     maybe_ask_our_way -> is_there_a_light              ║
 ║ D_36     is_there_a_way -> best_is_to_come                  ║
-║ D_37     is_there_a_way -> best_is_to_come                  ║
-║ D_38     is_there_a_light -> look_at_this_wall              ║
-║ D_39     it_s_a_big_one -> is_there_a_way                   ║
-║ D_40     should_be_fast [WAIT]                              ║
-║ D_41     it_s_a_big_one -> is_there_a_way                   ║
-║ D_42     it_s_a_big_one [WAIT]                              ║
+║ D_37     it_s_a_big_one -> is_there_a_way                   ║
+║ D_38     it_s_a_big_one -> is_there_a_way                   ║
+║ D_39     should_be_fast [WAIT]                              ║
+║ D_40     look_at_this_wall -> it_s_a_big_one                ║
+║ D_41     where_are_we_going -> I_think_we_re_lost           ║
+║ D_42     look_at_this_wall -> it_s_a_big_one                ║
 ╚══════════════════════════════════════════════════════════════╝
 
 ╔══════════════════════════════════════════════════════════════╗
@@ -1304,42 +1256,42 @@
 ║ D_3      DELIVERED                                          ║
 ║ D_4      DELIVERED                                          ║
 ║ D_5      far_far_away [WAIT]                                ║
-║ D_6      far_far_away [WAIT]                                ║
-║ D_7      forgotten_garden -> collapsed_south                ║
-║ D_8      collapsed_north -> forgotten_garden                ║
-║ D_9      DELIVERED                                          ║
-║ D_10     DELIVERED                                          ║
+║ D_6      collapsed_south -> far_far_away                    ║
+║ D_7      forgotten_garden -> collapsed_south [TRANSIT]      ║
+║ D_8      false_good_idea -> collapsed_north                 ║
+║ D_9      we_were_here -> goal                               ║
+║ D_10     maybe_not -> false_good_idea                       ║
 ║ D_11     DELIVERED                                          ║
 ║ D_12     DELIVERED                                          ║
-║ D_13     false_good_idea -> collapsed_north [TRANSIT]       ║
-║ D_14     DELIVERED                                          ║
+║ D_13     DELIVERED                                          ║
+║ D_14     a_big_42_coming -> we_were_here                    ║
 ║ D_15     DELIVERED                                          ║
-║ D_16     maybe_not -> false_good_idea [TRANSIT]             ║
-║ D_17     DELIVERED                                          ║
-║ D_18     we_were_here -> goal                               ║
+║ D_16     should_be_fast -> maybe_not                        ║
+║ D_17     far_far_away -> a_big_42_coming                    ║
+║ D_18     DELIVERED                                          ║
 ║ D_19     we_were_here -> goal                               ║
 ║ D_20     a_big_42_coming -> we_were_here                    ║
-║ D_21     a_big_42_coming -> we_were_here                    ║
-║ D_22     should_be_fast -> maybe_not [TRANSIT]              ║
-║ D_23     a_big_42_coming [WAIT]                             ║
+║ D_21     should_be_fast [WAIT]                              ║
+║ D_22     a_big_42_coming [WAIT]                             ║
+║ D_23     best_is_to_come -> hang_on_baby                    ║
 ║ D_24     a_big_42_coming [WAIT]                             ║
 ║ D_25     a_big_42_coming [WAIT]                             ║
-║ D_26     hang_on_baby -> far_far_away                       ║
-║ D_27     a_big_42_coming [WAIT]                             ║
-║ D_28     should_be_fast [WAIT]                              ║
-║ D_29     far_far_away -> a_big_42_coming                    ║
-║ D_30     far_far_away -> a_big_42_coming                    ║
-║ D_31     far_far_away [WAIT]                                ║
-║ D_32     is_there_a_way -> best_is_to_come                  ║
-║ D_33     hang_on_baby -> far_far_away                       ║
-║ D_34     should_be_fast [WAIT]                              ║
-║ D_35     hang_on_baby -> far_far_away                       ║
+║ D_26     a_big_42_coming [WAIT]                             ║
+║ D_27     should_be_fast [WAIT]                              ║
+║ D_28     far_far_away -> a_big_42_coming                    ║
+║ D_29     it_s_a_big_one -> is_there_a_way                   ║
+║ D_30     far_far_away [WAIT]                                ║
+║ D_31     hang_on_baby -> far_far_away                       ║
+║ D_32     hang_on_baby -> far_far_away                       ║
+║ D_33     should_be_fast [WAIT]                              ║
+║ D_34     best_is_to_come -> hang_on_baby                    ║
+║ D_35     is_there_a_light -> look_at_this_wall              ║
 ║ D_36     best_is_to_come -> hang_on_baby                    ║
-║ D_37     best_is_to_come -> hang_on_baby                    ║
-║ D_38     look_at_this_wall -> it_s_a_big_one                ║
-║ D_39     is_there_a_way -> best_is_to_come                  ║
-║ D_40     should_be_fast [WAIT]                              ║
-║ D_41     is_there_a_way -> best_is_to_come                  ║
+║ D_37     is_there_a_way -> best_is_to_come                  ║
+║ D_38     is_there_a_way -> best_is_to_come                  ║
+║ D_39     should_be_fast [WAIT]                              ║
+║ D_40     it_s_a_big_one -> is_there_a_way                   ║
+║ D_41     I_think_we_re_lost -> maybe_ask_our_way            ║
 ║ D_42     it_s_a_big_one -> is_there_a_way                   ║
 ╚══════════════════════════════════════════════════════════════╝
 
@@ -1353,41 +1305,41 @@
 ║ D_4      DELIVERED                                          ║
 ║ D_5      far_far_away [WAIT]                                ║
 ║ D_6      far_far_away [WAIT]                                ║
-║ D_7      collapsed_south [WAIT]                             ║
-║ D_8      forgotten_garden [WAIT]                            ║
+║ D_7      forgotten_garden -> collapsed_south                ║
+║ D_8      collapsed_north -> forgotten_garden                ║
 ║ D_9      DELIVERED                                          ║
-║ D_10     DELIVERED                                          ║
+║ D_10     false_good_idea -> collapsed_north [TRANSIT]       ║
 ║ D_11     DELIVERED                                          ║
 ║ D_12     DELIVERED                                          ║
-║ D_13     false_good_idea -> collapsed_north                 ║
-║ D_14     DELIVERED                                          ║
+║ D_13     DELIVERED                                          ║
+║ D_14     we_were_here -> goal                               ║
 ║ D_15     DELIVERED                                          ║
-║ D_16     maybe_not -> false_good_idea                       ║
-║ D_17     DELIVERED                                          ║
+║ D_16     maybe_not -> false_good_idea [TRANSIT]             ║
+║ D_17     a_big_42_coming -> we_were_here                    ║
 ║ D_18     DELIVERED                                          ║
 ║ D_19     DELIVERED                                          ║
 ║ D_20     we_were_here -> goal                               ║
-║ D_21     we_were_here -> goal                               ║
-║ D_22     should_be_fast -> maybe_not                        ║
-║ D_23     a_big_42_coming -> we_were_here                    ║
-║ D_24     a_big_42_coming -> we_were_here                    ║
+║ D_21     should_be_fast -> maybe_not [TRANSIT]              ║
+║ D_22     a_big_42_coming -> we_were_here                    ║
+║ D_23     hang_on_baby -> far_far_away                       ║
+║ D_24     a_big_42_coming [WAIT]                             ║
 ║ D_25     a_big_42_coming [WAIT]                             ║
-║ D_26     far_far_away -> a_big_42_coming                    ║
-║ D_27     a_big_42_coming [WAIT]                             ║
-║ D_28     should_be_fast [WAIT]                              ║
-║ D_29     a_big_42_coming [WAIT]                             ║
-║ D_30     a_big_42_coming [WAIT]                             ║
+║ D_26     a_big_42_coming [WAIT]                             ║
+║ D_27     should_be_fast [WAIT]                              ║
+║ D_28     a_big_42_coming [WAIT]                             ║
+║ D_29     is_there_a_way -> best_is_to_come                  ║
+║ D_30     far_far_away -> a_big_42_coming                    ║
 ║ D_31     far_far_away -> a_big_42_coming                    ║
-║ D_32     best_is_to_come -> hang_on_baby                    ║
-║ D_33     far_far_away [WAIT]                                ║
-║ D_34     should_be_fast [WAIT]                              ║
-║ D_35     far_far_away [WAIT]                                ║
+║ D_32     far_far_away [WAIT]                                ║
+║ D_33     should_be_fast [WAIT]                              ║
+║ D_34     hang_on_baby -> far_far_away                       ║
+║ D_35     look_at_this_wall -> it_s_a_big_one                ║
 ║ D_36     hang_on_baby -> far_far_away                       ║
-║ D_37     hang_on_baby -> far_far_away                       ║
-║ D_38     it_s_a_big_one -> is_there_a_way                   ║
-║ D_39     best_is_to_come -> hang_on_baby                    ║
-║ D_40     should_be_fast [WAIT]                              ║
-║ D_41     best_is_to_come -> hang_on_baby                    ║
+║ D_37     best_is_to_come -> hang_on_baby                    ║
+║ D_38     best_is_to_come -> hang_on_baby                    ║
+║ D_39     should_be_fast [WAIT]                              ║
+║ D_40     is_there_a_way -> best_is_to_come                  ║
+║ D_41     maybe_ask_our_way -> is_there_a_light              ║
 ║ D_42     is_there_a_way -> best_is_to_come                  ║
 ╚══════════════════════════════════════════════════════════════╝
 
@@ -1404,38 +1356,38 @@
 ║ D_7      collapsed_south [WAIT]                             ║
 ║ D_8      forgotten_garden [WAIT]                            ║
 ║ D_9      DELIVERED                                          ║
-║ D_10     DELIVERED                                          ║
+║ D_10     false_good_idea -> collapsed_north                 ║
 ║ D_11     DELIVERED                                          ║
 ║ D_12     DELIVERED                                          ║
-║ D_13     collapsed_north -> closed_market                   ║
+║ D_13     DELIVERED                                          ║
 ║ D_14     DELIVERED                                          ║
 ║ D_15     DELIVERED                                          ║
-║ D_16     false_good_idea -> collapsed_north [TRANSIT]       ║
-║ D_17     DELIVERED                                          ║
+║ D_16     maybe_not -> false_good_idea                       ║
+║ D_17     we_were_here -> goal                               ║
 ║ D_18     DELIVERED                                          ║
 ║ D_19     DELIVERED                                          ║
 ║ D_20     DELIVERED                                          ║
-║ D_21     DELIVERED                                          ║
-║ D_22     maybe_not -> false_good_idea [TRANSIT]             ║
-║ D_23     we_were_here -> goal                               ║
-║ D_24     we_were_here -> goal                               ║
+║ D_21     should_be_fast -> maybe_not                        ║
+║ D_22     we_were_here -> goal                               ║
+║ D_23     far_far_away [WAIT]                                ║
+║ D_24     a_big_42_coming -> we_were_here                    ║
 ║ D_25     a_big_42_coming -> we_were_here                    ║
-║ D_26     a_big_42_coming -> we_were_here                    ║
-║ D_27     a_big_42_coming [WAIT]                             ║
-║ D_28     should_be_fast -> maybe_not [TRANSIT]              ║
-║ D_29     a_big_42_coming [WAIT]                             ║
+║ D_26     a_big_42_coming [WAIT]                             ║
+║ D_27     should_be_fast [WAIT]                              ║
+║ D_28     a_big_42_coming [WAIT]                             ║
+║ D_29     best_is_to_come -> hang_on_baby                    ║
 ║ D_30     a_big_42_coming [WAIT]                             ║
 ║ D_31     a_big_42_coming [WAIT]                             ║
-║ D_32     hang_on_baby [WAIT]                                ║
-║ D_33     far_far_away -> a_big_42_coming                    ║
-║ D_34     should_be_fast [WAIT]                              ║
-║ D_35     far_far_away -> a_big_42_coming                    ║
+║ D_32     far_far_away -> a_big_42_coming                    ║
+║ D_33     should_be_fast [WAIT]                              ║
+║ D_34     far_far_away -> a_big_42_coming                    ║
+║ D_35     it_s_a_big_one -> is_there_a_way                   ║
 ║ D_36     far_far_away [WAIT]                                ║
-║ D_37     far_far_away [WAIT]                                ║
-║ D_38     is_there_a_way -> best_is_to_come                  ║
-║ D_39     hang_on_baby -> far_far_away                       ║
-║ D_40     should_be_fast [WAIT]                              ║
-║ D_41     hang_on_baby -> far_far_away                       ║
+║ D_37     hang_on_baby -> far_far_away                       ║
+║ D_38     hang_on_baby -> far_far_away                       ║
+║ D_39     should_be_fast [WAIT]                              ║
+║ D_40     best_is_to_come -> hang_on_baby                    ║
+║ D_41     is_there_a_light -> look_at_this_wall              ║
 ║ D_42     best_is_to_come -> hang_on_baby                    ║
 ╚══════════════════════════════════════════════════════════════╝
 
@@ -1452,38 +1404,38 @@
 ║ D_7      collapsed_south [WAIT]                             ║
 ║ D_8      forgotten_garden [WAIT]                            ║
 ║ D_9      DELIVERED                                          ║
-║ D_10     DELIVERED                                          ║
+║ D_10     collapsed_north -> closed_market                   ║
 ║ D_11     DELIVERED                                          ║
 ║ D_12     DELIVERED                                          ║
-║ D_13     closed_market -> unknown_street                    ║
+║ D_13     DELIVERED                                          ║
 ║ D_14     DELIVERED                                          ║
 ║ D_15     DELIVERED                                          ║
-║ D_16     false_good_idea -> collapsed_north                 ║
+║ D_16     false_good_idea -> collapsed_north [TRANSIT]       ║
 ║ D_17     DELIVERED                                          ║
 ║ D_18     DELIVERED                                          ║
 ║ D_19     DELIVERED                                          ║
 ║ D_20     DELIVERED                                          ║
-║ D_21     DELIVERED                                          ║
-║ D_22     maybe_not -> false_good_idea                       ║
-║ D_23     DELIVERED                                          ║
-║ D_24     DELIVERED                                          ║
+║ D_21     maybe_not -> false_good_idea [TRANSIT]             ║
+║ D_22     DELIVERED                                          ║
+║ D_23     far_far_away [WAIT]                                ║
+║ D_24     we_were_here -> goal                               ║
 ║ D_25     we_were_here -> goal                               ║
-║ D_26     we_were_here -> goal                               ║
-║ D_27     a_big_42_coming -> we_were_here                    ║
-║ D_28     should_be_fast -> maybe_not                        ║
-║ D_29     a_big_42_coming -> we_were_here                    ║
+║ D_26     a_big_42_coming -> we_were_here                    ║
+║ D_27     should_be_fast -> maybe_not [TRANSIT]              ║
+║ D_28     a_big_42_coming -> we_were_here                    ║
+║ D_29     hang_on_baby [WAIT]                                ║
 ║ D_30     a_big_42_coming [WAIT]                             ║
 ║ D_31     a_big_42_coming [WAIT]                             ║
-║ D_32     hang_on_baby [WAIT]                                ║
-║ D_33     a_big_42_coming [WAIT]                             ║
-║ D_34     should_be_fast [WAIT]                              ║
-║ D_35     a_big_42_coming [WAIT]                             ║
+║ D_32     a_big_42_coming [WAIT]                             ║
+║ D_33     should_be_fast [WAIT]                              ║
+║ D_34     a_big_42_coming [WAIT]                             ║
+║ D_35     is_there_a_way -> best_is_to_come                  ║
 ║ D_36     far_far_away -> a_big_42_coming                    ║
 ║ D_37     far_far_away -> a_big_42_coming                    ║
-║ D_38     best_is_to_come -> hang_on_baby                    ║
-║ D_39     far_far_away [WAIT]                                ║
-║ D_40     should_be_fast [WAIT]                              ║
-║ D_41     far_far_away [WAIT]                                ║
+║ D_38     far_far_away [WAIT]                                ║
+║ D_39     should_be_fast [WAIT]                              ║
+║ D_40     hang_on_baby -> far_far_away                       ║
+║ D_41     look_at_this_wall -> it_s_a_big_one                ║
 ║ D_42     hang_on_baby -> far_far_away                       ║
 ╚══════════════════════════════════════════════════════════════╝
 
@@ -1497,41 +1449,41 @@
 ║ D_4      DELIVERED                                          ║
 ║ D_5      far_far_away [WAIT]                                ║
 ║ D_6      far_far_away [WAIT]                                ║
-║ D_7      collapsed_south -> far_far_away                    ║
-║ D_8      forgotten_garden -> collapsed_south [TRANSIT]      ║
+║ D_7      collapsed_south [WAIT]                             ║
+║ D_8      forgotten_garden [WAIT]                            ║
 ║ D_9      DELIVERED                                          ║
-║ D_10     DELIVERED                                          ║
+║ D_10     closed_market -> unknown_street                    ║
 ║ D_11     DELIVERED                                          ║
 ║ D_12     DELIVERED                                          ║
-║ D_13     unknown_street [WAIT]                              ║
+║ D_13     DELIVERED                                          ║
 ║ D_14     DELIVERED                                          ║
 ║ D_15     DELIVERED                                          ║
-║ D_16     collapsed_north -> forgotten_garden                ║
+║ D_16     false_good_idea -> collapsed_north                 ║
 ║ D_17     DELIVERED                                          ║
 ║ D_18     DELIVERED                                          ║
 ║ D_19     DELIVERED                                          ║
 ║ D_20     DELIVERED                                          ║
-║ D_21     DELIVERED                                          ║
-║ D_22     false_good_idea -> collapsed_north [TRANSIT]       ║
-║ D_23     DELIVERED                                          ║
+║ D_21     maybe_not -> false_good_idea                       ║
+║ D_22     DELIVERED                                          ║
+║ D_23     far_far_away [WAIT]                                ║
 ║ D_24     DELIVERED                                          ║
 ║ D_25     DELIVERED                                          ║
-║ D_26     DELIVERED                                          ║
-║ D_27     we_were_here -> goal                               ║
-║ D_28     maybe_not -> false_good_idea [TRANSIT]             ║
-║ D_29     we_were_here -> goal                               ║
+║ D_26     we_were_here -> goal                               ║
+║ D_27     should_be_fast -> maybe_not                        ║
+║ D_28     we_were_here -> goal                               ║
+║ D_29     hang_on_baby [WAIT]                                ║
 ║ D_30     a_big_42_coming -> we_were_here                    ║
 ║ D_31     a_big_42_coming -> we_were_here                    ║
-║ D_32     hang_on_baby [WAIT]                                ║
-║ D_33     a_big_42_coming [WAIT]                             ║
-║ D_34     should_be_fast -> maybe_not [TRANSIT]              ║
-║ D_35     a_big_42_coming [WAIT]                             ║
+║ D_32     a_big_42_coming [WAIT]                             ║
+║ D_33     should_be_fast [WAIT]                              ║
+║ D_34     a_big_42_coming [WAIT]                             ║
+║ D_35     best_is_to_come -> hang_on_baby                    ║
 ║ D_36     a_big_42_coming [WAIT]                             ║
 ║ D_37     a_big_42_coming [WAIT]                             ║
-║ D_38     hang_on_baby [WAIT]                                ║
-║ D_39     far_far_away -> a_big_42_coming                    ║
-║ D_40     should_be_fast [WAIT]                              ║
-║ D_41     far_far_away -> a_big_42_coming                    ║
+║ D_38     far_far_away -> a_big_42_coming                    ║
+║ D_39     should_be_fast [WAIT]                              ║
+║ D_40     far_far_away -> a_big_42_coming                    ║
+║ D_41     it_s_a_big_one -> is_there_a_way                   ║
 ║ D_42     far_far_away [WAIT]                                ║
 ╚══════════════════════════════════════════════════════════════╝
 
@@ -1545,41 +1497,41 @@
 ║ D_4      DELIVERED                                          ║
 ║ D_5      far_far_away [WAIT]                                ║
 ║ D_6      far_far_away [WAIT]                                ║
-║ D_7      far_far_away [WAIT]                                ║
-║ D_8      forgotten_garden -> collapsed_south                ║
+║ D_7      collapsed_south -> far_far_away                    ║
+║ D_8      forgotten_garden -> collapsed_south [TRANSIT]      ║
 ║ D_9      DELIVERED                                          ║
-║ D_10     DELIVERED                                          ║
+║ D_10     unknown_street [WAIT]                              ║
 ║ D_11     DELIVERED                                          ║
 ║ D_12     DELIVERED                                          ║
-║ D_13     unknown_street [WAIT]                              ║
+║ D_13     DELIVERED                                          ║
 ║ D_14     DELIVERED                                          ║
 ║ D_15     DELIVERED                                          ║
-║ D_16     forgotten_garden [WAIT]                            ║
+║ D_16     collapsed_north -> forgotten_garden                ║
 ║ D_17     DELIVERED                                          ║
 ║ D_18     DELIVERED                                          ║
 ║ D_19     DELIVERED                                          ║
 ║ D_20     DELIVERED                                          ║
-║ D_21     DELIVERED                                          ║
-║ D_22     false_good_idea -> collapsed_north                 ║
-║ D_23     DELIVERED                                          ║
+║ D_21     false_good_idea -> collapsed_north [TRANSIT]       ║
+║ D_22     DELIVERED                                          ║
+║ D_23     far_far_away [WAIT]                                ║
 ║ D_24     DELIVERED                                          ║
 ║ D_25     DELIVERED                                          ║
 ║ D_26     DELIVERED                                          ║
-║ D_27     DELIVERED                                          ║
-║ D_28     maybe_not -> false_good_idea                       ║
-║ D_29     DELIVERED                                          ║
+║ D_27     maybe_not -> false_good_idea [TRANSIT]             ║
+║ D_28     DELIVERED                                          ║
+║ D_29     hang_on_baby -> far_far_away                       ║
 ║ D_30     we_were_here -> goal                               ║
 ║ D_31     we_were_here -> goal                               ║
-║ D_32     hang_on_baby -> far_far_away                       ║
-║ D_33     a_big_42_coming -> we_were_here                    ║
-║ D_34     should_be_fast -> maybe_not                        ║
-║ D_35     a_big_42_coming -> we_were_here                    ║
+║ D_32     a_big_42_coming -> we_were_here                    ║
+║ D_33     should_be_fast -> maybe_not [TRANSIT]              ║
+║ D_34     a_big_42_coming -> we_were_here                    ║
+║ D_35     hang_on_baby [WAIT]                                ║
 ║ D_36     a_big_42_coming [WAIT]                             ║
 ║ D_37     a_big_42_coming [WAIT]                             ║
-║ D_38     hang_on_baby -> far_far_away                       ║
-║ D_39     a_big_42_coming [WAIT]                             ║
-║ D_40     should_be_fast [WAIT]                              ║
-║ D_41     a_big_42_coming [WAIT]                             ║
+║ D_38     a_big_42_coming [WAIT]                             ║
+║ D_39     should_be_fast [WAIT]                              ║
+║ D_40     a_big_42_coming [WAIT]                             ║
+║ D_41     is_there_a_way -> best_is_to_come                  ║
 ║ D_42     far_far_away -> a_big_42_coming                    ║
 ╚══════════════════════════════════════════════════════════════╝
 
@@ -1594,12 +1546,12 @@
 ║ D_5      far_far_away -> a_big_42_coming                    ║
 ║ D_6      far_far_away [WAIT]                                ║
 ║ D_7      far_far_away [WAIT]                                ║
-║ D_8      collapsed_south -> far_far_away                    ║
+║ D_8      forgotten_garden -> collapsed_south                ║
 ║ D_9      DELIVERED                                          ║
-║ D_10     DELIVERED                                          ║
+║ D_10     unknown_street [WAIT]                              ║
 ║ D_11     DELIVERED                                          ║
 ║ D_12     DELIVERED                                          ║
-║ D_13     unknown_street -> collapsed_south [TRANSIT]        ║
+║ D_13     DELIVERED                                          ║
 ║ D_14     DELIVERED                                          ║
 ║ D_15     DELIVERED                                          ║
 ║ D_16     forgotten_garden [WAIT]                            ║
@@ -1607,27 +1559,27 @@
 ║ D_18     DELIVERED                                          ║
 ║ D_19     DELIVERED                                          ║
 ║ D_20     DELIVERED                                          ║
-║ D_21     DELIVERED                                          ║
-║ D_22     collapsed_north -> closed_market                   ║
-║ D_23     DELIVERED                                          ║
+║ D_21     false_good_idea -> collapsed_north                 ║
+║ D_22     DELIVERED                                          ║
+║ D_23     far_far_away [WAIT]                                ║
 ║ D_24     DELIVERED                                          ║
 ║ D_25     DELIVERED                                          ║
 ║ D_26     DELIVERED                                          ║
-║ D_27     DELIVERED                                          ║
-║ D_28     false_good_idea -> collapsed_north [TRANSIT]       ║
-║ D_29     DELIVERED                                          ║
+║ D_27     maybe_not -> false_good_idea                       ║
+║ D_28     DELIVERED                                          ║
+║ D_29     far_far_away [WAIT]                                ║
 ║ D_30     DELIVERED                                          ║
 ║ D_31     DELIVERED                                          ║
-║ D_32     far_far_away [WAIT]                                ║
-║ D_33     we_were_here -> goal                               ║
-║ D_34     maybe_not -> false_good_idea [TRANSIT]             ║
-║ D_35     we_were_here -> goal                               ║
+║ D_32     we_were_here -> goal                               ║
+║ D_33     should_be_fast -> maybe_not                        ║
+║ D_34     we_were_here -> goal                               ║
+║ D_35     hang_on_baby -> far_far_away                       ║
 ║ D_36     a_big_42_coming -> we_were_here                    ║
 ║ D_37     a_big_42_coming -> we_were_here                    ║
-║ D_38     far_far_away -> a_big_42_coming                    ║
-║ D_39     a_big_42_coming [WAIT]                             ║
-║ D_40     should_be_fast -> maybe_not [TRANSIT]              ║
-║ D_41     a_big_42_coming [WAIT]                             ║
+║ D_38     a_big_42_coming [WAIT]                             ║
+║ D_39     should_be_fast [WAIT]                              ║
+║ D_40     a_big_42_coming [WAIT]                             ║
+║ D_41     best_is_to_come -> hang_on_baby                    ║
 ║ D_42     a_big_42_coming [WAIT]                             ║
 ╚══════════════════════════════════════════════════════════════╝
 
@@ -1641,13 +1593,13 @@
 ║ D_4      DELIVERED                                          ║
 ║ D_5      a_big_42_coming [WAIT]                             ║
 ║ D_6      far_far_away -> a_big_42_coming                    ║
-║ D_7      far_far_away [WAIT]                                ║
-║ D_8      far_far_away [WAIT]                                ║
+║ D_7      far_far_away -> a_big_42_coming                    ║
+║ D_8      collapsed_south -> far_far_away                    ║
 ║ D_9      DELIVERED                                          ║
-║ D_10     DELIVERED                                          ║
+║ D_10     unknown_street -> collapsed_south [TRANSIT]        ║
 ║ D_11     DELIVERED                                          ║
 ║ D_12     DELIVERED                                          ║
-║ D_13     unknown_street -> collapsed_south                  ║
+║ D_13     DELIVERED                                          ║
 ║ D_14     DELIVERED                                          ║
 ║ D_15     DELIVERED                                          ║
 ║ D_16     forgotten_garden [WAIT]                            ║
@@ -1655,27 +1607,27 @@
 ║ D_18     DELIVERED                                          ║
 ║ D_19     DELIVERED                                          ║
 ║ D_20     DELIVERED                                          ║
-║ D_21     DELIVERED                                          ║
-║ D_22     closed_market -> unknown_street                    ║
-║ D_23     DELIVERED                                          ║
+║ D_21     collapsed_north -> closed_market                   ║
+║ D_22     DELIVERED                                          ║
+║ D_23     far_far_away [WAIT]                                ║
 ║ D_24     DELIVERED                                          ║
 ║ D_25     DELIVERED                                          ║
 ║ D_26     DELIVERED                                          ║
-║ D_27     DELIVERED                                          ║
-║ D_28     false_good_idea -> collapsed_north                 ║
-║ D_29     DELIVERED                                          ║
+║ D_27     false_good_idea -> collapsed_north [TRANSIT]       ║
+║ D_28     DELIVERED                                          ║
+║ D_29     far_far_away [WAIT]                                ║
 ║ D_30     DELIVERED                                          ║
 ║ D_31     DELIVERED                                          ║
-║ D_32     far_far_away [WAIT]                                ║
-║ D_33     DELIVERED                                          ║
-║ D_34     maybe_not -> false_good_idea                       ║
-║ D_35     DELIVERED                                          ║
+║ D_32     DELIVERED                                          ║
+║ D_33     maybe_not -> false_good_idea [TRANSIT]             ║
+║ D_34     DELIVERED                                          ║
+║ D_35     far_far_away [WAIT]                                ║
 ║ D_36     we_were_here -> goal                               ║
 ║ D_37     we_were_here -> goal                               ║
 ║ D_38     a_big_42_coming -> we_were_here                    ║
-║ D_39     a_big_42_coming -> we_were_here                    ║
-║ D_40     should_be_fast -> maybe_not                        ║
-║ D_41     a_big_42_coming [WAIT]                             ║
+║ D_39     should_be_fast -> maybe_not [TRANSIT]              ║
+║ D_40     a_big_42_coming -> we_were_here                    ║
+║ D_41     hang_on_baby -> far_far_away                       ║
 ║ D_42     a_big_42_coming [WAIT]                             ║
 ╚══════════════════════════════════════════════════════════════╝
 
@@ -1689,41 +1641,41 @@
 ║ D_4      DELIVERED                                          ║
 ║ D_5      a_big_42_coming [WAIT]                             ║
 ║ D_6      a_big_42_coming [WAIT]                             ║
-║ D_7      far_far_away -> a_big_42_coming                    ║
+║ D_7      a_big_42_coming [WAIT]                             ║
 ║ D_8      far_far_away -> a_big_42_coming                    ║
 ║ D_9      DELIVERED                                          ║
-║ D_10     DELIVERED                                          ║
+║ D_10     unknown_street -> collapsed_south                  ║
 ║ D_11     DELIVERED                                          ║
 ║ D_12     DELIVERED                                          ║
-║ D_13     collapsed_south -> far_far_away                    ║
+║ D_13     DELIVERED                                          ║
 ║ D_14     DELIVERED                                          ║
 ║ D_15     DELIVERED                                          ║
-║ D_16     forgotten_garden -> collapsed_south [TRANSIT]      ║
+║ D_16     forgotten_garden [WAIT]                            ║
 ║ D_17     DELIVERED                                          ║
 ║ D_18     DELIVERED                                          ║
 ║ D_19     DELIVERED                                          ║
 ║ D_20     DELIVERED                                          ║
-║ D_21     DELIVERED                                          ║
-║ D_22     unknown_street [WAIT]                              ║
-║ D_23     DELIVERED                                          ║
+║ D_21     closed_market -> unknown_street                    ║
+║ D_22     DELIVERED                                          ║
+║ D_23     far_far_away -> a_big_42_coming                    ║
 ║ D_24     DELIVERED                                          ║
 ║ D_25     DELIVERED                                          ║
 ║ D_26     DELIVERED                                          ║
-║ D_27     DELIVERED                                          ║
-║ D_28     collapsed_north -> forgotten_garden                ║
-║ D_29     DELIVERED                                          ║
+║ D_27     false_good_idea -> collapsed_north                 ║
+║ D_28     DELIVERED                                          ║
+║ D_29     far_far_away [WAIT]                                ║
 ║ D_30     DELIVERED                                          ║
 ║ D_31     DELIVERED                                          ║
-║ D_32     far_far_away [WAIT]                                ║
-║ D_33     DELIVERED                                          ║
-║ D_34     false_good_idea -> collapsed_north [TRANSIT]       ║
-║ D_35     DELIVERED                                          ║
+║ D_32     DELIVERED                                          ║
+║ D_33     maybe_not -> false_good_idea                       ║
+║ D_34     DELIVERED                                          ║
+║ D_35     far_far_away [WAIT]                                ║
 ║ D_36     DELIVERED                                          ║
 ║ D_37     DELIVERED                                          ║
 ║ D_38     we_were_here -> goal                               ║
-║ D_39     we_were_here -> goal                               ║
-║ D_40     maybe_not -> false_good_idea [TRANSIT]             ║
-║ D_41     a_big_42_coming -> we_were_here                    ║
+║ D_39     should_be_fast -> maybe_not                        ║
+║ D_40     we_were_here -> goal                               ║
+║ D_41     far_far_away [WAIT]                                ║
 ║ D_42     a_big_42_coming -> we_were_here                    ║
 ╚══════════════════════════════════════════════════════════════╝
 
@@ -1735,43 +1687,43 @@
 ║ D_2      DELIVERED                                          ║
 ║ D_3      DELIVERED                                          ║
 ║ D_4      DELIVERED                                          ║
-║ D_5      a_big_42_coming [WAIT]                             ║
+║ D_5      a_big_42_coming -> we_were_here                    ║
 ║ D_6      a_big_42_coming [WAIT]                             ║
 ║ D_7      a_big_42_coming [WAIT]                             ║
 ║ D_8      a_big_42_coming [WAIT]                             ║
 ║ D_9      DELIVERED                                          ║
-║ D_10     DELIVERED                                          ║
+║ D_10     collapsed_south -> far_far_away                    ║
 ║ D_11     DELIVERED                                          ║
 ║ D_12     DELIVERED                                          ║
-║ D_13     far_far_away -> a_big_42_coming                    ║
+║ D_13     DELIVERED                                          ║
 ║ D_14     DELIVERED                                          ║
 ║ D_15     DELIVERED                                          ║
-║ D_16     forgotten_garden -> collapsed_south                ║
+║ D_16     forgotten_garden -> collapsed_south [TRANSIT]      ║
 ║ D_17     DELIVERED                                          ║
 ║ D_18     DELIVERED                                          ║
 ║ D_19     DELIVERED                                          ║
 ║ D_20     DELIVERED                                          ║
-║ D_21     DELIVERED                                          ║
-║ D_22     unknown_street [WAIT]                              ║
-║ D_23     DELIVERED                                          ║
+║ D_21     unknown_street [WAIT]                              ║
+║ D_22     DELIVERED                                          ║
+║ D_23     a_big_42_coming [WAIT]                             ║
 ║ D_24     DELIVERED                                          ║
 ║ D_25     DELIVERED                                          ║
 ║ D_26     DELIVERED                                          ║
-║ D_27     DELIVERED                                          ║
-║ D_28     forgotten_garden [WAIT]                            ║
-║ D_29     DELIVERED                                          ║
+║ D_27     collapsed_north -> forgotten_garden                ║
+║ D_28     DELIVERED                                          ║
+║ D_29     far_far_away -> a_big_42_coming                    ║
 ║ D_30     DELIVERED                                          ║
 ║ D_31     DELIVERED                                          ║
-║ D_32     far_far_away -> a_big_42_coming                    ║
-║ D_33     DELIVERED                                          ║
-║ D_34     false_good_idea -> collapsed_north                 ║
-║ D_35     DELIVERED                                          ║
+║ D_32     DELIVERED                                          ║
+║ D_33     false_good_idea -> collapsed_north [TRANSIT]       ║
+║ D_34     DELIVERED                                          ║
+║ D_35     far_far_away -> a_big_42_coming                    ║
 ║ D_36     DELIVERED                                          ║
 ║ D_37     DELIVERED                                          ║
 ║ D_38     DELIVERED                                          ║
-║ D_39     DELIVERED                                          ║
-║ D_40     maybe_not -> false_good_idea                       ║
-║ D_41     we_were_here -> goal                               ║
+║ D_39     maybe_not -> false_good_idea [TRANSIT]             ║
+║ D_40     DELIVERED                                          ║
+║ D_41     far_far_away [WAIT]                                ║
 ║ D_42     we_were_here -> goal                               ║
 ╚══════════════════════════════════════════════════════════════╝
 
@@ -1783,43 +1735,43 @@
 ║ D_2      DELIVERED                                          ║
 ║ D_3      DELIVERED                                          ║
 ║ D_4      DELIVERED                                          ║
-║ D_5      a_big_42_coming -> we_were_here                    ║
+║ D_5      we_were_here -> goal                               ║
 ║ D_6      a_big_42_coming -> we_were_here                    ║
-║ D_7      a_big_42_coming [WAIT]                             ║
+║ D_7      a_big_42_coming -> we_were_here                    ║
 ║ D_8      a_big_42_coming [WAIT]                             ║
 ║ D_9      DELIVERED                                          ║
-║ D_10     DELIVERED                                          ║
+║ D_10     far_far_away -> a_big_42_coming                    ║
 ║ D_11     DELIVERED                                          ║
 ║ D_12     DELIVERED                                          ║
-║ D_13     a_big_42_coming [WAIT]                             ║
+║ D_13     DELIVERED                                          ║
 ║ D_14     DELIVERED                                          ║
 ║ D_15     DELIVERED                                          ║
-║ D_16     collapsed_south -> far_far_away                    ║
+║ D_16     forgotten_garden -> collapsed_south                ║
 ║ D_17     DELIVERED                                          ║
 ║ D_18     DELIVERED                                          ║
 ║ D_19     DELIVERED                                          ║
 ║ D_20     DELIVERED                                          ║
-║ D_21     DELIVERED                                          ║
-║ D_22     unknown_street -> collapsed_south [TRANSIT]        ║
-║ D_23     DELIVERED                                          ║
+║ D_21     unknown_street [WAIT]                              ║
+║ D_22     DELIVERED                                          ║
+║ D_23     a_big_42_coming [WAIT]                             ║
 ║ D_24     DELIVERED                                          ║
 ║ D_25     DELIVERED                                          ║
 ║ D_26     DELIVERED                                          ║
-║ D_27     DELIVERED                                          ║
-║ D_28     forgotten_garden [WAIT]                            ║
-║ D_29     DELIVERED                                          ║
+║ D_27     forgotten_garden [WAIT]                            ║
+║ D_28     DELIVERED                                          ║
+║ D_29     a_big_42_coming [WAIT]                             ║
 ║ D_30     DELIVERED                                          ║
 ║ D_31     DELIVERED                                          ║
-║ D_32     a_big_42_coming [WAIT]                             ║
-║ D_33     DELIVERED                                          ║
-║ D_34     collapsed_north -> closed_market                   ║
-║ D_35     DELIVERED                                          ║
+║ D_32     DELIVERED                                          ║
+║ D_33     false_good_idea -> collapsed_north                 ║
+║ D_34     DELIVERED                                          ║
+║ D_35     a_big_42_coming [WAIT]                             ║
 ║ D_36     DELIVERED                                          ║
 ║ D_37     DELIVERED                                          ║
 ║ D_38     DELIVERED                                          ║
-║ D_39     DELIVERED                                          ║
-║ D_40     false_good_idea -> collapsed_north [TRANSIT]       ║
-║ D_41     DELIVERED                                          ║
+║ D_39     maybe_not -> false_good_idea                       ║
+║ D_40     DELIVERED                                          ║
+║ D_41     far_far_away -> a_big_42_coming                    ║
 ║ D_42     DELIVERED                                          ║
 ╚══════════════════════════════════════════════════════════════╝
 
@@ -1831,43 +1783,43 @@
 ║ D_2      DELIVERED                                          ║
 ║ D_3      DELIVERED                                          ║
 ║ D_4      DELIVERED                                          ║
-║ D_5      we_were_here -> goal                               ║
+║ D_5      DELIVERED                                          ║
 ║ D_6      we_were_here -> goal                               ║
-║ D_7      a_big_42_coming -> we_were_here                    ║
+║ D_7      we_were_here -> goal                               ║
 ║ D_8      a_big_42_coming -> we_were_here                    ║
 ║ D_9      DELIVERED                                          ║
-║ D_10     DELIVERED                                          ║
+║ D_10     a_big_42_coming -> we_were_here                    ║
 ║ D_11     DELIVERED                                          ║
 ║ D_12     DELIVERED                                          ║
-║ D_13     a_big_42_coming [WAIT]                             ║
+║ D_13     DELIVERED                                          ║
 ║ D_14     DELIVERED                                          ║
 ║ D_15     DELIVERED                                          ║
-║ D_16     far_far_away -> a_big_42_coming                    ║
+║ D_16     collapsed_south -> far_far_away                    ║
 ║ D_17     DELIVERED                                          ║
 ║ D_18     DELIVERED                                          ║
 ║ D_19     DELIVERED                                          ║
 ║ D_20     DELIVERED                                          ║
-║ D_21     DELIVERED                                          ║
-║ D_22     unknown_street -> collapsed_south                  ║
-║ D_23     DELIVERED                                          ║
+║ D_21     unknown_street -> collapsed_south [TRANSIT]        ║
+║ D_22     DELIVERED                                          ║
+║ D_23     a_big_42_coming [WAIT]                             ║
 ║ D_24     DELIVERED                                          ║
 ║ D_25     DELIVERED                                          ║
 ║ D_26     DELIVERED                                          ║
-║ D_27     DELIVERED                                          ║
-║ D_28     forgotten_garden [WAIT]                            ║
-║ D_29     DELIVERED                                          ║
+║ D_27     forgotten_garden [WAIT]                            ║
+║ D_28     DELIVERED                                          ║
+║ D_29     a_big_42_coming [WAIT]                             ║
 ║ D_30     DELIVERED                                          ║
 ║ D_31     DELIVERED                                          ║
-║ D_32     a_big_42_coming [WAIT]                             ║
-║ D_33     DELIVERED                                          ║
-║ D_34     closed_market -> unknown_street                    ║
-║ D_35     DELIVERED                                          ║
+║ D_32     DELIVERED                                          ║
+║ D_33     collapsed_north -> closed_market                   ║
+║ D_34     DELIVERED                                          ║
+║ D_35     a_big_42_coming [WAIT]                             ║
 ║ D_36     DELIVERED                                          ║
 ║ D_37     DELIVERED                                          ║
 ║ D_38     DELIVERED                                          ║
-║ D_39     DELIVERED                                          ║
-║ D_40     false_good_idea -> collapsed_north                 ║
-║ D_41     DELIVERED                                          ║
+║ D_39     false_good_idea -> collapsed_north [TRANSIT]       ║
+║ D_40     DELIVERED                                          ║
+║ D_41     a_big_42_coming [WAIT]                             ║
 ║ D_42     DELIVERED                                          ║
 ╚══════════════════════════════════════════════════════════════╝
 
@@ -1881,41 +1833,41 @@
 ║ D_4      DELIVERED                                          ║
 ║ D_5      DELIVERED                                          ║
 ║ D_6      DELIVERED                                          ║
-║ D_7      we_were_here -> goal                               ║
+║ D_7      DELIVERED                                          ║
 ║ D_8      we_were_here -> goal                               ║
 ║ D_9      DELIVERED                                          ║
-║ D_10     DELIVERED                                          ║
+║ D_10     we_were_here -> goal                               ║
 ║ D_11     DELIVERED                                          ║
 ║ D_12     DELIVERED                                          ║
-║ D_13     a_big_42_coming -> we_were_here                    ║
+║ D_13     DELIVERED                                          ║
 ║ D_14     DELIVERED                                          ║
 ║ D_15     DELIVERED                                          ║
-║ D_16     a_big_42_coming -> we_were_here                    ║
+║ D_16     far_far_away -> a_big_42_coming                    ║
 ║ D_17     DELIVERED                                          ║
 ║ D_18     DELIVERED                                          ║
 ║ D_19     DELIVERED                                          ║
 ║ D_20     DELIVERED                                          ║
-║ D_21     DELIVERED                                          ║
-║ D_22     collapsed_south -> far_far_away                    ║
-║ D_23     DELIVERED                                          ║
+║ D_21     unknown_street -> collapsed_south                  ║
+║ D_22     DELIVERED                                          ║
+║ D_23     a_big_42_coming -> we_were_here                    ║
 ║ D_24     DELIVERED                                          ║
 ║ D_25     DELIVERED                                          ║
 ║ D_26     DELIVERED                                          ║
-║ D_27     DELIVERED                                          ║
-║ D_28     forgotten_garden -> collapsed_south [TRANSIT]      ║
-║ D_29     DELIVERED                                          ║
+║ D_27     forgotten_garden [WAIT]                            ║
+║ D_28     DELIVERED                                          ║
+║ D_29     a_big_42_coming -> we_were_here                    ║
 ║ D_30     DELIVERED                                          ║
 ║ D_31     DELIVERED                                          ║
-║ D_32     a_big_42_coming [WAIT]                             ║
-║ D_33     DELIVERED                                          ║
-║ D_34     unknown_street [WAIT]                              ║
-║ D_35     DELIVERED                                          ║
+║ D_32     DELIVERED                                          ║
+║ D_33     closed_market -> unknown_street                    ║
+║ D_34     DELIVERED                                          ║
+║ D_35     a_big_42_coming [WAIT]                             ║
 ║ D_36     DELIVERED                                          ║
 ║ D_37     DELIVERED                                          ║
 ║ D_38     DELIVERED                                          ║
-║ D_39     DELIVERED                                          ║
-║ D_40     collapsed_north -> forgotten_garden                ║
-║ D_41     DELIVERED                                          ║
+║ D_39     false_good_idea -> collapsed_north                 ║
+║ D_40     DELIVERED                                          ║
+║ D_41     a_big_42_coming [WAIT]                             ║
 ║ D_42     DELIVERED                                          ║
 ╚══════════════════════════════════════════════════════════════╝
 
@@ -1935,35 +1887,35 @@
 ║ D_10     DELIVERED                                          ║
 ║ D_11     DELIVERED                                          ║
 ║ D_12     DELIVERED                                          ║
-║ D_13     we_were_here -> goal                               ║
+║ D_13     DELIVERED                                          ║
 ║ D_14     DELIVERED                                          ║
 ║ D_15     DELIVERED                                          ║
-║ D_16     we_were_here -> goal                               ║
+║ D_16     a_big_42_coming [WAIT]                             ║
 ║ D_17     DELIVERED                                          ║
 ║ D_18     DELIVERED                                          ║
 ║ D_19     DELIVERED                                          ║
 ║ D_20     DELIVERED                                          ║
-║ D_21     DELIVERED                                          ║
-║ D_22     far_far_away -> a_big_42_coming                    ║
-║ D_23     DELIVERED                                          ║
+║ D_21     collapsed_south -> far_far_away                    ║
+║ D_22     DELIVERED                                          ║
+║ D_23     we_were_here -> goal                               ║
 ║ D_24     DELIVERED                                          ║
 ║ D_25     DELIVERED                                          ║
 ║ D_26     DELIVERED                                          ║
-║ D_27     DELIVERED                                          ║
-║ D_28     forgotten_garden -> collapsed_south                ║
-║ D_29     DELIVERED                                          ║
+║ D_27     forgotten_garden -> collapsed_south [TRANSIT]      ║
+║ D_28     DELIVERED                                          ║
+║ D_29     we_were_here -> goal                               ║
 ║ D_30     DELIVERED                                          ║
 ║ D_31     DELIVERED                                          ║
-║ D_32     a_big_42_coming -> we_were_here                    ║
-║ D_33     DELIVERED                                          ║
-║ D_34     unknown_street [WAIT]                              ║
-║ D_35     DELIVERED                                          ║
+║ D_32     DELIVERED                                          ║
+║ D_33     unknown_street [WAIT]                              ║
+║ D_34     DELIVERED                                          ║
+║ D_35     a_big_42_coming -> we_were_here                    ║
 ║ D_36     DELIVERED                                          ║
 ║ D_37     DELIVERED                                          ║
 ║ D_38     DELIVERED                                          ║
-║ D_39     DELIVERED                                          ║
-║ D_40     forgotten_garden [WAIT]                            ║
-║ D_41     DELIVERED                                          ║
+║ D_39     collapsed_north -> forgotten_garden                ║
+║ D_40     DELIVERED                                          ║
+║ D_41     a_big_42_coming -> we_were_here                    ║
 ║ D_42     DELIVERED                                          ║
 ╚══════════════════════════════════════════════════════════════╝
 
@@ -1986,32 +1938,32 @@
 ║ D_13     DELIVERED                                          ║
 ║ D_14     DELIVERED                                          ║
 ║ D_15     DELIVERED                                          ║
-║ D_16     DELIVERED                                          ║
+║ D_16     a_big_42_coming [WAIT]                             ║
 ║ D_17     DELIVERED                                          ║
 ║ D_18     DELIVERED                                          ║
 ║ D_19     DELIVERED                                          ║
 ║ D_20     DELIVERED                                          ║
-║ D_21     DELIVERED                                          ║
-║ D_22     a_big_42_coming -> we_were_here                    ║
+║ D_21     far_far_away -> a_big_42_coming                    ║
+║ D_22     DELIVERED                                          ║
 ║ D_23     DELIVERED                                          ║
 ║ D_24     DELIVERED                                          ║
 ║ D_25     DELIVERED                                          ║
 ║ D_26     DELIVERED                                          ║
-║ D_27     DELIVERED                                          ║
-║ D_28     collapsed_south -> far_far_away                    ║
+║ D_27     forgotten_garden -> collapsed_south                ║
+║ D_28     DELIVERED                                          ║
 ║ D_29     DELIVERED                                          ║
 ║ D_30     DELIVERED                                          ║
 ║ D_31     DELIVERED                                          ║
-║ D_32     we_were_here -> goal                               ║
-║ D_33     DELIVERED                                          ║
-║ D_34     unknown_street -> collapsed_south [TRANSIT]        ║
-║ D_35     DELIVERED                                          ║
+║ D_32     DELIVERED                                          ║
+║ D_33     unknown_street [WAIT]                              ║
+║ D_34     DELIVERED                                          ║
+║ D_35     we_were_here -> goal                               ║
 ║ D_36     DELIVERED                                          ║
 ║ D_37     DELIVERED                                          ║
 ║ D_38     DELIVERED                                          ║
-║ D_39     DELIVERED                                          ║
-║ D_40     forgotten_garden [WAIT]                            ║
-║ D_41     DELIVERED                                          ║
+║ D_39     forgotten_garden [WAIT]                            ║
+║ D_40     DELIVERED                                          ║
+║ D_41     we_were_here -> goal                               ║
 ║ D_42     DELIVERED                                          ║
 ╚══════════════════════════════════════════════════════════════╝
 
@@ -2034,31 +1986,31 @@
 ║ D_13     DELIVERED                                          ║
 ║ D_14     DELIVERED                                          ║
 ║ D_15     DELIVERED                                          ║
-║ D_16     DELIVERED                                          ║
+║ D_16     a_big_42_coming -> we_were_here                    ║
 ║ D_17     DELIVERED                                          ║
 ║ D_18     DELIVERED                                          ║
 ║ D_19     DELIVERED                                          ║
 ║ D_20     DELIVERED                                          ║
-║ D_21     DELIVERED                                          ║
-║ D_22     we_were_here -> goal                               ║
+║ D_21     a_big_42_coming -> we_were_here                    ║
+║ D_22     DELIVERED                                          ║
 ║ D_23     DELIVERED                                          ║
 ║ D_24     DELIVERED                                          ║
 ║ D_25     DELIVERED                                          ║
 ║ D_26     DELIVERED                                          ║
-║ D_27     DELIVERED                                          ║
-║ D_28     far_far_away -> a_big_42_coming                    ║
+║ D_27     collapsed_south -> far_far_away                    ║
+║ D_28     DELIVERED                                          ║
 ║ D_29     DELIVERED                                          ║
 ║ D_30     DELIVERED                                          ║
 ║ D_31     DELIVERED                                          ║
 ║ D_32     DELIVERED                                          ║
-║ D_33     DELIVERED                                          ║
-║ D_34     unknown_street -> collapsed_south                  ║
+║ D_33     unknown_street -> collapsed_south [TRANSIT]        ║
+║ D_34     DELIVERED                                          ║
 ║ D_35     DELIVERED                                          ║
 ║ D_36     DELIVERED                                          ║
 ║ D_37     DELIVERED                                          ║
 ║ D_38     DELIVERED                                          ║
-║ D_39     DELIVERED                                          ║
-║ D_40     forgotten_garden [WAIT]                            ║
+║ D_39     forgotten_garden [WAIT]                            ║
+║ D_40     DELIVERED                                          ║
 ║ D_41     DELIVERED                                          ║
 ║ D_42     DELIVERED                                          ║
 ╚══════════════════════════════════════════════════════════════╝
@@ -2082,31 +2034,31 @@
 ║ D_13     DELIVERED                                          ║
 ║ D_14     DELIVERED                                          ║
 ║ D_15     DELIVERED                                          ║
-║ D_16     DELIVERED                                          ║
+║ D_16     we_were_here -> goal                               ║
 ║ D_17     DELIVERED                                          ║
 ║ D_18     DELIVERED                                          ║
 ║ D_19     DELIVERED                                          ║
 ║ D_20     DELIVERED                                          ║
-║ D_21     DELIVERED                                          ║
+║ D_21     we_were_here -> goal                               ║
 ║ D_22     DELIVERED                                          ║
 ║ D_23     DELIVERED                                          ║
 ║ D_24     DELIVERED                                          ║
 ║ D_25     DELIVERED                                          ║
 ║ D_26     DELIVERED                                          ║
-║ D_27     DELIVERED                                          ║
-║ D_28     a_big_42_coming -> we_were_here                    ║
+║ D_27     far_far_away -> a_big_42_coming                    ║
+║ D_28     DELIVERED                                          ║
 ║ D_29     DELIVERED                                          ║
 ║ D_30     DELIVERED                                          ║
 ║ D_31     DELIVERED                                          ║
 ║ D_32     DELIVERED                                          ║
-║ D_33     DELIVERED                                          ║
-║ D_34     collapsed_south -> far_far_away                    ║
+║ D_33     unknown_street -> collapsed_south                  ║
+║ D_34     DELIVERED                                          ║
 ║ D_35     DELIVERED                                          ║
 ║ D_36     DELIVERED                                          ║
 ║ D_37     DELIVERED                                          ║
 ║ D_38     DELIVERED                                          ║
-║ D_39     DELIVERED                                          ║
-║ D_40     forgotten_garden -> collapsed_south [TRANSIT]      ║
+║ D_39     forgotten_garden [WAIT]                            ║
+║ D_40     DELIVERED                                          ║
 ║ D_41     DELIVERED                                          ║
 ║ D_42     DELIVERED                                          ║
 ╚══════════════════════════════════════════════════════════════╝
@@ -2141,20 +2093,20 @@
 ║ D_24     DELIVERED                                          ║
 ║ D_25     DELIVERED                                          ║
 ║ D_26     DELIVERED                                          ║
-║ D_27     DELIVERED                                          ║
-║ D_28     we_were_here -> goal                               ║
+║ D_27     a_big_42_coming -> we_were_here                    ║
+║ D_28     DELIVERED                                          ║
 ║ D_29     DELIVERED                                          ║
 ║ D_30     DELIVERED                                          ║
 ║ D_31     DELIVERED                                          ║
 ║ D_32     DELIVERED                                          ║
-║ D_33     DELIVERED                                          ║
-║ D_34     far_far_away -> a_big_42_coming                    ║
+║ D_33     collapsed_south -> far_far_away                    ║
+║ D_34     DELIVERED                                          ║
 ║ D_35     DELIVERED                                          ║
 ║ D_36     DELIVERED                                          ║
 ║ D_37     DELIVERED                                          ║
 ║ D_38     DELIVERED                                          ║
-║ D_39     DELIVERED                                          ║
-║ D_40     forgotten_garden -> collapsed_south                ║
+║ D_39     forgotten_garden -> collapsed_south [TRANSIT]      ║
+║ D_40     DELIVERED                                          ║
 ║ D_41     DELIVERED                                          ║
 ║ D_42     DELIVERED                                          ║
 ╚══════════════════════════════════════════════════════════════╝
@@ -2189,20 +2141,20 @@
 ║ D_24     DELIVERED                                          ║
 ║ D_25     DELIVERED                                          ║
 ║ D_26     DELIVERED                                          ║
-║ D_27     DELIVERED                                          ║
+║ D_27     we_were_here -> goal                               ║
 ║ D_28     DELIVERED                                          ║
 ║ D_29     DELIVERED                                          ║
 ║ D_30     DELIVERED                                          ║
 ║ D_31     DELIVERED                                          ║
 ║ D_32     DELIVERED                                          ║
-║ D_33     DELIVERED                                          ║
-║ D_34     a_big_42_coming -> we_were_here                    ║
+║ D_33     far_far_away -> a_big_42_coming                    ║
+║ D_34     DELIVERED                                          ║
 ║ D_35     DELIVERED                                          ║
 ║ D_36     DELIVERED                                          ║
 ║ D_37     DELIVERED                                          ║
 ║ D_38     DELIVERED                                          ║
-║ D_39     DELIVERED                                          ║
-║ D_40     collapsed_south -> far_far_away                    ║
+║ D_39     forgotten_garden -> collapsed_south                ║
+║ D_40     DELIVERED                                          ║
 ║ D_41     DELIVERED                                          ║
 ║ D_42     DELIVERED                                          ║
 ╚══════════════════════════════════════════════════════════════╝
@@ -2243,14 +2195,14 @@
 ║ D_30     DELIVERED                                          ║
 ║ D_31     DELIVERED                                          ║
 ║ D_32     DELIVERED                                          ║
-║ D_33     DELIVERED                                          ║
-║ D_34     we_were_here -> goal                               ║
+║ D_33     a_big_42_coming -> we_were_here                    ║
+║ D_34     DELIVERED                                          ║
 ║ D_35     DELIVERED                                          ║
 ║ D_36     DELIVERED                                          ║
 ║ D_37     DELIVERED                                          ║
 ║ D_38     DELIVERED                                          ║
-║ D_39     DELIVERED                                          ║
-║ D_40     far_far_away -> a_big_42_coming                    ║
+║ D_39     collapsed_south -> far_far_away                    ║
+║ D_40     DELIVERED                                          ║
 ║ D_41     DELIVERED                                          ║
 ║ D_42     DELIVERED                                          ║
 ╚══════════════════════════════════════════════════════════════╝
@@ -2291,14 +2243,14 @@
 ║ D_30     DELIVERED                                          ║
 ║ D_31     DELIVERED                                          ║
 ║ D_32     DELIVERED                                          ║
-║ D_33     DELIVERED                                          ║
+║ D_33     we_were_here -> goal                               ║
 ║ D_34     DELIVERED                                          ║
 ║ D_35     DELIVERED                                          ║
 ║ D_36     DELIVERED                                          ║
 ║ D_37     DELIVERED                                          ║
 ║ D_38     DELIVERED                                          ║
-║ D_39     DELIVERED                                          ║
-║ D_40     a_big_42_coming -> we_were_here                    ║
+║ D_39     far_far_away -> a_big_42_coming                    ║
+║ D_40     DELIVERED                                          ║
 ║ D_41     DELIVERED                                          ║
 ║ D_42     DELIVERED                                          ║
 ╚══════════════════════════════════════════════════════════════╝
@@ -2345,8 +2297,56 @@
 ║ D_36     DELIVERED                                          ║
 ║ D_37     DELIVERED                                          ║
 ║ D_38     DELIVERED                                          ║
-║ D_39     DELIVERED                                          ║
-║ D_40     we_were_here -> goal                               ║
+║ D_39     a_big_42_coming -> we_were_here                    ║
+║ D_40     DELIVERED                                          ║
+║ D_41     DELIVERED                                          ║
+║ D_42     DELIVERED                                          ║
+╚══════════════════════════════════════════════════════════════╝
+
+╔══════════════════════════════════════════════════════════════╗
+║ TURN 49                                                     ║
+╠══════════════════════════════════════════════════════════════╣
+║ DRONES                                                       ║
+║ D_1      DELIVERED                                          ║
+║ D_2      DELIVERED                                          ║
+║ D_3      DELIVERED                                          ║
+║ D_4      DELIVERED                                          ║
+║ D_5      DELIVERED                                          ║
+║ D_6      DELIVERED                                          ║
+║ D_7      DELIVERED                                          ║
+║ D_8      DELIVERED                                          ║
+║ D_9      DELIVERED                                          ║
+║ D_10     DELIVERED                                          ║
+║ D_11     DELIVERED                                          ║
+║ D_12     DELIVERED                                          ║
+║ D_13     DELIVERED                                          ║
+║ D_14     DELIVERED                                          ║
+║ D_15     DELIVERED                                          ║
+║ D_16     DELIVERED                                          ║
+║ D_17     DELIVERED                                          ║
+║ D_18     DELIVERED                                          ║
+║ D_19     DELIVERED                                          ║
+║ D_20     DELIVERED                                          ║
+║ D_21     DELIVERED                                          ║
+║ D_22     DELIVERED                                          ║
+║ D_23     DELIVERED                                          ║
+║ D_24     DELIVERED                                          ║
+║ D_25     DELIVERED                                          ║
+║ D_26     DELIVERED                                          ║
+║ D_27     DELIVERED                                          ║
+║ D_28     DELIVERED                                          ║
+║ D_29     DELIVERED                                          ║
+║ D_30     DELIVERED                                          ║
+║ D_31     DELIVERED                                          ║
+║ D_32     DELIVERED                                          ║
+║ D_33     DELIVERED                                          ║
+║ D_34     DELIVERED                                          ║
+║ D_35     DELIVERED                                          ║
+║ D_36     DELIVERED                                          ║
+║ D_37     DELIVERED                                          ║
+║ D_38     DELIVERED                                          ║
+║ D_39     we_were_here -> goal                               ║
+║ D_40     DELIVERED                                          ║
 ║ D_41     DELIVERED                                          ║
 ║ D_42     DELIVERED                                          ║
 ╚══════════════════════════════════════════════════════════════╝

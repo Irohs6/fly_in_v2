@@ -153,6 +153,7 @@ class AnimatedDrone:
         self.pos = hub_positions[start_hub]
         self.t = 0.0
         self.moving = False
+        self.transit = False
         self._sprite: DroneSprite | None = None
 
     @property
@@ -165,6 +166,7 @@ class AnimatedDrone:
             self.end = hub
             self.t = 0.0
             self.moving = True
+            self.transit = False
 
     def update(self, dt: float):
         if not self.moving:
@@ -190,6 +192,27 @@ class AnimatedDrone:
             DisplayInfoDrone(
                 self.id, (int(x), int(y)), color
             ).display_drone_info(surf, font)
+
+    def set_transit(
+        self,
+        source: str,
+        destination: str,
+        progress: float,
+    ) -> None:
+        """Positionne le drone sur une connexion en transit."""
+        self.start = source
+        self.end = destination
+        self.t = max(0.0, min(1.0, progress))
+        self.moving = True
+        self.transit = True
+
+        sx, sy = self.hub_positions[source]
+        ex, ey = self.hub_positions[destination]
+
+        self.pos = (
+            sx + (ex - sx) * self.t,
+            sy + (ey - sy) * self.t,
+        )
 
 
 # ───────────────────────────────────────────────
@@ -244,8 +267,10 @@ class ReplayController:
         self.timer += dt
         if self.timer >= self.speed:
             self.timer = 0.0
-            self.turn = (self.turn + 1) % self.total
-
+            if self.turn < self.total - 1:
+                self.turn += 1
+            else:
+                self.state = ReplayState.PAUSED
 
 # ───────────────────────────────────────────────
 # Couche d’animation (mise à jour + dessin)
@@ -285,7 +310,10 @@ class DroneAnimationLayer:
             )
 
     def _apply_turn(self, idx: int) -> None:
-        if idx == self.last_turn or idx < 0 or idx >= len(self.replay_frames):
+        if idx == self.last_turn:
+            return
+
+        if idx < 0 or idx >= len(self.replay_frames):
             return
 
         frame = self.replay_frames[idx]
@@ -293,18 +321,27 @@ class DroneAnimationLayer:
 
         for drone_id, data in drones.items():
             hub = data.get("zone")
+
             if not isinstance(hub, str):
                 continue
+
             if drone_id not in self.drones:
                 prev = hub
+
                 if idx > 0:
                     prev_frame = self.replay_frames[idx - 1]
-                    prev_d = prev_frame.get("drones", {}).get(drone_id, {})
+                    prev_d = prev_frame.get(
+                        "drones", {}
+                    ).get(drone_id, {})
                     prev_zone = prev_d.get("zone")
+
                     if isinstance(prev_zone, str):
                         prev = prev_zone
+
                 self.drones[drone_id] = AnimatedDrone(
-                    drone_id, self.hub_positions, prev
+                    drone_id,
+                    self.hub_positions,
+                    prev,
                 )
 
             self.drones[drone_id].set_destination(hub)
@@ -356,60 +393,6 @@ class DroneAnimationLayer:
 
         for drone_id, drone in self.drones.items():
             dstate = drone_states.get(drone_id, {})
-            status = dstate.get("status")
-            if status == "in_transit":
-                conn = dstate.get("connection")
-                if isinstance(conn, dict):
-                    src_name = conn.get("source")
-                    dst_name = conn.get("target")
-                    src = self.hub_positions.get(src_name)
-                    dst = self.hub_positions.get(dst_name)
-                    if src and dst:
-                        transit_turns = dstate.get("transit_turns", 0)
-                        if not isinstance(transit_turns, int):
-                            transit_turns = 0
-
-                        transit_cost = 2
-                        zone_name = dstate.get("zone")
-                        if (
-                            isinstance(zone_name, str)
-                            and self.graph is not None
-                            and zone_name in self.graph.hubs
-                        ):
-                            transit_cost = int(
-                                self.graph.hubs[zone_name].move_cost()
-                            )
-                        transit_cost = max(1, transit_cost)
-
-                        progress = min(
-                            1.0,
-                            max(0.0, (transit_turns + 0.5) / transit_cost),
-                        )
-
-                        bx = src[0] + (dst[0] - src[0]) * progress
-                        by = src[1] + (dst[1] - src[1]) * progress
-
-                        key = (src_name, dst_name)
-                        group = transit_groups.get(key, [])
-                        if drone_id in group and len(group) > 1:
-                            idx = group.index(drone_id)
-                            center = (len(group) - 1) / 2.0
-                            rank = idx - center
-
-                            dx = dst[0] - src[0]
-                            dy = dst[1] - src[1]
-                            length = math.hypot(dx, dy)
-                            if length > 0:
-                                px = -dy / length
-                                py = dx / length
-                                spread = 0.12
-                                bx += px * rank * spread
-                                by += py * rank * spread
-
-                        drone.pos = (
-                            bx,
-                            by,
-                        )
             drone.draw(surf, camera, sw, sh, zoom, font)
 
         if font is None:
@@ -430,8 +413,8 @@ class DroneAnimationLayer:
                 ).display_hub_info(surf, font)
 
     def draw_overlay(self, surf, font, sw, sh):
-        turn = self.controller.turn + 1
-        total = self.controller.total
+        turn = self.controller.turn
+        total = self.controller.total - 1
         state = (
             "PLAYING"
             if self.controller.state == ReplayState.PLAYING

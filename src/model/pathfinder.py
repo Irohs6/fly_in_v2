@@ -48,11 +48,10 @@ class Dijkstra:
                 if neighbor.zone_type == "blocked":
                     continue
 
-                if saturated_conns and (
-                    (connection.source, connection.target) in saturated_conns
-                    or (connection.target, connection.source)
-                    in saturated_conns
-                ):
+                if saturated_conns and any(
+                    connection.connects(source, target)
+                    for source, target in saturated_conns
+                        ):
                     continue
 
                 weight = neighbor.move_cost()

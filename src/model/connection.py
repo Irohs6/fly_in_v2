@@ -30,6 +30,15 @@ class Connection:
             )
         self.nb_drones -= 1
 
+    def is_available(self) -> bool:
+        return self.nb_drones < self.capacity
+
+    def connects(self, source: Hub, target: Hub) -> bool:
+        return (
+            (self.source is source and self.target is target)
+            or (self.source is target and self.target is source)
+        )
+
     def __str__(self) -> str:
         return (
             f"Connection(source={self.source.name}, target={self.target.name},"
