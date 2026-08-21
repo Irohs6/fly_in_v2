@@ -3,8 +3,9 @@ from pathlib import Path
 from src.parser.parser import Parser, ParsedMap, ParseError
 from src.model.graph import Graph
 from src.model.simulation import Simulation
-from src.view.pygame_view import Pygame_view
+from src.view.pygame_view import PygameView
 from src.model.pathfinder import Dijkstra
+from src.model.recorder import Recorder
 
 
 class Controller:
@@ -17,7 +18,8 @@ class Controller:
         self.data: ParsedMap | None = None
         self.graph: Graph | None = None
         self.simulation: Simulation | None = None
-        self.view: Pygame_view | None = None
+        self.view: PygameView | None = None
+        self.recorder: Recorder | None = None
 
         self._initialize()
 
@@ -37,6 +39,7 @@ class Controller:
             self.graph,
             debug=False,
             pathfinder=pathfinder,
+            recorder=self.recorder,
         )
 
         # Create all drones and calculate their initial paths.
@@ -48,9 +51,9 @@ class Controller:
         self.simulation.simulate()
 
         # Create the visual representation.
-        self.view = Pygame_view(
+        self.view = PygameView(
             self.graph,
-            self.simulation,
+            self.simulation.recorder.frames,
         )
 
     def run(self) -> None:

@@ -1,0 +1,60 @@
+Fly-in v2 — état du refactor au 21/08/2026
+
+La simulation fonctionne correctement et les performances/chemins ont été préservés.
+
+Refactor Drone / Simulation terminé :
+
+Simulation décide si un déplacement est autorisé.
+Drone effectue réellement son déplacement.
+Drone gère current_zone, previous_zone, path, transit, traveled_path et status.
+destination a été supprimé du Drone.
+Connection.get_other_hub() sert à déterminer la destination sur une connexion bidirectionnelle.
+Drone gère lui-même l'avancement de son path.
+Drone.set_path(), wait(), reroute(), idle(), deliver() ont été introduits.
+Le placement initial du drone réserve lui-même le hub de départ.
+La gestion globale des capacités reste dans Simulation.
+Les connexions sont recalculées en fin de tour afin de conserver le bon comportement de reroutage.
+
+Recording :
+
+Recorder est sorti de Simulation.
+Nouveau fichier replay.py avec :
+DroneReplayState
+ReplayFrame
+Le Recorder produit maintenant frames: list[ReplayFrame].
+Un état visuel contient essentiellement source, target, progress, status.
+Pour un transit restricted, le progress permet par exemple 0.5 entre deux hubs.
+
+Vue entièrement simplifiée :
+
+Ancien DroneAnimationLayer abandonné.
+Nouveau ReplayPlayer très simple.
+Il interpole visuellement entre deux ReplayFrame.
+PygameView ne connaît plus Simulation, elle reçoit directement les frames.
+Camera conservée.
+CoordinateSystem conservé et corrigé pour travailler avec Hub / Iterable[Hub].
+GraphRenderer conservé.
+Les drones sont actuellement dessinés simplement dans ReplayPlayer.
+
+Nettoyage en cours :
+
+drone_animator.py peut être supprimé.
+ancien DroneSprite peut être supprimé s'il n'est plus référencé.
+HubSprite est encore utilisé par GraphRenderer, donc à garder.
+
+État actuel :
+
+make run fonctionne.
+Simulation correcte.
+Reroutage correct.
+Nouvelle visualisation/replay fonctionnelle.
+Dernière correction : CoordinateSystem.__init__(cell_size) avait été oublié pendant le nettoyage et a été remis.
+
+Prochaine étape conseillée :
+nettoyer/simplifier GraphRenderer, puis reconstruire progressivement les éléments visuels utiles (occupation des hubs, joli drone, connexions occupées, contrôles de vitesse) sans réintroduire de logique métier dans la vue.
+
+Tu peux maintenant ouvrir une nouvelle conversation et coller simplement :
+
+On reprend Fly-in v2 depuis ce checkpoint
+
+avec le bloc ci-dessus.

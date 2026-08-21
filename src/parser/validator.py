@@ -22,7 +22,7 @@ class MapValidator:
         connections,
         zone_entries,
         connection_entries,
-    ):
+    ) -> None:
         self.nb_drones = nb_drones
         self.start_hub = start_hub
         self.end_hub = end_hub

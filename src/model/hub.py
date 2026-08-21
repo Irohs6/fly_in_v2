@@ -47,6 +47,12 @@ class Hub:
             return 0.9
         return 1.0
 
+    def transit_duration(self) -> int:
+        if self.zone_type == "restricted":
+            return 2
+
+        return 1
+
     def __str__(self) -> str:
         return (
             f"Hub(name={self.name}, color={self.color}, "

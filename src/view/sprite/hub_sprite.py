@@ -25,7 +25,7 @@ class HubSprite:
 
         self.rect = self.image.get_rect()
 
-    def _draw(self):
+    def _draw(self) -> None:
         pygame.draw.circle(
             self.image,
             (200, 200, 200),
@@ -36,39 +36,12 @@ class HubSprite:
             self.image, self.color, (self.radius, self.radius), self.radius - 5
         )
 
-    def update(self):
+    def update(self) -> None:
         # Position calculée à partir de la zone
         self.rect.center = self.zone.screen_position
 
-    def draw(self, screen, position=None):
+    def draw(self, screen: pygame.Surface,
+             position: tuple[int, int] | None = None) -> None:
         if position is not None:
             self.rect.center = position
         screen.blit(self.image, self.rect)
-
-
-if __name__ == "__main__":
-    # Test de la classe ZoneSprite
-    pygame.init()
-    screen = pygame.display.set_mode((800, 600))
-    clock = pygame.time.Clock()
-
-    class DummyZone:
-        def __init__(self, x, y):
-            self.screen_position = (x, y)
-
-    zone = DummyZone(400, 300)
-    zone_sprite = HubSprite(zone)
-
-    running = True
-    while running:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-
-        screen.fill((0, 0, 0))
-        zone_sprite.update()
-        zone_sprite.draw(screen)
-        pygame.display.flip()
-        clock.tick(60)
-
-    pygame.quit()

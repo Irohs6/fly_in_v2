@@ -3,6 +3,7 @@ from .graph import Graph
 from .pathfinder import Dijkstra
 from .hub import Hub
 from .connection import Connection
+from .recorder import Recorder
 
 
 class Simulation:
@@ -13,6 +14,7 @@ class Simulation:
         graph: Graph,
         debug: bool,
         pathfinder: Dijkstra | None = None,
+        recorder: Recorder | None = None,
     ) -> None:
         self.graph = graph
         self.drones: list[Drone] = []
@@ -25,12 +27,7 @@ class Simulation:
             else Dijkstra(graph)
         )
 
-        self.tours: list[dict[str, str | None]] = []
-        self.replay_frames: list[dict[str, object]] = []
-
-        # Connexions restricted encore occupées.
-        # Valeur = nombre de tours restants avant libération.
-        self.restricted_connections: dict[Connection, int] = {}
+        self.recorder = recorder if recorder is not None else Recorder()
 
     def load_drones(self, nb_drones: int) -> None:
         """Crée les drones dans le hub de départ."""
@@ -51,10 +48,9 @@ class Simulation:
                 current_zone=self.graph.start_zone,
             )
 
-            drone.path = path[1:].copy()
+            drone.set_path(path[1:])
 
             self.drones.append(drone)
-            self.graph.start_zone.add_nb_drone()
 
         self._record_tour()
 
@@ -62,87 +58,37 @@ class Simulation:
     # DEPLACEMENT
     # ==============================================================
 
-    def move_to_restricted_zone(
-        self,
-        drone: Drone,
-        connection: Connection,
-        target_zone: Hub,
-    ) -> None:
-        """Gère l'entrée et la sortie d'une zone restricted."""
-
-        if target_zone.zone_type != "restricted":
-            raise ValueError(
-                "The target zone is not restricted."
-            )
-
-        # Le drone termine son transit.
-        if drone.in_transit:
-            drone.finish_transit(target_zone)
-            return
-
-        if not target_zone.is_available():
-            drone.status = "rerouting"
-            return
-
-        if not connection.is_available():
-            drone.status = "rerouting"
-            return
-
-        old_zone = drone.current_zone
-
-        # Réservation immédiate de la connexion et de la zone.
-        connection.add_nb_drone()
-        target_zone.add_nb_drone()
-
-        # La connexion restricted reste occupée pendant 2 tours.
-        self.restricted_connections[connection] = 2
-
-        if old_zone is not None:
-            old_zone.remove_nb_drone()
-
-        drone.begin_transit(
-            connection,
-            target_zone.move_cost(),
-            target_zone,
-        )
-
     def move_drone(
         self,
         drone: Drone,
         connection: Connection,
         target_zone: Hub,
     ) -> None:
-        """Déplace un drone vers une zone."""
-
-        if target_zone.zone_type == "restricted":
-            self.move_to_restricted_zone(
-                drone,
-                connection,
-                target_zone,
-            )
-            return
+        """Demande au drone de se déplacer vers une zone cible """
 
         if target_zone.zone_type == "blocked":
             raise ValueError(
                 "Cannot move to a blocked zone."
             )
+
         # Zone normale pleine.
         if not target_zone.is_available():
-            drone.status = "rerouting"
+            drone.reroute()
             return
         # connexion pleine.
         if not connection.is_available():
-            drone.status = "rerouting"
+            drone.reroute()
             return
 
-        old_zone = drone.current_zone
+        if target_zone.zone_type == "restricted":
+            drone.begin_transit(
+                connection,
+                target_zone,
+                target_zone.transit_duration(),
+            )
+            return
 
-        if old_zone is not None:
-            old_zone.remove_nb_drone()
-
-        target_zone.add_nb_drone()
-        connection.add_nb_drone()
-        drone.move_to_zone(target_zone)
+        drone.move_to_zone(connection, target_zone)
 
     # REROUTAGE
 
@@ -175,8 +121,8 @@ class Simulation:
             return False
 
         # Le chemin est disponible.
-        drone.path = path[1:].copy()
-        drone.status = "idle"
+        drone.set_path(path[1:])
+        drone.idle()
 
         return True
 
@@ -213,7 +159,7 @@ class Simulation:
         while True:
             # Aucun chemin restant.
             if not drone.path:
-                drone.status = "waiting"
+                drone.wait()
                 return
 
             target_zone = drone.path[0]
@@ -233,7 +179,7 @@ class Simulation:
                 )
 
                 if not found:
-                    drone.status = "waiting"
+                    drone.wait()
                     return
                 continue
 
@@ -263,7 +209,7 @@ class Simulation:
                 )
 
                 if not found:
-                    drone.status = "waiting"
+                    drone.wait()
                     return
 
                 # Nouveau chemin.
@@ -272,21 +218,12 @@ class Simulation:
             if not drone.in_transit:
 
                 if drone.current_zone == target_zone:
-                    drone.path.pop(0)
-
                     movements[drone.drone_id] = (
                         f"{old_zone.name} -> "
                         f"{target_zone.name}"
                     )
 
                 return
-
-            # ------------------------------------------------------
-            # Entrée dans une zone restricted.
-            #
-            # La zone est déjà réservée.
-            # La connexion est déjà réservée.
-            # ------------------------------------------------------
             movements[drone.drone_id] = (
                 f"{old_zone.name} -> "
                 f"{target_zone.name} [TRANSIT]"
@@ -310,7 +247,7 @@ class Simulation:
     ) -> None:
         """Traite un drone pendant le tour courant."""
         if drone.current_zone == self.graph.end_zone:
-            drone.status = "delivered"
+            drone.deliver()
             return
 
         if drone.in_transit:
@@ -325,57 +262,36 @@ class Simulation:
         movements: dict[str, str],
     ) -> None:
         """Fait progresser un drone actuellement en transit."""
-        if drone.destination is None:
-            raise RuntimeError(
-                "Drone in transit without destination."
-            )
 
-        if drone.moving_connection is None:
-            raise RuntimeError(
-                "Drone in transit without connection."
-            )
-
-        target_zone = drone.destination
-        connection = drone.moving_connection
         old_zone = drone.previous_zone
 
-        drone.transit_turns += 1
+        destination = drone.advance_transit()
 
-        self.move_drone(
-            drone,
-            connection,
-            target_zone,
-        )
+        if destination is None:
+            return
 
-        if not drone.in_transit:
-            if drone.path:
-                drone.path.pop(0)
-
-            if old_zone is not None:
-                movements[drone.drone_id] = (
-                    f"{old_zone.name} -> "
-                    f"{target_zone.name}"
-                )
+        if old_zone is not None:
+            movements[drone.drone_id] = (
+                f"{old_zone.name} -> "
+                f"{destination.name}"
+            )
 
     def _update_connections(self) -> None:
         """Met à jour l'occupation des connexions."""
-        self._update_restricted_connections()
-        self._reset_normal_connections()
+        active_transits: dict[Connection, int] = {}
 
-    def _update_restricted_connections(self) -> None:
-        """Met à jour les connexions utilisées par les drones en transit."""
-        for connection in list(self.restricted_connections):
-            self.restricted_connections[connection] -= 1
+        for drone in self.drones:
+            if (
+                drone.in_transit
+                and drone.moving_connection is not None
+            ):
+                connection = drone.moving_connection
 
-            if self.restricted_connections[connection] <= 0:
-                connection.remove_nb_drone()
-                del self.restricted_connections[connection]
-
-    def _reset_normal_connections(self) -> None:
-        """Libère les connexions normales à la fin du tour."""
+                active_transits[connection] = (
+                    active_transits.get(connection, 0) + 1
+                )
         for connection in self.graph.connections:
-            if connection not in self.restricted_connections:
-                connection.nb_drones = 0
+            connection.nb_drones = active_transits.get(connection, 0)
 
     def simulate(self) -> None:
         """Simule le déplacement des drones tour par tour."""
@@ -394,77 +310,21 @@ class Simulation:
     # RECORD
     # ==============================================================
 
+    @property
+    def tours(self) -> list[dict[str, str | None]]:
+        return self.recorder.tours
+
+    @property
+    def replay_frames(self) -> list[dict[str, object]]:
+        return self.recorder.replay_frames
+
     def _record_tour(self) -> None:
-        """Enregistre l'état de la simulation pour le replay."""
+        """Enregistre l'état courant pour le replay."""
 
-        tour_data: dict[str, str | None] = {}
-        drone_states: dict[str, dict[str, object]] = {}
-
-        for drone in self.drones:
-
-            if drone.current_zone is not None:
-                tour_data[drone.drone_id] = (
-                    drone.current_zone.name
-                )
-            else:
-                tour_data[drone.drone_id] = None
-
-            connection = drone.moving_connection
-
-            drone_states[drone.drone_id] = {
-                "zone": (
-                    drone.current_zone.name
-                    if drone.current_zone is not None
-                    else None
-                ),
-                "status": drone.status,
-                "transit_turn": drone.transit_turns,
-                "transit_cost": drone.transit_cost,
-                "destination": (
-                    drone.destination.name
-                    if drone.destination is not None
-                    else None
-                ),
-                "connection": (
-                    {
-                        "source": connection.source.name,
-                        "target": connection.target.name,
-                    }
-                    if connection is not None
-                    else None
-                ),
-                "traveled_path": [
-                    zone.name
-                    for zone in drone.traveled_path
-                ],
-            }
-
-        self.tours.append(tour_data)
-
-        self.replay_frames.append(
-            {
-                "turn": self.turn,
-                "drones": drone_states,
-                "zones": {
-                    name: {
-                        "count": zone.nb_drone,
-                        "max": zone.capacity,
-                    }
-                    for name, zone in self.graph.hubs.items()
-                },
-                "connections": {
-                    (
-                        f"{connection.source.name}"
-                        f"->{connection.target.name}"
-                    ): {
-                        "source": connection.source.name,
-                        "target": connection.target.name,
-                        "count": connection.nb_drones,
-                        "max": connection.capacity,
-                    }
-                    for connection in self.graph.connections
-                },
-            }
+        self.recorder.record(
+            self.turn,
+            self.drones,
+            self.graph.hubs,
         )
 
     # ==============================================================
@@ -475,51 +335,60 @@ class Simulation:
         self,
         movements: dict[str, str],
     ) -> None:
-        """Affiche l'état de chaque drone."""
+        """Affiche un résumé lisible du tour courant."""
 
-        print()
-        print("╔" + "═" * 62 + "╗")
-        print(f"║ TURN {self.turn:<55}║")
-        print("╠" + "═" * 62 + "╣")
-        print("║ DRONES" + " " * 55 + "║")
+        delivered: list[str] = []
+        transit: list[str] = []
+        waiting: list[str] = []
 
         for drone in self.drones:
 
-            if drone.status == "delivered":
-                text = (
-                    f"{drone.drone_id:<8} "
-                    "DELIVERED"
-                )
+            if drone.current_zone == self.graph.end_zone:
+                delivered.append(drone.drone_id)
+                continue
 
-            else:
-                movement = movements.get(
-                    drone.drone_id
-                )
+            if drone.in_transit:
+                transit.append(drone.drone_id)
 
-                if movement:
-                    text = (
-                        f"{drone.drone_id:<8} "
-                        f"{movement}"
-                    )
+            if (
+                drone.drone_id not in movements
+                and not drone.in_transit
+            ):
+                waiting.append(drone.drone_id)
 
-                elif drone.in_transit:
-                    text = (
-                        f"{drone.drone_id:<8} "
-                        "[TRANSIT]"
-                    )
+        print()
+        print("=" * 70)
+        print(f"TURN {self.turn}")
+        print("=" * 70)
 
-                else:
-                    zone_name = (
-                        drone.current_zone.name
-                        if drone.current_zone is not None
-                        else "UNKNOWN"
-                    )
+        if movements:
+            print("\nMOVEMENTS")
+            print("-" * 70)
 
-                    text = (
-                        f"{drone.drone_id:<8} "
-                        f"{zone_name} [WAIT]"
-                    )
+            for drone_id, movement in movements.items():
+                print(f"{drone_id:<8} {movement}")
 
-            print(f"║ {text:<60}║")
+        else:
+            print("\nMOVEMENTS : none")
 
-        print("╚" + "═" * 62 + "╝")
+        if transit:
+            print(
+                f"\nIN TRANSIT ({len(transit)}): "
+                + ", ".join(transit)
+            )
+
+        if waiting:
+            print(
+                f"WAITING    ({len(waiting)}): "
+                + ", ".join(waiting)
+            )
+
+        print()
+        print("-" * 70)
+        print(
+            f"Moved: {len(movements):<3} | "
+            f"Transit: {len(transit):<3} | "
+            f"Waiting: {len(waiting):<3} | "
+            f"Delivered: {len(delivered)}/{len(self.drones)}"
+        )
+        print("=" * 70)

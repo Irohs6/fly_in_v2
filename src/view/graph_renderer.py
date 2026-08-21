@@ -53,7 +53,9 @@ class HubRenderer:
         # Application du zoom
         return max(4, int(hub_radius * zoom))
 
-    def draw(self, screen, zone, position, zoom, is_start=False, is_end=False):
+    def draw(self, screen: pygame.Surface, zone, position: tuple[int, int],
+             zoom: float, is_start: bool = False,
+             is_end: bool = False) -> None:
         # Couleur du hub
         hub_color = self.COLOR_MAP.get(zone.color, (200, 200, 200))
 
@@ -85,7 +87,9 @@ class ConnectionRenderer:
     def __init__(self, font_small):
         self.font_small = font_small
 
-    def draw(self, screen, connection, source_position, target_position, zoom):
+    def draw(self, screen: pygame.Surface, connection,
+             source_position: tuple[int, int],
+             target_position: tuple[int, int], zoom: float) -> None:
         # Ne rien dessiner si les deux hubs sont au même endroit
         if math.hypot(
             target_position[0] - source_position[0],

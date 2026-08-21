@@ -74,7 +74,6 @@ def test_spaghetti_challenger_finishes_under_45_turns() -> None:
     sim.load_drones(data["nb_drones"])
     sim.simulate()
 
-
     assert sim.turn <= 45
 
 

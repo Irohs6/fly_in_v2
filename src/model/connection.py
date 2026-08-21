@@ -39,6 +39,17 @@ class Connection:
             or (self.source is target and self.target is source)
         )
 
+    def get_other_hub(self, hub: Hub) -> Hub:
+        if self.source is hub:
+            return self.target
+
+        if self.target is hub:
+            return self.source
+
+        raise ConnectionError(
+            f"Hub {hub.name} is not connected by this connection."
+        )
+
     def __str__(self) -> str:
         return (
             f"Connection(source={self.source.name}, target={self.target.name},"
