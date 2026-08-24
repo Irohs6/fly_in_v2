@@ -1,1333 +1,1034 @@
 
-╔══════════════════════════════════════════════════════════════╗
-║ TURN 1                                                      ║
-╠══════════════════════════════════════════════════════════════╣
-║ DRONES                                                       ║
-║ D_1      start -> gate_hell1                                ║
-║ D_2      start [WAIT]                                       ║
-║ D_3      start [WAIT]                                       ║
-║ D_4      start [WAIT]                                       ║
-║ D_5      start [WAIT]                                       ║
-║ D_6      start [WAIT]                                       ║
-║ D_7      start [WAIT]                                       ║
-║ D_8      start [WAIT]                                       ║
-║ D_9      start [WAIT]                                       ║
-║ D_10     start [WAIT]                                       ║
-║ D_11     start [WAIT]                                       ║
-║ D_12     start [WAIT]                                       ║
-║ D_13     start [WAIT]                                       ║
-║ D_14     start [WAIT]                                       ║
-║ D_15     start [WAIT]                                       ║
-║ D_16     start [WAIT]                                       ║
-║ D_17     start [WAIT]                                       ║
-║ D_18     start [WAIT]                                       ║
-║ D_19     start [WAIT]                                       ║
-║ D_20     start [WAIT]                                       ║
-║ D_21     start [WAIT]                                       ║
-║ D_22     start [WAIT]                                       ║
-║ D_23     start [WAIT]                                       ║
-║ D_24     start [WAIT]                                       ║
-║ D_25     start [WAIT]                                       ║
-╚══════════════════════════════════════════════════════════════╝
+======================================================================
+TURN 1
+======================================================================
 
-╔══════════════════════════════════════════════════════════════╗
-║ TURN 2                                                      ║
-╠══════════════════════════════════════════════════════════════╣
-║ DRONES                                                       ║
-║ D_1      gate_hell1 -> maze_trap_a1                         ║
-║ D_2      start -> gate_hell1                                ║
-║ D_3      start [WAIT]                                       ║
-║ D_4      start [WAIT]                                       ║
-║ D_5      start [WAIT]                                       ║
-║ D_6      start [WAIT]                                       ║
-║ D_7      start [WAIT]                                       ║
-║ D_8      start [WAIT]                                       ║
-║ D_9      start [WAIT]                                       ║
-║ D_10     start [WAIT]                                       ║
-║ D_11     start [WAIT]                                       ║
-║ D_12     start [WAIT]                                       ║
-║ D_13     start [WAIT]                                       ║
-║ D_14     start [WAIT]                                       ║
-║ D_15     start [WAIT]                                       ║
-║ D_16     start [WAIT]                                       ║
-║ D_17     start [WAIT]                                       ║
-║ D_18     start [WAIT]                                       ║
-║ D_19     start [WAIT]                                       ║
-║ D_20     start [WAIT]                                       ║
-║ D_21     start [WAIT]                                       ║
-║ D_22     start [WAIT]                                       ║
-║ D_23     start [WAIT]                                       ║
-║ D_24     start [WAIT]                                       ║
-║ D_25     start [WAIT]                                       ║
-╚══════════════════════════════════════════════════════════════╝
+MOVEMENTS
+----------------------------------------------------------------------
+D_1      start -> gate_hell1
+WAITING    (24): D_2, D_3, D_4, D_5, D_6, D_7, D_8, D_9, D_10, D_11, D_12, D_13, D_14, D_15, D_16, D_17, D_18, D_19, D_20, D_21, D_22, D_23, D_24, D_25
 
-╔══════════════════════════════════════════════════════════════╗
-║ TURN 3                                                      ║
-╠══════════════════════════════════════════════════════════════╣
-║ DRONES                                                       ║
-║ D_1      maze_trap_a1 -> maze_trap_a2                       ║
-║ D_2      gate_hell1 -> maze_trap_a1                         ║
-║ D_3      start -> gate_hell1                                ║
-║ D_4      start [WAIT]                                       ║
-║ D_5      start [WAIT]                                       ║
-║ D_6      start [WAIT]                                       ║
-║ D_7      start [WAIT]                                       ║
-║ D_8      start [WAIT]                                       ║
-║ D_9      start [WAIT]                                       ║
-║ D_10     start [WAIT]                                       ║
-║ D_11     start [WAIT]                                       ║
-║ D_12     start [WAIT]                                       ║
-║ D_13     start [WAIT]                                       ║
-║ D_14     start [WAIT]                                       ║
-║ D_15     start [WAIT]                                       ║
-║ D_16     start [WAIT]                                       ║
-║ D_17     start [WAIT]                                       ║
-║ D_18     start [WAIT]                                       ║
-║ D_19     start [WAIT]                                       ║
-║ D_20     start [WAIT]                                       ║
-║ D_21     start [WAIT]                                       ║
-║ D_22     start [WAIT]                                       ║
-║ D_23     start [WAIT]                                       ║
-║ D_24     start [WAIT]                                       ║
-║ D_25     start [WAIT]                                       ║
-╚══════════════════════════════════════════════════════════════╝
+----------------------------------------------------------------------
+Moved: 1   | Transit: 0   | Waiting: 24  | Delivered: 0/25
+======================================================================
 
-╔══════════════════════════════════════════════════════════════╗
-║ TURN 4                                                      ║
-╠══════════════════════════════════════════════════════════════╣
-║ DRONES                                                       ║
-║ D_1      maze_trap_a2 -> micro_gate1                        ║
-║ D_2      maze_trap_a1 -> maze_trap_a2                       ║
-║ D_3      gate_hell1 -> maze_trap_a1                         ║
-║ D_4      start -> gate_hell1                                ║
-║ D_5      start [WAIT]                                       ║
-║ D_6      start [WAIT]                                       ║
-║ D_7      start [WAIT]                                       ║
-║ D_8      start [WAIT]                                       ║
-║ D_9      start [WAIT]                                       ║
-║ D_10     start [WAIT]                                       ║
-║ D_11     start [WAIT]                                       ║
-║ D_12     start [WAIT]                                       ║
-║ D_13     start [WAIT]                                       ║
-║ D_14     start [WAIT]                                       ║
-║ D_15     start [WAIT]                                       ║
-║ D_16     start [WAIT]                                       ║
-║ D_17     start [WAIT]                                       ║
-║ D_18     start [WAIT]                                       ║
-║ D_19     start [WAIT]                                       ║
-║ D_20     start [WAIT]                                       ║
-║ D_21     start [WAIT]                                       ║
-║ D_22     start [WAIT]                                       ║
-║ D_23     start [WAIT]                                       ║
-║ D_24     start [WAIT]                                       ║
-║ D_25     start [WAIT]                                       ║
-╚══════════════════════════════════════════════════════════════╝
+======================================================================
+TURN 2
+======================================================================
 
-╔══════════════════════════════════════════════════════════════╗
-║ TURN 5                                                      ║
-╠══════════════════════════════════════════════════════════════╣
-║ DRONES                                                       ║
-║ D_1      micro_gate1 -> overflow_hell1 [TRANSIT]            ║
-║ D_2      maze_trap_a2 -> micro_gate1                        ║
-║ D_3      maze_trap_a1 -> maze_trap_a2                       ║
-║ D_4      gate_hell1 -> maze_trap_a1                         ║
-║ D_5      start -> gate_hell1                                ║
-║ D_6      start [WAIT]                                       ║
-║ D_7      start [WAIT]                                       ║
-║ D_8      start [WAIT]                                       ║
-║ D_9      start [WAIT]                                       ║
-║ D_10     start [WAIT]                                       ║
-║ D_11     start [WAIT]                                       ║
-║ D_12     start [WAIT]                                       ║
-║ D_13     start [WAIT]                                       ║
-║ D_14     start [WAIT]                                       ║
-║ D_15     start [WAIT]                                       ║
-║ D_16     start [WAIT]                                       ║
-║ D_17     start [WAIT]                                       ║
-║ D_18     start [WAIT]                                       ║
-║ D_19     start [WAIT]                                       ║
-║ D_20     start [WAIT]                                       ║
-║ D_21     start [WAIT]                                       ║
-║ D_22     start [WAIT]                                       ║
-║ D_23     start [WAIT]                                       ║
-║ D_24     start [WAIT]                                       ║
-║ D_25     start [WAIT]                                       ║
-╚══════════════════════════════════════════════════════════════╝
+MOVEMENTS
+----------------------------------------------------------------------
+D_1      gate_hell1 -> maze_trap_a1
+D_2      start -> gate_hell1
+WAITING    (23): D_3, D_4, D_5, D_6, D_7, D_8, D_9, D_10, D_11, D_12, D_13, D_14, D_15, D_16, D_17, D_18, D_19, D_20, D_21, D_22, D_23, D_24, D_25
 
-╔══════════════════════════════════════════════════════════════╗
-║ TURN 6                                                      ║
-╠══════════════════════════════════════════════════════════════╣
-║ DRONES                                                       ║
-║ D_1      micro_gate1 -> overflow_hell1                      ║
-║ D_2      micro_gate1 -> overflow_hell4 [TRANSIT]            ║
-║ D_3      maze_trap_a2 -> micro_gate1                        ║
-║ D_4      maze_trap_a1 -> maze_trap_a2                       ║
-║ D_5      gate_hell1 -> maze_trap_a1                         ║
-║ D_6      start -> gate_hell1                                ║
-║ D_7      start [WAIT]                                       ║
-║ D_8      start [WAIT]                                       ║
-║ D_9      start [WAIT]                                       ║
-║ D_10     start [WAIT]                                       ║
-║ D_11     start [WAIT]                                       ║
-║ D_12     start [WAIT]                                       ║
-║ D_13     start [WAIT]                                       ║
-║ D_14     start [WAIT]                                       ║
-║ D_15     start [WAIT]                                       ║
-║ D_16     start [WAIT]                                       ║
-║ D_17     start [WAIT]                                       ║
-║ D_18     start [WAIT]                                       ║
-║ D_19     start [WAIT]                                       ║
-║ D_20     start [WAIT]                                       ║
-║ D_21     start [WAIT]                                       ║
-║ D_22     start [WAIT]                                       ║
-║ D_23     start [WAIT]                                       ║
-║ D_24     start [WAIT]                                       ║
-║ D_25     start [WAIT]                                       ║
-╚══════════════════════════════════════════════════════════════╝
+----------------------------------------------------------------------
+Moved: 2   | Transit: 0   | Waiting: 23  | Delivered: 0/25
+======================================================================
 
-╔══════════════════════════════════════════════════════════════╗
-║ TURN 7                                                      ║
-╠══════════════════════════════════════════════════════════════╣
-║ DRONES                                                       ║
-║ D_1      overflow_hell1 -> conv_restricted1 [TRANSIT]       ║
-║ D_2      micro_gate1 -> overflow_hell4                      ║
-║ D_3      micro_gate1 -> overflow_hell1 [TRANSIT]            ║
-║ D_4      maze_trap_a2 -> micro_gate1                        ║
-║ D_5      maze_trap_a1 -> maze_trap_a2                       ║
-║ D_6      gate_hell1 -> maze_trap_a1                         ║
-║ D_7      start -> gate_hell1                                ║
-║ D_8      start [WAIT]                                       ║
-║ D_9      start [WAIT]                                       ║
-║ D_10     start [WAIT]                                       ║
-║ D_11     start [WAIT]                                       ║
-║ D_12     start [WAIT]                                       ║
-║ D_13     start [WAIT]                                       ║
-║ D_14     start [WAIT]                                       ║
-║ D_15     start [WAIT]                                       ║
-║ D_16     start [WAIT]                                       ║
-║ D_17     start [WAIT]                                       ║
-║ D_18     start [WAIT]                                       ║
-║ D_19     start [WAIT]                                       ║
-║ D_20     start [WAIT]                                       ║
-║ D_21     start [WAIT]                                       ║
-║ D_22     start [WAIT]                                       ║
-║ D_23     start [WAIT]                                       ║
-║ D_24     start [WAIT]                                       ║
-║ D_25     start [WAIT]                                       ║
-╚══════════════════════════════════════════════════════════════╝
+======================================================================
+TURN 3
+======================================================================
 
-╔══════════════════════════════════════════════════════════════╗
-║ TURN 8                                                      ║
-╠══════════════════════════════════════════════════════════════╣
-║ DRONES                                                       ║
-║ D_1      overflow_hell1 -> conv_restricted1                 ║
-║ D_2      overflow_hell4 -> conv_restricted7 [TRANSIT]       ║
-║ D_3      micro_gate1 -> overflow_hell1                      ║
-║ D_4      micro_gate1 -> overflow_hell4 [TRANSIT]            ║
-║ D_5      maze_trap_a2 -> micro_gate1                        ║
-║ D_6      maze_trap_a1 -> maze_trap_a2                       ║
-║ D_7      gate_hell1 -> maze_trap_a1                         ║
-║ D_8      start -> gate_hell1                                ║
-║ D_9      start [WAIT]                                       ║
-║ D_10     start [WAIT]                                       ║
-║ D_11     start [WAIT]                                       ║
-║ D_12     start [WAIT]                                       ║
-║ D_13     start [WAIT]                                       ║
-║ D_14     start [WAIT]                                       ║
-║ D_15     start [WAIT]                                       ║
-║ D_16     start [WAIT]                                       ║
-║ D_17     start [WAIT]                                       ║
-║ D_18     start [WAIT]                                       ║
-║ D_19     start [WAIT]                                       ║
-║ D_20     start [WAIT]                                       ║
-║ D_21     start [WAIT]                                       ║
-║ D_22     start [WAIT]                                       ║
-║ D_23     start [WAIT]                                       ║
-║ D_24     start [WAIT]                                       ║
-║ D_25     start [WAIT]                                       ║
-╚══════════════════════════════════════════════════════════════╝
+MOVEMENTS
+----------------------------------------------------------------------
+D_1      maze_trap_a1 -> maze_trap_a2
+D_2      gate_hell1 -> maze_trap_a1
+D_3      start -> gate_hell1
+WAITING    (22): D_4, D_5, D_6, D_7, D_8, D_9, D_10, D_11, D_12, D_13, D_14, D_15, D_16, D_17, D_18, D_19, D_20, D_21, D_22, D_23, D_24, D_25
 
-╔══════════════════════════════════════════════════════════════╗
-║ TURN 9                                                      ║
-╠══════════════════════════════════════════════════════════════╣
-║ DRONES                                                       ║
-║ D_1      conv_restricted1 -> conv_restricted2 [TRANSIT]     ║
-║ D_2      overflow_hell4 -> conv_restricted7                 ║
-║ D_3      overflow_hell1 -> conv_restricted1 [TRANSIT]       ║
-║ D_4      micro_gate1 -> overflow_hell4                      ║
-║ D_5      micro_gate1 -> overflow_hell1 [TRANSIT]            ║
-║ D_6      maze_trap_a2 -> micro_gate1                        ║
-║ D_7      maze_trap_a1 -> maze_trap_a2                       ║
-║ D_8      gate_hell1 -> maze_trap_a1                         ║
-║ D_9      start -> gate_hell1                                ║
-║ D_10     start [WAIT]                                       ║
-║ D_11     start [WAIT]                                       ║
-║ D_12     start [WAIT]                                       ║
-║ D_13     start [WAIT]                                       ║
-║ D_14     start [WAIT]                                       ║
-║ D_15     start [WAIT]                                       ║
-║ D_16     start [WAIT]                                       ║
-║ D_17     start [WAIT]                                       ║
-║ D_18     start [WAIT]                                       ║
-║ D_19     start [WAIT]                                       ║
-║ D_20     start [WAIT]                                       ║
-║ D_21     start [WAIT]                                       ║
-║ D_22     start [WAIT]                                       ║
-║ D_23     start [WAIT]                                       ║
-║ D_24     start [WAIT]                                       ║
-║ D_25     start [WAIT]                                       ║
-╚══════════════════════════════════════════════════════════════╝
+----------------------------------------------------------------------
+Moved: 3   | Transit: 0   | Waiting: 22  | Delivered: 0/25
+======================================================================
 
-╔══════════════════════════════════════════════════════════════╗
-║ TURN 10                                                     ║
-╠══════════════════════════════════════════════════════════════╣
-║ DRONES                                                       ║
-║ D_1      conv_restricted1 -> conv_restricted2               ║
-║ D_2      conv_restricted7 -> conv_restricted8 [TRANSIT]     ║
-║ D_3      overflow_hell1 -> conv_restricted1                 ║
-║ D_4      overflow_hell4 -> conv_restricted7 [TRANSIT]       ║
-║ D_5      micro_gate1 -> overflow_hell1                      ║
-║ D_6      micro_gate1 -> overflow_hell4 [TRANSIT]            ║
-║ D_7      maze_trap_a2 -> micro_gate1                        ║
-║ D_8      maze_trap_a1 -> maze_trap_a2                       ║
-║ D_9      gate_hell1 -> maze_trap_a1                         ║
-║ D_10     start -> gate_hell1                                ║
-║ D_11     start [WAIT]                                       ║
-║ D_12     start [WAIT]                                       ║
-║ D_13     start [WAIT]                                       ║
-║ D_14     start [WAIT]                                       ║
-║ D_15     start [WAIT]                                       ║
-║ D_16     start [WAIT]                                       ║
-║ D_17     start [WAIT]                                       ║
-║ D_18     start [WAIT]                                       ║
-║ D_19     start [WAIT]                                       ║
-║ D_20     start [WAIT]                                       ║
-║ D_21     start [WAIT]                                       ║
-║ D_22     start [WAIT]                                       ║
-║ D_23     start [WAIT]                                       ║
-║ D_24     start [WAIT]                                       ║
-║ D_25     start [WAIT]                                       ║
-╚══════════════════════════════════════════════════════════════╝
+======================================================================
+TURN 4
+======================================================================
 
-╔══════════════════════════════════════════════════════════════╗
-║ TURN 11                                                     ║
-╠══════════════════════════════════════════════════════════════╣
-║ DRONES                                                       ║
-║ D_1      conv_restricted2 -> conv_restricted3 [TRANSIT]     ║
-║ D_2      conv_restricted7 -> conv_restricted8               ║
-║ D_3      conv_restricted1 -> conv_restricted2 [TRANSIT]     ║
-║ D_4      overflow_hell4 -> conv_restricted7                 ║
-║ D_5      overflow_hell1 -> conv_restricted1 [TRANSIT]       ║
-║ D_6      micro_gate1 -> overflow_hell4                      ║
-║ D_7      micro_gate1 -> overflow_hell1 [TRANSIT]            ║
-║ D_8      maze_trap_a2 -> micro_gate1                        ║
-║ D_9      maze_trap_a1 -> maze_trap_a2                       ║
-║ D_10     gate_hell1 -> maze_trap_a1                         ║
-║ D_11     start -> gate_hell1                                ║
-║ D_12     start [WAIT]                                       ║
-║ D_13     start [WAIT]                                       ║
-║ D_14     start [WAIT]                                       ║
-║ D_15     start [WAIT]                                       ║
-║ D_16     start [WAIT]                                       ║
-║ D_17     start [WAIT]                                       ║
-║ D_18     start [WAIT]                                       ║
-║ D_19     start [WAIT]                                       ║
-║ D_20     start [WAIT]                                       ║
-║ D_21     start [WAIT]                                       ║
-║ D_22     start [WAIT]                                       ║
-║ D_23     start [WAIT]                                       ║
-║ D_24     start [WAIT]                                       ║
-║ D_25     start [WAIT]                                       ║
-╚══════════════════════════════════════════════════════════════╝
+MOVEMENTS
+----------------------------------------------------------------------
+D_1      maze_trap_a2 -> micro_gate1
+D_2      maze_trap_a1 -> maze_trap_a2
+D_3      gate_hell1 -> maze_trap_a1
+D_4      start -> gate_hell1
+WAITING    (21): D_5, D_6, D_7, D_8, D_9, D_10, D_11, D_12, D_13, D_14, D_15, D_16, D_17, D_18, D_19, D_20, D_21, D_22, D_23, D_24, D_25
 
-╔══════════════════════════════════════════════════════════════╗
-║ TURN 12                                                     ║
-╠══════════════════════════════════════════════════════════════╣
-║ DRONES                                                       ║
-║ D_1      conv_restricted2 -> conv_restricted3               ║
-║ D_2      conv_restricted8 -> conv_restricted9 [TRANSIT]     ║
-║ D_3      conv_restricted1 -> conv_restricted2               ║
-║ D_4      conv_restricted7 -> conv_restricted8 [TRANSIT]     ║
-║ D_5      overflow_hell1 -> conv_restricted1                 ║
-║ D_6      overflow_hell4 -> conv_restricted7 [TRANSIT]       ║
-║ D_7      micro_gate1 -> overflow_hell1                      ║
-║ D_8      micro_gate1 -> overflow_hell4 [TRANSIT]            ║
-║ D_9      maze_trap_a2 -> micro_gate1                        ║
-║ D_10     maze_trap_a1 -> maze_trap_a2                       ║
-║ D_11     gate_hell1 -> maze_trap_a1                         ║
-║ D_12     start -> gate_hell1                                ║
-║ D_13     start [WAIT]                                       ║
-║ D_14     start [WAIT]                                       ║
-║ D_15     start [WAIT]                                       ║
-║ D_16     start [WAIT]                                       ║
-║ D_17     start [WAIT]                                       ║
-║ D_18     start [WAIT]                                       ║
-║ D_19     start [WAIT]                                       ║
-║ D_20     start [WAIT]                                       ║
-║ D_21     start [WAIT]                                       ║
-║ D_22     start [WAIT]                                       ║
-║ D_23     start [WAIT]                                       ║
-║ D_24     start [WAIT]                                       ║
-║ D_25     start [WAIT]                                       ║
-╚══════════════════════════════════════════════════════════════╝
+----------------------------------------------------------------------
+Moved: 4   | Transit: 0   | Waiting: 21  | Delivered: 0/25
+======================================================================
 
-╔══════════════════════════════════════════════════════════════╗
-║ TURN 13                                                     ║
-╠══════════════════════════════════════════════════════════════╣
-║ DRONES                                                       ║
-║ D_1      conv_restricted3 -> final_merge                    ║
-║ D_2      conv_restricted8 -> conv_restricted9               ║
-║ D_3      conv_restricted2 -> conv_restricted3 [TRANSIT]     ║
-║ D_4      conv_restricted7 -> conv_restricted8               ║
-║ D_5      conv_restricted1 -> conv_restricted2 [TRANSIT]     ║
-║ D_6      overflow_hell4 -> conv_restricted7                 ║
-║ D_7      overflow_hell1 -> conv_restricted1 [TRANSIT]       ║
-║ D_8      micro_gate1 -> overflow_hell4                      ║
-║ D_9      micro_gate1 -> overflow_hell1 [TRANSIT]            ║
-║ D_10     maze_trap_a2 -> micro_gate1                        ║
-║ D_11     maze_trap_a1 -> maze_trap_a2                       ║
-║ D_12     gate_hell1 -> maze_trap_a1                         ║
-║ D_13     start -> gate_hell1                                ║
-║ D_14     start [WAIT]                                       ║
-║ D_15     start [WAIT]                                       ║
-║ D_16     start [WAIT]                                       ║
-║ D_17     start [WAIT]                                       ║
-║ D_18     start [WAIT]                                       ║
-║ D_19     start [WAIT]                                       ║
-║ D_20     start [WAIT]                                       ║
-║ D_21     start [WAIT]                                       ║
-║ D_22     start [WAIT]                                       ║
-║ D_23     start [WAIT]                                       ║
-║ D_24     start [WAIT]                                       ║
-║ D_25     start [WAIT]                                       ║
-╚══════════════════════════════════════════════════════════════╝
+======================================================================
+TURN 5
+======================================================================
 
-╔══════════════════════════════════════════════════════════════╗
-║ TURN 14                                                     ║
-╠══════════════════════════════════════════════════════════════╣
-║ DRONES                                                       ║
-║ D_1      final_merge -> final_torture1                      ║
-║ D_2      conv_restricted9 -> final_merge                    ║
-║ D_3      conv_restricted2 -> conv_restricted3               ║
-║ D_4      conv_restricted8 -> conv_restricted9 [TRANSIT]     ║
-║ D_5      conv_restricted1 -> conv_restricted2               ║
-║ D_6      conv_restricted7 -> conv_restricted8 [TRANSIT]     ║
-║ D_7      overflow_hell1 -> conv_restricted1                 ║
-║ D_8      overflow_hell4 -> conv_restricted7 [TRANSIT]       ║
-║ D_9      micro_gate1 -> overflow_hell1                      ║
-║ D_10     micro_gate1 -> overflow_hell4 [TRANSIT]            ║
-║ D_11     maze_trap_a2 -> micro_gate1                        ║
-║ D_12     maze_trap_a1 -> maze_trap_a2                       ║
-║ D_13     gate_hell1 -> maze_trap_a1                         ║
-║ D_14     start -> gate_hell1                                ║
-║ D_15     start [WAIT]                                       ║
-║ D_16     start [WAIT]                                       ║
-║ D_17     start [WAIT]                                       ║
-║ D_18     start [WAIT]                                       ║
-║ D_19     start [WAIT]                                       ║
-║ D_20     start [WAIT]                                       ║
-║ D_21     start [WAIT]                                       ║
-║ D_22     start [WAIT]                                       ║
-║ D_23     start [WAIT]                                       ║
-║ D_24     start [WAIT]                                       ║
-║ D_25     start [WAIT]                                       ║
-╚══════════════════════════════════════════════════════════════╝
+MOVEMENTS
+----------------------------------------------------------------------
+D_1      micro_gate1 -> overflow_hell1 [TRANSIT]
+D_2      maze_trap_a2 -> micro_gate1
+D_3      maze_trap_a1 -> maze_trap_a2
+D_4      gate_hell1 -> maze_trap_a1
+D_5      start -> gate_hell1
 
-╔══════════════════════════════════════════════════════════════╗
-║ TURN 15                                                     ║
-╠══════════════════════════════════════════════════════════════╣
-║ DRONES                                                       ║
-║ D_1      final_torture1 -> final_torture2                   ║
-║ D_2      final_merge -> final_torture1                      ║
-║ D_3      conv_restricted3 -> final_merge                    ║
-║ D_4      conv_restricted8 -> conv_restricted9               ║
-║ D_5      conv_restricted2 -> conv_restricted3 [TRANSIT]     ║
-║ D_6      conv_restricted7 -> conv_restricted8               ║
-║ D_7      conv_restricted1 -> conv_restricted2 [TRANSIT]     ║
-║ D_8      overflow_hell4 -> conv_restricted7                 ║
-║ D_9      overflow_hell1 -> conv_restricted1 [TRANSIT]       ║
-║ D_10     micro_gate1 -> overflow_hell4                      ║
-║ D_11     micro_gate1 -> overflow_hell1 [TRANSIT]            ║
-║ D_12     maze_trap_a2 -> micro_gate1                        ║
-║ D_13     maze_trap_a1 -> maze_trap_a2                       ║
-║ D_14     gate_hell1 -> maze_trap_a1                         ║
-║ D_15     start -> gate_hell1                                ║
-║ D_16     start [WAIT]                                       ║
-║ D_17     start [WAIT]                                       ║
-║ D_18     start [WAIT]                                       ║
-║ D_19     start [WAIT]                                       ║
-║ D_20     start [WAIT]                                       ║
-║ D_21     start [WAIT]                                       ║
-║ D_22     start [WAIT]                                       ║
-║ D_23     start [WAIT]                                       ║
-║ D_24     start [WAIT]                                       ║
-║ D_25     start [WAIT]                                       ║
-╚══════════════════════════════════════════════════════════════╝
+IN TRANSIT (1): D_1
+WAITING    (20): D_6, D_7, D_8, D_9, D_10, D_11, D_12, D_13, D_14, D_15, D_16, D_17, D_18, D_19, D_20, D_21, D_22, D_23, D_24, D_25
 
-╔══════════════════════════════════════════════════════════════╗
-║ TURN 16                                                     ║
-╠══════════════════════════════════════════════════════════════╣
-║ DRONES                                                       ║
-║ D_1      final_torture2 -> final_torture3                   ║
-║ D_2      final_torture1 -> final_torture2                   ║
-║ D_3      final_merge -> final_torture1                      ║
-║ D_4      conv_restricted9 -> final_merge                    ║
-║ D_5      conv_restricted2 -> conv_restricted3               ║
-║ D_6      conv_restricted8 -> conv_restricted9 [TRANSIT]     ║
-║ D_7      conv_restricted1 -> conv_restricted2               ║
-║ D_8      conv_restricted7 -> conv_restricted8 [TRANSIT]     ║
-║ D_9      overflow_hell1 -> conv_restricted1                 ║
-║ D_10     overflow_hell4 -> conv_restricted7 [TRANSIT]       ║
-║ D_11     micro_gate1 -> overflow_hell1                      ║
-║ D_12     micro_gate1 -> overflow_hell4 [TRANSIT]            ║
-║ D_13     maze_trap_a2 -> micro_gate1                        ║
-║ D_14     maze_trap_a1 -> maze_trap_a2                       ║
-║ D_15     gate_hell1 -> maze_trap_a1                         ║
-║ D_16     start -> gate_hell1                                ║
-║ D_17     start [WAIT]                                       ║
-║ D_18     start [WAIT]                                       ║
-║ D_19     start [WAIT]                                       ║
-║ D_20     start [WAIT]                                       ║
-║ D_21     start [WAIT]                                       ║
-║ D_22     start [WAIT]                                       ║
-║ D_23     start [WAIT]                                       ║
-║ D_24     start [WAIT]                                       ║
-║ D_25     start [WAIT]                                       ║
-╚══════════════════════════════════════════════════════════════╝
+----------------------------------------------------------------------
+Moved: 5   | Transit: 1   | Waiting: 20  | Delivered: 0/25
+======================================================================
 
-╔══════════════════════════════════════════════════════════════╗
-║ TURN 17                                                     ║
-╠══════════════════════════════════════════════════════════════╣
-║ DRONES                                                       ║
-║ D_1      final_torture3 -> final_torture4                   ║
-║ D_2      final_torture2 -> final_torture3                   ║
-║ D_3      final_torture1 -> final_torture2                   ║
-║ D_4      final_merge -> final_torture1                      ║
-║ D_5      conv_restricted3 -> final_merge                    ║
-║ D_6      conv_restricted8 -> conv_restricted9               ║
-║ D_7      conv_restricted2 -> conv_restricted3 [TRANSIT]     ║
-║ D_8      conv_restricted7 -> conv_restricted8               ║
-║ D_9      conv_restricted1 -> conv_restricted2 [TRANSIT]     ║
-║ D_10     overflow_hell4 -> conv_restricted7                 ║
-║ D_11     overflow_hell1 -> conv_restricted1 [TRANSIT]       ║
-║ D_12     micro_gate1 -> overflow_hell4                      ║
-║ D_13     micro_gate1 -> overflow_hell1 [TRANSIT]            ║
-║ D_14     maze_trap_a2 -> micro_gate1                        ║
-║ D_15     maze_trap_a1 -> maze_trap_a2                       ║
-║ D_16     gate_hell1 -> maze_trap_a1                         ║
-║ D_17     start -> gate_hell1                                ║
-║ D_18     start [WAIT]                                       ║
-║ D_19     start [WAIT]                                       ║
-║ D_20     start [WAIT]                                       ║
-║ D_21     start [WAIT]                                       ║
-║ D_22     start [WAIT]                                       ║
-║ D_23     start [WAIT]                                       ║
-║ D_24     start [WAIT]                                       ║
-║ D_25     start [WAIT]                                       ║
-╚══════════════════════════════════════════════════════════════╝
+======================================================================
+TURN 6
+======================================================================
 
-╔══════════════════════════════════════════════════════════════╗
-║ TURN 18                                                     ║
-╠══════════════════════════════════════════════════════════════╣
-║ DRONES                                                       ║
-║ D_1      final_torture4 -> final_torture5                   ║
-║ D_2      final_torture3 -> final_torture4                   ║
-║ D_3      final_torture2 -> final_torture3                   ║
-║ D_4      final_torture1 -> final_torture2                   ║
-║ D_5      final_merge -> final_torture1                      ║
-║ D_6      conv_restricted9 -> final_merge                    ║
-║ D_7      conv_restricted2 -> conv_restricted3               ║
-║ D_8      conv_restricted8 -> conv_restricted9 [TRANSIT]     ║
-║ D_9      conv_restricted1 -> conv_restricted2               ║
-║ D_10     conv_restricted7 -> conv_restricted8 [TRANSIT]     ║
-║ D_11     overflow_hell1 -> conv_restricted1                 ║
-║ D_12     overflow_hell4 -> conv_restricted7 [TRANSIT]       ║
-║ D_13     micro_gate1 -> overflow_hell1                      ║
-║ D_14     micro_gate1 -> overflow_hell4 [TRANSIT]            ║
-║ D_15     maze_trap_a2 -> micro_gate1                        ║
-║ D_16     maze_trap_a1 -> maze_trap_a2                       ║
-║ D_17     gate_hell1 -> maze_trap_a1                         ║
-║ D_18     start -> gate_hell1                                ║
-║ D_19     start [WAIT]                                       ║
-║ D_20     start [WAIT]                                       ║
-║ D_21     start [WAIT]                                       ║
-║ D_22     start [WAIT]                                       ║
-║ D_23     start [WAIT]                                       ║
-║ D_24     start [WAIT]                                       ║
-║ D_25     start [WAIT]                                       ║
-╚══════════════════════════════════════════════════════════════╝
+MOVEMENTS
+----------------------------------------------------------------------
+D_1      micro_gate1 -> overflow_hell1
+D_2      micro_gate1 -> overflow_hell4 [TRANSIT]
+D_3      maze_trap_a2 -> micro_gate1
+D_4      maze_trap_a1 -> maze_trap_a2
+D_5      gate_hell1 -> maze_trap_a1
+D_6      start -> gate_hell1
 
-╔══════════════════════════════════════════════════════════════╗
-║ TURN 19                                                     ║
-╠══════════════════════════════════════════════════════════════╣
-║ DRONES                                                       ║
-║ D_1      final_torture5 -> impossible_goal                  ║
-║ D_2      final_torture4 -> final_torture5                   ║
-║ D_3      final_torture3 -> final_torture4                   ║
-║ D_4      final_torture2 -> final_torture3                   ║
-║ D_5      final_torture1 -> final_torture2                   ║
-║ D_6      final_merge -> final_torture1                      ║
-║ D_7      conv_restricted3 -> final_merge                    ║
-║ D_8      conv_restricted8 -> conv_restricted9               ║
-║ D_9      conv_restricted2 -> conv_restricted3 [TRANSIT]     ║
-║ D_10     conv_restricted7 -> conv_restricted8               ║
-║ D_11     conv_restricted1 -> conv_restricted2 [TRANSIT]     ║
-║ D_12     overflow_hell4 -> conv_restricted7                 ║
-║ D_13     overflow_hell1 -> conv_restricted1 [TRANSIT]       ║
-║ D_14     micro_gate1 -> overflow_hell4                      ║
-║ D_15     micro_gate1 -> overflow_hell1 [TRANSIT]            ║
-║ D_16     maze_trap_a2 -> micro_gate1                        ║
-║ D_17     maze_trap_a1 -> maze_trap_a2                       ║
-║ D_18     gate_hell1 -> maze_trap_a1                         ║
-║ D_19     start -> gate_hell1                                ║
-║ D_20     start [WAIT]                                       ║
-║ D_21     start [WAIT]                                       ║
-║ D_22     start [WAIT]                                       ║
-║ D_23     start [WAIT]                                       ║
-║ D_24     start [WAIT]                                       ║
-║ D_25     start [WAIT]                                       ║
-╚══════════════════════════════════════════════════════════════╝
+IN TRANSIT (1): D_2
+WAITING    (19): D_7, D_8, D_9, D_10, D_11, D_12, D_13, D_14, D_15, D_16, D_17, D_18, D_19, D_20, D_21, D_22, D_23, D_24, D_25
 
-╔══════════════════════════════════════════════════════════════╗
-║ TURN 20                                                     ║
-╠══════════════════════════════════════════════════════════════╣
-║ DRONES                                                       ║
-║ D_1      DELIVERED                                          ║
-║ D_2      final_torture5 -> impossible_goal                  ║
-║ D_3      final_torture4 -> final_torture5                   ║
-║ D_4      final_torture3 -> final_torture4                   ║
-║ D_5      final_torture2 -> final_torture3                   ║
-║ D_6      final_torture1 -> final_torture2                   ║
-║ D_7      final_merge -> final_torture1                      ║
-║ D_8      conv_restricted9 -> final_merge                    ║
-║ D_9      conv_restricted2 -> conv_restricted3               ║
-║ D_10     conv_restricted8 -> conv_restricted9 [TRANSIT]     ║
-║ D_11     conv_restricted1 -> conv_restricted2               ║
-║ D_12     conv_restricted7 -> conv_restricted8 [TRANSIT]     ║
-║ D_13     overflow_hell1 -> conv_restricted1                 ║
-║ D_14     overflow_hell4 -> conv_restricted7 [TRANSIT]       ║
-║ D_15     micro_gate1 -> overflow_hell1                      ║
-║ D_16     micro_gate1 -> overflow_hell4 [TRANSIT]            ║
-║ D_17     maze_trap_a2 -> micro_gate1                        ║
-║ D_18     maze_trap_a1 -> maze_trap_a2                       ║
-║ D_19     gate_hell1 -> maze_trap_a1                         ║
-║ D_20     start -> gate_hell1                                ║
-║ D_21     start [WAIT]                                       ║
-║ D_22     start [WAIT]                                       ║
-║ D_23     start [WAIT]                                       ║
-║ D_24     start [WAIT]                                       ║
-║ D_25     start [WAIT]                                       ║
-╚══════════════════════════════════════════════════════════════╝
+----------------------------------------------------------------------
+Moved: 6   | Transit: 1   | Waiting: 19  | Delivered: 0/25
+======================================================================
 
-╔══════════════════════════════════════════════════════════════╗
-║ TURN 21                                                     ║
-╠══════════════════════════════════════════════════════════════╣
-║ DRONES                                                       ║
-║ D_1      DELIVERED                                          ║
-║ D_2      DELIVERED                                          ║
-║ D_3      final_torture5 -> impossible_goal                  ║
-║ D_4      final_torture4 -> final_torture5                   ║
-║ D_5      final_torture3 -> final_torture4                   ║
-║ D_6      final_torture2 -> final_torture3                   ║
-║ D_7      final_torture1 -> final_torture2                   ║
-║ D_8      final_merge -> final_torture1                      ║
-║ D_9      conv_restricted3 -> final_merge                    ║
-║ D_10     conv_restricted8 -> conv_restricted9               ║
-║ D_11     conv_restricted2 -> conv_restricted3 [TRANSIT]     ║
-║ D_12     conv_restricted7 -> conv_restricted8               ║
-║ D_13     conv_restricted1 -> conv_restricted2 [TRANSIT]     ║
-║ D_14     overflow_hell4 -> conv_restricted7                 ║
-║ D_15     overflow_hell1 -> conv_restricted1 [TRANSIT]       ║
-║ D_16     micro_gate1 -> overflow_hell4                      ║
-║ D_17     micro_gate1 -> overflow_hell1 [TRANSIT]            ║
-║ D_18     maze_trap_a2 -> micro_gate1                        ║
-║ D_19     maze_trap_a1 -> maze_trap_a2                       ║
-║ D_20     gate_hell1 -> maze_trap_a1                         ║
-║ D_21     start -> gate_hell1                                ║
-║ D_22     start [WAIT]                                       ║
-║ D_23     start [WAIT]                                       ║
-║ D_24     start [WAIT]                                       ║
-║ D_25     start [WAIT]                                       ║
-╚══════════════════════════════════════════════════════════════╝
+======================================================================
+TURN 7
+======================================================================
 
-╔══════════════════════════════════════════════════════════════╗
-║ TURN 22                                                     ║
-╠══════════════════════════════════════════════════════════════╣
-║ DRONES                                                       ║
-║ D_1      DELIVERED                                          ║
-║ D_2      DELIVERED                                          ║
-║ D_3      DELIVERED                                          ║
-║ D_4      final_torture5 -> impossible_goal                  ║
-║ D_5      final_torture4 -> final_torture5                   ║
-║ D_6      final_torture3 -> final_torture4                   ║
-║ D_7      final_torture2 -> final_torture3                   ║
-║ D_8      final_torture1 -> final_torture2                   ║
-║ D_9      final_merge -> final_torture1                      ║
-║ D_10     conv_restricted9 -> final_merge                    ║
-║ D_11     conv_restricted2 -> conv_restricted3               ║
-║ D_12     conv_restricted8 -> conv_restricted9 [TRANSIT]     ║
-║ D_13     conv_restricted1 -> conv_restricted2               ║
-║ D_14     conv_restricted7 -> conv_restricted8 [TRANSIT]     ║
-║ D_15     overflow_hell1 -> conv_restricted1                 ║
-║ D_16     overflow_hell4 -> conv_restricted7 [TRANSIT]       ║
-║ D_17     micro_gate1 -> overflow_hell1                      ║
-║ D_18     micro_gate1 -> overflow_hell4 [TRANSIT]            ║
-║ D_19     maze_trap_a2 -> micro_gate1                        ║
-║ D_20     maze_trap_a1 -> maze_trap_a2                       ║
-║ D_21     gate_hell1 -> maze_trap_a1                         ║
-║ D_22     start -> gate_hell1                                ║
-║ D_23     start [WAIT]                                       ║
-║ D_24     start [WAIT]                                       ║
-║ D_25     start [WAIT]                                       ║
-╚══════════════════════════════════════════════════════════════╝
+MOVEMENTS
+----------------------------------------------------------------------
+D_1      overflow_hell1 -> conv_restricted1 [TRANSIT]
+D_2      micro_gate1 -> overflow_hell4
+D_3      micro_gate1 -> overflow_hell1 [TRANSIT]
+D_4      maze_trap_a2 -> micro_gate1
+D_5      maze_trap_a1 -> maze_trap_a2
+D_6      gate_hell1 -> maze_trap_a1
+D_7      start -> gate_hell1
 
-╔══════════════════════════════════════════════════════════════╗
-║ TURN 23                                                     ║
-╠══════════════════════════════════════════════════════════════╣
-║ DRONES                                                       ║
-║ D_1      DELIVERED                                          ║
-║ D_2      DELIVERED                                          ║
-║ D_3      DELIVERED                                          ║
-║ D_4      DELIVERED                                          ║
-║ D_5      final_torture5 -> impossible_goal                  ║
-║ D_6      final_torture4 -> final_torture5                   ║
-║ D_7      final_torture3 -> final_torture4                   ║
-║ D_8      final_torture2 -> final_torture3                   ║
-║ D_9      final_torture1 -> final_torture2                   ║
-║ D_10     final_merge -> final_torture1                      ║
-║ D_11     conv_restricted3 -> final_merge                    ║
-║ D_12     conv_restricted8 -> conv_restricted9               ║
-║ D_13     conv_restricted2 -> conv_restricted3 [TRANSIT]     ║
-║ D_14     conv_restricted7 -> conv_restricted8               ║
-║ D_15     conv_restricted1 -> conv_restricted2 [TRANSIT]     ║
-║ D_16     overflow_hell4 -> conv_restricted7                 ║
-║ D_17     overflow_hell1 -> conv_restricted1 [TRANSIT]       ║
-║ D_18     micro_gate1 -> overflow_hell4                      ║
-║ D_19     micro_gate1 -> overflow_hell1 [TRANSIT]            ║
-║ D_20     maze_trap_a2 -> micro_gate1                        ║
-║ D_21     maze_trap_a1 -> maze_trap_a2                       ║
-║ D_22     gate_hell1 -> maze_trap_a1                         ║
-║ D_23     start -> gate_hell1                                ║
-║ D_24     start [WAIT]                                       ║
-║ D_25     start [WAIT]                                       ║
-╚══════════════════════════════════════════════════════════════╝
+IN TRANSIT (2): D_1, D_3
+WAITING    (18): D_8, D_9, D_10, D_11, D_12, D_13, D_14, D_15, D_16, D_17, D_18, D_19, D_20, D_21, D_22, D_23, D_24, D_25
 
-╔══════════════════════════════════════════════════════════════╗
-║ TURN 24                                                     ║
-╠══════════════════════════════════════════════════════════════╣
-║ DRONES                                                       ║
-║ D_1      DELIVERED                                          ║
-║ D_2      DELIVERED                                          ║
-║ D_3      DELIVERED                                          ║
-║ D_4      DELIVERED                                          ║
-║ D_5      DELIVERED                                          ║
-║ D_6      final_torture5 -> impossible_goal                  ║
-║ D_7      final_torture4 -> final_torture5                   ║
-║ D_8      final_torture3 -> final_torture4                   ║
-║ D_9      final_torture2 -> final_torture3                   ║
-║ D_10     final_torture1 -> final_torture2                   ║
-║ D_11     final_merge -> final_torture1                      ║
-║ D_12     conv_restricted9 -> final_merge                    ║
-║ D_13     conv_restricted2 -> conv_restricted3               ║
-║ D_14     conv_restricted8 -> conv_restricted9 [TRANSIT]     ║
-║ D_15     conv_restricted1 -> conv_restricted2               ║
-║ D_16     conv_restricted7 -> conv_restricted8 [TRANSIT]     ║
-║ D_17     overflow_hell1 -> conv_restricted1                 ║
-║ D_18     overflow_hell4 -> conv_restricted7 [TRANSIT]       ║
-║ D_19     micro_gate1 -> overflow_hell1                      ║
-║ D_20     micro_gate1 -> overflow_hell4 [TRANSIT]            ║
-║ D_21     maze_trap_a2 -> micro_gate1                        ║
-║ D_22     maze_trap_a1 -> maze_trap_a2                       ║
-║ D_23     gate_hell1 -> maze_trap_a1                         ║
-║ D_24     start -> gate_hell1                                ║
-║ D_25     start [WAIT]                                       ║
-╚══════════════════════════════════════════════════════════════╝
+----------------------------------------------------------------------
+Moved: 7   | Transit: 2   | Waiting: 18  | Delivered: 0/25
+======================================================================
 
-╔══════════════════════════════════════════════════════════════╗
-║ TURN 25                                                     ║
-╠══════════════════════════════════════════════════════════════╣
-║ DRONES                                                       ║
-║ D_1      DELIVERED                                          ║
-║ D_2      DELIVERED                                          ║
-║ D_3      DELIVERED                                          ║
-║ D_4      DELIVERED                                          ║
-║ D_5      DELIVERED                                          ║
-║ D_6      DELIVERED                                          ║
-║ D_7      final_torture5 -> impossible_goal                  ║
-║ D_8      final_torture4 -> final_torture5                   ║
-║ D_9      final_torture3 -> final_torture4                   ║
-║ D_10     final_torture2 -> final_torture3                   ║
-║ D_11     final_torture1 -> final_torture2                   ║
-║ D_12     final_merge -> final_torture1                      ║
-║ D_13     conv_restricted3 -> final_merge                    ║
-║ D_14     conv_restricted8 -> conv_restricted9               ║
-║ D_15     conv_restricted2 -> conv_restricted3 [TRANSIT]     ║
-║ D_16     conv_restricted7 -> conv_restricted8               ║
-║ D_17     conv_restricted1 -> conv_restricted2 [TRANSIT]     ║
-║ D_18     overflow_hell4 -> conv_restricted7                 ║
-║ D_19     overflow_hell1 -> conv_restricted1 [TRANSIT]       ║
-║ D_20     micro_gate1 -> overflow_hell4                      ║
-║ D_21     micro_gate1 -> overflow_hell1 [TRANSIT]            ║
-║ D_22     maze_trap_a2 -> micro_gate1                        ║
-║ D_23     maze_trap_a1 -> maze_trap_a2                       ║
-║ D_24     gate_hell1 -> maze_trap_a1                         ║
-║ D_25     start -> gate_hell1                                ║
-╚══════════════════════════════════════════════════════════════╝
+======================================================================
+TURN 8
+======================================================================
 
-╔══════════════════════════════════════════════════════════════╗
-║ TURN 26                                                     ║
-╠══════════════════════════════════════════════════════════════╣
-║ DRONES                                                       ║
-║ D_1      DELIVERED                                          ║
-║ D_2      DELIVERED                                          ║
-║ D_3      DELIVERED                                          ║
-║ D_4      DELIVERED                                          ║
-║ D_5      DELIVERED                                          ║
-║ D_6      DELIVERED                                          ║
-║ D_7      DELIVERED                                          ║
-║ D_8      final_torture5 -> impossible_goal                  ║
-║ D_9      final_torture4 -> final_torture5                   ║
-║ D_10     final_torture3 -> final_torture4                   ║
-║ D_11     final_torture2 -> final_torture3                   ║
-║ D_12     final_torture1 -> final_torture2                   ║
-║ D_13     final_merge -> final_torture1                      ║
-║ D_14     conv_restricted9 -> final_merge                    ║
-║ D_15     conv_restricted2 -> conv_restricted3               ║
-║ D_16     conv_restricted8 -> conv_restricted9 [TRANSIT]     ║
-║ D_17     conv_restricted1 -> conv_restricted2               ║
-║ D_18     conv_restricted7 -> conv_restricted8 [TRANSIT]     ║
-║ D_19     overflow_hell1 -> conv_restricted1                 ║
-║ D_20     overflow_hell4 -> conv_restricted7 [TRANSIT]       ║
-║ D_21     micro_gate1 -> overflow_hell1                      ║
-║ D_22     micro_gate1 -> overflow_hell4 [TRANSIT]            ║
-║ D_23     maze_trap_a2 -> micro_gate1                        ║
-║ D_24     maze_trap_a1 -> maze_trap_a2                       ║
-║ D_25     gate_hell1 -> maze_trap_a1                         ║
-╚══════════════════════════════════════════════════════════════╝
+MOVEMENTS
+----------------------------------------------------------------------
+D_1      overflow_hell1 -> conv_restricted1
+D_2      overflow_hell4 -> conv_restricted7 [TRANSIT]
+D_3      micro_gate1 -> overflow_hell1
+D_4      micro_gate1 -> overflow_hell4 [TRANSIT]
+D_5      maze_trap_a2 -> micro_gate1
+D_6      maze_trap_a1 -> maze_trap_a2
+D_7      gate_hell1 -> maze_trap_a1
+D_8      start -> gate_hell1
 
-╔══════════════════════════════════════════════════════════════╗
-║ TURN 27                                                     ║
-╠══════════════════════════════════════════════════════════════╣
-║ DRONES                                                       ║
-║ D_1      DELIVERED                                          ║
-║ D_2      DELIVERED                                          ║
-║ D_3      DELIVERED                                          ║
-║ D_4      DELIVERED                                          ║
-║ D_5      DELIVERED                                          ║
-║ D_6      DELIVERED                                          ║
-║ D_7      DELIVERED                                          ║
-║ D_8      DELIVERED                                          ║
-║ D_9      final_torture5 -> impossible_goal                  ║
-║ D_10     final_torture4 -> final_torture5                   ║
-║ D_11     final_torture3 -> final_torture4                   ║
-║ D_12     final_torture2 -> final_torture3                   ║
-║ D_13     final_torture1 -> final_torture2                   ║
-║ D_14     final_merge -> final_torture1                      ║
-║ D_15     conv_restricted3 -> final_merge                    ║
-║ D_16     conv_restricted8 -> conv_restricted9               ║
-║ D_17     conv_restricted2 -> conv_restricted3 [TRANSIT]     ║
-║ D_18     conv_restricted7 -> conv_restricted8               ║
-║ D_19     conv_restricted1 -> conv_restricted2 [TRANSIT]     ║
-║ D_20     overflow_hell4 -> conv_restricted7                 ║
-║ D_21     overflow_hell1 -> conv_restricted1 [TRANSIT]       ║
-║ D_22     micro_gate1 -> overflow_hell4                      ║
-║ D_23     micro_gate1 -> overflow_hell1 [TRANSIT]            ║
-║ D_24     maze_trap_a2 -> micro_gate1                        ║
-║ D_25     maze_trap_a1 -> maze_trap_a2                       ║
-╚══════════════════════════════════════════════════════════════╝
+IN TRANSIT (2): D_2, D_4
+WAITING    (17): D_9, D_10, D_11, D_12, D_13, D_14, D_15, D_16, D_17, D_18, D_19, D_20, D_21, D_22, D_23, D_24, D_25
 
-╔══════════════════════════════════════════════════════════════╗
-║ TURN 28                                                     ║
-╠══════════════════════════════════════════════════════════════╣
-║ DRONES                                                       ║
-║ D_1      DELIVERED                                          ║
-║ D_2      DELIVERED                                          ║
-║ D_3      DELIVERED                                          ║
-║ D_4      DELIVERED                                          ║
-║ D_5      DELIVERED                                          ║
-║ D_6      DELIVERED                                          ║
-║ D_7      DELIVERED                                          ║
-║ D_8      DELIVERED                                          ║
-║ D_9      DELIVERED                                          ║
-║ D_10     final_torture5 -> impossible_goal                  ║
-║ D_11     final_torture4 -> final_torture5                   ║
-║ D_12     final_torture3 -> final_torture4                   ║
-║ D_13     final_torture2 -> final_torture3                   ║
-║ D_14     final_torture1 -> final_torture2                   ║
-║ D_15     final_merge -> final_torture1                      ║
-║ D_16     conv_restricted9 -> final_merge                    ║
-║ D_17     conv_restricted2 -> conv_restricted3               ║
-║ D_18     conv_restricted8 -> conv_restricted9 [TRANSIT]     ║
-║ D_19     conv_restricted1 -> conv_restricted2               ║
-║ D_20     conv_restricted7 -> conv_restricted8 [TRANSIT]     ║
-║ D_21     overflow_hell1 -> conv_restricted1                 ║
-║ D_22     overflow_hell4 -> conv_restricted7 [TRANSIT]       ║
-║ D_23     micro_gate1 -> overflow_hell1                      ║
-║ D_24     micro_gate1 -> overflow_hell4 [TRANSIT]            ║
-║ D_25     maze_trap_a2 -> micro_gate1                        ║
-╚══════════════════════════════════════════════════════════════╝
+----------------------------------------------------------------------
+Moved: 8   | Transit: 2   | Waiting: 17  | Delivered: 0/25
+======================================================================
 
-╔══════════════════════════════════════════════════════════════╗
-║ TURN 29                                                     ║
-╠══════════════════════════════════════════════════════════════╣
-║ DRONES                                                       ║
-║ D_1      DELIVERED                                          ║
-║ D_2      DELIVERED                                          ║
-║ D_3      DELIVERED                                          ║
-║ D_4      DELIVERED                                          ║
-║ D_5      DELIVERED                                          ║
-║ D_6      DELIVERED                                          ║
-║ D_7      DELIVERED                                          ║
-║ D_8      DELIVERED                                          ║
-║ D_9      DELIVERED                                          ║
-║ D_10     DELIVERED                                          ║
-║ D_11     final_torture5 -> impossible_goal                  ║
-║ D_12     final_torture4 -> final_torture5                   ║
-║ D_13     final_torture3 -> final_torture4                   ║
-║ D_14     final_torture2 -> final_torture3                   ║
-║ D_15     final_torture1 -> final_torture2                   ║
-║ D_16     final_merge -> final_torture1                      ║
-║ D_17     conv_restricted3 -> final_merge                    ║
-║ D_18     conv_restricted8 -> conv_restricted9               ║
-║ D_19     conv_restricted2 -> conv_restricted3 [TRANSIT]     ║
-║ D_20     conv_restricted7 -> conv_restricted8               ║
-║ D_21     conv_restricted1 -> conv_restricted2 [TRANSIT]     ║
-║ D_22     overflow_hell4 -> conv_restricted7                 ║
-║ D_23     overflow_hell1 -> conv_restricted1 [TRANSIT]       ║
-║ D_24     micro_gate1 -> overflow_hell4                      ║
-║ D_25     micro_gate1 -> overflow_hell1 [TRANSIT]            ║
-╚══════════════════════════════════════════════════════════════╝
+======================================================================
+TURN 9
+======================================================================
 
-╔══════════════════════════════════════════════════════════════╗
-║ TURN 30                                                     ║
-╠══════════════════════════════════════════════════════════════╣
-║ DRONES                                                       ║
-║ D_1      DELIVERED                                          ║
-║ D_2      DELIVERED                                          ║
-║ D_3      DELIVERED                                          ║
-║ D_4      DELIVERED                                          ║
-║ D_5      DELIVERED                                          ║
-║ D_6      DELIVERED                                          ║
-║ D_7      DELIVERED                                          ║
-║ D_8      DELIVERED                                          ║
-║ D_9      DELIVERED                                          ║
-║ D_10     DELIVERED                                          ║
-║ D_11     DELIVERED                                          ║
-║ D_12     final_torture5 -> impossible_goal                  ║
-║ D_13     final_torture4 -> final_torture5                   ║
-║ D_14     final_torture3 -> final_torture4                   ║
-║ D_15     final_torture2 -> final_torture3                   ║
-║ D_16     final_torture1 -> final_torture2                   ║
-║ D_17     final_merge -> final_torture1                      ║
-║ D_18     conv_restricted9 -> final_merge                    ║
-║ D_19     conv_restricted2 -> conv_restricted3               ║
-║ D_20     conv_restricted8 -> conv_restricted9 [TRANSIT]     ║
-║ D_21     conv_restricted1 -> conv_restricted2               ║
-║ D_22     conv_restricted7 -> conv_restricted8 [TRANSIT]     ║
-║ D_23     overflow_hell1 -> conv_restricted1                 ║
-║ D_24     overflow_hell4 -> conv_restricted7 [TRANSIT]       ║
-║ D_25     micro_gate1 -> overflow_hell1                      ║
-╚══════════════════════════════════════════════════════════════╝
+MOVEMENTS
+----------------------------------------------------------------------
+D_1      conv_restricted1 -> conv_restricted2 [TRANSIT]
+D_2      overflow_hell4 -> conv_restricted7
+D_3      overflow_hell1 -> conv_restricted1 [TRANSIT]
+D_4      micro_gate1 -> overflow_hell4
+D_5      micro_gate1 -> overflow_hell1 [TRANSIT]
+D_6      maze_trap_a2 -> micro_gate1
+D_7      maze_trap_a1 -> maze_trap_a2
+D_8      gate_hell1 -> maze_trap_a1
+D_9      start -> gate_hell1
 
-╔══════════════════════════════════════════════════════════════╗
-║ TURN 31                                                     ║
-╠══════════════════════════════════════════════════════════════╣
-║ DRONES                                                       ║
-║ D_1      DELIVERED                                          ║
-║ D_2      DELIVERED                                          ║
-║ D_3      DELIVERED                                          ║
-║ D_4      DELIVERED                                          ║
-║ D_5      DELIVERED                                          ║
-║ D_6      DELIVERED                                          ║
-║ D_7      DELIVERED                                          ║
-║ D_8      DELIVERED                                          ║
-║ D_9      DELIVERED                                          ║
-║ D_10     DELIVERED                                          ║
-║ D_11     DELIVERED                                          ║
-║ D_12     DELIVERED                                          ║
-║ D_13     final_torture5 -> impossible_goal                  ║
-║ D_14     final_torture4 -> final_torture5                   ║
-║ D_15     final_torture3 -> final_torture4                   ║
-║ D_16     final_torture2 -> final_torture3                   ║
-║ D_17     final_torture1 -> final_torture2                   ║
-║ D_18     final_merge -> final_torture1                      ║
-║ D_19     conv_restricted3 -> final_merge                    ║
-║ D_20     conv_restricted8 -> conv_restricted9               ║
-║ D_21     conv_restricted2 -> conv_restricted3 [TRANSIT]     ║
-║ D_22     conv_restricted7 -> conv_restricted8               ║
-║ D_23     conv_restricted1 -> conv_restricted2 [TRANSIT]     ║
-║ D_24     overflow_hell4 -> conv_restricted7                 ║
-║ D_25     overflow_hell1 -> conv_restricted1 [TRANSIT]       ║
-╚══════════════════════════════════════════════════════════════╝
+IN TRANSIT (3): D_1, D_3, D_5
+WAITING    (16): D_10, D_11, D_12, D_13, D_14, D_15, D_16, D_17, D_18, D_19, D_20, D_21, D_22, D_23, D_24, D_25
 
-╔══════════════════════════════════════════════════════════════╗
-║ TURN 32                                                     ║
-╠══════════════════════════════════════════════════════════════╣
-║ DRONES                                                       ║
-║ D_1      DELIVERED                                          ║
-║ D_2      DELIVERED                                          ║
-║ D_3      DELIVERED                                          ║
-║ D_4      DELIVERED                                          ║
-║ D_5      DELIVERED                                          ║
-║ D_6      DELIVERED                                          ║
-║ D_7      DELIVERED                                          ║
-║ D_8      DELIVERED                                          ║
-║ D_9      DELIVERED                                          ║
-║ D_10     DELIVERED                                          ║
-║ D_11     DELIVERED                                          ║
-║ D_12     DELIVERED                                          ║
-║ D_13     DELIVERED                                          ║
-║ D_14     final_torture5 -> impossible_goal                  ║
-║ D_15     final_torture4 -> final_torture5                   ║
-║ D_16     final_torture3 -> final_torture4                   ║
-║ D_17     final_torture2 -> final_torture3                   ║
-║ D_18     final_torture1 -> final_torture2                   ║
-║ D_19     final_merge -> final_torture1                      ║
-║ D_20     conv_restricted9 -> final_merge                    ║
-║ D_21     conv_restricted2 -> conv_restricted3               ║
-║ D_22     conv_restricted8 -> conv_restricted9 [TRANSIT]     ║
-║ D_23     conv_restricted1 -> conv_restricted2               ║
-║ D_24     conv_restricted7 -> conv_restricted8 [TRANSIT]     ║
-║ D_25     overflow_hell1 -> conv_restricted1                 ║
-╚══════════════════════════════════════════════════════════════╝
+----------------------------------------------------------------------
+Moved: 9   | Transit: 3   | Waiting: 16  | Delivered: 0/25
+======================================================================
 
-╔══════════════════════════════════════════════════════════════╗
-║ TURN 33                                                     ║
-╠══════════════════════════════════════════════════════════════╣
-║ DRONES                                                       ║
-║ D_1      DELIVERED                                          ║
-║ D_2      DELIVERED                                          ║
-║ D_3      DELIVERED                                          ║
-║ D_4      DELIVERED                                          ║
-║ D_5      DELIVERED                                          ║
-║ D_6      DELIVERED                                          ║
-║ D_7      DELIVERED                                          ║
-║ D_8      DELIVERED                                          ║
-║ D_9      DELIVERED                                          ║
-║ D_10     DELIVERED                                          ║
-║ D_11     DELIVERED                                          ║
-║ D_12     DELIVERED                                          ║
-║ D_13     DELIVERED                                          ║
-║ D_14     DELIVERED                                          ║
-║ D_15     final_torture5 -> impossible_goal                  ║
-║ D_16     final_torture4 -> final_torture5                   ║
-║ D_17     final_torture3 -> final_torture4                   ║
-║ D_18     final_torture2 -> final_torture3                   ║
-║ D_19     final_torture1 -> final_torture2                   ║
-║ D_20     final_merge -> final_torture1                      ║
-║ D_21     conv_restricted3 -> final_merge                    ║
-║ D_22     conv_restricted8 -> conv_restricted9               ║
-║ D_23     conv_restricted2 -> conv_restricted3 [TRANSIT]     ║
-║ D_24     conv_restricted7 -> conv_restricted8               ║
-║ D_25     conv_restricted1 -> conv_restricted2 [TRANSIT]     ║
-╚══════════════════════════════════════════════════════════════╝
+======================================================================
+TURN 10
+======================================================================
 
-╔══════════════════════════════════════════════════════════════╗
-║ TURN 34                                                     ║
-╠══════════════════════════════════════════════════════════════╣
-║ DRONES                                                       ║
-║ D_1      DELIVERED                                          ║
-║ D_2      DELIVERED                                          ║
-║ D_3      DELIVERED                                          ║
-║ D_4      DELIVERED                                          ║
-║ D_5      DELIVERED                                          ║
-║ D_6      DELIVERED                                          ║
-║ D_7      DELIVERED                                          ║
-║ D_8      DELIVERED                                          ║
-║ D_9      DELIVERED                                          ║
-║ D_10     DELIVERED                                          ║
-║ D_11     DELIVERED                                          ║
-║ D_12     DELIVERED                                          ║
-║ D_13     DELIVERED                                          ║
-║ D_14     DELIVERED                                          ║
-║ D_15     DELIVERED                                          ║
-║ D_16     final_torture5 -> impossible_goal                  ║
-║ D_17     final_torture4 -> final_torture5                   ║
-║ D_18     final_torture3 -> final_torture4                   ║
-║ D_19     final_torture2 -> final_torture3                   ║
-║ D_20     final_torture1 -> final_torture2                   ║
-║ D_21     final_merge -> final_torture1                      ║
-║ D_22     conv_restricted9 -> final_merge                    ║
-║ D_23     conv_restricted2 -> conv_restricted3               ║
-║ D_24     conv_restricted8 -> conv_restricted9 [TRANSIT]     ║
-║ D_25     conv_restricted1 -> conv_restricted2               ║
-╚══════════════════════════════════════════════════════════════╝
+MOVEMENTS
+----------------------------------------------------------------------
+D_1      conv_restricted1 -> conv_restricted2
+D_2      conv_restricted7 -> conv_restricted8 [TRANSIT]
+D_3      overflow_hell1 -> conv_restricted1
+D_4      overflow_hell4 -> conv_restricted7 [TRANSIT]
+D_5      micro_gate1 -> overflow_hell1
+D_6      micro_gate1 -> overflow_hell4 [TRANSIT]
+D_7      maze_trap_a2 -> micro_gate1
+D_8      maze_trap_a1 -> maze_trap_a2
+D_9      gate_hell1 -> maze_trap_a1
+D_10     start -> gate_hell1
 
-╔══════════════════════════════════════════════════════════════╗
-║ TURN 35                                                     ║
-╠══════════════════════════════════════════════════════════════╣
-║ DRONES                                                       ║
-║ D_1      DELIVERED                                          ║
-║ D_2      DELIVERED                                          ║
-║ D_3      DELIVERED                                          ║
-║ D_4      DELIVERED                                          ║
-║ D_5      DELIVERED                                          ║
-║ D_6      DELIVERED                                          ║
-║ D_7      DELIVERED                                          ║
-║ D_8      DELIVERED                                          ║
-║ D_9      DELIVERED                                          ║
-║ D_10     DELIVERED                                          ║
-║ D_11     DELIVERED                                          ║
-║ D_12     DELIVERED                                          ║
-║ D_13     DELIVERED                                          ║
-║ D_14     DELIVERED                                          ║
-║ D_15     DELIVERED                                          ║
-║ D_16     DELIVERED                                          ║
-║ D_17     final_torture5 -> impossible_goal                  ║
-║ D_18     final_torture4 -> final_torture5                   ║
-║ D_19     final_torture3 -> final_torture4                   ║
-║ D_20     final_torture2 -> final_torture3                   ║
-║ D_21     final_torture1 -> final_torture2                   ║
-║ D_22     final_merge -> final_torture1                      ║
-║ D_23     conv_restricted3 -> final_merge                    ║
-║ D_24     conv_restricted8 -> conv_restricted9               ║
-║ D_25     conv_restricted2 -> conv_restricted3 [TRANSIT]     ║
-╚══════════════════════════════════════════════════════════════╝
+IN TRANSIT (3): D_2, D_4, D_6
+WAITING    (15): D_11, D_12, D_13, D_14, D_15, D_16, D_17, D_18, D_19, D_20, D_21, D_22, D_23, D_24, D_25
 
-╔══════════════════════════════════════════════════════════════╗
-║ TURN 36                                                     ║
-╠══════════════════════════════════════════════════════════════╣
-║ DRONES                                                       ║
-║ D_1      DELIVERED                                          ║
-║ D_2      DELIVERED                                          ║
-║ D_3      DELIVERED                                          ║
-║ D_4      DELIVERED                                          ║
-║ D_5      DELIVERED                                          ║
-║ D_6      DELIVERED                                          ║
-║ D_7      DELIVERED                                          ║
-║ D_8      DELIVERED                                          ║
-║ D_9      DELIVERED                                          ║
-║ D_10     DELIVERED                                          ║
-║ D_11     DELIVERED                                          ║
-║ D_12     DELIVERED                                          ║
-║ D_13     DELIVERED                                          ║
-║ D_14     DELIVERED                                          ║
-║ D_15     DELIVERED                                          ║
-║ D_16     DELIVERED                                          ║
-║ D_17     DELIVERED                                          ║
-║ D_18     final_torture5 -> impossible_goal                  ║
-║ D_19     final_torture4 -> final_torture5                   ║
-║ D_20     final_torture3 -> final_torture4                   ║
-║ D_21     final_torture2 -> final_torture3                   ║
-║ D_22     final_torture1 -> final_torture2                   ║
-║ D_23     final_merge -> final_torture1                      ║
-║ D_24     conv_restricted9 -> final_merge                    ║
-║ D_25     conv_restricted2 -> conv_restricted3               ║
-╚══════════════════════════════════════════════════════════════╝
+----------------------------------------------------------------------
+Moved: 10  | Transit: 3   | Waiting: 15  | Delivered: 0/25
+======================================================================
 
-╔══════════════════════════════════════════════════════════════╗
-║ TURN 37                                                     ║
-╠══════════════════════════════════════════════════════════════╣
-║ DRONES                                                       ║
-║ D_1      DELIVERED                                          ║
-║ D_2      DELIVERED                                          ║
-║ D_3      DELIVERED                                          ║
-║ D_4      DELIVERED                                          ║
-║ D_5      DELIVERED                                          ║
-║ D_6      DELIVERED                                          ║
-║ D_7      DELIVERED                                          ║
-║ D_8      DELIVERED                                          ║
-║ D_9      DELIVERED                                          ║
-║ D_10     DELIVERED                                          ║
-║ D_11     DELIVERED                                          ║
-║ D_12     DELIVERED                                          ║
-║ D_13     DELIVERED                                          ║
-║ D_14     DELIVERED                                          ║
-║ D_15     DELIVERED                                          ║
-║ D_16     DELIVERED                                          ║
-║ D_17     DELIVERED                                          ║
-║ D_18     DELIVERED                                          ║
-║ D_19     final_torture5 -> impossible_goal                  ║
-║ D_20     final_torture4 -> final_torture5                   ║
-║ D_21     final_torture3 -> final_torture4                   ║
-║ D_22     final_torture2 -> final_torture3                   ║
-║ D_23     final_torture1 -> final_torture2                   ║
-║ D_24     final_merge -> final_torture1                      ║
-║ D_25     conv_restricted3 -> final_merge                    ║
-╚══════════════════════════════════════════════════════════════╝
+======================================================================
+TURN 11
+======================================================================
 
-╔══════════════════════════════════════════════════════════════╗
-║ TURN 38                                                     ║
-╠══════════════════════════════════════════════════════════════╣
-║ DRONES                                                       ║
-║ D_1      DELIVERED                                          ║
-║ D_2      DELIVERED                                          ║
-║ D_3      DELIVERED                                          ║
-║ D_4      DELIVERED                                          ║
-║ D_5      DELIVERED                                          ║
-║ D_6      DELIVERED                                          ║
-║ D_7      DELIVERED                                          ║
-║ D_8      DELIVERED                                          ║
-║ D_9      DELIVERED                                          ║
-║ D_10     DELIVERED                                          ║
-║ D_11     DELIVERED                                          ║
-║ D_12     DELIVERED                                          ║
-║ D_13     DELIVERED                                          ║
-║ D_14     DELIVERED                                          ║
-║ D_15     DELIVERED                                          ║
-║ D_16     DELIVERED                                          ║
-║ D_17     DELIVERED                                          ║
-║ D_18     DELIVERED                                          ║
-║ D_19     DELIVERED                                          ║
-║ D_20     final_torture5 -> impossible_goal                  ║
-║ D_21     final_torture4 -> final_torture5                   ║
-║ D_22     final_torture3 -> final_torture4                   ║
-║ D_23     final_torture2 -> final_torture3                   ║
-║ D_24     final_torture1 -> final_torture2                   ║
-║ D_25     final_merge -> final_torture1                      ║
-╚══════════════════════════════════════════════════════════════╝
+MOVEMENTS
+----------------------------------------------------------------------
+D_1      conv_restricted2 -> conv_restricted3 [TRANSIT]
+D_2      conv_restricted7 -> conv_restricted8
+D_3      conv_restricted1 -> conv_restricted2 [TRANSIT]
+D_4      overflow_hell4 -> conv_restricted7
+D_5      overflow_hell1 -> conv_restricted1 [TRANSIT]
+D_6      micro_gate1 -> overflow_hell4
+D_7      micro_gate1 -> overflow_hell1 [TRANSIT]
+D_8      maze_trap_a2 -> micro_gate1
+D_9      maze_trap_a1 -> maze_trap_a2
+D_10     gate_hell1 -> maze_trap_a1
+D_11     start -> gate_hell1
 
-╔══════════════════════════════════════════════════════════════╗
-║ TURN 39                                                     ║
-╠══════════════════════════════════════════════════════════════╣
-║ DRONES                                                       ║
-║ D_1      DELIVERED                                          ║
-║ D_2      DELIVERED                                          ║
-║ D_3      DELIVERED                                          ║
-║ D_4      DELIVERED                                          ║
-║ D_5      DELIVERED                                          ║
-║ D_6      DELIVERED                                          ║
-║ D_7      DELIVERED                                          ║
-║ D_8      DELIVERED                                          ║
-║ D_9      DELIVERED                                          ║
-║ D_10     DELIVERED                                          ║
-║ D_11     DELIVERED                                          ║
-║ D_12     DELIVERED                                          ║
-║ D_13     DELIVERED                                          ║
-║ D_14     DELIVERED                                          ║
-║ D_15     DELIVERED                                          ║
-║ D_16     DELIVERED                                          ║
-║ D_17     DELIVERED                                          ║
-║ D_18     DELIVERED                                          ║
-║ D_19     DELIVERED                                          ║
-║ D_20     DELIVERED                                          ║
-║ D_21     final_torture5 -> impossible_goal                  ║
-║ D_22     final_torture4 -> final_torture5                   ║
-║ D_23     final_torture3 -> final_torture4                   ║
-║ D_24     final_torture2 -> final_torture3                   ║
-║ D_25     final_torture1 -> final_torture2                   ║
-╚══════════════════════════════════════════════════════════════╝
+IN TRANSIT (4): D_1, D_3, D_5, D_7
+WAITING    (14): D_12, D_13, D_14, D_15, D_16, D_17, D_18, D_19, D_20, D_21, D_22, D_23, D_24, D_25
 
-╔══════════════════════════════════════════════════════════════╗
-║ TURN 40                                                     ║
-╠══════════════════════════════════════════════════════════════╣
-║ DRONES                                                       ║
-║ D_1      DELIVERED                                          ║
-║ D_2      DELIVERED                                          ║
-║ D_3      DELIVERED                                          ║
-║ D_4      DELIVERED                                          ║
-║ D_5      DELIVERED                                          ║
-║ D_6      DELIVERED                                          ║
-║ D_7      DELIVERED                                          ║
-║ D_8      DELIVERED                                          ║
-║ D_9      DELIVERED                                          ║
-║ D_10     DELIVERED                                          ║
-║ D_11     DELIVERED                                          ║
-║ D_12     DELIVERED                                          ║
-║ D_13     DELIVERED                                          ║
-║ D_14     DELIVERED                                          ║
-║ D_15     DELIVERED                                          ║
-║ D_16     DELIVERED                                          ║
-║ D_17     DELIVERED                                          ║
-║ D_18     DELIVERED                                          ║
-║ D_19     DELIVERED                                          ║
-║ D_20     DELIVERED                                          ║
-║ D_21     DELIVERED                                          ║
-║ D_22     final_torture5 -> impossible_goal                  ║
-║ D_23     final_torture4 -> final_torture5                   ║
-║ D_24     final_torture3 -> final_torture4                   ║
-║ D_25     final_torture2 -> final_torture3                   ║
-╚══════════════════════════════════════════════════════════════╝
+----------------------------------------------------------------------
+Moved: 11  | Transit: 4   | Waiting: 14  | Delivered: 0/25
+======================================================================
 
-╔══════════════════════════════════════════════════════════════╗
-║ TURN 41                                                     ║
-╠══════════════════════════════════════════════════════════════╣
-║ DRONES                                                       ║
-║ D_1      DELIVERED                                          ║
-║ D_2      DELIVERED                                          ║
-║ D_3      DELIVERED                                          ║
-║ D_4      DELIVERED                                          ║
-║ D_5      DELIVERED                                          ║
-║ D_6      DELIVERED                                          ║
-║ D_7      DELIVERED                                          ║
-║ D_8      DELIVERED                                          ║
-║ D_9      DELIVERED                                          ║
-║ D_10     DELIVERED                                          ║
-║ D_11     DELIVERED                                          ║
-║ D_12     DELIVERED                                          ║
-║ D_13     DELIVERED                                          ║
-║ D_14     DELIVERED                                          ║
-║ D_15     DELIVERED                                          ║
-║ D_16     DELIVERED                                          ║
-║ D_17     DELIVERED                                          ║
-║ D_18     DELIVERED                                          ║
-║ D_19     DELIVERED                                          ║
-║ D_20     DELIVERED                                          ║
-║ D_21     DELIVERED                                          ║
-║ D_22     DELIVERED                                          ║
-║ D_23     final_torture5 -> impossible_goal                  ║
-║ D_24     final_torture4 -> final_torture5                   ║
-║ D_25     final_torture3 -> final_torture4                   ║
-╚══════════════════════════════════════════════════════════════╝
+======================================================================
+TURN 12
+======================================================================
 
-╔══════════════════════════════════════════════════════════════╗
-║ TURN 42                                                     ║
-╠══════════════════════════════════════════════════════════════╣
-║ DRONES                                                       ║
-║ D_1      DELIVERED                                          ║
-║ D_2      DELIVERED                                          ║
-║ D_3      DELIVERED                                          ║
-║ D_4      DELIVERED                                          ║
-║ D_5      DELIVERED                                          ║
-║ D_6      DELIVERED                                          ║
-║ D_7      DELIVERED                                          ║
-║ D_8      DELIVERED                                          ║
-║ D_9      DELIVERED                                          ║
-║ D_10     DELIVERED                                          ║
-║ D_11     DELIVERED                                          ║
-║ D_12     DELIVERED                                          ║
-║ D_13     DELIVERED                                          ║
-║ D_14     DELIVERED                                          ║
-║ D_15     DELIVERED                                          ║
-║ D_16     DELIVERED                                          ║
-║ D_17     DELIVERED                                          ║
-║ D_18     DELIVERED                                          ║
-║ D_19     DELIVERED                                          ║
-║ D_20     DELIVERED                                          ║
-║ D_21     DELIVERED                                          ║
-║ D_22     DELIVERED                                          ║
-║ D_23     DELIVERED                                          ║
-║ D_24     final_torture5 -> impossible_goal                  ║
-║ D_25     final_torture4 -> final_torture5                   ║
-╚══════════════════════════════════════════════════════════════╝
+MOVEMENTS
+----------------------------------------------------------------------
+D_1      conv_restricted2 -> conv_restricted3
+D_2      conv_restricted8 -> conv_restricted9 [TRANSIT]
+D_3      conv_restricted1 -> conv_restricted2
+D_4      conv_restricted7 -> conv_restricted8 [TRANSIT]
+D_5      overflow_hell1 -> conv_restricted1
+D_6      overflow_hell4 -> conv_restricted7 [TRANSIT]
+D_7      micro_gate1 -> overflow_hell1
+D_8      micro_gate1 -> overflow_hell4 [TRANSIT]
+D_9      maze_trap_a2 -> micro_gate1
+D_10     maze_trap_a1 -> maze_trap_a2
+D_11     gate_hell1 -> maze_trap_a1
+D_12     start -> gate_hell1
 
-╔══════════════════════════════════════════════════════════════╗
-║ TURN 43                                                     ║
-╠══════════════════════════════════════════════════════════════╣
-║ DRONES                                                       ║
-║ D_1      DELIVERED                                          ║
-║ D_2      DELIVERED                                          ║
-║ D_3      DELIVERED                                          ║
-║ D_4      DELIVERED                                          ║
-║ D_5      DELIVERED                                          ║
-║ D_6      DELIVERED                                          ║
-║ D_7      DELIVERED                                          ║
-║ D_8      DELIVERED                                          ║
-║ D_9      DELIVERED                                          ║
-║ D_10     DELIVERED                                          ║
-║ D_11     DELIVERED                                          ║
-║ D_12     DELIVERED                                          ║
-║ D_13     DELIVERED                                          ║
-║ D_14     DELIVERED                                          ║
-║ D_15     DELIVERED                                          ║
-║ D_16     DELIVERED                                          ║
-║ D_17     DELIVERED                                          ║
-║ D_18     DELIVERED                                          ║
-║ D_19     DELIVERED                                          ║
-║ D_20     DELIVERED                                          ║
-║ D_21     DELIVERED                                          ║
-║ D_22     DELIVERED                                          ║
-║ D_23     DELIVERED                                          ║
-║ D_24     DELIVERED                                          ║
-║ D_25     final_torture5 -> impossible_goal                  ║
-╚══════════════════════════════════════════════════════════════╝
+IN TRANSIT (4): D_2, D_4, D_6, D_8
+WAITING    (13): D_13, D_14, D_15, D_16, D_17, D_18, D_19, D_20, D_21, D_22, D_23, D_24, D_25
+
+----------------------------------------------------------------------
+Moved: 12  | Transit: 4   | Waiting: 13  | Delivered: 0/25
+======================================================================
+
+======================================================================
+TURN 13
+======================================================================
+
+MOVEMENTS
+----------------------------------------------------------------------
+D_1      conv_restricted3 -> final_merge
+D_2      conv_restricted8 -> conv_restricted9
+D_3      conv_restricted2 -> conv_restricted3 [TRANSIT]
+D_4      conv_restricted7 -> conv_restricted8
+D_5      conv_restricted1 -> conv_restricted2 [TRANSIT]
+D_6      overflow_hell4 -> conv_restricted7
+D_7      overflow_hell1 -> conv_restricted1 [TRANSIT]
+D_8      micro_gate1 -> overflow_hell4
+D_9      micro_gate1 -> overflow_hell1 [TRANSIT]
+D_10     maze_trap_a2 -> micro_gate1
+D_11     maze_trap_a1 -> maze_trap_a2
+D_12     gate_hell1 -> maze_trap_a1
+D_13     start -> gate_hell1
+
+IN TRANSIT (4): D_3, D_5, D_7, D_9
+WAITING    (12): D_14, D_15, D_16, D_17, D_18, D_19, D_20, D_21, D_22, D_23, D_24, D_25
+
+----------------------------------------------------------------------
+Moved: 13  | Transit: 4   | Waiting: 12  | Delivered: 0/25
+======================================================================
+
+======================================================================
+TURN 14
+======================================================================
+
+MOVEMENTS
+----------------------------------------------------------------------
+D_1      final_merge -> final_torture1
+D_2      conv_restricted9 -> final_merge
+D_3      conv_restricted2 -> conv_restricted3
+D_4      conv_restricted8 -> conv_restricted9 [TRANSIT]
+D_5      conv_restricted1 -> conv_restricted2
+D_6      conv_restricted7 -> conv_restricted8 [TRANSIT]
+D_7      overflow_hell1 -> conv_restricted1
+D_8      overflow_hell4 -> conv_restricted7 [TRANSIT]
+D_9      micro_gate1 -> overflow_hell1
+D_10     micro_gate1 -> overflow_hell4 [TRANSIT]
+D_11     maze_trap_a2 -> micro_gate1
+D_12     maze_trap_a1 -> maze_trap_a2
+D_13     gate_hell1 -> maze_trap_a1
+D_14     start -> gate_hell1
+
+IN TRANSIT (4): D_4, D_6, D_8, D_10
+WAITING    (11): D_15, D_16, D_17, D_18, D_19, D_20, D_21, D_22, D_23, D_24, D_25
+
+----------------------------------------------------------------------
+Moved: 14  | Transit: 4   | Waiting: 11  | Delivered: 0/25
+======================================================================
+
+======================================================================
+TURN 15
+======================================================================
+
+MOVEMENTS
+----------------------------------------------------------------------
+D_1      final_torture1 -> final_torture2
+D_2      final_merge -> final_torture1
+D_3      conv_restricted3 -> final_merge
+D_4      conv_restricted8 -> conv_restricted9
+D_5      conv_restricted2 -> conv_restricted3 [TRANSIT]
+D_6      conv_restricted7 -> conv_restricted8
+D_7      conv_restricted1 -> conv_restricted2 [TRANSIT]
+D_8      overflow_hell4 -> conv_restricted7
+D_9      overflow_hell1 -> conv_restricted1 [TRANSIT]
+D_10     micro_gate1 -> overflow_hell4
+D_11     micro_gate1 -> overflow_hell1 [TRANSIT]
+D_12     maze_trap_a2 -> micro_gate1
+D_13     maze_trap_a1 -> maze_trap_a2
+D_14     gate_hell1 -> maze_trap_a1
+D_15     start -> gate_hell1
+
+IN TRANSIT (4): D_5, D_7, D_9, D_11
+WAITING    (10): D_16, D_17, D_18, D_19, D_20, D_21, D_22, D_23, D_24, D_25
+
+----------------------------------------------------------------------
+Moved: 15  | Transit: 4   | Waiting: 10  | Delivered: 0/25
+======================================================================
+
+======================================================================
+TURN 16
+======================================================================
+
+MOVEMENTS
+----------------------------------------------------------------------
+D_1      final_torture2 -> final_torture3
+D_2      final_torture1 -> final_torture2
+D_3      final_merge -> final_torture1
+D_4      conv_restricted9 -> final_merge
+D_5      conv_restricted2 -> conv_restricted3
+D_6      conv_restricted8 -> conv_restricted9 [TRANSIT]
+D_7      conv_restricted1 -> conv_restricted2
+D_8      conv_restricted7 -> conv_restricted8 [TRANSIT]
+D_9      overflow_hell1 -> conv_restricted1
+D_10     overflow_hell4 -> conv_restricted7 [TRANSIT]
+D_11     micro_gate1 -> overflow_hell1
+D_12     micro_gate1 -> overflow_hell4 [TRANSIT]
+D_13     maze_trap_a2 -> micro_gate1
+D_14     maze_trap_a1 -> maze_trap_a2
+D_15     gate_hell1 -> maze_trap_a1
+D_16     start -> gate_hell1
+
+IN TRANSIT (4): D_6, D_8, D_10, D_12
+WAITING    (9): D_17, D_18, D_19, D_20, D_21, D_22, D_23, D_24, D_25
+
+----------------------------------------------------------------------
+Moved: 16  | Transit: 4   | Waiting: 9   | Delivered: 0/25
+======================================================================
+
+======================================================================
+TURN 17
+======================================================================
+
+MOVEMENTS
+----------------------------------------------------------------------
+D_1      final_torture3 -> final_torture4
+D_2      final_torture2 -> final_torture3
+D_3      final_torture1 -> final_torture2
+D_4      final_merge -> final_torture1
+D_5      conv_restricted3 -> final_merge
+D_6      conv_restricted8 -> conv_restricted9
+D_7      conv_restricted2 -> conv_restricted3 [TRANSIT]
+D_8      conv_restricted7 -> conv_restricted8
+D_9      conv_restricted1 -> conv_restricted2 [TRANSIT]
+D_10     overflow_hell4 -> conv_restricted7
+D_11     overflow_hell1 -> conv_restricted1 [TRANSIT]
+D_12     micro_gate1 -> overflow_hell4
+D_13     micro_gate1 -> overflow_hell1 [TRANSIT]
+D_14     maze_trap_a2 -> micro_gate1
+D_15     maze_trap_a1 -> maze_trap_a2
+D_16     gate_hell1 -> maze_trap_a1
+D_17     start -> gate_hell1
+
+IN TRANSIT (4): D_7, D_9, D_11, D_13
+WAITING    (8): D_18, D_19, D_20, D_21, D_22, D_23, D_24, D_25
+
+----------------------------------------------------------------------
+Moved: 17  | Transit: 4   | Waiting: 8   | Delivered: 0/25
+======================================================================
+
+======================================================================
+TURN 18
+======================================================================
+
+MOVEMENTS
+----------------------------------------------------------------------
+D_1      final_torture4 -> final_torture5
+D_2      final_torture3 -> final_torture4
+D_3      final_torture2 -> final_torture3
+D_4      final_torture1 -> final_torture2
+D_5      final_merge -> final_torture1
+D_6      conv_restricted9 -> final_merge
+D_7      conv_restricted2 -> conv_restricted3
+D_8      conv_restricted8 -> conv_restricted9 [TRANSIT]
+D_9      conv_restricted1 -> conv_restricted2
+D_10     conv_restricted7 -> conv_restricted8 [TRANSIT]
+D_11     overflow_hell1 -> conv_restricted1
+D_12     overflow_hell4 -> conv_restricted7 [TRANSIT]
+D_13     micro_gate1 -> overflow_hell1
+D_14     micro_gate1 -> overflow_hell4 [TRANSIT]
+D_15     maze_trap_a2 -> micro_gate1
+D_16     maze_trap_a1 -> maze_trap_a2
+D_17     gate_hell1 -> maze_trap_a1
+D_18     start -> gate_hell1
+
+IN TRANSIT (4): D_8, D_10, D_12, D_14
+WAITING    (7): D_19, D_20, D_21, D_22, D_23, D_24, D_25
+
+----------------------------------------------------------------------
+Moved: 18  | Transit: 4   | Waiting: 7   | Delivered: 0/25
+======================================================================
+
+======================================================================
+TURN 19
+======================================================================
+
+MOVEMENTS
+----------------------------------------------------------------------
+D_1      final_torture5 -> impossible_goal
+D_2      final_torture4 -> final_torture5
+D_3      final_torture3 -> final_torture4
+D_4      final_torture2 -> final_torture3
+D_5      final_torture1 -> final_torture2
+D_6      final_merge -> final_torture1
+D_7      conv_restricted3 -> final_merge
+D_8      conv_restricted8 -> conv_restricted9
+D_9      conv_restricted2 -> conv_restricted3 [TRANSIT]
+D_10     conv_restricted7 -> conv_restricted8
+D_11     conv_restricted1 -> conv_restricted2 [TRANSIT]
+D_12     overflow_hell4 -> conv_restricted7
+D_13     overflow_hell1 -> conv_restricted1 [TRANSIT]
+D_14     micro_gate1 -> overflow_hell4
+D_15     micro_gate1 -> overflow_hell1 [TRANSIT]
+D_16     maze_trap_a2 -> micro_gate1
+D_17     maze_trap_a1 -> maze_trap_a2
+D_18     gate_hell1 -> maze_trap_a1
+D_19     start -> gate_hell1
+
+IN TRANSIT (4): D_9, D_11, D_13, D_15
+WAITING    (6): D_20, D_21, D_22, D_23, D_24, D_25
+
+----------------------------------------------------------------------
+Moved: 19  | Transit: 4   | Waiting: 6   | Delivered: 1/25
+======================================================================
+
+======================================================================
+TURN 20
+======================================================================
+
+MOVEMENTS
+----------------------------------------------------------------------
+D_2      final_torture5 -> impossible_goal
+D_3      final_torture4 -> final_torture5
+D_4      final_torture3 -> final_torture4
+D_5      final_torture2 -> final_torture3
+D_6      final_torture1 -> final_torture2
+D_7      final_merge -> final_torture1
+D_8      conv_restricted9 -> final_merge
+D_9      conv_restricted2 -> conv_restricted3
+D_10     conv_restricted8 -> conv_restricted9 [TRANSIT]
+D_11     conv_restricted1 -> conv_restricted2
+D_12     conv_restricted7 -> conv_restricted8 [TRANSIT]
+D_13     overflow_hell1 -> conv_restricted1
+D_14     overflow_hell4 -> conv_restricted7 [TRANSIT]
+D_15     micro_gate1 -> overflow_hell1
+D_16     micro_gate1 -> overflow_hell4 [TRANSIT]
+D_17     maze_trap_a2 -> micro_gate1
+D_18     maze_trap_a1 -> maze_trap_a2
+D_19     gate_hell1 -> maze_trap_a1
+D_20     start -> gate_hell1
+
+IN TRANSIT (4): D_10, D_12, D_14, D_16
+WAITING    (5): D_21, D_22, D_23, D_24, D_25
+
+----------------------------------------------------------------------
+Moved: 19  | Transit: 4   | Waiting: 5   | Delivered: 2/25
+======================================================================
+
+======================================================================
+TURN 21
+======================================================================
+
+MOVEMENTS
+----------------------------------------------------------------------
+D_3      final_torture5 -> impossible_goal
+D_4      final_torture4 -> final_torture5
+D_5      final_torture3 -> final_torture4
+D_6      final_torture2 -> final_torture3
+D_7      final_torture1 -> final_torture2
+D_8      final_merge -> final_torture1
+D_9      conv_restricted3 -> final_merge
+D_10     conv_restricted8 -> conv_restricted9
+D_11     conv_restricted2 -> conv_restricted3 [TRANSIT]
+D_12     conv_restricted7 -> conv_restricted8
+D_13     conv_restricted1 -> conv_restricted2 [TRANSIT]
+D_14     overflow_hell4 -> conv_restricted7
+D_15     overflow_hell1 -> conv_restricted1 [TRANSIT]
+D_16     micro_gate1 -> overflow_hell4
+D_17     micro_gate1 -> overflow_hell1 [TRANSIT]
+D_18     maze_trap_a2 -> micro_gate1
+D_19     maze_trap_a1 -> maze_trap_a2
+D_20     gate_hell1 -> maze_trap_a1
+D_21     start -> gate_hell1
+
+IN TRANSIT (4): D_11, D_13, D_15, D_17
+WAITING    (4): D_22, D_23, D_24, D_25
+
+----------------------------------------------------------------------
+Moved: 19  | Transit: 4   | Waiting: 4   | Delivered: 3/25
+======================================================================
+
+======================================================================
+TURN 22
+======================================================================
+
+MOVEMENTS
+----------------------------------------------------------------------
+D_4      final_torture5 -> impossible_goal
+D_5      final_torture4 -> final_torture5
+D_6      final_torture3 -> final_torture4
+D_7      final_torture2 -> final_torture3
+D_8      final_torture1 -> final_torture2
+D_9      final_merge -> final_torture1
+D_10     conv_restricted9 -> final_merge
+D_11     conv_restricted2 -> conv_restricted3
+D_12     conv_restricted8 -> conv_restricted9 [TRANSIT]
+D_13     conv_restricted1 -> conv_restricted2
+D_14     conv_restricted7 -> conv_restricted8 [TRANSIT]
+D_15     overflow_hell1 -> conv_restricted1
+D_16     overflow_hell4 -> conv_restricted7 [TRANSIT]
+D_17     micro_gate1 -> overflow_hell1
+D_18     micro_gate1 -> overflow_hell4 [TRANSIT]
+D_19     maze_trap_a2 -> micro_gate1
+D_20     maze_trap_a1 -> maze_trap_a2
+D_21     gate_hell1 -> maze_trap_a1
+D_22     start -> gate_hell1
+
+IN TRANSIT (4): D_12, D_14, D_16, D_18
+WAITING    (3): D_23, D_24, D_25
+
+----------------------------------------------------------------------
+Moved: 19  | Transit: 4   | Waiting: 3   | Delivered: 4/25
+======================================================================
+
+======================================================================
+TURN 23
+======================================================================
+
+MOVEMENTS
+----------------------------------------------------------------------
+D_5      final_torture5 -> impossible_goal
+D_6      final_torture4 -> final_torture5
+D_7      final_torture3 -> final_torture4
+D_8      final_torture2 -> final_torture3
+D_9      final_torture1 -> final_torture2
+D_10     final_merge -> final_torture1
+D_11     conv_restricted3 -> final_merge
+D_12     conv_restricted8 -> conv_restricted9
+D_13     conv_restricted2 -> conv_restricted3 [TRANSIT]
+D_14     conv_restricted7 -> conv_restricted8
+D_15     conv_restricted1 -> conv_restricted2 [TRANSIT]
+D_16     overflow_hell4 -> conv_restricted7
+D_17     overflow_hell1 -> conv_restricted1 [TRANSIT]
+D_18     micro_gate1 -> overflow_hell4
+D_19     micro_gate1 -> overflow_hell1 [TRANSIT]
+D_20     maze_trap_a2 -> micro_gate1
+D_21     maze_trap_a1 -> maze_trap_a2
+D_22     gate_hell1 -> maze_trap_a1
+D_23     start -> gate_hell1
+
+IN TRANSIT (4): D_13, D_15, D_17, D_19
+WAITING    (2): D_24, D_25
+
+----------------------------------------------------------------------
+Moved: 19  | Transit: 4   | Waiting: 2   | Delivered: 5/25
+======================================================================
+
+======================================================================
+TURN 24
+======================================================================
+
+MOVEMENTS
+----------------------------------------------------------------------
+D_6      final_torture5 -> impossible_goal
+D_7      final_torture4 -> final_torture5
+D_8      final_torture3 -> final_torture4
+D_9      final_torture2 -> final_torture3
+D_10     final_torture1 -> final_torture2
+D_11     final_merge -> final_torture1
+D_12     conv_restricted9 -> final_merge
+D_13     conv_restricted2 -> conv_restricted3
+D_14     conv_restricted8 -> conv_restricted9 [TRANSIT]
+D_15     conv_restricted1 -> conv_restricted2
+D_16     conv_restricted7 -> conv_restricted8 [TRANSIT]
+D_17     overflow_hell1 -> conv_restricted1
+D_18     overflow_hell4 -> conv_restricted7 [TRANSIT]
+D_19     micro_gate1 -> overflow_hell1
+D_20     micro_gate1 -> overflow_hell4 [TRANSIT]
+D_21     maze_trap_a2 -> micro_gate1
+D_22     maze_trap_a1 -> maze_trap_a2
+D_23     gate_hell1 -> maze_trap_a1
+D_24     start -> gate_hell1
+
+IN TRANSIT (4): D_14, D_16, D_18, D_20
+WAITING    (1): D_25
+
+----------------------------------------------------------------------
+Moved: 19  | Transit: 4   | Waiting: 1   | Delivered: 6/25
+======================================================================
+
+======================================================================
+TURN 25
+======================================================================
+
+MOVEMENTS
+----------------------------------------------------------------------
+D_7      final_torture5 -> impossible_goal
+D_8      final_torture4 -> final_torture5
+D_9      final_torture3 -> final_torture4
+D_10     final_torture2 -> final_torture3
+D_11     final_torture1 -> final_torture2
+D_12     final_merge -> final_torture1
+D_13     conv_restricted3 -> final_merge
+D_14     conv_restricted8 -> conv_restricted9
+D_15     conv_restricted2 -> conv_restricted3 [TRANSIT]
+D_16     conv_restricted7 -> conv_restricted8
+D_17     conv_restricted1 -> conv_restricted2 [TRANSIT]
+D_18     overflow_hell4 -> conv_restricted7
+D_19     overflow_hell1 -> conv_restricted1 [TRANSIT]
+D_20     micro_gate1 -> overflow_hell4
+D_21     micro_gate1 -> overflow_hell1 [TRANSIT]
+D_22     maze_trap_a2 -> micro_gate1
+D_23     maze_trap_a1 -> maze_trap_a2
+D_24     gate_hell1 -> maze_trap_a1
+D_25     start -> gate_hell1
+
+IN TRANSIT (4): D_15, D_17, D_19, D_21
+
+----------------------------------------------------------------------
+Moved: 19  | Transit: 4   | Waiting: 0   | Delivered: 7/25
+======================================================================
+
+======================================================================
+TURN 26
+======================================================================
+
+MOVEMENTS
+----------------------------------------------------------------------
+D_8      final_torture5 -> impossible_goal
+D_9      final_torture4 -> final_torture5
+D_10     final_torture3 -> final_torture4
+D_11     final_torture2 -> final_torture3
+D_12     final_torture1 -> final_torture2
+D_13     final_merge -> final_torture1
+D_14     conv_restricted9 -> final_merge
+D_15     conv_restricted2 -> conv_restricted3
+D_16     conv_restricted8 -> conv_restricted9 [TRANSIT]
+D_17     conv_restricted1 -> conv_restricted2
+D_18     conv_restricted7 -> conv_restricted8 [TRANSIT]
+D_19     overflow_hell1 -> conv_restricted1
+D_20     overflow_hell4 -> conv_restricted7 [TRANSIT]
+D_21     micro_gate1 -> overflow_hell1
+D_22     micro_gate1 -> overflow_hell4 [TRANSIT]
+D_23     maze_trap_a2 -> micro_gate1
+D_24     maze_trap_a1 -> maze_trap_a2
+D_25     gate_hell1 -> maze_trap_a1
+
+IN TRANSIT (4): D_16, D_18, D_20, D_22
+
+----------------------------------------------------------------------
+Moved: 18  | Transit: 4   | Waiting: 0   | Delivered: 8/25
+======================================================================
+
+======================================================================
+TURN 27
+======================================================================
+
+MOVEMENTS
+----------------------------------------------------------------------
+D_9      final_torture5 -> impossible_goal
+D_10     final_torture4 -> final_torture5
+D_11     final_torture3 -> final_torture4
+D_12     final_torture2 -> final_torture3
+D_13     final_torture1 -> final_torture2
+D_14     final_merge -> final_torture1
+D_15     conv_restricted3 -> final_merge
+D_16     conv_restricted8 -> conv_restricted9
+D_17     conv_restricted2 -> conv_restricted3 [TRANSIT]
+D_18     conv_restricted7 -> conv_restricted8
+D_19     conv_restricted1 -> conv_restricted2 [TRANSIT]
+D_20     overflow_hell4 -> conv_restricted7
+D_21     overflow_hell1 -> conv_restricted1 [TRANSIT]
+D_22     micro_gate1 -> overflow_hell4
+D_23     micro_gate1 -> overflow_hell1 [TRANSIT]
+D_24     maze_trap_a2 -> micro_gate1
+D_25     maze_trap_a1 -> maze_trap_a2
+
+IN TRANSIT (4): D_17, D_19, D_21, D_23
+
+----------------------------------------------------------------------
+Moved: 17  | Transit: 4   | Waiting: 0   | Delivered: 9/25
+======================================================================
+
+======================================================================
+TURN 28
+======================================================================
+
+MOVEMENTS
+----------------------------------------------------------------------
+D_10     final_torture5 -> impossible_goal
+D_11     final_torture4 -> final_torture5
+D_12     final_torture3 -> final_torture4
+D_13     final_torture2 -> final_torture3
+D_14     final_torture1 -> final_torture2
+D_15     final_merge -> final_torture1
+D_16     conv_restricted9 -> final_merge
+D_17     conv_restricted2 -> conv_restricted3
+D_18     conv_restricted8 -> conv_restricted9 [TRANSIT]
+D_19     conv_restricted1 -> conv_restricted2
+D_20     conv_restricted7 -> conv_restricted8 [TRANSIT]
+D_21     overflow_hell1 -> conv_restricted1
+D_22     overflow_hell4 -> conv_restricted7 [TRANSIT]
+D_23     micro_gate1 -> overflow_hell1
+D_24     micro_gate1 -> overflow_hell4 [TRANSIT]
+D_25     maze_trap_a2 -> micro_gate1
+
+IN TRANSIT (4): D_18, D_20, D_22, D_24
+
+----------------------------------------------------------------------
+Moved: 16  | Transit: 4   | Waiting: 0   | Delivered: 10/25
+======================================================================
+
+======================================================================
+TURN 29
+======================================================================
+
+MOVEMENTS
+----------------------------------------------------------------------
+D_11     final_torture5 -> impossible_goal
+D_12     final_torture4 -> final_torture5
+D_13     final_torture3 -> final_torture4
+D_14     final_torture2 -> final_torture3
+D_15     final_torture1 -> final_torture2
+D_16     final_merge -> final_torture1
+D_17     conv_restricted3 -> final_merge
+D_18     conv_restricted8 -> conv_restricted9
+D_19     conv_restricted2 -> conv_restricted3 [TRANSIT]
+D_20     conv_restricted7 -> conv_restricted8
+D_21     conv_restricted1 -> conv_restricted2 [TRANSIT]
+D_22     overflow_hell4 -> conv_restricted7
+D_23     overflow_hell1 -> conv_restricted1 [TRANSIT]
+D_24     micro_gate1 -> overflow_hell4
+D_25     micro_gate1 -> overflow_hell1 [TRANSIT]
+
+IN TRANSIT (4): D_19, D_21, D_23, D_25
+
+----------------------------------------------------------------------
+Moved: 15  | Transit: 4   | Waiting: 0   | Delivered: 11/25
+======================================================================
+
+======================================================================
+TURN 30
+======================================================================
+
+MOVEMENTS
+----------------------------------------------------------------------
+D_12     final_torture5 -> impossible_goal
+D_13     final_torture4 -> final_torture5
+D_14     final_torture3 -> final_torture4
+D_15     final_torture2 -> final_torture3
+D_16     final_torture1 -> final_torture2
+D_17     final_merge -> final_torture1
+D_18     conv_restricted9 -> final_merge
+D_19     conv_restricted2 -> conv_restricted3
+D_20     conv_restricted8 -> conv_restricted9 [TRANSIT]
+D_21     conv_restricted1 -> conv_restricted2
+D_22     conv_restricted7 -> conv_restricted8 [TRANSIT]
+D_23     overflow_hell1 -> conv_restricted1
+D_24     overflow_hell4 -> conv_restricted7 [TRANSIT]
+D_25     micro_gate1 -> overflow_hell1
+
+IN TRANSIT (3): D_20, D_22, D_24
+
+----------------------------------------------------------------------
+Moved: 14  | Transit: 3   | Waiting: 0   | Delivered: 12/25
+======================================================================
+
+======================================================================
+TURN 31
+======================================================================
+
+MOVEMENTS
+----------------------------------------------------------------------
+D_13     final_torture5 -> impossible_goal
+D_14     final_torture4 -> final_torture5
+D_15     final_torture3 -> final_torture4
+D_16     final_torture2 -> final_torture3
+D_17     final_torture1 -> final_torture2
+D_18     final_merge -> final_torture1
+D_19     conv_restricted3 -> final_merge
+D_20     conv_restricted8 -> conv_restricted9
+D_21     conv_restricted2 -> conv_restricted3 [TRANSIT]
+D_22     conv_restricted7 -> conv_restricted8
+D_23     conv_restricted1 -> conv_restricted2 [TRANSIT]
+D_24     overflow_hell4 -> conv_restricted7
+D_25     overflow_hell1 -> conv_restricted1 [TRANSIT]
+
+IN TRANSIT (3): D_21, D_23, D_25
+
+----------------------------------------------------------------------
+Moved: 13  | Transit: 3   | Waiting: 0   | Delivered: 13/25
+======================================================================
+
+======================================================================
+TURN 32
+======================================================================
+
+MOVEMENTS
+----------------------------------------------------------------------
+D_14     final_torture5 -> impossible_goal
+D_15     final_torture4 -> final_torture5
+D_16     final_torture3 -> final_torture4
+D_17     final_torture2 -> final_torture3
+D_18     final_torture1 -> final_torture2
+D_19     final_merge -> final_torture1
+D_20     conv_restricted9 -> final_merge
+D_21     conv_restricted2 -> conv_restricted3
+D_22     conv_restricted8 -> conv_restricted9 [TRANSIT]
+D_23     conv_restricted1 -> conv_restricted2
+D_24     conv_restricted7 -> conv_restricted8 [TRANSIT]
+D_25     overflow_hell1 -> conv_restricted1
+
+IN TRANSIT (2): D_22, D_24
+
+----------------------------------------------------------------------
+Moved: 12  | Transit: 2   | Waiting: 0   | Delivered: 14/25
+======================================================================
+
+======================================================================
+TURN 33
+======================================================================
+
+MOVEMENTS
+----------------------------------------------------------------------
+D_15     final_torture5 -> impossible_goal
+D_16     final_torture4 -> final_torture5
+D_17     final_torture3 -> final_torture4
+D_18     final_torture2 -> final_torture3
+D_19     final_torture1 -> final_torture2
+D_20     final_merge -> final_torture1
+D_21     conv_restricted3 -> final_merge
+D_22     conv_restricted8 -> conv_restricted9
+D_23     conv_restricted2 -> conv_restricted3 [TRANSIT]
+D_24     conv_restricted7 -> conv_restricted8
+D_25     conv_restricted1 -> conv_restricted2 [TRANSIT]
+
+IN TRANSIT (2): D_23, D_25
+
+----------------------------------------------------------------------
+Moved: 11  | Transit: 2   | Waiting: 0   | Delivered: 15/25
+======================================================================
+
+======================================================================
+TURN 34
+======================================================================
+
+MOVEMENTS
+----------------------------------------------------------------------
+D_16     final_torture5 -> impossible_goal
+D_17     final_torture4 -> final_torture5
+D_18     final_torture3 -> final_torture4
+D_19     final_torture2 -> final_torture3
+D_20     final_torture1 -> final_torture2
+D_21     final_merge -> final_torture1
+D_22     conv_restricted9 -> final_merge
+D_23     conv_restricted2 -> conv_restricted3
+D_24     conv_restricted8 -> conv_restricted9 [TRANSIT]
+D_25     conv_restricted1 -> conv_restricted2
+
+IN TRANSIT (1): D_24
+
+----------------------------------------------------------------------
+Moved: 10  | Transit: 1   | Waiting: 0   | Delivered: 16/25
+======================================================================
+
+======================================================================
+TURN 35
+======================================================================
+
+MOVEMENTS
+----------------------------------------------------------------------
+D_17     final_torture5 -> impossible_goal
+D_18     final_torture4 -> final_torture5
+D_19     final_torture3 -> final_torture4
+D_20     final_torture2 -> final_torture3
+D_21     final_torture1 -> final_torture2
+D_22     final_merge -> final_torture1
+D_23     conv_restricted3 -> final_merge
+D_24     conv_restricted8 -> conv_restricted9
+D_25     conv_restricted2 -> conv_restricted3 [TRANSIT]
+
+IN TRANSIT (1): D_25
+
+----------------------------------------------------------------------
+Moved: 9   | Transit: 1   | Waiting: 0   | Delivered: 17/25
+======================================================================
+
+======================================================================
+TURN 36
+======================================================================
+
+MOVEMENTS
+----------------------------------------------------------------------
+D_18     final_torture5 -> impossible_goal
+D_19     final_torture4 -> final_torture5
+D_20     final_torture3 -> final_torture4
+D_21     final_torture2 -> final_torture3
+D_22     final_torture1 -> final_torture2
+D_23     final_merge -> final_torture1
+D_24     conv_restricted9 -> final_merge
+D_25     conv_restricted2 -> conv_restricted3
+
+----------------------------------------------------------------------
+Moved: 8   | Transit: 0   | Waiting: 0   | Delivered: 18/25
+======================================================================
+
+======================================================================
+TURN 37
+======================================================================
+
+MOVEMENTS
+----------------------------------------------------------------------
+D_19     final_torture5 -> impossible_goal
+D_20     final_torture4 -> final_torture5
+D_21     final_torture3 -> final_torture4
+D_22     final_torture2 -> final_torture3
+D_23     final_torture1 -> final_torture2
+D_24     final_merge -> final_torture1
+D_25     conv_restricted3 -> final_merge
+
+----------------------------------------------------------------------
+Moved: 7   | Transit: 0   | Waiting: 0   | Delivered: 19/25
+======================================================================
+
+======================================================================
+TURN 38
+======================================================================
+
+MOVEMENTS
+----------------------------------------------------------------------
+D_20     final_torture5 -> impossible_goal
+D_21     final_torture4 -> final_torture5
+D_22     final_torture3 -> final_torture4
+D_23     final_torture2 -> final_torture3
+D_24     final_torture1 -> final_torture2
+D_25     final_merge -> final_torture1
+
+----------------------------------------------------------------------
+Moved: 6   | Transit: 0   | Waiting: 0   | Delivered: 20/25
+======================================================================
+
+======================================================================
+TURN 39
+======================================================================
+
+MOVEMENTS
+----------------------------------------------------------------------
+D_21     final_torture5 -> impossible_goal
+D_22     final_torture4 -> final_torture5
+D_23     final_torture3 -> final_torture4
+D_24     final_torture2 -> final_torture3
+D_25     final_torture1 -> final_torture2
+
+----------------------------------------------------------------------
+Moved: 5   | Transit: 0   | Waiting: 0   | Delivered: 21/25
+======================================================================
+
+======================================================================
+TURN 40
+======================================================================
+
+MOVEMENTS
+----------------------------------------------------------------------
+D_22     final_torture5 -> impossible_goal
+D_23     final_torture4 -> final_torture5
+D_24     final_torture3 -> final_torture4
+D_25     final_torture2 -> final_torture3
+
+----------------------------------------------------------------------
+Moved: 4   | Transit: 0   | Waiting: 0   | Delivered: 22/25
+======================================================================
+
+======================================================================
+TURN 41
+======================================================================
+
+MOVEMENTS
+----------------------------------------------------------------------
+D_23     final_torture5 -> impossible_goal
+D_24     final_torture4 -> final_torture5
+D_25     final_torture3 -> final_torture4
+
+----------------------------------------------------------------------
+Moved: 3   | Transit: 0   | Waiting: 0   | Delivered: 23/25
+======================================================================
+
+======================================================================
+TURN 42
+======================================================================
+
+MOVEMENTS
+----------------------------------------------------------------------
+D_24     final_torture5 -> impossible_goal
+D_25     final_torture4 -> final_torture5
+
+----------------------------------------------------------------------
+Moved: 2   | Transit: 0   | Waiting: 0   | Delivered: 24/25
+======================================================================
+
+======================================================================
+TURN 43
+======================================================================
+
+MOVEMENTS
+----------------------------------------------------------------------
+D_25     final_torture5 -> impossible_goal
+
+----------------------------------------------------------------------
+Moved: 1   | Transit: 0   | Waiting: 0   | Delivered: 25/25
+======================================================================
