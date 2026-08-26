@@ -32,9 +32,6 @@ class Simulation:
     def load_drones(self, nb_drones: int) -> None:
         """Crée les drones dans le hub de départ."""
 
-        if self.graph.start_zone is None:
-            raise ValueError("Hub de départ introuvable.")
-
         path = self.ph.shortest_path()
 
         if not path:
