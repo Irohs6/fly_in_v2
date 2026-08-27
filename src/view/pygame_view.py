@@ -32,11 +32,6 @@ class PygameView:
 
         pygame.display.set_caption("Fly'in")
 
-        font = pygame.font.SysFont(
-            "times_new_roman",
-            30,
-        )
-
         font_small = pygame.font.SysFont(
             "arial",
             20,
@@ -58,8 +53,6 @@ class PygameView:
         renderer = GraphRenderer(
             graph=self.graph,
             screen=screen,
-            font=font,
-            font_small=font_small,
             coordinate_system=coord,
         )
 
@@ -146,6 +139,11 @@ class PygameView:
             )
 
             replay.draw_overlay(
+                screen,
+                font_small,
+            )
+
+            replay.draw_info_hub(
                 screen,
                 font_small,
             )

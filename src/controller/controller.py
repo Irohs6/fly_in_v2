@@ -4,8 +4,8 @@ from src.parser.parser import Parser, ParsedMap, ParseError
 from src.model.graph import Graph
 from src.model.simulation import Simulation
 from src.view.pygame_view import PygameView
+from src.view.terminal import TerminalView
 from src.model.pathfinder import Dijkstra
-from src.model.recorder import Recorder
 
 
 class Controller:
@@ -19,7 +19,6 @@ class Controller:
         self.graph: Graph | None = None
         self.simulation: Simulation | None = None
         self.view: PygameView | None = None
-        self.recorder: Recorder | None = None
 
         self._initialize()
 
@@ -37,9 +36,7 @@ class Controller:
         # Create the simulation.
         self.simulation = Simulation(
             self.graph,
-            debug=False,
             pathfinder=pathfinder,
-            recorder=self.recorder,
         )
 
         # Create all drones and calculate their initial paths.
@@ -48,7 +45,8 @@ class Controller:
         )
 
         # Run the simulation.
-        self.simulation.simulate()
+        turns = self.simulation.simulate()
+        TerminalView().display(turns)
 
         # Create the visual representation.
         self.view = PygameView(

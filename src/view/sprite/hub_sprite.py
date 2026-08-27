@@ -1,20 +1,12 @@
-from __future__ import annotations
-
-from typing import TYPE_CHECKING
 import pygame
-
-if TYPE_CHECKING:
-    from src.model.zone import Zone
 
 
 class HubSprite:
     def __init__(
         self,
-        zone: "Zone",
         radius: int = 30,
         color: tuple[int, int, int] = (100, 100, 100),
     ):
-        self.zone = zone
         self.color = color
 
         self.radius = radius
@@ -35,10 +27,6 @@ class HubSprite:
         pygame.draw.circle(
             self.image, self.color, (self.radius, self.radius), self.radius - 5
         )
-
-    def update(self) -> None:
-        # Position calculée à partir de la zone
-        self.rect.center = self.zone.screen_position
 
     def draw(self, screen: pygame.Surface,
              position: tuple[int, int] | None = None) -> None:

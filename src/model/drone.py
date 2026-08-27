@@ -6,11 +6,11 @@ class Drone:
     def __init__(
         self,
         drone_id: str,
-        current_zone: Hub | None = None
+        current_zone: Hub
     ) -> None:
         self.drone_id = drone_id
 
-        self.current_zone: Hub | None = None
+        self.current_zone: Hub = current_zone
         self.previous_zone: Hub | None = None
 
         self.path: list[Hub] = []
@@ -24,9 +24,6 @@ class Drone:
 
         self.traveled_path: list[Hub] = []
 
-        if current_zone is not None:
-            self.place_at(current_zone)
-
     def move_to_zone(
         self,
         connection: Connection,
@@ -36,12 +33,7 @@ class Drone:
             raise RuntimeError(
                 f"Drone {self.drone_id} is not currently in any hub."
             )
-
         old_zone = self.current_zone
-
-        connection.add_nb_drone()
-        zone.add_nb_drone()
-        old_zone.remove_nb_drone()
 
         self.previous_zone = old_zone
         self.current_zone = zone
@@ -50,19 +42,6 @@ class Drone:
         self._complete_path_step(zone)
 
         self.status = "moving"
-
-    def place_at(self, zone: Hub) -> None:
-        """Place initialement le drone dans une zone."""
-
-        if self.current_zone is not None:
-            raise RuntimeError(
-                f"{self.drone_id} is already placed in a zone."
-            )
-
-        zone.add_nb_drone()
-
-        self.current_zone = zone
-        self.traveled_path.append(zone)
 
     def begin_transit(
         self,
@@ -75,10 +54,6 @@ class Drone:
                 f"Drone {self.drone_id} is already in transit."
             )
         old_zone = self.current_zone
-
-        connection.add_nb_drone()
-        destination.add_nb_drone()
-        old_zone.remove_nb_drone()
 
         self.previous_zone = old_zone
         self.current_zone = None
@@ -144,6 +119,9 @@ class Drone:
 
     def reroute(self) -> None:
         self.status = "rerouting"
+
+    def moving(self) -> None:
+        self.status = "moving"
 
     def idle(self) -> None:
         self.status = "idle"

@@ -12,43 +12,36 @@ class Simulation:
     def __init__(
         self,
         graph: Graph,
-        debug: bool,
         pathfinder: Dijkstra | None = None,
-        recorder: Recorder | None = None,
     ) -> None:
         self.graph = graph
         self.drones: list[Drone] = []
-        self.turn = 0
-        self.debug = debug
+        self.turn = 0.
+        self.movements_log: list[dict[str, str]] = []
 
         self.ph = (
             pathfinder
             if pathfinder is not None
             else Dijkstra(graph)
         )
-
-        self.recorder = recorder if recorder is not None else Recorder()
+        self.recorder = Recorder()
 
     def load_drones(self, nb_drones: int) -> None:
         """Crée les drones dans le hub de départ."""
-
-        path = self.ph.shortest_path()
-
-        if not path:
-            raise ValueError(
-                "Aucun chemin vers le hub final."
+        if self.drones:
+            raise RuntimeError(
+                "Drones have already been loaded."
             )
+        path = self.ph.shortest_path()
 
         for index in range(nb_drones):
             drone = Drone(
                 f"D_{index + 1}",
                 current_zone=self.graph.start_zone,
             )
-
             drone.set_path(path[1:])
-
             self.drones.append(drone)
-
+            self.graph.start_zone.add_nb_drone()
         self._record_tour()
 
     # ==============================================================
@@ -63,29 +56,25 @@ class Simulation:
     ) -> None:
         """Demande au drone de se déplacer vers une zone cible """
 
-        if target_zone.zone_type == "blocked":
-            raise ValueError(
-                "Cannot move to a blocked zone."
-            )
-
         # Zone normale pleine.
-        if not target_zone.is_available():
-            drone.reroute()
-            return
-        # connexion pleine.
-        if not connection.is_available():
+        if not target_zone.is_available() or not connection.is_available():
             drone.reroute()
             return
 
         if target_zone.zone_type == "restricted":
+            drone.current_zone.remove_nb_drone()
             drone.begin_transit(
                 connection,
                 target_zone,
                 target_zone.transit_duration(),
             )
+            connection.add_nb_drone()
+            target_zone.add_nb_drone()
             return
-
+        drone.current_zone.remove_nb_drone()
         drone.move_to_zone(connection, target_zone)
+        target_zone.add_nb_drone()
+        connection.add_nb_drone()
 
     # REROUTAGE
 
@@ -119,7 +108,7 @@ class Simulation:
 
         # Le chemin est disponible.
         drone.set_path(path[1:])
-        drone.idle()
+        drone.moving()
 
         return True
 
@@ -208,8 +197,6 @@ class Simulation:
                 if not found:
                     drone.wait()
                     return
-
-                # Nouveau chemin.
                 continue
             # Déplacement normal terminé.
             if not drone.in_transit:
@@ -290,30 +277,23 @@ class Simulation:
         for connection in self.graph.connections:
             connection.nb_drones = active_transits.get(connection, 0)
 
-    def simulate(self) -> None:
+    def simulate(self) -> list[dict[str, str]]:
         """Simule le déplacement des drones tour par tour."""
         while not self._all_drones_delivered():
             movements: dict[str, str] = {}
+            self.movements_log.append(movements)
 
             for drone in self.drones:
                 self._process_drone(drone, movements)
             self._update_connections()
 
             self.turn += 1
-            self._print_turn(movements)
             self._record_tour()
+        return self.movements_log
 
     # ==============================================================
     # RECORD
     # ==============================================================
-
-    @property
-    def tours(self) -> list[dict[str, str | None]]:
-        return self.recorder.tours
-
-    @property
-    def replay_frames(self) -> list[dict[str, object]]:
-        return self.recorder.replay_frames
 
     def _record_tour(self) -> None:
         """Enregistre l'état courant pour le replay."""
@@ -323,69 +303,3 @@ class Simulation:
             self.drones,
             self.graph.hubs,
         )
-
-    # ==============================================================
-    # AFFICHAGE
-    # ==============================================================
-
-    def _print_turn(
-        self,
-        movements: dict[str, str],
-    ) -> None:
-        """Affiche un résumé lisible du tour courant."""
-
-        delivered: list[str] = []
-        transit: list[str] = []
-        waiting: list[str] = []
-
-        for drone in self.drones:
-
-            if drone.current_zone == self.graph.end_zone:
-                delivered.append(drone.drone_id)
-                continue
-
-            if drone.in_transit:
-                transit.append(drone.drone_id)
-
-            if (
-                drone.drone_id not in movements
-                and not drone.in_transit
-            ):
-                waiting.append(drone.drone_id)
-
-        print()
-        print("=" * 70)
-        print(f"TURN {self.turn}")
-        print("=" * 70)
-
-        if movements:
-            print("\nMOVEMENTS")
-            print("-" * 70)
-
-            for drone_id, movement in movements.items():
-                print(f"{drone_id:<8} {movement}")
-
-        else:
-            print("\nMOVEMENTS : none")
-
-        if transit:
-            print(
-                f"\nIN TRANSIT ({len(transit)}): "
-                + ", ".join(transit)
-            )
-
-        if waiting:
-            print(
-                f"WAITING    ({len(waiting)}): "
-                + ", ".join(waiting)
-            )
-
-        print()
-        print("-" * 70)
-        print(
-            f"Moved: {len(movements):<3} | "
-            f"Transit: {len(transit):<3} | "
-            f"Waiting: {len(waiting):<3} | "
-            f"Delivered: {len(delivered)}/{len(self.drones)}"
-        )
-        print("=" * 70)

@@ -1,6 +1,11 @@
 import math
 import pygame
+
+from src.model.graph import Graph
+from src.model.hub import Hub
 from .sprite.hub_sprite import HubSprite
+from .utils.camera import Camera
+from .utils.coordinate_system import CoordinateSystem
 
 
 # ───────────────────────────────────────────────
@@ -9,8 +14,6 @@ from .sprite.hub_sprite import HubSprite
 
 
 class HubRenderer:
-    BG_COLOR = (20, 20, 25)
-
     COLOR_MAP = {
         "black": (40, 40, 45),
         "blue": (0, 128, 255),
@@ -36,13 +39,8 @@ class HubRenderer:
     HUB_SCALE = 3
     HUB_MIN_RADIUS = 20
     HUB_MAX_RADIUS = 55
-    TEXT_COLOR = (255, 255, 255)
 
-    def __init__(self, font, font_small):
-        self.font = font
-        self.font_small = font_small
-
-    def radius(self, zone, zoom):
+    def radius(self, zone: Hub, zoom: float) -> int:
         # Rayon calculé en fonction de la capacité maximale du hub
         hub_radius = self.HUB_BASE_RADIUS + zone.capacity * self.HUB_SCALE
 
@@ -53,7 +51,8 @@ class HubRenderer:
         # Application du zoom
         return max(4, int(hub_radius * zoom))
 
-    def draw(self, screen: pygame.Surface, zone, position: tuple[int, int],
+    def draw(self, screen: pygame.Surface, zone: Hub,
+             position: tuple[int, int],
              zoom: float, is_start: bool = False,
              is_end: bool = False) -> None:
         # Couleur du hub
@@ -63,7 +62,7 @@ class HubRenderer:
         hub_radius = self.radius(zone, zoom)
 
         # Dessin du cercle principal
-        HubSprite(zone, radius=hub_radius,
+        HubSprite(radius=hub_radius,
                   color=hub_color).draw(screen, position)
 
         # Dessin du contour (or pour départ/arrivée, blanc sinon)
@@ -79,15 +78,11 @@ class HubRenderer:
 # ───────────────────────────────────────────────
 
 class ConnectionRenderer:
-    BG_COLOR = (20, 20, 25)
     CONN_FILL = (55, 60, 78)
     CONN_BORDER = (40, 45, 60)
     BAND_WIDTH = 9
 
-    def __init__(self, font_small):
-        self.font_small = font_small
-
-    def draw(self, screen: pygame.Surface, connection,
+    def draw(self, screen: pygame.Surface,
              source_position: tuple[int, int],
              target_position: tuple[int, int], zoom: float) -> None:
         # Ne rien dessiner si les deux hubs sont au même endroit
@@ -126,16 +121,21 @@ class ConnectionRenderer:
 class GraphRenderer:
     BG_COLOR = (20, 20, 25)
 
-    def __init__(self, graph, screen, font, font_small, coordinate_system):
+    def __init__(
+        self,
+        graph: Graph,
+        screen: pygame.Surface,
+        coordinate_system: CoordinateSystem,
+    ) -> None:
         self.graph = graph
         self.screen = screen
         self.coord = coordinate_system
         self.world_positions = self.coord.world_positions
 
-        self.hub_renderer = HubRenderer(font, font_small)
-        self.connection_renderer = ConnectionRenderer(font_small)
+        self.hub_renderer = HubRenderer()
+        self.connection_renderer = ConnectionRenderer()
 
-    def draw(self, camera):
+    def draw(self, camera: Camera) -> None:
         screen_width, screen_height = self.screen.get_size()
         self.screen.fill(self.BG_COLOR)
 
@@ -149,7 +149,7 @@ class GraphRenderer:
             target_pos = hub_screen_positions.get(connection.target.name)
             if source_pos and target_pos:
                 self.connection_renderer.draw(
-                    self.screen, connection, source_pos, target_pos,
+                    self.screen, source_pos, target_pos,
                     camera.zoom
                 )
 

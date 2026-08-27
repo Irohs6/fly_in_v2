@@ -3,7 +3,6 @@ from dataclasses import dataclass
 
 @dataclass
 class DroneReplayState:
-    drone_id: str
     source: str
     target: str
     progress: float
@@ -11,7 +10,12 @@ class DroneReplayState:
 
 
 @dataclass
+class HubReplayState:
+    nb_drones: int
+
+
+@dataclass
 class ReplayFrame:
     turn: int
     drones: dict[str, DroneReplayState]
-    hub_counts: dict[str, int]
+    hubs: dict[str, HubReplayState]

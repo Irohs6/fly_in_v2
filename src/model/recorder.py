@@ -1,6 +1,10 @@
 from .drone import Drone
 from .hub import Hub
-from .replay import DroneReplayState, ReplayFrame
+from .replay import (
+    DroneReplayState,
+    HubReplayState,
+    ReplayFrame,
+)
 
 
 class Recorder:
@@ -21,15 +25,17 @@ class Recorder:
 
             drone_states[drone.drone_id] = state
 
-        hub_counts = {
-            name: hub.nb_drone
-            for name, hub in hubs.items()
-        }
+        hub_states: dict[str, HubReplayState] = {}
+
+        for hub_id, hub in hubs.items():
+            hub_states[hub_id] = HubReplayState(
+                nb_drones=hub.nb_drone,
+            )
 
         frame = ReplayFrame(
             turn=turn,
             drones=drone_states,
-            hub_counts=hub_counts,
+            hubs=hub_states,
         )
 
         self.frames.append(frame)
@@ -50,7 +56,6 @@ class Recorder:
         zone_name = drone.current_zone.name
 
         return DroneReplayState(
-            drone_id=drone.drone_id,
             source=zone_name,
             target=zone_name,
             progress=1.0,
@@ -90,7 +95,6 @@ class Recorder:
         )
 
         return DroneReplayState(
-            drone_id=drone.drone_id,
             source=source.name,
             target=target.name,
             progress=progress,
