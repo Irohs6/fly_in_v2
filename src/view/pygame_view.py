@@ -10,8 +10,8 @@ from src.view.utils.coordinate_system import CoordinateSystem
 
 class PygameView:
 
-    SCREEN_W = 1600
-    SCREEN_H = 900
+    SCREEN_W = 0
+    SCREEN_H = 0
     CELL_SIZE = 160
 
     def __init__(
@@ -54,6 +54,7 @@ class PygameView:
             graph=self.graph,
             screen=screen,
             coordinate_system=coord,
+            font=font_small,
         )
 
         replay = ReplayPlayer(
@@ -139,11 +140,6 @@ class PygameView:
             )
 
             replay.draw_overlay(
-                screen,
-                font_small,
-            )
-
-            replay.draw_info_hub(
                 screen,
                 font_small,
             )

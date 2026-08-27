@@ -273,23 +273,43 @@ class ReplayPlayer:
     def draw_info_hub(
         self,
         screen: pygame.Surface,
+        camera: Camera,
         font: pygame.font.Font,
     ) -> None:
-        """Affiche le nom et le nombre de drones des hubs."""
+        """Affiche le nombre de drones présents sur chaque hub."""
 
         if not self.frames:
             return
 
         frame = self.frames[self.current_index]
 
-        for index, (hub_id, hub_state) in enumerate(frame.hubs.items()):
+        screen_w, screen_h = screen.get_size()
+
+        for hub_id, hub_state in frame.hubs.items():
+
+            world_position = self.hub_positions.get(hub_id)
+
+            if world_position is None:
+                continue
+
+            screen_position = camera.world_to_screen(
+                world_position[0],
+                world_position[1],
+                screen_w,
+                screen_h,
+            )
+
             info = font.render(
-                f"{hub_id}: {hub_state.nb_drones} drones",
+                str(hub_state.nb_drones),
                 True,
                 (255, 255, 255),
             )
 
-            screen.blit(
-                info,
-                (10, 60 + 25 * index),
+            info_rect = info.get_rect()
+
+            info_rect.midtop = (
+                screen_position[0],
+                screen_position[1] + 30,
             )
+
+            screen.blit(info, info_rect)

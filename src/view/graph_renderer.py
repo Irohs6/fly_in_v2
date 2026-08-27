@@ -1,9 +1,6 @@
-import math
 import pygame
-
 from src.model.graph import Graph
 from src.model.hub import Hub
-from .sprite.hub_sprite import HubSprite
 from .utils.camera import Camera
 from .utils.coordinate_system import CoordinateSystem
 
@@ -40,6 +37,9 @@ class HubRenderer:
     HUB_MIN_RADIUS = 20
     HUB_MAX_RADIUS = 55
 
+    def __init__(self, font: pygame.font.Font) -> None:
+        self.font = font
+
     def radius(self, zone: Hub, zoom: float) -> int:
         # Rayon calculé en fonction de la capacité maximale du hub
         hub_radius = self.HUB_BASE_RADIUS + zone.capacity * self.HUB_SCALE
@@ -51,31 +51,77 @@ class HubRenderer:
         # Application du zoom
         return max(4, int(hub_radius * zoom))
 
-    def draw(self, screen: pygame.Surface, zone: Hub,
-             position: tuple[int, int],
-             zoom: float, is_start: bool = False,
-             is_end: bool = False) -> None:
-        # Couleur du hub
-        hub_color = self.COLOR_MAP.get(zone.color, (200, 200, 200))
+    def draw(
+        self,
+        screen: pygame.Surface,
+        zone: Hub,
+        position: tuple[int, int],
+        zoom: float,
+        is_start: bool = False,
+        is_end: bool = False,
+    ) -> None:
+        hub_color = self.COLOR_MAP.get(
+            zone.color,
+            (200, 200, 200),
+        )
 
-        # Calcul du rayon
         hub_radius = self.radius(zone, zoom)
 
-        # Dessin du cercle principal
-        HubSprite(radius=hub_radius,
-                  color=hub_color).draw(screen, position)
+        border_color = (255, 255, 255)
+        border_width = 2
 
-        # Dessin du contour (or pour départ/arrivée, blanc sinon)
         if is_start or is_end:
-            pygame.draw.circle(screen, (255, 215, 0), position, hub_radius, 3)
-        else:
-            pygame.draw.circle(screen, (255, 255, 255),
-                               position, hub_radius, 2)
+            border_color = (255, 215, 0)
+            border_width = 3
 
+        pygame.draw.circle(
+            screen,
+            hub_color,
+            position,
+            hub_radius,
+        )
 
+        pygame.draw.circle(
+            screen,
+            border_color,
+            position,
+            hub_radius,
+            border_width,
+        )
+
+        self.draw_label(
+            screen,
+            zone,
+            position,
+            hub_radius,
+        )
+
+    def draw_label(
+        self,
+        screen: pygame.Surface,
+        zone: Hub,
+        position: tuple[int, int],
+        radius: int,
+    ) -> None:
+
+        label = self.font.render(
+            zone.name,
+            True,
+            (230, 230, 235)
+        )
+
+        label_rect = label.get_rect()
+
+        label_rect.midbottom = (
+            position[0],
+            position[1] - radius - 6
+        )
+
+        screen.blit(label, label_rect)
 # ───────────────────────────────────────────────
 # ConnectionRenderer
 # ───────────────────────────────────────────────
+
 
 class ConnectionRenderer:
     CONN_FILL = (55, 60, 78)
@@ -86,32 +132,36 @@ class ConnectionRenderer:
              source_position: tuple[int, int],
              target_position: tuple[int, int], zoom: float) -> None:
         # Ne rien dessiner si les deux hubs sont au même endroit
-        if math.hypot(
-            target_position[0] - source_position[0],
-            target_position[1] - source_position[1],
-        ) == 0:
+        if source_position == target_position:
             return
 
         # Épaisseur de la connexion selon le zoom
-        connection_width = max(2, int(self.BAND_WIDTH * zoom))
-
-        # Bande principale
-        pygame.draw.line(
-            screen,
-            self.CONN_FILL,
-            source_position,
-            target_position,
-            connection_width,
+        border_width = max(
+            2,
+            int(self.BAND_WIDTH * zoom),
         )
 
-        # Contour de la bande
+        fill_width = max(
+            1,
+            border_width - 3,
+        )
+
         pygame.draw.line(
             screen,
             self.CONN_BORDER,
             source_position,
             target_position,
-            max(1, connection_width - 2),
+            border_width,
         )
+
+        pygame.draw.line(
+            screen,
+            self.CONN_FILL,
+            source_position,
+            target_position,
+            fill_width,
+        )
+
 
 # ───────────────────────────────────────────────
 # GraphRenderer
@@ -126,13 +176,14 @@ class GraphRenderer:
         graph: Graph,
         screen: pygame.Surface,
         coordinate_system: CoordinateSystem,
+        font: pygame.font.Font
     ) -> None:
         self.graph = graph
         self.screen = screen
         self.coord = coordinate_system
         self.world_positions = self.coord.world_positions
-
-        self.hub_renderer = HubRenderer()
+        self.font = font
+        self.hub_renderer = HubRenderer(font)
         self.connection_renderer = ConnectionRenderer()
 
     def draw(self, camera: Camera) -> None:
@@ -147,7 +198,7 @@ class GraphRenderer:
         for connection in self.graph.connections:
             source_pos = hub_screen_positions.get(connection.source.name)
             target_pos = hub_screen_positions.get(connection.target.name)
-            if source_pos and target_pos:
+            if source_pos is not None and target_pos is not None:
                 self.connection_renderer.draw(
                     self.screen, source_pos, target_pos,
                     camera.zoom
@@ -155,7 +206,7 @@ class GraphRenderer:
 
         for zone in self.graph.hubs.values():
             hub_pos = hub_screen_positions.get(zone.name)
-            if hub_pos:
+            if hub_pos is not None:
                 self.hub_renderer.draw(
                     self.screen,
                     zone,
