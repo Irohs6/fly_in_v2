@@ -7,6 +7,15 @@ from src.view.utils.camera import Camera
 class ReplayPlayer:
     """Lit et affiche les frames enregistrées par la simulation."""
 
+    DRONE_COLORS = (
+            (100, 180, 255),
+            (255, 180, 80),
+            (100, 220, 120),
+            (220, 100, 180),
+            (180, 140, 255),
+            (255, 220, 100),
+        )
+
     def __init__(
         self,
         hub_positions: dict[str, tuple[float, float]],
@@ -21,6 +30,17 @@ class ReplayPlayer:
         self.current_index = 0
         self.elapsed = 0.0
         self.playing = True
+
+    def _drone_color(
+        self,
+        drone_id: int,
+    ) -> tuple[int, int, int]:
+
+        color_index = (
+            drone_id - 1
+        ) % len(self.DRONE_COLORS)
+
+        return self.DRONE_COLORS[color_index]
 
     def handle_event(self, event: pygame.event.Event) -> None:
         if event.type != pygame.KEYDOWN:
@@ -100,57 +120,6 @@ class ReplayPlayer:
             sy + (ty - sy) * state.progress,
         )
 
-    def _drone_position(
-        self,
-        drone_id: str,
-    ) -> tuple[float, float] | None:
-        if not self.frames:
-            return None
-
-        current_frame = self.frames[self.current_index]
-
-        current_state = current_frame.drones.get(
-            drone_id
-        )
-
-        if current_state is None:
-            return None
-
-        current_pos = self._state_position(
-            current_state
-        )
-
-        if self.current_index >= len(self.frames) - 1:
-            return current_pos
-
-        next_frame = self.frames[
-            self.current_index + 1
-        ]
-
-        next_state = next_frame.drones.get(
-            drone_id
-        )
-
-        if next_state is None:
-            return current_pos
-
-        next_pos = self._state_position(
-            next_state
-        )
-
-        progress = min(
-            1.0,
-            self.elapsed / self.turn_duration,
-        )
-
-        cx, cy = current_pos
-        nx, ny = next_pos
-
-        return (
-            cx + (nx - cx) * progress,
-            cy + (ny - cy) * progress,
-        )
-
     def draw(
         self,
         screen: pygame.Surface,
@@ -167,12 +136,25 @@ class ReplayPlayer:
         ]
 
         for drone_id, state in current_frame.drones.items():
-            position = self._drone_position(
-                drone_id
-            )
 
-            if position is None:
-                continue
+            if state.source == state.target:
+                first_id = min(
+                    (
+                        current_id
+                        for current_id, current_state
+                        in current_frame.drones.items()
+                        if current_state.source == state.source
+                        and current_state.target == state.target
+                    ),
+                    default=None,
+                )
+
+                if drone_id != first_id:
+                    continue
+
+            position = self._state_position(
+                state
+            )
 
             screen_position = camera.world_to_screen(
                 position[0],
@@ -185,7 +167,6 @@ class ReplayPlayer:
                 screen,
                 screen_position,
                 drone_id,
-                state.status,
                 font,
             )
 
@@ -193,20 +174,10 @@ class ReplayPlayer:
         self,
         screen: pygame.Surface,
         position: tuple[int, int],
-        drone_id: str,
-        status: str,
+        drone_id: int,
         font: pygame.font.Font,
     ) -> None:
-        color = (100, 180, 255)
-
-        if status == "in_transit":
-            color = (255, 180, 80)
-
-        elif status == "waiting":
-            color = (160, 160, 160)
-
-        elif status == "delivered":
-            color = (100, 220, 120)
+        color = self._drone_color(drone_id)
 
         pygame.draw.circle(
             screen,
@@ -216,7 +187,7 @@ class ReplayPlayer:
         )
 
         label = font.render(
-            drone_id,
+            f"D_{drone_id}",
             True,
             (240, 240, 240),
         )
@@ -287,29 +258,24 @@ class ReplayPlayer:
 
         for hub_id, hub_state in frame.hubs.items():
 
-            world_position = self.hub_positions.get(hub_id)
-
-            if world_position is None:
-                continue
-
-            screen_position = camera.world_to_screen(
-                world_position[0],
-                world_position[1],
-                screen_w,
-                screen_h,
-            )
-
             info = font.render(
-                str(hub_state.nb_drones),
+                f"{hub_state.nb_drones} / {hub_state.capacity}",
                 True,
                 (255, 255, 255),
+            )
+
+            hub_position = camera.world_to_screen(
+                self.hub_positions[hub_id][0],
+                self.hub_positions[hub_id][1],
+                screen_w,
+                screen_h,
             )
 
             info_rect = info.get_rect()
 
             info_rect.midtop = (
-                screen_position[0],
-                screen_position[1] + 30,
+                hub_position[0],
+                hub_position[1] + 30,
             )
 
             screen.blit(info, info_rect)

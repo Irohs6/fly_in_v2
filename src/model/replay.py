@@ -12,6 +12,7 @@ class DroneReplayState:
 @dataclass
 class HubReplayState:
     nb_drones: int
+    capacity: int
 
 
 @dataclass

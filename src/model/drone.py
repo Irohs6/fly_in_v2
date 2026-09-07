@@ -5,7 +5,7 @@ from .connection import Connection
 class Drone:
     def __init__(
         self,
-        drone_id: str,
+        drone_id: int,
         current_zone: Hub
     ) -> None:
         self.drone_id = drone_id
@@ -26,7 +26,6 @@ class Drone:
 
     def move_to_zone(
         self,
-        connection: Connection,
         zone: Hub,
     ) -> None:
         if self.current_zone is None:
@@ -46,7 +45,6 @@ class Drone:
     def begin_transit(
         self,
         connection: Connection,
-        destination: Hub,
         duration: int,
     ) -> None:
         if self.current_zone is None:

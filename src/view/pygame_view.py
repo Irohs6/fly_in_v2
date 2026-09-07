@@ -139,6 +139,12 @@ class PygameView:
                 font_small,
             )
 
+            replay.draw_info_hub(
+                screen,
+                camera,
+                font_small,
+            )
+
             replay.draw_overlay(
                 screen,
                 font_small,

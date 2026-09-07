@@ -106,7 +106,7 @@ def test_drone_transit_lifecycle() -> None:
     conn = Connection(source=start, target=end, capacity=2)
     drone = Drone(drone_id="D1", current_zone=start)
 
-    drone.begin_transit(connection=conn, cost=2, destination=end)
+    drone.begin_transit(connection=conn, cost=2)
     assert drone.in_transit is True
     assert drone.destination is end
     assert drone.moving_connection == (True, conn)

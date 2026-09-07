@@ -36,7 +36,7 @@ class Simulation:
 
         for index in range(nb_drones):
             drone = Drone(
-                f"D_{index + 1}",
+                index + 1,
                 current_zone=self.graph.start_zone,
             )
             drone.set_path(path[1:])
@@ -65,14 +65,13 @@ class Simulation:
             drone.current_zone.remove_nb_drone()
             drone.begin_transit(
                 connection,
-                target_zone,
                 target_zone.transit_duration(),
             )
             connection.add_nb_drone()
             target_zone.add_nb_drone()
             return
         drone.current_zone.remove_nb_drone()
-        drone.move_to_zone(connection, target_zone)
+        drone.move_to_zone(target_zone)
         target_zone.add_nb_drone()
         connection.add_nb_drone()
 

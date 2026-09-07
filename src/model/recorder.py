@@ -30,6 +30,7 @@ class Recorder:
         for hub_id, hub in hubs.items():
             hub_states[hub_id] = HubReplayState(
                 nb_drones=hub.nb_drone,
+                capacity=hub.capacity,
             )
 
         frame = ReplayFrame(
