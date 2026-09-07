@@ -128,6 +128,8 @@ class PygameView:
 
                 replay.handle_event(event)
 
+            hub_states = {}
+
             if replay.frames:
                 hub_states: dict[str, HubReplayState] = replay.frames[
                     replay.current_index].hubs

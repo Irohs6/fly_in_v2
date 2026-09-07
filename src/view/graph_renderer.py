@@ -126,7 +126,6 @@ class HubRenderer:
         zone: Hub,
         position: tuple[int, int],
         radius: int,
-        hub_state: HubReplayState | None = None,
     ) -> None:
 
         label = self.font.render(
@@ -207,7 +206,7 @@ class GraphRenderer:
         self.screen = screen
         self.coord = coordinate_system
         self.world_positions = self.coord.world_positions
-        self.font = font
+
         self.hub_renderer = HubRenderer(font)
         self.connection_renderer = ConnectionRenderer()
 

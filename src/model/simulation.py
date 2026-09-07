@@ -56,22 +56,22 @@ class Simulation:
     ) -> None:
         """Demande au drone de se déplacer vers une zone cible """
 
-        # Zone normale pleine.
-        if not target_zone.is_available() or not connection.is_available():
-            drone.reroute()
-            return
-
         if target_zone.zone_type == "restricted":
             drone.current_zone.remove_nb_drone()
+
             drone.begin_transit(
                 connection,
                 target_zone.transit_duration(),
             )
+
             connection.add_nb_drone()
             target_zone.add_nb_drone()
+
             return
+
         drone.current_zone.remove_nb_drone()
         drone.move_to_zone(target_zone)
+
         target_zone.add_nb_drone()
         connection.add_nb_drone()
 
@@ -142,7 +142,6 @@ class Simulation:
             blocked_zones.add(drone.previous_zone)
 
         while True:
-            # Aucun chemin restant.
             if not drone.path:
                 drone.wait()
                 return
@@ -156,6 +155,27 @@ class Simulation:
 
             if connection is None:
                 blocked_zones.add(target_zone)
+
+                if not self._reroute_drone(
+                    drone,
+                    blocked_zones,
+                    saturated_connections,
+                ):
+                    drone.wait()
+                    return
+                continue
+
+            zone_available = target_zone.is_available()
+            connection_available = connection.is_available()
+
+            if not zone_available or not connection_available:
+                if not zone_available:
+                    blocked_zones.add(target_zone)
+
+                if not connection_available:
+                    saturated_connections.add(
+                        (connection.source, connection.target)
+                    )
 
                 found = self._reroute_drone(
                     drone,
@@ -177,34 +197,13 @@ class Simulation:
                 target_zone,
             )
 
-            # Déplacement impossible.
-            if drone.status == "rerouting":
-                if not target_zone.is_available():
-                    blocked_zones.add(target_zone)
-
-                if not connection.is_available():
-                    saturated_connections.add(
-                        (connection.source, connection.target)
-                    )
-
-                found = self._reroute_drone(
-                    drone,
-                    blocked_zones,
-                    saturated_connections,
-                )
-
-                if not found:
-                    drone.wait()
-                    return
-                continue
             # Déplacement normal terminé.
             if not drone.in_transit:
 
-                if drone.current_zone == target_zone:
-                    movements[drone.drone_id] = (
-                        f"{old_zone.name} -> "
-                        f"{target_zone.name}"
-                    )
+                movements[drone.drone_id] = (
+                    f"{old_zone.name} -> "
+                    f"{target_zone.name}"
+                )
 
                 return
             movements[drone.drone_id] = (
