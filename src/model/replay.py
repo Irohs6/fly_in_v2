@@ -12,7 +12,7 @@ class DroneReplayState:
 @dataclass
 class HubReplayState:
     nb_drones: int
-    capacity: int
+    capacity: int | float
 
 
 @dataclass

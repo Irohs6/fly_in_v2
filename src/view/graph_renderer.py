@@ -3,6 +3,7 @@ from src.model.graph import Graph
 from src.model.hub import Hub
 from .utils.camera import Camera
 from .utils.coordinate_system import CoordinateSystem
+from src.model.replay import HubReplayState
 
 
 # ───────────────────────────────────────────────
@@ -57,6 +58,7 @@ class HubRenderer:
         zone: Hub,
         position: tuple[int, int],
         zoom: float,
+        hub_state: HubReplayState | None = None,
         is_start: bool = False,
         is_end: bool = False,
     ) -> None:
@@ -96,12 +98,35 @@ class HubRenderer:
             hub_radius,
         )
 
+        if hub_state is not None:
+            capacity = (
+                "∞"
+                if hub_state.capacity == float("inf")
+                else str(hub_state.capacity)
+            )
+
+            info = self.font.render(
+                f"{hub_state.nb_drones}/{capacity}",
+                True,
+                (255, 255, 255),
+            )
+
+            info_rect = info.get_rect()
+
+            info_rect.midtop = (
+                position[0],
+                position[1] + hub_radius + 6,
+            )
+
+            screen.blit(info, info_rect)
+
     def draw_label(
         self,
         screen: pygame.Surface,
         zone: Hub,
         position: tuple[int, int],
         radius: int,
+        hub_state: HubReplayState | None = None,
     ) -> None:
 
         label = self.font.render(
@@ -186,7 +211,8 @@ class GraphRenderer:
         self.hub_renderer = HubRenderer(font)
         self.connection_renderer = ConnectionRenderer()
 
-    def draw(self, camera: Camera) -> None:
+    def draw(self, camera: Camera,
+             hub_states: dict[str, HubReplayState]) -> None:
         screen_width, screen_height = self.screen.get_size()
         self.screen.fill(self.BG_COLOR)
 
@@ -212,6 +238,7 @@ class GraphRenderer:
                     zone,
                     hub_pos,
                     zoom=camera.zoom,
+                    hub_state=hub_states.get(zone.name),
                     is_start=(zone == self.graph.start_zone),
                     is_end=(zone == self.graph.end_zone),
                 )

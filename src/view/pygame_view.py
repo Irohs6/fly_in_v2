@@ -1,7 +1,7 @@
 import pygame
 
 from src.model.graph import Graph
-from src.model.replay import ReplayFrame
+from src.model.replay import HubReplayState, ReplayFrame
 from src.view.graph_renderer import GraphRenderer
 from src.view.replay_player import ReplayPlayer
 from src.view.utils.camera import Camera
@@ -60,13 +60,12 @@ class PygameView:
         replay = ReplayPlayer(
             hub_positions=coord.world_positions,
             frames=self.replay_frames,
-            turn_duration=1.0,
         )
 
         running = True
 
         while running:
-            dt = clock.tick(60) / 1000.0
+            clock.tick(60)
 
             screen_w, screen_h = (
                 screen.get_size()
@@ -129,17 +128,13 @@ class PygameView:
 
                 replay.handle_event(event)
 
-            replay.update(dt)
+            if replay.frames:
+                hub_states: dict[str, HubReplayState] = replay.frames[
+                    replay.current_index].hubs
 
-            renderer.draw(camera)
+            renderer.draw(camera, hub_states)
 
             replay.draw(
-                screen,
-                camera,
-                font_small,
-            )
-
-            replay.draw_info_hub(
                 screen,
                 camera,
                 font_small,

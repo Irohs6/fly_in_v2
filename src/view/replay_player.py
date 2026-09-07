@@ -20,16 +20,11 @@ class ReplayPlayer:
         self,
         hub_positions: dict[str, tuple[float, float]],
         frames: list[ReplayFrame],
-        turn_duration: float = 1.0,
     ) -> None:
         self.hub_positions = hub_positions
         self.frames = frames
 
-        self.turn_duration = turn_duration
-
         self.current_index = 0
-        self.elapsed = 0.0
-        self.playing = True
 
     def _drone_color(
         self,
@@ -45,9 +40,6 @@ class ReplayPlayer:
     def handle_event(self, event: pygame.event.Event) -> None:
         if event.type != pygame.KEYDOWN:
             return
-
-        if event.key == pygame.K_SPACE:
-            self.playing = not self.playing
 
         elif event.key == pygame.K_RIGHT:
             self.next_turn()
@@ -67,43 +59,14 @@ class ReplayPlayer:
             len(self.frames) - 1,
         )
 
-        self.elapsed = 0.0
-        self.playing = False
-
     def previous_turn(self) -> None:
         self.current_index = max(
             self.current_index - 1,
             0,
         )
 
-        self.elapsed = 0.0
-        self.playing = False
-
     def restart(self) -> None:
         self.current_index = 0
-        self.elapsed = 0.0
-        self.playing = True
-
-    def update(self, dt: float) -> None:
-        if not self.playing:
-            return
-
-        if self.current_index >= len(self.frames) - 1:
-            self.playing = False
-            return
-
-        self.elapsed += dt
-
-        if self.elapsed < self.turn_duration:
-            return
-
-        self.elapsed -= self.turn_duration
-        self.current_index += 1
-
-        if self.current_index >= len(self.frames) - 1:
-            self.current_index = len(self.frames) - 1
-            self.elapsed = 0.0
-            self.playing = False
 
     def _state_position(
         self,
@@ -179,11 +142,25 @@ class ReplayPlayer:
     ) -> None:
         color = self._drone_color(drone_id)
 
-        pygame.draw.circle(
+        size = 10
+
+        points = [
+            (position[0], position[1] - size),
+            (position[0] - size, position[1] + size),
+            (position[0] + size, position[1] + size),
+        ]
+
+        pygame.draw.polygon(
             screen,
             color,
-            position,
-            9,
+            points,
+        )
+
+        pygame.draw.polygon(
+            screen,
+            (255, 255, 255),
+            points,
+            2,
         )
 
         label = font.render(
@@ -212,17 +189,10 @@ class ReplayPlayer:
             self.current_index
         ]
 
-        state = (
-            "PLAYING"
-            if self.playing
-            else "PAUSED"
-        )
-
         info = font.render(
             (
                 f"Turn {frame.turn}/"
                 f"{self.frames[-1].turn} "
-                f"[{state}]"
             ),
             True,
             (255, 255, 255),
@@ -232,7 +202,6 @@ class ReplayPlayer:
 
         controls = font.render(
             (
-                "SPACE Play/Pause | "
                 "← Prev | → Next | R Restart"
             ),
             True,
@@ -240,42 +209,3 @@ class ReplayPlayer:
         )
 
         screen.blit(controls, (10, 35))
-
-    def draw_info_hub(
-        self,
-        screen: pygame.Surface,
-        camera: Camera,
-        font: pygame.font.Font,
-    ) -> None:
-        """Affiche le nombre de drones présents sur chaque hub."""
-
-        if not self.frames:
-            return
-
-        frame = self.frames[self.current_index]
-
-        screen_w, screen_h = screen.get_size()
-
-        for hub_id, hub_state in frame.hubs.items():
-
-            info = font.render(
-                f"{hub_state.nb_drones} / {hub_state.capacity}",
-                True,
-                (255, 255, 255),
-            )
-
-            hub_position = camera.world_to_screen(
-                self.hub_positions[hub_id][0],
-                self.hub_positions[hub_id][1],
-                screen_w,
-                screen_h,
-            )
-
-            info_rect = info.get_rect()
-
-            info_rect.midtop = (
-                hub_position[0],
-                hub_position[1] + 30,
-            )
-
-            screen.blit(info, info_rect)
