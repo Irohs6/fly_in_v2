@@ -17,7 +17,7 @@ class Simulation:
         self.graph = graph
         self.drones: list[Drone] = []
         self.turn = 0.
-        self.movements_log: list[dict[str, str]] = []
+        self.movements_log: list[dict[int, str]] = []
 
         self.ph = (
             pathfinder
@@ -116,7 +116,7 @@ class Simulation:
     def _try_drone_move(
         self,
         drone: Drone,
-        movements: dict[str, str],
+        movements: dict[int, str],
     ) -> None:
         """
         Essaie de faire avancer un drone.
@@ -225,7 +225,7 @@ class Simulation:
     def _process_drone(
         self,
         drone: Drone,
-        movements: dict[str, str],
+        movements: dict[int, str],
     ) -> None:
         """Traite un drone pendant le tour courant."""
         if drone.current_zone == self.graph.end_zone:
@@ -241,7 +241,7 @@ class Simulation:
     def _process_transit(
         self,
         drone: Drone,
-        movements: dict[str, str],
+        movements: dict[int, str],
     ) -> None:
         """Fait progresser un drone actuellement en transit."""
 
@@ -275,10 +275,10 @@ class Simulation:
         for connection in self.graph.connections:
             connection.nb_drones = active_transits.get(connection, 0)
 
-    def simulate(self) -> list[dict[str, str]]:
+    def simulate(self) -> list[dict[int, str]]:
         """Simule le déplacement des drones tour par tour."""
         while not self._all_drones_delivered():
-            movements: dict[str, str] = {}
+            movements: dict[int, str] = {}
             self.movements_log.append(movements)
 
             for drone in self.drones:

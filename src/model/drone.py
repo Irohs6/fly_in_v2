@@ -115,9 +115,6 @@ class Drone:
     def wait(self) -> None:
         self.status = "waiting"
 
-    def reroute(self) -> None:
-        self.status = "rerouting"
-
     def moving(self) -> None:
         self.status = "moving"
 
