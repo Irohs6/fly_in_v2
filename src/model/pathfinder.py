@@ -16,9 +16,11 @@ class Dijkstra:
         saturated_conns: set[tuple[Hub, Hub]] | None = None,
     ) -> tuple[dict[Hub, float], dict[Hub, Hub | None]]:
 
-        distances = {hub: float("inf") for hub in self.graph.hubs.values()}
+        distances: dict[Hub, float] = {
+            hub: float("inf") for hub in self.graph.hubs.values()}
 
-        predecessors = {hub: None for hub in self.graph.hubs.values()}
+        predecessors: dict[Hub, Hub | None] = {
+            hub: None for hub in self.graph.hubs.values()}
 
         distances[source] = 0
 

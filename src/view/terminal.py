@@ -4,7 +4,7 @@ from collections.abc import Iterable, Mapping
 class TerminalView:
     """Affiche les mouvements dans le format obligatoire du sujet V3."""
 
-    def display(self, turns: Iterable[Mapping[str, str]]) -> None:
+    def display(self, turns: Iterable[Mapping[int, str]]) -> None:
         """Affiche exactement une ligne par tour de simulation."""
         for movements in turns:
             print(

@@ -1,4 +1,5 @@
 import math
+from .parser import ConnectionDict, HubDict
 
 
 class ValidationError(Exception):
@@ -15,14 +16,15 @@ class MapValidator:
 
     def __init__(
         self,
-        nb_drones,
-        start_hub,
-        end_hub,
-        hubs,
-        connections,
-        zone_entries,
-        connection_entries,
+        nb_drones: int | None,
+        start_hub: HubDict,
+        end_hub: HubDict,
+        hubs: list[HubDict],
+        connections: list[ConnectionDict],
+        zone_entries: list[tuple[HubDict, int]],
+        connection_entries: list[tuple[ConnectionDict, int]],
     ) -> None:
+
         self.nb_drones = nb_drones
         self.start_hub = start_hub
         self.end_hub = end_hub
@@ -153,13 +155,25 @@ class MapValidator:
 
     def _check_duplicate_connections(self) -> None:
         checked_conn: dict[tuple[str, str], int] = {}
+
         for connection, line in self.connection_entries:
-            pair = tuple(sorted([connection["source"], connection["target"]]))
+            source = connection["source"]
+            target = connection["target"]
+
+            if source < target:
+                pair = (source, target)
+            else:
+                pair = (target, source)
+
             if pair in checked_conn:
                 first_line = checked_conn[pair]
+
                 raise ValidationError(
                     f"Ligne {line}: "
-                    f"Connexion dupliquée entre {pair[0]} et {pair[1]} "
-                    f"(déjà définie ligne {first_line})"
+                    f"Connexion dupliquée entre "
+                    f"{pair[0]} et {pair[1]} "
+                    f"(déjà définie ligne "
+                    f"{first_line})"
                 )
+
             checked_conn[pair] = line

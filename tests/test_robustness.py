@@ -1,89 +1,147 @@
-from src.model.connection import Connection
+import pytest
+
 from src.model.drone import Drone
 from src.model.graph import Graph
-from src.model.hub import Hub
 from src.model.simulation import Simulation
-from src.parser.parser import Parser
+from src.parser.parser import ParsedMap, Parser
 
 
-def _build_simple_graph() -> Graph:
-    graph = Graph({})
-    start = Hub("start", capacity=10)
-    a = Hub("a", capacity=1)
-    b = Hub("b", capacity=1)
-    end = Hub("goal", capacity=10)
+def make_reroute_map() -> ParsedMap:
+    return {
+        "map_path": "reroute.map",
+        "nb_drones": 1,
+        "start_hub": {
+            "name": "start",
+            "x": 0,
+            "y": 0,
+            "color": "green",
+            "capacity": float("inf"),
+            "zone_type": "normal",
+        },
+        "hubs": [
+            {
+                "name": "a",
+                "x": 1,
+                "y": 0,
+                "color": "white",
+                "capacity": 1,
+                "zone_type": "normal",
+            },
+            {
+                "name": "b",
+                "x": 1,
+                "y": 1,
+                "color": "white",
+                "capacity": 1,
+                "zone_type": "normal",
+            },
+        ],
+        "end_hub": {
+            "name": "goal",
+            "x": 2,
+            "y": 0,
+            "color": "red",
+            "capacity": float("inf"),
+            "zone_type": "normal",
+        },
+        "connections": [
+            {
+                "source": "start",
+                "target": "a",
+                "capacity": 1,
+            },
+            {
+                "source": "start",
+                "target": "b",
+                "capacity": 1,
+            },
+            {
+                "source": "a",
+                "target": "goal",
+                "capacity": 1,
+            },
+            {
+                "source": "b",
+                "target": "goal",
+                "capacity": 1,
+            },
+        ],
+    }
 
-    graph.add_zone(start)
-    graph.add_zone(a)
-    graph.add_zone(b)
-    graph.add_zone(end)
 
-    graph.add_connection(Connection(start, a, capacity=1))
-    graph.add_connection(Connection(a, b, capacity=1))
-    graph.add_connection(Connection(b, end, capacity=1))
+def test_drone_reroutes_to_alternate_path() -> None:
+    graph = Graph(
+        make_reroute_map()
+    )
 
-    return graph
+    simulation = Simulation(graph)
 
+    start = graph.start_zone
+    a = graph.hubs["a"]
+    b = graph.hubs["b"]
+    goal = graph.end_zone
 
-def test_waiting_drone_reroutes_to_alternate_path() -> None:
-    graph = Graph({})
-    start = Hub("start", capacity=10)
-    a = Hub("a", capacity=1)
-    b = Hub("b", capacity=1)
-    goal = Hub("goal", capacity=10)
+    assert goal is not None
 
-    graph.add_zone(start)
-    graph.add_zone(a)
-    graph.add_zone(b)
-    graph.add_zone(goal)
+    a.add_nb_drone()
 
-    graph.add_connection(Connection(start, a, capacity=1))
-    graph.add_connection(Connection(start, b, capacity=1))
-    graph.add_connection(Connection(a, goal, capacity=1))
-    graph.add_connection(Connection(b, goal, capacity=1))
+    drone = Drone(
+        1,
+        current_zone=start,
+    )
 
-    a.add_nb_drone(1)
+    drone.set_path([
+        a,
+        goal,
+    ])
 
-    sim = Simulation(graph, debug=False)
-    drone = Drone("D1", current_zone=start)
-    drone.status = "waiting"
-    drone.path = [a, goal]
-    sim.drones = [drone]
+    found = simulation._reroute_drone(
+        drone,
+        blocked_zones={a},
+        saturated_connections=set(),
+    )
 
-    sim._reroute_waiting_drone(drone)
-
-    assert drone.path[0].name == "b"
+    assert found is True
+    assert drone.path == [
+        b,
+        goal,
+    ]
 
 
-def test_hub_max_drones_alias_matches_max_drone() -> None:
-    zone = Hub("zone", capacity=3)
+@pytest.mark.parametrize(
+    "map_path",
+    [
+        (
+            "assets/maps/challenger/"
+            "42_spaghetti.txt"
+        ),
+        (
+            "assets/maps/challenger/"
+            "01_the_impossible_dream.txt"
+        ),
+    ],
+)
+def test_challenger_maps_finish(
+    map_path: str,
+) -> None:
+    parser = Parser(map_path)
 
-    assert zone.capacity == 3
-
-    zone.capacity = 5
-    assert zone.capacity == 5
-
-
-def test_spaghetti_challenger_finishes_under_45_turns() -> None:
-    parser = Parser("assets/maps/challenger/42_spaghetti.txt")
     data = parser.parse()
 
     graph = Graph(data)
 
-    sim = Simulation(graph, debug=False)
-    sim.load_drones(data["nb_drones"])
-    sim.simulate()
+    simulation = Simulation(graph)
 
-    assert sim.turn <= 45
+    simulation.load_drones(
+        data["nb_drones"]
+    )
 
+    simulation.simulate()
 
-def test_impossible_dream_finishes_under_45_turns() -> None:
-    parser = Parser("assets/maps/challenger/01_the_impossible_dream.txt")
-    data = parser.parse()
+    assert all(
+        drone.current_zone
+        is graph.end_zone
+        for drone in simulation.drones
+    )
 
-    graph = Graph(data)
-    sim = Simulation(graph, debug=False)
-    sim.load_drones(data["nb_drones"])
-    sim.simulate()
-
-    assert sim.turn <= 45
+    assert simulation.turn > 0

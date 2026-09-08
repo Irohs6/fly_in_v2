@@ -128,10 +128,10 @@ class PygameView:
 
                 replay.handle_event(event)
 
-            hub_states = {}
+            hub_states: dict[str, HubReplayState] = {}
 
             if replay.frames:
-                hub_states: dict[str, HubReplayState] = replay.frames[
+                hub_states = replay.frames[
                     replay.current_index].hubs
 
             renderer.draw(camera, hub_states)

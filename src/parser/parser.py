@@ -1,10 +1,6 @@
 import math
 from typing import TypedDict
 
-# ============================
-# TypedDict : types structurés
-# ============================
-
 
 class HubDict(TypedDict):
     name: str
@@ -30,20 +26,10 @@ class ParsedMap(TypedDict):
     connections: list[ConnectionDict]
 
 
-# ============================
-# Exceptions
-# ============================
-
-
 class ParseError(Exception):
     """Erreur de parsing du fichier de carte Fly-in."""
 
     pass
-
-
-# ============================
-# Parser
-# ============================
 
 
 class Parser:
@@ -59,7 +45,6 @@ class Parser:
         self.nb_drones: int | None = None
         self.start_zone: HubDict | None = None
         self.end_zone: HubDict | None = None
-        self.validator: object | None = None
 
     # --- Lecture du fichier ---
     def read(self) -> None:
@@ -206,8 +191,22 @@ class Parser:
 
         self.read()
         self.parse_ligne()
+        if self.nb_drones is None:
+            raise ParseError(
+                "nb_drones manquant."
+            )
 
-        self.validator = MapValidator(
+        if self.start_zone is None:
+            raise ParseError(
+                "start_hub manquant."
+            )
+
+        if self.end_zone is None:
+            raise ParseError(
+                "end_hub manquant."
+            )
+
+        validator = MapValidator(
             self.nb_drones,
             self.start_zone,
             self.end_zone,
@@ -218,15 +217,9 @@ class Parser:
         )
 
         try:
-            self.validator.validate()
+            validator.validate()
         except ValidationError as exc:
             raise ParseError(str(exc)) from exc
-
-        # À ce stade, la carte est valide → on garantit au type checker
-        # que les champs ne sont plus None.
-        assert self.nb_drones is not None
-        assert self.start_zone is not None
-        assert self.end_zone is not None
 
         return {
             "map_path": self.file_path,
@@ -243,7 +236,7 @@ class Parser:
             raise ParseError("No lines to parse. Please read the file first.")
 
         first_line = self.lines[0][1]
-        if first_line is None or not first_line.startswith("nb_drones"):
+        if not first_line.startswith("nb_drones"):
             raise ParseError(
                 "First line must specify the number of drones : <int>."
             )
@@ -297,4 +290,3 @@ class Parser:
 
             else:
                 raise ParseError(f"Ligne {nb_line}: ligne inconnue: {line!r}")
-

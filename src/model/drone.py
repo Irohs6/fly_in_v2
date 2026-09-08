@@ -10,7 +10,7 @@ class Drone:
     ) -> None:
         self.drone_id = drone_id
 
-        self.current_zone: Hub = current_zone
+        self.current_zone: Hub | None = current_zone
         self.previous_zone: Hub | None = None
 
         self.path: list[Hub] = []

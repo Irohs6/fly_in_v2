@@ -55,9 +55,15 @@ class Simulation:
         target_zone: Hub,
     ) -> None:
         """Demande au drone de se déplacer vers une zone cible """
+        current_zone = drone.current_zone
+
+        if current_zone is None:
+            raise RuntimeError(
+                f"{drone.drone_id} has no current zone."
+            )
 
         if target_zone.zone_type == "restricted":
-            drone.current_zone.remove_nb_drone()
+            current_zone.remove_nb_drone()
 
             drone.begin_transit(
                 connection,
@@ -69,7 +75,7 @@ class Simulation:
 
             return
 
-        drone.current_zone.remove_nb_drone()
+        current_zone.remove_nb_drone()
         drone.move_to_zone(target_zone)
 
         target_zone.add_nb_drone()
