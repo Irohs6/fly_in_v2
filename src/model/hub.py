@@ -25,7 +25,7 @@ class Hub:
 
     def add_nb_drone(self) -> None:
         """Ajoute toujours 1 drone, jamais plus."""
-        if self.nb_drone + 1 > self.capacity:
+        if self.nb_drone + 1 + self.reserved > self.capacity:
             raise HubError("Cannot add more drones than the maximum allowed")
         self.nb_drone += 1
 

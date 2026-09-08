@@ -18,5 +18,5 @@ class HubReplayState:
 @dataclass
 class ReplayFrame:
     turn: int
-    drones: dict[str, DroneReplayState]
+    drones: dict[int, DroneReplayState]
     hubs: dict[str, HubReplayState]

@@ -18,7 +18,7 @@ class Recorder:
         drones: list[Drone],
         hubs: dict[str, Hub],
     ) -> None:
-        drone_states: dict[str, DroneReplayState] = {}
+        drone_states: dict[int, DroneReplayState] = {}
 
         for drone in drones:
             state = self._drone_state(drone)

@@ -16,7 +16,7 @@ class Simulation:
     ) -> None:
         self.graph = graph
         self.drones: list[Drone] = []
-        self.turn = 0.
+        self.turn = 0
         self.movements_log: list[dict[int, str]] = []
 
         self.ph = (
