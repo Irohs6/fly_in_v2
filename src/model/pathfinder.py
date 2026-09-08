@@ -51,9 +51,13 @@ class Dijkstra:
                     continue
 
                 if saturated_conns and any(
-                    connection.connects(source, target)
-                    for source, target in saturated_conns
-                        ):
+                    connection.connects(
+                        saturated_source,
+                        saturated_target
+                    )
+                    for saturated_source, saturated_target
+                    in saturated_conns
+                ):
                     continue
 
                 weight = neighbor.move_cost()
@@ -82,13 +86,7 @@ class Dijkstra:
     ) -> list[Hub]:
 
         if source is None:
-            if self.graph.start_zone is None:
-                return []
-
             source = self.graph.start_zone
-
-        if self.graph.end_zone is None:
-            return []
 
         target = self.graph.end_zone
 

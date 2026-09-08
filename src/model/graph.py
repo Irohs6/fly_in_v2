@@ -16,7 +16,7 @@ class Graph:
         self.start_zone: Hub = (
             Hub(**data["start_hub"])
         )
-        self.end_zone: Hub | None = (
+        self.end_zone: Hub = (
             Hub(**data["end_hub"])
         )
 
