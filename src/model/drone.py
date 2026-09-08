@@ -22,8 +22,6 @@ class Drone:
 
         self.moving_connection: Connection | None = None
 
-        self.traveled_path: list[Hub] = []
-
     def move_to_zone(
         self,
         zone: Hub,
@@ -37,7 +35,6 @@ class Drone:
         self.previous_zone = old_zone
         self.current_zone = zone
 
-        self.traveled_path.append(zone)
         self._complete_path_step(zone)
 
         self.status = "moving"
@@ -105,7 +102,6 @@ class Drone:
 
         self.moving_connection = None
 
-        self.traveled_path.append(destination)
         self._complete_path_step(destination)
 
         self.status = "moving"
@@ -117,9 +113,6 @@ class Drone:
 
     def moving(self) -> None:
         self.status = "moving"
-
-    def idle(self) -> None:
-        self.status = "idle"
 
     def deliver(self) -> None:
         self.status = "delivered"

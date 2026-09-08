@@ -4,14 +4,12 @@ from src.parser.parser import ParseError
 
 def main() -> int:
     import sys
-    import os
 
     map_path = (
         sys.argv[1]
         if len(sys.argv) > 1
         else "assets/maps/easy/02_simple_fork.txt"
     )
-    print("MAP", os.getenv("MAP"))
     try:
         controller = Controller(map_path)
         controller.run()

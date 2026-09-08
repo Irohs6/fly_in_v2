@@ -7,7 +7,6 @@ from .connection import Connection
 class Graph:
     def __init__(self, data: ParsedMap) -> None:
 
-        self.data = data
         # Stockage des hubs et connexions
         self.hubs: dict[str, Hub] = {
             hub["name"]: Hub(**hub) for hub in data.get("hubs", [])
@@ -15,16 +14,11 @@ class Graph:
 
         # Zones spéciales
         self.start_zone: Hub = (
-            Hub(**data["start_hub"]) if "start_hub" in data else None
+            Hub(**data["start_hub"])
         )
         self.end_zone: Hub | None = (
-            Hub(**data["end_hub"]) if "end_hub" in data else None
+            Hub(**data["end_hub"])
         )
-        if not self.start_zone or not self.end_zone:
-            raise ValueError(
-                "Both start_hub and end_hub must "
-                "be defined in the map data."
-            )
 
         self.hubs[self.start_zone.name] = self.start_zone
         self.hubs[self.end_zone.name] = self.end_zone
@@ -74,14 +68,6 @@ class Graph:
             )
 
         return built_connections
-
-    def add_hub(self, hub: Hub) -> None:
-        self.hubs[hub.name] = hub
-
-    def add_connection(self, connection: Connection) -> None:
-        self.connections.append(connection)
-
-        self._index_connection(connection)
 
     def _index_connection(
         self,

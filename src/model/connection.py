@@ -9,11 +9,6 @@ class Connection:
         self.capacity = capacity
         self.nb_drones = 0
 
-    def set_capacity(self, value: int | float) -> None:
-        if not isinstance(value, (int, float)) or value < 0:
-            raise ConnectionError("Capacity must be a non-negative number")
-        self.capacity = value
-
     def add_nb_drone(self) -> None:
         """Ajoute toujours 1 drone, jamais plus."""
         if self.nb_drones + 1 > self.capacity:
@@ -21,14 +16,6 @@ class Connection:
                 "Cannot add more drones than the maximum allowed"
             )
         self.nb_drones += 1
-
-    def remove_nb_drone(self) -> None:
-        """Retire toujours 1 drone."""
-        if self.nb_drones - 1 < 0:
-            raise ConnectionError(
-                "Cannot remove more drones than currently present"
-            )
-        self.nb_drones -= 1
 
     def is_available(self) -> bool:
         return self.nb_drones < self.capacity

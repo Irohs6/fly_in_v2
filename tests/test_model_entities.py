@@ -149,16 +149,6 @@ def test_connection_capacity_rules() -> None:
     with pytest.raises(ConnectionError):
         connection.add_nb_drone()
 
-    connection.remove_nb_drone()
-
-    assert connection.nb_drones == 0
-
-    with pytest.raises(ConnectionError):
-        connection.remove_nb_drone()
-
-    with pytest.raises(ConnectionError):
-        connection.set_capacity(-1)
-
 
 def test_drone_transit_lifecycle() -> None:
     start = Hub("START")
