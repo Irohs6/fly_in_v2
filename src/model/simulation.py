@@ -281,8 +281,14 @@ class Simulation:
             movements: dict[int, str] = {}
             self.movements_log.append(movements)
 
-            for drone in self.drones:
-                self._process_drone(drone, movements)
+            for drone in sorted(
+                self.drones,
+                key=lambda drone: drone.path_turns()
+            ):
+                self._process_drone(
+                    drone,
+                    movements
+                )
             self._update_connections()
 
             self.turn += 1

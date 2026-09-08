@@ -124,6 +124,12 @@ class Drone:
     def deliver(self) -> None:
         self.status = "delivered"
 
+    def path_turns(self) -> int:
+        return sum(
+            zone.transit_duration()
+            for zone in self.path
+        )
+
     def set_path(self, path: list[Hub]) -> None:
         self.path = path.copy()
 
