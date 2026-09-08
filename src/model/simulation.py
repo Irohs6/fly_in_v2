@@ -65,7 +65,7 @@ class Simulation:
             )
 
             connection.add_nb_drone()
-            target_zone.add_nb_drone()
+            target_zone.reserve()
 
             return
 
@@ -251,6 +251,9 @@ class Simulation:
 
         if destination is None:
             return
+
+        destination.release_reservation()
+        destination.add_nb_drone()
 
         if old_zone is not None:
             movements[drone.drone_id] = (

@@ -13,6 +13,7 @@ class Hub:
         self.x = x
         self.y = y
         self.nb_drone = 0
+        self.reserved = 0
 
     def set_zone_type(self, zone_type: str) -> None:
         self.zone_type = zone_type
@@ -35,7 +36,28 @@ class Hub:
         self.nb_drone -= 1
 
     def is_available(self) -> bool:
-        return self.nb_drone < self.capacity
+        return self.nb_drone + self.reserved < self.capacity
+
+    def reserve(self) -> None:
+        if (
+            self.nb_drone
+            + self.reserved
+            + 1
+            > self.capacity
+        ):
+            raise HubError(
+                "Cannot reserve more than hub capacity"
+            )
+
+        self.reserved += 1
+
+    def release_reservation(self) -> None:
+        if self.reserved == 0:
+            raise HubError(
+                "No reservation to release"
+            )
+
+        self.reserved -= 1
 
     def move_cost(self) -> float:
         """Calculate the cost of moving to this hub based on its zone type."""
