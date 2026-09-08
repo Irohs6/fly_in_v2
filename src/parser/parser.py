@@ -40,7 +40,7 @@ class Parser:
         self.lines: list[tuple[int, str]] = []
         self.hub_zones: list[HubDict] = []
         self.zone_entries: list[tuple[HubDict, int]] = []
-        self.conections: list[ConnectionDict] = []
+        self.connections: list[ConnectionDict] = []
         self.connection_entries: list[tuple[ConnectionDict, int]] = []
         self.nb_drones: int | None = None
         self.start_zone: HubDict | None = None
@@ -150,14 +150,14 @@ class Parser:
                 f"Ligne {nb_line}: capacity invalide: {cap_raw!r}"
             )
 
-        self.conections.append(
+        self.connections.append(
             {
                 "source": source,
                 "target": target,
                 "capacity": int(cap_raw),
             }
         )
-        self.connection_entries.append((self.conections[-1], nb_line))
+        self.connection_entries.append((self.connections[-1], nb_line))
 
     # --- Parsing des métadonnées ---
     def parse_meta(self, raw: str, nb_line: int) -> dict[str, str]:
@@ -211,7 +211,7 @@ class Parser:
             self.start_zone,
             self.end_zone,
             self.hub_zones,
-            self.conections,
+            self.connections,
             self.zone_entries,
             self.connection_entries,
         )
@@ -227,7 +227,7 @@ class Parser:
             "start_hub": self.start_zone,
             "hubs": self.hub_zones,
             "end_hub": self.end_zone,
-            "connections": self.conections,
+            "connections": self.connections,
         }
 
     # --- Parsing des lignes ---

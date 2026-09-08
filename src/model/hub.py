@@ -15,14 +15,6 @@ class Hub:
         self.nb_drone = 0
         self.reserved = 0
 
-    def set_zone_type(self, zone_type: str) -> None:
-        self.zone_type = zone_type
-
-    def set_capacity(self, capacity: int | float) -> None:
-        if not isinstance(capacity, (int, float)) or capacity < 0:
-            raise HubError("Capacity must be a non-negative number")
-        self.capacity = capacity
-
     def add_nb_drone(self) -> None:
         """Ajoute toujours 1 drone, jamais plus."""
         if self.nb_drone + 1 + self.reserved > self.capacity:
