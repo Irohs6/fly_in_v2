@@ -69,6 +69,64 @@ def make_reroute_map() -> ParsedMap:
     }
 
 
+def make_pipeline_map() -> ParsedMap:
+    return {
+        "map_path": "pipeline.map",
+        "nb_drones": 3,
+        "start_hub": {
+            "name": "start",
+            "x": 0,
+            "y": 0,
+            "color": "green",
+            "capacity": float("inf"),
+            "zone_type": "normal",
+        },
+        "hubs": [
+            {
+                "name": "a",
+                "x": 1,
+                "y": 0,
+                "color": "white",
+                "capacity": 1,
+                "zone_type": "normal",
+            },
+            {
+                "name": "b",
+                "x": 2,
+                "y": 0,
+                "color": "white",
+                "capacity": 1,
+                "zone_type": "normal",
+            },
+        ],
+        "end_hub": {
+            "name": "goal",
+            "x": 3,
+            "y": 0,
+            "color": "red",
+            "capacity": float("inf"),
+            "zone_type": "normal",
+        },
+        "connections": [
+            {
+                "source": "start",
+                "target": "a",
+                "capacity": 1,
+            },
+            {
+                "source": "a",
+                "target": "b",
+                "capacity": 1,
+            },
+            {
+                "source": "b",
+                "target": "goal",
+                "capacity": 1,
+            },
+        ],
+    }
+
+
 def test_drone_reroutes_to_alternate_path() -> None:
     graph = Graph(
         make_reroute_map()
@@ -106,6 +164,23 @@ def test_drone_reroutes_to_alternate_path() -> None:
         b,
         goal,
     ]
+
+
+def test_zone_freed_can_be_reused_in_same_turn() -> None:
+    graph = Graph(
+        make_pipeline_map()
+    )
+
+    simulation = Simulation(graph)
+
+    simulation.load_drones(3)
+    simulation.simulate()
+
+    assert simulation.turn == 5
+    assert all(
+        drone.current_zone is graph.end_zone
+        for drone in simulation.drones
+    )
 
 
 @pytest.mark.parametrize(
