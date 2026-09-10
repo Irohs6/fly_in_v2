@@ -194,3 +194,67 @@ def test_validator_reports_line_for_bad_zone_capacity() -> None:
 
     with pytest.raises(ValidationError, match=r"Ligne 3:.*capacité invalide"):
         validator.validate()
+
+
+@pytest.mark.parametrize(
+    "zone_type, connections, reachable",
+    [
+        ("normal", [], False),
+        ("normal", ["start-a"], False),
+        ("normal", ["start-a", "a-b", "b-start"], False),
+        ("normal", ["start-goal"], True),
+        ("normal", ["a-start", "goal-a"], True),
+        ("restricted", ["start-a", "a-goal"], True),
+        ("priority", ["start-a", "a-goal"], True),
+        ("blocked", ["start-a", "a-goal"], False),
+        ("blocked", ["start-a", "a-goal", "start-b", "b-goal"], True),
+        ("normal", ["start-a", "a-b", "b-start", "b-goal"], True),
+    ],
+)
+def test_parser_checks_reachability(
+    tmp_path: Path,
+    zone_type: str,
+    connections: list[str],
+    reachable: bool,
+) -> None:
+    map_path = write_map(
+        tmp_path,
+        "\n".join([
+            "nb_drones: 2",
+            "start_hub: start 0 0",
+            f"hub: a 1 0 [zone={zone_type}]",
+            "hub: b 1 1",
+            "end_hub: goal 2 0",
+            *(f"connection: {edge}" for edge in connections),
+        ]),
+    )
+
+    if reachable:
+        assert Parser(str(map_path)).parse()["end_hub"]["name"] == "goal"
+    else:
+        with pytest.raises(
+            ParseError,
+            match=r"Ligne 5: aucun chemin praticable.*start.*goal",
+        ):
+            Parser(str(map_path)).parse()
+
+
+@pytest.mark.parametrize("blocked_terminal", ["start_hub", "end_hub"])
+def test_parser_rejects_blocked_terminal(
+    tmp_path: Path,
+    blocked_terminal: str,
+) -> None:
+    lines = [
+        "nb_drones: 1",
+        "start_hub: start 0 0",
+        "end_hub: goal 1 0",
+        "connection: start-goal",
+    ]
+    lines = [
+        line + " [zone=blocked]"
+        if line.startswith(blocked_terminal + ":") else line
+        for line in lines
+    ]
+    map_path = write_map(tmp_path, "\n".join(lines))
+    with pytest.raises(ParseError, match="aucun chemin praticable"):
+        Parser(str(map_path)).parse()

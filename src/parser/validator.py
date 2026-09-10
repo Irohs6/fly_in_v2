@@ -1,4 +1,5 @@
 import math
+from collections import deque
 from .parser import ConnectionDict, HubDict
 
 
@@ -41,6 +42,7 @@ class MapValidator:
         self._check_unique_zone_names()
         self._check_connection_endpoints()
         self._check_duplicate_connections()
+        self._check_reachable_end()
 
     def _validate_nb_drones(self) -> None:
         if not isinstance(self.nb_drones, int):
@@ -138,20 +140,21 @@ class MapValidator:
             names[name] = line
 
     def _check_connection_endpoints(self) -> None:
-        known_names = {self.start_hub["name"], self.end_hub["name"]}
-        known_names.update(hub["name"] for hub in self.hubs)
-
+        definition_lines = {
+            hub["name"]: line for hub, line in self.zone_entries
+        }
         for connection, line in self.connection_entries:
-            if connection["source"] not in known_names:
-                raise ValidationError(
-                    f"Ligne {line}: connexion vers hub inconnu: "
-                    f"{connection['source']!r}"
-                )
-            if connection["target"] not in known_names:
-                raise ValidationError(
-                    f"Ligne {line}: connexion vers hub inconnu: "
-                    f"{connection['target']!r}"
-                )
+            for endpoint in (connection["source"], connection["target"]):
+                if endpoint not in definition_lines:
+                    raise ValidationError(
+                        f"Ligne {line}: connexion vers hub inconnu: "
+                        f"{endpoint!r}"
+                    )
+                if definition_lines[endpoint] >= line:
+                    raise ValidationError(
+                        f"Ligne {line}: hub {endpoint!r} non encore défini "
+                        f"(définition ligne {definition_lines[endpoint]})."
+                    )
 
     def _check_duplicate_connections(self) -> None:
         checked_conn: dict[tuple[str, str], int] = {}
@@ -177,3 +180,45 @@ class MapValidator:
                 )
 
             checked_conn[pair] = line
+
+    def _check_reachable_end(self) -> None:
+        """Vérifie par BFS un chemin start-end sans hub blocked."""
+        hubs = [self.start_hub, *self.hubs, self.end_hub]
+        adjacency: dict[str, list[str]] = {
+            hub["name"]: []
+            for hub in hubs
+            if hub["zone_type"] != "blocked"
+        }
+
+        for connection in self.connections:
+            source = connection["source"]
+            target = connection["target"]
+            if source in adjacency and target in adjacency:
+                adjacency[source].append(target)
+                adjacency[target].append(source)
+
+        start = self.start_hub["name"]
+        end = self.end_hub["name"]
+        queue: deque[str] = deque()
+        visited: set[str] = set()
+        if start in adjacency:
+            queue.append(start)
+            visited.add(start)
+
+        while queue:
+            current = queue.popleft()
+            if current == end:
+                return
+            for neighbor in adjacency[current]:
+                if neighbor not in visited:
+                    visited.add(neighbor)
+                    queue.append(neighbor)
+
+        end_line = next(
+            line for hub, line in self.zone_entries
+            if hub is self.end_hub
+        )
+        raise ValidationError(
+            f"Ligne {end_line}: aucun chemin praticable "
+            f"entre {start!r} et {end!r} (zones blocked exclues)."
+        )

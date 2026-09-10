@@ -8,7 +8,7 @@
 
 ## Description
 
-**fly_ing** is a drone routing simulator built in Python with a Pygame graphical interface. Given a map file describing a graph of zones and their connections, the program computes optimal paths for all drones simultaneously and animates their movements turn by turn.
+**fly_ing** is a drone routing simulator built in Python with a Pygame graphical interface. Given a map file describing a graph of zones and their connections, the program routes drones turn by turn, prints their movements in the terminal, and opens a Pygame replay of the recorded states. The routing heuristic aims to reduce the total number of turns; it does not guarantee a globally optimal solution.
 
 The core challenge is a constrained multi-agent pathfinding problem: drones must reach the destination in the minimum number of turns while respecting zone capacity limits, connection throughput, and zone-type movement costs (including 2-turn restricted zones).
 
@@ -23,15 +23,18 @@ main.py
   └── Controller          (src/controller/controller.py)
         ├── Parser         (src/parser/parser.py)          — reads and validates the map file
         ├── Graph          (src/model/graph.py)            — adjacency list, bidirectional edges
-        ├── Zone           (src/model/zone.py)             — hub with type, capacity, coordinates
+        ├── Hub            (src/model/hub.py)              — zone with type, capacity, coordinates
         ├── Connection     (src/model/connection.py)       — edge with throughput limit
         ├── Drone          (src/model/drone.py)            — agent with path, status, transit state
         ├── Simulation     (src/model/simulation.py)       — turn-by-turn engine
         ├── Dijkstra       (src/model/pathfinder.py)       — weighted shortest path (heapq)
-        └── Pygame_view    (src/view/pygame_view.py)       — graphical replay interface
-              ├── GraphRenderer     — draws zones and connections
-              ├── DroneAnimationLayer — interpolated drone movement
-              └── Camera            — zoom, pan, world↔screen projection
+        ├── Recorder       (src/model/recorder.py)         — snapshots for replay
+        ├── ReplayFrame    (src/model/replay.py)           — recorded drone and hub states
+        ├── TerminalView   (src/view/terminal.py)          — required movement output
+        └── PygameView     (src/view/pygame_view.py)       — graphical replay interface
+              ├── GraphRenderer — draws hubs and connections
+              ├── ReplayPlayer  — displays recorded turns and transit positions
+              └── Camera        — zoom, pan, world↔screen projection
 ```
 
 ---
@@ -41,19 +44,20 @@ main.py
 The routing engine uses **Dijkstra's algorithm** with dynamic replanning:
 
 1. At simulation start, all drones receive the same shortest path (by weighted cost).
-2. At each turn, `_try_move()` attempts to advance each drone one step along its path.
-3. If the next zone is at capacity, the drone tries an **alternative path** excluding the blocked zone, recalculating with Dijkstra from its current position.
-4. Drones in **restricted zone transit** occupy the link for 2 turns and must complete transit — they cannot be interrupted.
-5. Drones leaving a zone free its capacity on the same turn, allowing others to enter.
+2. Each turn processes drones sequentially, ordered by the number of turns remaining on their current paths. `_try_drone_move()` attempts one move per drone.
+3. If a hub or connection is saturated, the drone retries Dijkstra from its current position, excluding unavailable resources. If no alternative is found, it waits.
+4. Entering a `restricted` hub takes two turns: the drone occupies the connection on the first turn and arrives on the next. The destination is reserved before transit begins, so the drone cannot be left waiting on the connection.
+5. A departing drone frees hub capacity immediately, allowing a later drone in the same turn to use it.
+6. `Simulation` logs the reached `Hub` or occupied `Connection`; `TerminalView` formats the output. `Recorder` separately captures the initial state and each completed turn for Pygame replay.
 
-**Complexity:** O(T × N × (V + E) log V) where T = total turns, N = number of drones, V = zones, E = connections.
+Runtime depends on the number of turns, drones, and rerouting attempts. A drone can trigger multiple Dijkstra searches in one turn; each search also checks the excluded connections.
 
 **Zone movement costs:**
 
-| Zone type | Cost (turns) | Notes |
+| Zone type | Duration (turns) | Notes |
 |---|---|---|
 | `normal` | 1 | Default |
-| `priority` | 1 | Preferred in pathfinding |
+| `priority` | 1 | Currently uses a Dijkstra weight of `0.9` to favor it |
 | `restricted` | 2 | Drone must complete transit next turn |
 | `blocked` | ∞ | Impassable |
 
@@ -61,19 +65,21 @@ The routing engine uses **Dijkstra's algorithm** with dynamic replanning:
 
 ## Performance Results
 
-All provided maps are solved within or well below the target turn counts:
+Measured with the current implementation on all 11 provided maps, without Pygame. These are observed turn counts, not proofs of optimality:
 
-| Map | Drones | Result | Target |
-|---|---|---|---|
-| easy/01 — linear path | 2 | **6 turns** | ≤ 6 |
-| easy/02 — simple fork | 4 | **6 turns** | ≤ 8 |
-| easy/03 — basic capacity | 4 | **4 turns** | ≤ 6 |
-| medium/01 — dead end trap | 5 | **8 turns** | ≤ 12 |
-| medium/02 — circular loop | 6 | **15 turns** | ≤ 15 |
-| medium/03 — priority puzzle | 5 | **8 turns** | ≤ 12 |
-| hard/01 — maze nightmare | 8 | **13 turns** | ≤ 30 |
-| hard/02 — capacity hell | 12 | **16 turns** | ≤ 35 |
-| hard/03 — ultimate challenge | 15 | **27 turns** | ≤ 45 |
+| Map | Drones | Result |
+|---|---|---|
+| easy/01 — linear path | 2 | **4 turns** |
+| easy/02 — simple fork | 4 | **4 turns** |
+| easy/03 — basic capacity | 4 | **4 turns** |
+| medium/01 — dead end trap | 5 | **8 turns** |
+| medium/02 — circular loop | 6 | **15 turns** |
+| medium/03 — priority puzzle | 5 | **7 turns** |
+| hard/01 — maze nightmare | 8 | **13 turns** |
+| hard/02 — capacity hell | 12 | **16 turns** |
+| hard/03 — ultimate challenge | 15 | **26 turns** |
+| challenger/01 — the impossible dream | 25 | **43 turns** |
+| challenger/42 — spaghetti | 42 | **46 turns** |
 
 ---
 
@@ -97,7 +103,7 @@ make install
 make run MAP=assets/maps/easy/01_linear_path.txt
 
 # Or directly
-python main.py assets/maps/easy/01_linear_path.txt
+poetry run python main.py assets/maps/easy/01_linear_path.txt
 
 # Debug mode (pdb)
 make debug MAP=assets/maps/easy/01_linear_path.txt
@@ -107,13 +113,24 @@ make debug MAP=assets/maps/easy/01_linear_path.txt
 
 ```bash
 make lint          # flake8 + mypy (standard flags)
-make lint-strict   # mypy --strict
+make lint-strict   # flake8 + mypy --strict
 ```
 
 ### Tests
 
 ```bash
 make test
+
+# Run all provided maps without Pygame and write per-map terminal reports
+make test-maps
+```
+
+`make test` covers model entities, parsing and validation, rerouting, same-turn capacity reuse, challenger maps, terminal formatting, and restricted transit replay states.
+
+`make test-maps` and `make test-maps-export` both write reports to `tests/results_by_map`. To choose another directory:
+
+```bash
+poetry run python tests/test_all_maps_terminal.py --output-dir /tmp/fly-in-reports
 ```
 
 ### Clean
@@ -141,10 +158,12 @@ connection: roof1-goal
 # Comments start with #
 ```
 
-Rules:
+Map requirements from [the subject (version 1.6)](docs/subject_fr_v3.md):
+
 - First line must be `nb_drones: <positive integer>`
 - Exactly one `start_hub` and one `end_hub`
 - Zone names must not contain dashes or spaces
+- Connections use `source-target` and must follow the definitions of both hubs
 - `capacity` on start/end hubs is ignored (unlimited)
 - `blocked` zones are impassable
 
@@ -158,7 +177,7 @@ Rules:
 nb_drones: 2
 start_hub: start 0 0 [color=green]
 hub: waypoint1 1 0 [color=blue]
-hub: waypoint2 2 0 [zone=restricted color=blue]
+hub: waypoint2 2 0 [color=blue]
 end_hub: goal 3 0 [color=red]
 
 connection: start-waypoint1
@@ -171,31 +190,43 @@ connection: waypoint2-goal
 ```
 D1-waypoint1
 D1-waypoint2 D2-waypoint1
-D2-waypoint2
-D1-goal D2-goal
+D1-goal D2-waypoint2
+D2-goal
 ```
 
-Each line is one simulation turn. Format: `D<ID>-<zone>` for normal moves, `D<ID>-<zone1>-<zone2>` for restricted transit. Drones that do not move are omitted.
+Each line is one simulation turn. Format: `D<ID>-<zone>` on arrival at a hub, or `D<ID>-<source>-<target>` while in restricted transit. The connection name preserves the endpoint order declared in the map, even when traversed in reverse. Waiting drones and drones delivered on previous turns are omitted.
+
+If `waypoint2` in this example is changed to `[zone=restricted color=blue]`, the output becomes:
+
+```text
+D1-waypoint1
+D1-waypoint1-waypoint2 D2-waypoint1
+D1-waypoint2
+D1-goal D2-waypoint1-waypoint2
+D2-waypoint2
+D2-goal
+```
 
 ---
 
 ## Graphical interface (Pygame)
 
-After the simulation computes the solution, a Pygame window opens and replays the drone movements with smooth animation.
+After the simulation prints its movements, a Pygame window opens at the initial recorded state. Use the arrow keys to inspect successive turns. A drone in restricted transit is drawn between the connection endpoints using its recorded progress.
 
 | Control | Action |
 |---|---|
-| `SPACE` | Play / Pause replay |
 | `←` / `→` | Previous / Next turn |
-| `R` | Restart replay |
+| `R` | Return to the initial replay state |
+| `C` | Reset camera |
 | Mouse wheel | Zoom in / out (centered on cursor) |
 | Middle or right click + drag | Pan the view |
 | `ESC` | Quit |
 
 The display shows:
-- Zone circles sized by `capacity` capacity, colored per map definition
-- Connection lines with live drone count / capacity labels
-- Drone positions interpolated between turns
+
+- Hub circles sized by capacity and colored per map definition, with recorded occupancy labels
+- Connection lines between hubs
+- Drone positions for the selected turn, including intermediate restricted transit positions
 - Current turn and total turns in the overlay
 
 ---
@@ -203,15 +234,15 @@ The display shows:
 ## Project structure
 
 ```
-fly_ing/
+fly_in_v2/
 ├── main.py
 ├── Makefile
 ├── pyproject.toml
 ├── src/
 │   ├── controller/
-│   ├── model/          # Graph, Zone, Connection, Drone, Simulation, Dijkstra
+│   ├── model/          # Graph, Hub, Connection, Drone, Simulation, Dijkstra, Recorder, replay states
 │   ├── parser/
-│   └── view/           # Pygame view, graph renderer, drone animator, camera
+│   └── view/           # TerminalView, PygameView, GraphRenderer, ReplayPlayer, camera
 ├── assets/
 │   └── maps/
 │       ├── easy/       (3 maps)

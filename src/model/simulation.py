@@ -17,7 +17,8 @@ class Simulation:
         self.graph = graph
         self.drones: list[Drone] = []
         self.turn = 0
-        self.movements_log: list[dict[int, str]] = []
+        # Hub atteint ou connexion occupée, sans formatage terminal.
+        self.movements_log: list[dict[int, Hub | Connection]] = []
 
         self.ph = (
             pathfinder
@@ -122,7 +123,7 @@ class Simulation:
     def _try_drone_move(
         self,
         drone: Drone,
-        movements: dict[int, str],
+        movements: dict[int, Hub | Connection],
     ) -> None:
         """
         Essaie de faire avancer un drone.
@@ -194,8 +195,6 @@ class Simulation:
                     return
                 continue
 
-            old_zone = drone.current_zone
-
             # Tentative de déplacement.
             self.move_drone(
                 drone,
@@ -203,20 +202,9 @@ class Simulation:
                 target_zone,
             )
 
-            # Déplacement normal terminé.
-            if not drone.in_transit:
-
-                movements[drone.drone_id] = (
-                    f"{old_zone.name} -> "
-                    f"{target_zone.name}"
-                )
-
-                return
             movements[drone.drone_id] = (
-                f"{old_zone.name} -> "
-                f"{target_zone.name} [TRANSIT]"
+                connection if drone.in_transit else target_zone
             )
-
             return
 
     # SIMULATION
@@ -231,7 +219,7 @@ class Simulation:
     def _process_drone(
         self,
         drone: Drone,
-        movements: dict[int, str],
+        movements: dict[int, Hub | Connection],
     ) -> None:
         """Traite un drone pendant le tour courant."""
         if drone.current_zone == self.graph.end_zone:
@@ -247,11 +235,9 @@ class Simulation:
     def _process_transit(
         self,
         drone: Drone,
-        movements: dict[int, str],
+        movements: dict[int, Hub | Connection],
     ) -> None:
         """Fait progresser un drone actuellement en transit."""
-
-        old_zone = drone.previous_zone
 
         destination = drone.advance_transit()
 
@@ -261,11 +247,7 @@ class Simulation:
         destination.release_reservation()
         destination.add_nb_drone()
 
-        if old_zone is not None:
-            movements[drone.drone_id] = (
-                f"{old_zone.name} -> "
-                f"{destination.name}"
-            )
+        movements[drone.drone_id] = destination
 
     def _update_connections(self) -> None:
         """Met à jour l'occupation des connexions."""
@@ -284,10 +266,10 @@ class Simulation:
         for connection in self.graph.connections:
             connection.nb_drones = active_transits.get(connection, 0)
 
-    def simulate(self) -> list[dict[int, str]]:
+    def simulate(self) -> list[dict[int, Hub | Connection]]:
         """Simule le déplacement des drones tour par tour."""
         while not self._all_drones_delivered():
-            movements: dict[int, str] = {}
+            movements: dict[int, Hub | Connection] = {}
             self.movements_log.append(movements)
 
             for drone in sorted(
