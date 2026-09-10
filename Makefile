@@ -6,10 +6,10 @@ install:
 	poetry install
 
 run:
-	poetry run python main.py $(MAP)
+	poetry run python main.py $(MAP) $(ARGS)
 
 debug:
-	poetry run python -m pdb main.py $(MAP)
+	poetry run python -m pdb main.py $(MAP) $(ARGS)
 
 test:
 	poetry run pytest tests/

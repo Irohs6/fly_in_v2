@@ -12,8 +12,6 @@ class MapValidator:
     """Valide la configuration issue du parser selon les règles Fly-in."""
 
     VALID_ZONE_TYPES = {"normal", "blocked", "restricted", "priority"}
-    VALID_HUB_KEYS = {"zone_type", "color", "capacity"}
-    VALID_CONN_KEYS = {"capacity"}
 
     def __init__(
         self,

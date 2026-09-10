@@ -58,8 +58,15 @@ class Parser:
                     if not line or line.startswith("#"):
                         continue
                     self.lines.append((nb_line, line))
-        except FileNotFoundError:
-            raise FileNotFoundError(f"File not found: {self.file_path}")
+        except UnicodeDecodeError as exc:
+            raise ParseError(
+                f"Carte {self.file_path!r}: encodage UTF-8 invalide."
+            ) from exc
+        except OSError as exc:
+            raise ParseError(
+                f"Impossible de lire la carte {self.file_path!r}: "
+                f"{exc.strerror or str(exc)}"
+            ) from exc
 
     # --- Parsing des zones ---
     def parse_hub_zone(
@@ -245,7 +252,7 @@ class Parser:
         self.start_zone = None
         self.end_zone = None
         self.read()
-        self.parse_ligne()
+        self.parse_lines()
         if self.nb_drones is None:
             raise ParseError(
                 "nb_drones manquant."
@@ -286,7 +293,7 @@ class Parser:
         }
 
     # --- Parsing des lignes ---
-    def parse_ligne(self) -> None:
+    def parse_lines(self) -> None:
         if not self.lines:
             raise ParseError("No lines to parse. Please read the file first.")
 

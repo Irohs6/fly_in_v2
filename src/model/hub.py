@@ -57,8 +57,6 @@ class Hub:
             return 2.0
         elif self.zone_type == "blocked":
             return float("inf")
-        elif self.zone_type == "priority":
-            return 0.9
         return 1.0
 
     def transit_duration(self) -> int:

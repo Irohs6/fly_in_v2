@@ -93,6 +93,7 @@ def main() -> int:
             simulation = Simulation(
                 graph,
                 pathfinder=pathfinder,
+                record_replay=False,
             )
 
             simulation.load_drones(

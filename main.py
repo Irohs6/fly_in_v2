@@ -1,20 +1,27 @@
+import argparse
+import sys
+
 from src.controller.controller import Controller
 from src.parser.parser import ParseError
 
 
 def main() -> int:
-    import sys
-
-    map_path = (
-        sys.argv[1]
-        if len(sys.argv) > 1
-        else "assets/maps/easy/02_simple_fork.txt"
+    """Parse les options et lance la simulation dans le mode demandé."""
+    parser = argparse.ArgumentParser(description="Simulate drone routing.")
+    parser.add_argument(
+        "map", nargs="?", default="assets/maps/easy/02_simple_fork.txt",
+        help="Map file to simulate.",
     )
+    parser.add_argument(
+        "--no-gui", action="store_true",
+        help="Print movements without Pygame or replay recording.",
+    )
+    args = parser.parse_args()
     try:
-        controller = Controller(map_path)
-        controller.run()
-    except (FileNotFoundError, ParseError) as exc:
-        print(f"Erreur: {exc}")
+        controller = Controller(args.map)
+        controller.run(gui=not args.no_gui)
+    except (OSError, ParseError) as exc:
+        print(f"Erreur: {exc}", file=sys.stderr)
         return 1
     except KeyboardInterrupt:
         print("Simulation interrupted.", file=sys.stderr)

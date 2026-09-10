@@ -98,22 +98,19 @@ class ReplayPlayer:
             self.current_index
         ]
 
+        representatives: dict[str, int] = {}
         for drone_id, state in current_frame.drones.items():
-
             if state.source == state.target:
-                first_id = min(
-                    (
-                        current_id
-                        for current_id, current_state
-                        in current_frame.drones.items()
-                        if current_state.source == state.source
-                        and current_state.target == state.target
-                    ),
-                    default=None,
+                representatives[state.source] = min(
+                    drone_id, representatives.get(state.source, drone_id),
                 )
 
-                if drone_id != first_id:
-                    continue
+        for drone_id, state in current_frame.drones.items():
+            if (
+                state.source == state.target
+                and drone_id != representatives[state.source]
+            ):
+                continue
 
             position = self._state_position(
                 state

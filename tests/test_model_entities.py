@@ -108,7 +108,7 @@ def test_hub_capacity_and_move_cost_rules() -> None:
 
     assert restricted.move_cost() == 2.0
     assert blocked.move_cost() == float("inf")
-    assert priority.move_cost() == 0.9
+    assert priority.move_cost() == 1.0
     assert normal.move_cost() == 1.0
 
 

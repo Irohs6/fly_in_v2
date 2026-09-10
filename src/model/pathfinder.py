@@ -23,15 +23,19 @@ class Dijkstra:
             hub: None for hub in self.graph.hubs.values()}
 
         distances[source] = 0
+        # À durée égale, maximiser le nombre de zones priority traversées.
+        priorities: dict[Hub, int] = {
+            hub: 0 for hub in self.graph.hubs.values()
+        }
 
         queue_counter = count()
-        queue: list[tuple[float, int, Hub]] = [
-            (0, next(queue_counter), source)
+        queue: list[tuple[float, int, int, Hub]] = [
+            (0, 0, next(queue_counter), source)
         ]
         visited: set[Hub] = set()
 
         while queue:
-            current_distance, _, current_hub = heappop(queue)
+            current_distance, priority_score, _, current_hub = heappop(queue)
 
             if current_hub in visited:
                 continue
@@ -50,12 +54,9 @@ class Dijkstra:
                 if neighbor.zone_type == "blocked":
                     continue
 
-                if saturated_conns and any(
-                    connection.connects(
-                        saturated_source,
-                        saturated_target
-                    )
-                    for saturated_source, saturated_target
+                if saturated_conns and (
+                    (connection.source, connection.target) in saturated_conns
+                    or (connection.target, connection.source)
                     in saturated_conns
                 ):
                     continue
@@ -67,13 +68,20 @@ class Dijkstra:
 
                 new_distance = current_distance + weight
 
-                if new_distance < distances[neighbor]:
+                new_priority = priority_score - int(
+                    neighbor.zone_type == "priority"
+                )
+                if (new_distance, new_priority) < (
+                    distances[neighbor], priorities[neighbor]
+                ):
                     distances[neighbor] = new_distance
+                    priorities[neighbor] = new_priority
                     predecessors[neighbor] = current_hub
 
                     heappush(
                         queue,
-                        (new_distance, next(queue_counter), neighbor),
+                        (new_distance, new_priority,
+                         next(queue_counter), neighbor),
                     )
 
         return distances, predecessors

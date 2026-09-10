@@ -13,6 +13,8 @@ class Simulation:
         self,
         graph: Graph,
         pathfinder: Dijkstra | None = None,
+        *,
+        record_replay: bool = True,
     ) -> None:
         self.graph = graph
         self.drones: list[Drone] = []
@@ -20,12 +22,13 @@ class Simulation:
         # Hub atteint ou connexion occupée, sans formatage terminal.
         self.movements_log: list[dict[int, Hub | Connection]] = []
 
-        self.ph = (
+        self.pathfinder = (
             pathfinder
             if pathfinder is not None
             else Dijkstra(graph)
         )
         self.recorder = Recorder()
+        self.record_replay = record_replay
 
     def load_drones(self, nb_drones: int) -> None:
         """Crée les drones dans le hub de départ."""
@@ -33,7 +36,7 @@ class Simulation:
             raise RuntimeError(
                 "Drones have already been loaded."
             )
-        path = self.ph.shortest_path()
+        path = self.pathfinder.shortest_path()
 
         for index in range(nb_drones):
             drone = Drone(
@@ -103,7 +106,7 @@ class Simulation:
         if drone.current_zone is None:
             return False
 
-        path = self.ph.shortest_path(
+        path = self.pathfinder.shortest_path(
             source=drone.current_zone,
             blocked_zones=blocked_zones,
             saturated_conns=saturated_connections,
@@ -228,9 +231,11 @@ class Simulation:
 
         if drone.in_transit:
             self._process_transit(drone, movements)
-            return
+        else:
+            self._try_drone_move(drone, movements)
 
-        self._try_drone_move(drone, movements)
+        if drone.current_zone == self.graph.end_zone:
+            drone.deliver()
 
     def _process_transit(
         self,
@@ -293,6 +298,8 @@ class Simulation:
     def _record_tour(self) -> None:
         """Enregistre l'état courant pour le replay."""
 
+        if not self.record_replay:
+            return
         self.recorder.record(
             self.turn,
             self.drones,

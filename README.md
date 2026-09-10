@@ -48,7 +48,7 @@ The routing engine uses **Dijkstra's algorithm** with dynamic replanning:
 3. If a hub or connection is saturated, the drone retries Dijkstra from its current position, excluding unavailable resources. If no alternative is found, it waits.
 4. Entering a `restricted` hub takes two turns: the drone occupies the connection on the first turn and arrives on the next. The destination is reserved before transit begins, so the drone cannot be left waiting on the connection.
 5. A departing drone frees hub capacity immediately, allowing a later drone in the same turn to use it.
-6. `Simulation` logs the reached `Hub` or occupied `Connection`; `TerminalView` formats the output. `Recorder` separately captures the initial state and each completed turn for Pygame replay.
+6. `Simulation` logs the reached `Hub` or occupied `Connection`; `TerminalView` formats the output. `Recorder` captures the initial state and each completed turn when replay recording is enabled. Terminal-only mode skips these snapshots.
 
 Runtime depends on the number of turns, drones, and rerouting attempts. A drone can trigger multiple Dijkstra searches in one turn; each search also checks the excluded connections.
 
@@ -57,7 +57,7 @@ Runtime depends on the number of turns, drones, and rerouting attempts. A drone 
 | Zone type | Duration (turns) | Notes |
 |---|---|---|
 | `normal` | 1 | Default |
-| `priority` | 1 | Currently uses a Dijkstra weight of `0.9` to favor it |
+| `priority` | 1 | Dijkstra uses cost `1`; equal-duration paths favor more priority hubs |
 | `restricted` | 2 | Drone must complete transit next turn |
 | `blocked` | ∞ | Impassable |
 
@@ -105,9 +105,20 @@ make run MAP=assets/maps/easy/01_linear_path.txt
 # Or directly
 poetry run python main.py assets/maps/easy/01_linear_path.txt
 
+# Terminal only: no Pygame import and no replay frames
+poetry run python main.py assets/maps/easy/01_linear_path.txt --no-gui
+make run MAP=assets/maps/easy/01_linear_path.txt ARGS=--no-gui
+
+# Export movements to a text file
+poetry run python main.py assets/maps/easy/01_linear_path.txt --no-gui > movements.txt
+
 # Debug mode (pdb)
 make debug MAP=assets/maps/easy/01_linear_path.txt
 ```
+
+Creating a `Controller` only prepares its configuration. Call `controller.run()` for simulation and graphical replay, or `controller.run(gui=False)` for terminal output only. Each call starts a fresh simulation. Pygame is imported only for graphical execution.
+
+For direct model usage, `Simulation(graph, record_replay=False)` disables replay snapshots; `simulation.recorder.frames` stays empty. The movement log is still retained. Recording remains enabled by default.
 
 ### Lint & type checking
 
