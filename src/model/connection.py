@@ -3,7 +3,11 @@ from .errors import ConnectionError
 
 
 class Connection:
+    """Connexion bidirectionnelle avec capacité et occupation courante."""
     def __init__(self, source: Hub, target: Hub, capacity: int | float):
+        """Relie source et target avec la capacité donnée et une occupation
+        nulle.
+        """
         self.source = source
         self.target = target
         self.capacity = capacity
@@ -18,15 +22,14 @@ class Connection:
         self.nb_drones += 1
 
     def is_available(self) -> bool:
+        """Indique si la connexion peut accueillir un drone supplémentaire."""
         return self.nb_drones < self.capacity
 
-    def connects(self, source: Hub, target: Hub) -> bool:
-        return (
-            (self.source is source and self.target is target)
-            or (self.source is target and self.target is source)
-        )
-
     def get_other_hub(self, hub: Hub) -> Hub:
+        """Retourne l’autre extrémité de la connexion.
+
+        Lève ConnectionError si hub ne fait pas partie de la connexion.
+        """
         if self.source is hub:
             return self.target
 
@@ -38,12 +41,17 @@ class Connection:
         )
 
     def __str__(self) -> str:
+        """Décrit les extrémités, la capacité et l’occupation de la connexion.
+        """
         return (
             f"Connection(source={self.source.name}, target={self.target.name},"
             f" capacity={self.capacity}, nb_drones={self.nb_drones})"
         )
 
     def __repr__(self) -> str:
+        """Retourne une représentation détaillée de la connexion pour le
+        débogage.
+        """
         return (
             f"Connection(source={self.source.name}, target={self.target.name},"
             f" capacity={self.capacity}, nb_drones={self.nb_drones})"

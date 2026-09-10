@@ -1,7 +1,0 @@
-1-start -> fast_junction 2-start -> slow_path1 [TRANSIT]
-1-fast_junction -> fast_path 2-start -> slow_path1 3-start -> fast_junction
-1-fast_path -> merge_point 2-slow_path1 -> slow_path2 3-fast_junction -> fast_path 4-start -> fast_junction 5-start -> slow_path1 [TRANSIT]
-1-merge_point -> goal 2-slow_path2 -> merge_point 3-fast_path -> merge_point 4-fast_junction -> fast_path 5-start -> slow_path1
-2-merge_point -> goal 3-merge_point -> goal 4-fast_path -> merge_point 5-slow_path1 -> slow_path2
-4-merge_point -> goal 5-slow_path2 -> merge_point
-5-merge_point -> goal

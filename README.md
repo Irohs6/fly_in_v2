@@ -147,9 +147,11 @@ poetry run python tests/test_all_maps_terminal.py --output-dir /tmp/fly-in-repor
 ### Clean
 
 ```bash
-make clean    # removes __pycache__, .mypy_cache
+make clean    # removes Python bytecode, caches and generated map reports
 make fclean   # also removes the virtual environment
 ```
+
+`make clean` removes `tests/results_by_map/` and `tests/results_maps_terminal.txt`. It preserves Git data and virtual environments (`.venv`, `.venv-*`, `venv`).
 
 ---
 

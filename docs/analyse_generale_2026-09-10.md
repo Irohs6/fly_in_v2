@@ -167,3 +167,12 @@ Les constats sur les erreurs de lecture, les docstrings et les anciens diagnosti
 Le constat A sur les erreurs de lecture est résolu pour les cas identifiés : le parser transforme les erreurs système de lecture et les erreurs de décodage UTF-8 en `ParseError` contextualisées. Le point d’entrée traite également les `OSError` pouvant survenir pendant la résolution du chemin. Les diagnostics sont écrits sur stderr et le programme retourne 1, sans traceback.
 
 Dix tests supplémentaires couvrent dossier, fichier absent et mauvais encodage dans les deux modes de lancement, ainsi que des erreurs de permissions et d’entrée/sortie simulées. Résultat : 144 tests passent, ainsi que `make lint`. Les autres réserves du rapport ne sont pas levées par cette correction.
+
+
+## Suivi — docstrings et usages
+
+Les 134 classes et fonctions de `main.py` et `src` disposent maintenant d’une docstring, constructeurs et méthodes privées compris. Les contrats de transit, les coûts et exclusions du pathfinding, les données du replay et les erreurs attendues sont précisés. Les ajouts initiaux ont été vérifiés par comparaison AST en retirant les docstrings : ils ne changeaient pas le code exécutable.
+
+La recherche des références dans le code et les tests a confirmé trois éléments inutilisés, désormais supprimés : `GraphError`, `Connection.connects()` et `CoordinateSystem.get()`. Les méthodes spéciales Python (`__init__`, `__str__`, `__repr__`) sont conservées pour leurs appels implicites. `Dijkstra.distance_to()` est conservée comme API de coût utilisée dans les tests. Cette analyse statique et la relecture des usages ne constituent pas une preuve d’absence de toute branche morte.
+
+La suite de 144 tests passe après ces suppressions. Les anciennes réserves concernant l’absence de docstrings dans le code applicatif sont levées ; les docstrings des fonctions de test n’ont pas été incluses dans ce comptage.

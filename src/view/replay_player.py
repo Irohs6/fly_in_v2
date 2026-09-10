@@ -21,6 +21,8 @@ class ReplayPlayer:
         hub_positions: dict[str, tuple[float, float]],
         frames: list[ReplayFrame],
     ) -> None:
+        """Associe les positions monde aux frames et sélectionne la première.
+        """
         self.hub_positions = hub_positions
         self.frames = frames
 
@@ -31,6 +33,8 @@ class ReplayPlayer:
         drone_id: int,
     ) -> tuple[int, int, int]:
 
+        """Associe un identifiant de drone à une couleur stable de la palette.
+        """
         color_index = (
             drone_id - 1
         ) % len(self.DRONE_COLORS)
@@ -38,6 +42,7 @@ class ReplayPlayer:
         return self.DRONE_COLORS[color_index]
 
     def handle_event(self, event: pygame.event.Event) -> None:
+        """Traite les flèches et R ; ignore les autres événements."""
         if event.type != pygame.KEYDOWN:
             return
 
@@ -51,6 +56,7 @@ class ReplayPlayer:
             self.restart()
 
     def next_turn(self) -> None:
+        """Sélectionne la frame suivante sans dépasser la dernière."""
         if not self.frames:
             return
 
@@ -60,18 +66,22 @@ class ReplayPlayer:
         )
 
     def previous_turn(self) -> None:
+        """Sélectionne la frame précédente sans passer avant la première."""
         self.current_index = max(
             self.current_index - 1,
             0,
         )
 
     def restart(self) -> None:
+        """Replace la sélection au début du replay."""
         self.current_index = 0
 
     def _state_position(
         self,
         state: DroneReplayState,
     ) -> tuple[float, float]:
+        """Interpole la position monde à partir des extrémités et de progress.
+        """
         source = self.hub_positions[state.source]
         target = self.hub_positions[state.target]
 
@@ -89,6 +99,12 @@ class ReplayPlayer:
         camera: Camera,
         font: pygame.font.Font,
     ) -> None:
+        """Dessine les drones de la frame sélectionnée.
+
+        Affiche le plus petit identifiant par hub et tous les drones en
+        transit. Convertit leurs positions monde en positions écran avec la
+        caméra.
+        """
         if not self.frames:
             return
 
@@ -137,6 +153,7 @@ class ReplayPlayer:
         drone_id: int,
         font: pygame.font.Font,
     ) -> None:
+        """Dessine un triangle coloré et l’identifiant du drone à l’écran."""
         color = self._drone_color(drone_id)
 
         size = 10
@@ -179,6 +196,7 @@ class ReplayPlayer:
         screen: pygame.Surface,
         font: pygame.font.Font,
     ) -> None:
+        """Affiche le tour sélectionné, le dernier tour et les commandes."""
         if not self.frames:
             return
 

@@ -9,7 +9,9 @@ from .replay import (
 
 class Recorder:
 
+    """Collecte les états des drones et hubs pour le replay."""
     def __init__(self) -> None:
+        """Prépare une liste vide de frames enregistrées."""
         self.frames: list[ReplayFrame] = []
 
     def record(
@@ -18,6 +20,12 @@ class Recorder:
         drones: list[Drone],
         hubs: dict[str, Hub],
     ) -> None:
+        """Ajoute une frame du tour avec les états courants des drones et
+        hubs.
+
+        Les valeurs sont copiées dans des états de replay indépendants des
+        objets métier. Le graphe et les drones ne sont pas modifiés.
+        """
         drone_states: dict[int, DroneReplayState] = {}
 
         for drone in drones:
@@ -46,6 +54,10 @@ class Recorder:
         drone: Drone,
     ) -> DroneReplayState:
 
+        """Retourne l’état de replay du drone sur un hub ou en transit.
+
+        Lève RuntimeError si le drone n’a ni transit actif ni hub courant.
+        """
         if drone.in_transit:
             return self._transit_state(drone)
 
@@ -68,6 +80,10 @@ class Recorder:
         drone: Drone,
     ) -> DroneReplayState:
 
+        """Retourne les extrémités et la progression du transit entre 0 et 1.
+
+        Lève RuntimeError si le hub précédent ou la connexion est absent.
+        """
         if (
             drone.previous_zone is None
             or drone.moving_connection is None

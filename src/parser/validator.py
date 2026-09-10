@@ -24,6 +24,11 @@ class MapValidator:
         connection_entries: list[tuple[ConnectionDict, int]],
     ) -> None:
 
+        """Conserve les données parsées et leurs lignes pour la validation.
+
+        zone_entries et connection_entries associent chaque déclaration à
+        son numéro de ligne pour contextualiser les erreurs.
+        """
         self.nb_drones = nb_drones
         self.start_hub = start_hub
         self.end_hub = end_hub
@@ -43,6 +48,7 @@ class MapValidator:
         self._check_reachable_end()
 
     def _validate_nb_drones(self) -> None:
+        """Lève ValidationError si l’effectif n’est pas un entier positif."""
         if not isinstance(self.nb_drones, int):
             raise ValidationError(
                 "Ligne 1: définition nb_drones manquante."
@@ -97,6 +103,10 @@ class MapValidator:
                 )
 
     def _validate_connections(self) -> None:
+        """Vérifie les clés et capacités des connexions déclarées.
+
+        Lève ValidationError avec la ligne de la déclaration incorrecte.
+        """
         for connection, line in self.connection_entries:
 
             # Vérification des clés inconnues
@@ -126,6 +136,7 @@ class MapValidator:
                 )
 
     def _check_unique_zone_names(self) -> None:
+        """Rejette les noms de hubs dupliqués en indiquant leurs lignes."""
         names: dict[str, int] = {}
         for hub, line in self.zone_entries:
             name = hub["name"]
@@ -138,6 +149,10 @@ class MapValidator:
             names[name] = line
 
     def _check_connection_endpoints(self) -> None:
+        """Vérifie que chaque extrémité existe et précède sa connexion.
+
+        Lève ValidationError si un hub est inconnu ou défini trop tard.
+        """
         definition_lines = {
             hub["name"]: line for hub, line in self.zone_entries
         }
@@ -155,6 +170,7 @@ class MapValidator:
                     )
 
     def _check_duplicate_connections(self) -> None:
+        """Rejette une connexion répétée, y compris dans le sens inverse."""
         checked_conn: dict[tuple[str, str], int] = {}
 
         for connection, line in self.connection_entries:

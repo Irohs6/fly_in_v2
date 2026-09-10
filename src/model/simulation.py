@@ -16,6 +16,12 @@ class Simulation:
         *,
         record_replay: bool = True,
     ) -> None:
+        """Prépare la simulation sur graph sans charger de drones.
+
+        Utilise le pathfinder fourni ou crée un Dijkstra. record_replay
+        contrôle l’enregistrement des frames ; le journal des mouvements
+        reste conservé.
+        """
         self.graph = graph
         self.drones: list[Drone] = []
         self.turn = 0
@@ -58,7 +64,12 @@ class Simulation:
         connection: Connection,
         target_zone: Hub,
     ) -> None:
-        """Demande au drone de se déplacer vers une zone cible """
+        """Applique un mouvement dont les capacités ont été vérifiées.
+
+        Libère le hub de départ. Pour restricted, commence le transit et
+        réserve la destination ; sinon, occupe immédiatement le hub cible.
+        Lève RuntimeError si le drone n’a pas de hub courant.
+        """
         current_zone = drone.current_zone
 
         if current_zone is None:
@@ -296,7 +307,7 @@ class Simulation:
     # ==============================================================
 
     def _record_tour(self) -> None:
-        """Enregistre l'état courant pour le replay."""
+        """Enregistre le tour si record_replay est activé."""
 
         if not self.record_replay:
             return

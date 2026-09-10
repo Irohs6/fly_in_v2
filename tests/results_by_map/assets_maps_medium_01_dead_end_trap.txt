@@ -1,8 +1,0 @@
-1-start -> junction 2-start -> junction
-1-junction -> correct_path 3-start -> junction
-1-correct_path -> intermediate 2-junction -> correct_path 4-start -> junction
-1-intermediate -> goal 2-correct_path -> intermediate 3-junction -> correct_path 5-start -> junction
-2-intermediate -> goal 3-correct_path -> intermediate 4-junction -> correct_path
-3-intermediate -> goal 4-correct_path -> intermediate 5-junction -> correct_path
-4-intermediate -> goal 5-correct_path -> intermediate
-5-intermediate -> goal

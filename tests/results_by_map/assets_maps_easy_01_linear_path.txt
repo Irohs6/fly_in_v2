@@ -1,4 +1,0 @@
-1-start -> waypoint1
-1-waypoint1 -> waypoint2 2-start -> waypoint1
-1-waypoint2 -> goal 2-waypoint1 -> waypoint2
-2-waypoint2 -> goal

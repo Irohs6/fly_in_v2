@@ -5,9 +5,11 @@ from .connection import Connection
 
 
 class Graph:
+    """Graphe de hubs avec connexions bidirectionnelles indexées."""
     def __init__(self, data: ParsedMap) -> None:
 
         # Stockage des hubs et connexions
+        """Construit les hubs et leurs index à partir d’une carte validée."""
         self.hubs: dict[str, Hub] = {
             hub["name"]: Hub(**hub) for hub in data.get("hubs", [])
         }
@@ -36,6 +38,11 @@ class Graph:
         self,
         raw_connections: list[ConnectionDict],
     ) -> list[Connection]:
+        """Construit les connexions à partir des noms de hubs.
+
+        Retourne la liste des connexions et lève ValueError si une
+        extrémité est inconnue.
+        """
         built_connections: list[Connection] = []
 
         for conn in raw_connections:
@@ -87,7 +94,11 @@ class Graph:
         ] = connection
 
     def get_neighbors(self, zone: Hub) -> list[Connection]:
+        """Retourne les connexions incidentes au hub, ou une liste vide."""
         return self.adjacency.get(zone.name, [])
 
     def get_connection(self, source: Hub, target: Hub) -> Connection | None:
+        """Retourne la connexion entre source et target, ou None si elle
+        manque.
+        """
         return self.connection_map.get((source, target))

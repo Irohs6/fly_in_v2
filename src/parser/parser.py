@@ -4,6 +4,7 @@ from typing import TypedDict
 
 
 class HubDict(TypedDict):
+    """Données d’un hub parsé : identité, coordonnées, type et capacité."""
     name: str
     x: int
     y: int
@@ -13,12 +14,14 @@ class HubDict(TypedDict):
 
 
 class ConnectionDict(TypedDict):
+    """Noms des extrémités et capacité d’une connexion parsée."""
     source: str
     target: str
     capacity: float
 
 
 class ParsedMap(TypedDict):
+    """Carte validée avec effectif, hubs terminaux et connexions."""
     map_path: str
     nb_drones: int
     start_hub: HubDict
@@ -37,6 +40,7 @@ class Parser:
     """Parser orienté objet pour les fichiers Fly-in."""
 
     def __init__(self, file_path: str):
+        """Mémorise le fichier et initialise l’état de parsing sans le lire."""
         self.file_path = file_path
         self.lines: list[tuple[int, str]] = []
         self.hub_zones: list[HubDict] = []
@@ -49,7 +53,11 @@ class Parser:
 
     # --- Lecture du fichier ---
     def read(self) -> None:
-        """Lit le fichier Fly-in, supprime les commentaires et lignes vides."""
+        """Lit la carte UTF-8 en ignorant lignes vides et commentaires seuls.
+
+        Conserve les numéros de ligne et traduit les erreurs de lecture
+        ou de décodage en ParseError avec le chemin du fichier.
+        """
         self.lines = []
         try:
             with open(self.file_path, "r", encoding="utf-8") as maps_file:
@@ -294,6 +302,12 @@ class Parser:
 
     # --- Parsing des lignes ---
     def parse_lines(self) -> None:
+        """Interprète les lignes lues en conservant leurs numéros.
+
+        Exige nb_drones en première ligne utile, puis reconnaît les
+        déclarations de hubs et de connexions. Lève ParseError pour une
+        syntaxe invalide.
+        """
         if not self.lines:
             raise ParseError("No lines to parse. Please read the file first.")
 

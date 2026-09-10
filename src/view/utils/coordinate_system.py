@@ -12,6 +12,8 @@ class CoordinateSystem:
         self,
         cell_size: int = 400,
     ) -> None:
+        """Prépare les positions monde avec cell_size comme facteur d’échelle.
+        """
         self.cell_size = cell_size
         self.world_positions: dict[
             str,
@@ -23,6 +25,13 @@ class CoordinateSystem:
         hubs: Iterable["Hub"],
     ) -> dict[str, tuple[float, float]]:
 
+        """Centre les hubs et retourne leurs positions monde par nom.
+
+        Utilise le centre de la boîte englobante et applique cell_size.
+        Remplace les positions mémorisées pour une entrée non vide ;
+        retourne un dictionnaire vide sans les modifier si aucun hub n’est
+        fourni.
+        """
         hub_list = list(hubs)
 
         if not hub_list:
@@ -46,9 +55,3 @@ class CoordinateSystem:
         }
 
         return self.world_positions
-
-    def get(
-        self,
-        hub_name: str,
-    ) -> tuple[float, float] | None:
-        return self.world_positions.get(hub_name)

@@ -30,9 +30,15 @@ lint-strict:
 	poetry run flake8 . --exclude=.venv ; poetry run mypy . --strict --exclude .venv
 
 clean:
-	find . -type d -name __pycache__ -exec rm -rf {} +
-	find . -name "*.pyc" -delete
-	find . -name ".mypy_cache" -exec rm -rf {} +
+	find . \
+		\( -name .git -o -name .venv -o -name '.venv-*' \
+		-o -name venv \) -prune -o \
+		-type d \( -name __pycache__ -o -name .mypy_cache \
+		-o -name .pytest_cache -o -name .ruff_cache \) \
+		-prune -exec rm -rf {} + -o \
+		-type f \( -name '*.pyc' -o -name '*.pyo' \) -exec rm -f {} +
+	rm -rf tests/results_by_map
+	rm -f tests/results_maps_terminal.txt
 
 fclean: clean
 	poetry env remove --all

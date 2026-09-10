@@ -1,4 +1,0 @@
-1-start -> bottleneck 2-start -> bottleneck
-1-bottleneck -> wide_area 2-bottleneck -> wide_area 3-start -> bottleneck 4-start -> bottleneck
-1-wide_area -> goal 2-wide_area -> goal 3-bottleneck -> wide_area 4-bottleneck -> wide_area
-3-wide_area -> goal 4-wide_area -> goal

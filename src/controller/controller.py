@@ -14,6 +14,9 @@ class Controller:
     """Orchestrates the application components."""
 
     def __init__(self, map_path: str | Path):
+        """Prépare le chemin et le parser sans lire la carte ni lancer de
+        simulation.
+        """
         self.map_path = Path(map_path)
         self.parser = Parser(str(self.map_path))
 

@@ -10,6 +10,7 @@ from src.view.utils.coordinate_system import CoordinateSystem
 
 class PygameView:
 
+    """Fenêtre interactive affichant le réseau et les frames du replay."""
     SCREEN_W = 0
     SCREEN_H = 0
     CELL_SIZE = 160
@@ -19,10 +20,16 @@ class PygameView:
         graph: Graph,
         replay_frames: list[ReplayFrame],
     ) -> None:
+        """Mémorise le graphe et les frames sans ouvrir la fenêtre."""
         self.graph = graph
         self.replay_frames = replay_frames
 
     def display(self) -> None:
+        """Ouvre la fenêtre et traite les événements jusqu’à la fermeture.
+
+        Affiche les frames via ReplayPlayer, permet zoom et déplacement
+        avec Camera, puis ferme Pygame à la sortie normale de la boucle.
+        """
         pygame.init()
 
         screen = pygame.display.set_mode(

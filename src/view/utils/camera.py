@@ -5,6 +5,7 @@ class Camera:
     """
 
     def __init__(self, zoom_min: float = 0.15, zoom_max: float = 5.0) -> None:
+        """Initialise une caméra centrée avec les limites de zoom fournies."""
         self.zoom = 1.0
         self.pan_x = 0.0
         self.pan_y = 0.0

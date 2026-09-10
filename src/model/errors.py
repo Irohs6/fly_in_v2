@@ -2,6 +2,7 @@
 class ConnectionError(Exception):
     """Custom exception for connection-related errors."""
     def __init__(self, message: str = "Connection error") -> None:
+        """Conserve le message décrivant l’erreur de connexion."""
         self.message = message
         super().__init__(self.message)
 
@@ -9,12 +10,6 @@ class ConnectionError(Exception):
 class HubError(Exception):
     """Custom exception for hub-related errors."""
     def __init__(self, message: str = "Hub error") -> None:
-        self.message = message
-        super().__init__(self.message)
-
-
-class GraphError(Exception):
-    """Custom exception for graph-related errors."""
-    def __init__(self, message: str = "Graph error") -> None:
+        """Conserve le message décrivant l’erreur de hub."""
         self.message = message
         super().__init__(self.message)
