@@ -41,9 +41,7 @@ class Drone:
             raise RuntimeError(
                 f"Drone {self.drone_id} is not currently in any hub."
             )
-        old_zone = self.current_zone
-
-        self.previous_zone = old_zone
+        self.previous_zone = self.current_zone
         self.current_zone = zone
 
         self._complete_path_step(zone)
@@ -65,11 +63,8 @@ class Drone:
             raise RuntimeError(
                 f"Drone {self.drone_id} is already in transit."
             )
-        old_zone = self.current_zone
-
-        self.previous_zone = old_zone
+        self.previous_zone = self.current_zone
         self.current_zone = None
-        # Drone is now in transit, so current_zone is temporarily None
 
         self.moving_connection = connection
 
@@ -77,7 +72,7 @@ class Drone:
 
         self.transit_cost = duration
 
-        # le premier tour de deplqcement vien de commencer.
+        # Le tour de départ compte comme premier tour de transit.
         self.transit_turns = 1
 
         self.status = "in_transit"
@@ -104,35 +99,20 @@ class Drone:
         Retourne le hub atteint après avoir consommé l’étape du chemin.
         Lève RuntimeError si la connexion ou le hub de départ manque.
         """
-        if self.moving_connection is None:
+        if self.moving_connection is None or self.previous_zone is None:
             raise RuntimeError(
-                f"{self.drone_id} has no moving connection."
+                f"Drone {self.drone_id}: missing connection or departure hub."
             )
 
-        if self.previous_zone is None:
-            raise RuntimeError(
-                f"{self.drone_id} has no previous zone."
-            )
-
-        connection = self.moving_connection
-
-        destination = connection.get_other_hub(
-            self.previous_zone
-        )
-
+        destination = self.moving_connection.get_other_hub(self.previous_zone)
         self.current_zone = destination
-
-        self.in_transit = False
-
-        self.transit_cost = 0
-        self.transit_turns = 0
-
-        self.moving_connection = None
-
         self._complete_path_step(destination)
-
         self.status = "moving"
 
+        self.in_transit = False
+        self.transit_cost = 0
+        self.transit_turns = 0
+        self.moving_connection = None
         return destination
 
     def wait(self) -> None:

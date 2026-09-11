@@ -40,14 +40,6 @@ class Connection:
             f"Hub {hub.name} is not connected by this connection."
         )
 
-    def __str__(self) -> str:
-        """Décrit les extrémités, la capacité et l’occupation de la connexion.
-        """
-        return (
-            f"Connection(source={self.source.name}, target={self.target.name},"
-            f" capacity={self.capacity}, nb_drones={self.nb_drones})"
-        )
-
     def __repr__(self) -> str:
         """Retourne une représentation détaillée de la connexion pour le
         débogage.

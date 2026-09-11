@@ -42,33 +42,10 @@ class Controller:
             )
             self.view.display()
 
-    def _resolve_map_path(
-        self,
-        map_path: str | Path,
-    ) -> Path:
-        """Resolve the path to the map file."""
-
-        path = Path(map_path)
-
-        if path.exists():
-            return path.resolve()
-
-        project_root = Path(__file__).resolve().parents[2]
-
-        cleaned_parts = [
-            part
-            for part in path.parts
-            if part not in (".", "..")
-        ]
-
-        return project_root.joinpath(
-            *cleaned_parts
-        ).resolve()
-
     def load_map(self) -> ParsedMap:
         """Parse and return the map data."""
 
-        self.parser.file_path = str(self._resolve_map_path(self.map_path))
+        self.parser.file_path = str(self.map_path)
         parsed_data = self.parser.parse()
         self.data = parsed_data
 

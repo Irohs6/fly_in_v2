@@ -65,18 +65,3 @@ def test_permission_denied_at_entry_point(
     assert captured.out == ""
     assert "Permission denied" in captured.err
     assert "Traceback" not in captured.err
-
-
-def test_path_resolution_os_error_is_reported(
-    monkeypatch: pytest.MonkeyPatch,
-    capsys: pytest.CaptureFixture[str],
-) -> None:
-    monkeypatch.setattr(sys, "argv", ["main.py", "--no-gui"])
-    with patch.object(Path, "resolve", side_effect=OSError(
-        errno.EACCES, "Permission denied",
-    )):
-        assert main.main() == 1
-    captured = capsys.readouterr()
-    assert captured.out == ""
-    assert "Permission denied" in captured.err
-    assert "Traceback" not in captured.err
