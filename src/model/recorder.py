@@ -1,5 +1,6 @@
 from .drone import Drone
 from .hub import Hub
+from .connection import Connection
 from .replay import (
     DroneReplayState,
     HubReplayState,
@@ -54,19 +55,11 @@ class Recorder:
         drone: Drone,
     ) -> DroneReplayState:
 
-        """Retourne l’état de replay du drone sur un hub ou en transit.
-
-        Lève RuntimeError si le drone n’a ni transit actif ni hub courant.
-        """
-        if drone.in_transit:
+        """Retourne l’état de replay du drone sur un hub ou en transit."""
+        if isinstance(drone.current_position, Connection):
             return self._transit_state(drone)
 
-        if drone.current_zone is None:
-            raise RuntimeError(
-                f"{drone.drone_id} has no current zone."
-            )
-
-        zone_name = drone.current_zone.name
+        zone_name = drone.current_position.name
 
         return DroneReplayState(
             source=zone_name,
@@ -86,7 +79,7 @@ class Recorder:
         """
         if (
             drone.previous_zone is None
-            or drone.moving_connection is None
+            or not isinstance(drone.current_position, Connection)
         ):
             raise RuntimeError(
                 f"Invalid transit state for {drone.drone_id}."
@@ -94,16 +87,14 @@ class Recorder:
 
         source = drone.previous_zone
 
-        target = (
-            drone.moving_connection.get_other_hub(source)
-        )
+        target = drone.current_position.get_extremities(source)
 
         progress = 0.0
 
-        if drone.transit_cost > 0:
+        if drone.transit_duration > 0:
             progress = (
                 drone.transit_turns
-                / drone.transit_cost
+                / drone.transit_duration
             )
 
         progress = max(

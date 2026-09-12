@@ -10,23 +10,19 @@ class Drone:
     def __init__(
         self,
         drone_id: int,
-        current_zone: Hub
+        current_position: Hub
     ) -> None:
-        """Place un drone identifié dans current_zone, sans chemin ni transit.
-        """
+        """Place le drone dans un hub, sans chemin ni transit."""
         self.drone_id = drone_id
 
-        self.current_zone: Hub | None = current_zone
+        self.current_position: Hub | Connection = current_position
         self.previous_zone: Hub | None = None
 
         self.path: list[Hub] = []
         self.status: str = "idle"
 
-        self.in_transit = False
-        self.transit_cost = 0
+        self.transit_duration = 0
         self.transit_turns = 0
-
-        self.moving_connection: Connection | None = None
 
     def move_to_zone(
         self,
@@ -37,14 +33,14 @@ class Drone:
         Mémorise le hub précédent et passe le statut à moving. Lève
         RuntimeError si le drone n’est pas actuellement dans un hub.
         """
-        if self.current_zone is None:
+        if isinstance(self.current_position, Connection):
             raise RuntimeError(
                 f"Drone {self.drone_id} is not currently in any hub."
             )
-        self.previous_zone = self.current_zone
-        self.current_zone = zone
+        self.previous_zone = self.current_position
+        self.current_position = zone
 
-        self._complete_path_step(zone)
+        self.path.pop(0)
 
         self.status = "moving"
 
@@ -55,26 +51,19 @@ class Drone:
     ) -> None:
         """Commence le premier des duration tours sur connection.
 
-        Le hub actuel devient le hub précédent, puis current_zone devient
-        None. Lève RuntimeError si le drone n’a pas de hub de départ. Les
-        réservations et capacités sont gérées par Simulation.
+        Le hub actuel devient le hub précédent et la connexion devient
+        la position courante. Lève RuntimeError sans hub de départ.
+        Les réservations et capacités sont gérées par Simulation.
         """
-        if self.current_zone is None:
+        if isinstance(self.current_position, Connection):
             raise RuntimeError(
                 f"Drone {self.drone_id} is already in transit."
             )
-        self.previous_zone = self.current_zone
-        self.current_zone = None
-
-        self.moving_connection = connection
-
-        self.in_transit = True
-
-        self.transit_cost = duration
-
+        self.previous_zone = self.current_position
+        self.current_position = connection
+        self.transit_duration = duration
         # Le tour de départ compte comme premier tour de transit.
         self.transit_turns = 1
-
         self.status = "in_transit"
 
     def advance_transit(self) -> Hub | None:
@@ -83,12 +72,12 @@ class Drone:
         Retourne None si le drone n’est pas en transit ou si le trajet
         n’est pas terminé.
         """
-        if not self.in_transit:
+        if not isinstance(self.current_position, Connection):
             return None
 
         self.transit_turns += 1
 
-        if self.transit_turns < self.transit_cost:
+        if self.transit_turns < self.transit_duration:
             return None
 
         return self.finish_transit()
@@ -99,20 +88,21 @@ class Drone:
         Retourne le hub atteint après avoir consommé l’étape du chemin.
         Lève RuntimeError si la connexion ou le hub de départ manque.
         """
-        if self.moving_connection is None or self.previous_zone is None:
+        if not isinstance(self.current_position,
+                          Connection) or self.previous_zone is None:
+
             raise RuntimeError(
                 f"Drone {self.drone_id}: missing connection or departure hub."
             )
 
-        destination = self.moving_connection.get_other_hub(self.previous_zone)
-        self.current_zone = destination
-        self._complete_path_step(destination)
+        destination = self.current_position.get_extremities(
+            self.previous_zone)
+        self.current_position = destination
+        self.path.pop(0)
         self.status = "moving"
 
-        self.in_transit = False
-        self.transit_cost = 0
+        self.transit_duration = 0
         self.transit_turns = 0
-        self.moving_connection = None
         return destination
 
     def wait(self) -> None:
@@ -141,8 +131,3 @@ class Drone:
     def set_path(self, path: list[Hub]) -> None:
         """Remplace le chemin restant par une copie de path."""
         self.path = path.copy()
-
-    def _complete_path_step(self, zone: Hub) -> None:
-        """Retire la première étape si elle correspond au hub atteint."""
-        if self.path and self.path[0] is zone:
-            self.path.pop(0)

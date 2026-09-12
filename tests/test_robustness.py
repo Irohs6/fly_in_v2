@@ -145,7 +145,7 @@ def test_drone_reroutes_to_alternate_path() -> None:
 
     drone = Drone(
         1,
-        current_zone=start,
+        current_position=start,
     )
 
     drone.set_path([
@@ -178,7 +178,7 @@ def test_zone_freed_can_be_reused_in_same_turn() -> None:
 
     assert simulation.turn == 5
     assert all(
-        drone.current_zone is graph.end_zone
+        drone.current_position is graph.end_zone
         for drone in simulation.drones
     )
 
@@ -214,7 +214,7 @@ def test_challenger_maps_finish(
     simulation.simulate()
 
     assert all(
-        drone.current_zone
+        drone.current_position
         is graph.end_zone
         for drone in simulation.drones
     )

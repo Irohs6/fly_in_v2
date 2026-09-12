@@ -19,7 +19,7 @@ def main() -> int:
     args = parser.parse_args()
     try:
         controller = Controller(args.map)
-        controller.run(gui=not args.no_gui)
+        controller.run(is_view=not args.no_gui)
     except (OSError, ParseError) as exc:
         print(f"Erreur: {exc}", file=sys.stderr)
         return 1

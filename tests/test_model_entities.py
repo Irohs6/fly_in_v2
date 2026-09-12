@@ -150,40 +150,48 @@ def test_connection_capacity_rules() -> None:
         connection.add_nb_drone()
 
 
-def test_drone_transit_lifecycle() -> None:
+@pytest.mark.parametrize("duration", [2, 3])
+@pytest.mark.parametrize("reverse", [False, True])
+def test_drone_transit_lifecycle(duration: int, reverse: bool) -> None:
     start = Hub("START")
     end = Hub("END")
 
     connection = Connection(
-        source=start,
-        target=end,
+        source=end if reverse else start,
+        target=start if reverse else end,
         capacity=2,
     )
 
     drone = Drone(
         drone_id=1,
-        current_zone=start,
+        current_position=start,
     )
+
+    drone.set_path([end])
 
     drone.begin_transit(
         connection=connection,
-        duration=2,
+        duration=duration,
     )
 
-    assert drone.in_transit is True
-    assert drone.current_zone is None
+    assert drone.current_position is connection
     assert drone.previous_zone is start
-    assert drone.moving_connection is connection
     assert drone.status == "in_transit"
+
+    for _ in range(duration - 2):
+        assert drone.advance_transit() is None
+        assert drone.current_position is connection
+        assert drone.path == [end]
 
     destination = drone.advance_transit()
 
     assert destination is end
-    assert drone.in_transit is False
-    assert drone.current_zone is end
+    assert drone.current_position is end
     assert drone.previous_zone is start
-    assert drone.moving_connection is None
     assert drone.status == "moving"
+    assert drone.path == []
+    assert drone.transit_duration == 0
+    assert drone.transit_turns == 0
 
 
 def test_graph_builds_connections() -> None:

@@ -25,7 +25,7 @@ class Connection:
         """Indique si la connexion peut accueillir un drone supplémentaire."""
         return self.nb_drones < self.capacity
 
-    def get_other_hub(self, hub: Hub) -> Hub:
+    def get_extremities(self, hub: Hub) -> Hub:
         """Retourne l’autre extrémité de la connexion.
 
         Lève ConnectionError si hub ne fait pas partie de la connexion.

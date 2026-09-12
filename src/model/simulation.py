@@ -47,7 +47,7 @@ class Simulation:
         for index in range(nb_drones):
             drone = Drone(
                 index + 1,
-                current_zone=self.graph.start_zone,
+                current_position=self.graph.start_zone,
             )
             drone.set_path(path[1:])
             self.drones.append(drone)
@@ -70,9 +70,9 @@ class Simulation:
         réserve la destination ; sinon, occupe immédiatement le hub cible.
         Lève RuntimeError si le drone n’a pas de hub courant.
         """
-        current_zone = drone.current_zone
+        current_zone = drone.current_position
 
-        if current_zone is None:
+        if isinstance(current_zone, Connection):
             raise RuntimeError(
                 f"{drone.drone_id} has no current zone."
             )
@@ -114,11 +114,11 @@ class Simulation:
         - les connexions saturées.
         """
 
-        if drone.current_zone is None:
+        if isinstance(drone.current_position, Connection):
             return False
 
         path = self.pathfinder.shortest_path(
-            source=drone.current_zone,
+            source=drone.current_position,
             blocked_zones=blocked_zones,
             saturated_conns=saturated_connections,
         )
@@ -146,7 +146,7 @@ class Simulation:
         le prochain chemin différent disponible.
         """
 
-        if drone.current_zone is None:
+        if isinstance(drone.current_position, Connection):
             raise RuntimeError(
                 f"{drone.drone_id} has no current zone."
             )
@@ -170,7 +170,7 @@ class Simulation:
             target_zone = drone.path[0]
 
             connection = self.graph.get_connection(
-                drone.current_zone,
+                drone.current_position,
                 target_zone,
             )
 
@@ -216,9 +216,7 @@ class Simulation:
                 target_zone,
             )
 
-            movements[drone.drone_id] = (
-                connection if drone.in_transit else target_zone
-            )
+            movements[drone.drone_id] = drone.current_position
             return
 
     # SIMULATION
@@ -226,7 +224,7 @@ class Simulation:
     def _all_drones_delivered(self) -> bool:
         """Retourne True si tous les drones sont arrivés."""
         return all(
-            drone.current_zone == self.graph.end_zone
+            drone.current_position == self.graph.end_zone
             for drone in self.drones
         )
 
@@ -236,16 +234,16 @@ class Simulation:
         movements: dict[int, Hub | Connection],
     ) -> None:
         """Traite un drone pendant le tour courant."""
-        if drone.current_zone == self.graph.end_zone:
+        if drone.current_position == self.graph.end_zone:
             drone.deliver()
             return
 
-        if drone.in_transit:
+        if isinstance(drone.current_position, Connection):
             self._process_transit(drone, movements)
         else:
             self._try_drone_move(drone, movements)
 
-        if drone.current_zone == self.graph.end_zone:
+        if drone.current_position == self.graph.end_zone:
             drone.deliver()
 
     def _process_transit(
@@ -270,11 +268,8 @@ class Simulation:
         active_transits: dict[Connection, int] = {}
 
         for drone in self.drones:
-            if (
-                drone.in_transit
-                and drone.moving_connection is not None
-            ):
-                connection = drone.moving_connection
+            if isinstance(drone.current_position, Connection):
+                connection = drone.current_position
 
                 active_transits[connection] = (
                     active_transits.get(connection, 0) + 1

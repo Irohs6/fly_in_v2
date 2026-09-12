@@ -62,7 +62,7 @@ def test_controller_can_run_both_modes_again(
     assert len(controller.simulation.recorder.frames) == 5
     assert controller.view is not None
 
-    controller.run(gui=False)
+    controller.run(is_view=False)
     assert capsys.readouterr().out == graphic_output
     assert controller.simulation.recorder.frames == []
     assert controller.view is None

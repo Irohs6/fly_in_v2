@@ -25,16 +25,16 @@ class Controller:
         self.simulation: Simulation | None = None
         self.view: "PygameView | None" = None
 
-    def run(self, *, gui: bool = True) -> None:
+    def run(self, *, is_view: bool = True) -> None:
         """Charge la carte, simule et affiche les mouvements puis le replay."""
         self.view = None
         self.data = self.load_map()
         self.graph = Graph(self.data)
-        self.simulation = Simulation(self.graph, record_replay=gui)
+        self.simulation = Simulation(self.graph, record_replay=is_view)
         self.simulation.load_drones(self.data["nb_drones"])
         TerminalView().display(self.simulation.simulate())
 
-        if gui:
+        if is_view:
             from src.view.pygame_view import PygameView
 
             self.view = PygameView(
