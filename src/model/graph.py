@@ -39,42 +39,18 @@ class Graph:
         raw_connections: list[ConnectionDict],
     ) -> list[Connection]:
         """Construit les connexions à partir des noms de hubs.
-
         Retourne la liste des connexions et lève ValueError si une
         extrémité est inconnue.
         """
-        built_connections: list[Connection] = []
 
-        for conn in raw_connections:
-            source_name = conn["source"]
-            target_name = conn["target"]
-
-            source_hub = self.hubs.get(source_name)
-            target_hub = self.hubs.get(target_name)
-
-            if source_hub is None or target_hub is None:
-                missing_hubs = [
-                    name
-                    for name, hub in (
-                        (source_name, source_hub),
-                        (target_name, target_hub),
-                    )
-                    if hub is None
-                ]
-                raise ValueError(
-                    "Unknown hub name(s) in connection "
-                    f"{source_name}-{target_name}: {', '.join(missing_hubs)}"
-                )
-
-            built_connections.append(
-                Connection(
-                    source=source_hub,
-                    target=target_hub,
-                    capacity=conn.get("capacity", 1),
-                )
+        return [
+            Connection(
+                source=self.hubs[conn["source"]],
+                target=self.hubs[conn["target"]],
+                capacity=conn.get("capacity", 1),
             )
-
-        return built_connections
+            for conn in raw_connections
+        ]
 
     def _index_connection(
         self,

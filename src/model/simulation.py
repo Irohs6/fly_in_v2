@@ -77,23 +77,18 @@ class Simulation:
                 f"{drone.drone_id} has no current zone."
             )
 
+        current_zone.remove_nb_drone()
         if target_zone.zone_type == "restricted":
-            current_zone.remove_nb_drone()
-
             drone.begin_transit(
                 connection,
                 target_zone.transit_duration(),
             )
 
-            connection.add_nb_drone()
             target_zone.reserve()
+        else:
+            drone.move_to_zone(target_zone)
+            target_zone.add_nb_drone()
 
-            return
-
-        current_zone.remove_nb_drone()
-        drone.move_to_zone(target_zone)
-
-        target_zone.add_nb_drone()
         connection.add_nb_drone()
 
     # REROUTAGE
@@ -123,7 +118,7 @@ class Simulation:
             saturated_conns=saturated_connections,
         )
 
-        if not path or len(path) < 2:
+        if len(path) < 2:
             return False
 
         # Le chemin est disponible.
@@ -151,73 +146,45 @@ class Simulation:
                 f"{drone.drone_id} has no current zone."
             )
 
-        # Ressources bloquées uniquement pour ce tour.-
+        if not drone.path:
+            raise RuntimeError(
+                f"Drone {drone.drone_id}: chemin vide avant l'arrivée."
+            )
+
         blocked_zones: set[Hub] = set()
-
-        saturated_connections: set[
-            tuple[Hub, Hub]
-        ] = set()
-
-        # Empêche le drone de repartir immédiatement en arrière.
+        saturated_connections: set[tuple[Hub, Hub]] = set()
+        # Le reroutage ne doit pas revenir au hub précédent.
         if drone.previous_zone is not None:
             blocked_zones.add(drone.previous_zone)
 
         while True:
-            if not drone.path:
-                drone.wait()
-                return
-
             target_zone = drone.path[0]
-
             connection = self.graph.get_connection(
-                drone.current_position,
-                target_zone,
+                drone.current_position, target_zone,
             )
 
             if connection is None:
                 blocked_zones.add(target_zone)
-
-                if not self._reroute_drone(
-                    drone,
-                    blocked_zones,
-                    saturated_connections,
-                ):
-                    drone.wait()
+            else:
+                zone_available = target_zone.is_available()
+                connection_available = connection.is_available()
+                if zone_available and connection_available:
+                    self.move_drone(drone, connection, target_zone)
+                    movements[drone.drone_id] = drone.current_position
                     return
-                continue
 
-            zone_available = target_zone.is_available()
-            connection_available = connection.is_available()
-
-            if not zone_available or not connection_available:
                 if not zone_available:
                     blocked_zones.add(target_zone)
-
                 if not connection_available:
                     saturated_connections.add(
                         (connection.source, connection.target)
                     )
 
-                found = self._reroute_drone(
-                    drone,
-                    blocked_zones,
-                    saturated_connections,
-                )
-
-                if not found:
-                    drone.wait()
-                    return
-                continue
-
-            # Tentative de déplacement.
-            self.move_drone(
-                drone,
-                connection,
-                target_zone,
-            )
-
-            movements[drone.drone_id] = drone.current_position
-            return
+            if not self._reroute_drone(
+                drone, blocked_zones, saturated_connections,
+            ):
+                drone.wait()
+                return
 
     # SIMULATION
 
@@ -264,18 +231,12 @@ class Simulation:
         movements[drone.drone_id] = destination
 
     def _update_connections(self) -> None:
-        """Met à jour l'occupation des connexions."""
-        active_transits: dict[Connection, int] = {}
-
+        """Ne conserve que les occupations des transits encore en cours."""
+        for connection in self.graph.connections:
+            connection.nb_drones = 0
         for drone in self.drones:
             if isinstance(drone.current_position, Connection):
-                connection = drone.current_position
-
-                active_transits[connection] = (
-                    active_transits.get(connection, 0) + 1
-                )
-        for connection in self.graph.connections:
-            connection.nb_drones = active_transits.get(connection, 0)
+                drone.current_position.add_nb_drone()
 
     def simulate(self) -> list[dict[int, Hub | Connection]]:
         """Simule le déplacement des drones tour par tour."""
