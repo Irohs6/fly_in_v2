@@ -71,19 +71,9 @@ class MapValidator:
                 )
 
             # Vérification des clés inconnues
-            extra_keys = {
-                key
-                for key in hub.keys()
-                if key not in {
-                    "name",
-                    "x",
-                    "y",
-                    "zone_type",
-                    "color",
-                    "capacity",
-                }
-            }
-            for key in extra_keys:
+            for key in hub:
+                if key in {"name", "x", "y", "zone_type", "color", "capacity"}:
+                    continue
                 raise ValidationError(
                     f"Ligne {line}: clé de métadonnée inconnue '{key}' "
                     f"pour le hub {hub['name']!r}"
@@ -110,16 +100,9 @@ class MapValidator:
         for connection, line in self.connection_entries:
 
             # Vérification des clés inconnues
-            extra_keys = {
-                key
-                for key in connection.keys()
-                if key not in {
-                    "source",
-                    "target",
-                    "capacity",
-                }
-            }
-            for key in extra_keys:
+            for key in connection:
+                if key in {"source", "target", "capacity"}:
+                    continue
                 raise ValidationError(
                     f"Ligne {line}: clé de métadonnée inconnue '{key}' "
                     "pour la connexion "

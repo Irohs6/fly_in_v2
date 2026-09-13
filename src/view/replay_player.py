@@ -46,7 +46,7 @@ class ReplayPlayer:
         if event.type != pygame.KEYDOWN:
             return
 
-        elif event.key == pygame.K_RIGHT:
+        if event.key == pygame.K_RIGHT:
             self.next_turn()
 
         elif event.key == pygame.K_LEFT:
@@ -82,11 +82,8 @@ class ReplayPlayer:
     ) -> tuple[float, float]:
         """Interpole la position monde à partir des extrémités et de progress.
         """
-        source = self.hub_positions[state.source]
-        target = self.hub_positions[state.target]
-
-        sx, sy = source
-        tx, ty = target
+        sx, sy = self.hub_positions[state.source]
+        tx, ty = self.hub_positions[state.target]
 
         return (
             sx + (tx - sx) * state.progress,

@@ -25,7 +25,7 @@ def main() -> int:
         return 1
     except KeyboardInterrupt:
         print("Simulation interrupted.", file=sys.stderr)
-        sys.exit(130)
+        return 130
 
     return 0
 

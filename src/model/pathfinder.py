@@ -54,15 +54,9 @@ class Dijkstra:
             visited.add(current_hub)
 
             for connection in self.graph.get_neighbors(current_hub):
-                if connection.source is current_hub:
-                    neighbor = connection.target
-                else:
-                    neighbor = connection.source
+                neighbor = connection.get_extremities(current_hub)
 
                 if blocked_zones and neighbor in blocked_zones:
-                    continue
-
-                if neighbor.zone_type == "blocked":
                     continue
 
                 if saturated_conns and (

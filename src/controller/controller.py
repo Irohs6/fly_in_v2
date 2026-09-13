@@ -46,7 +46,5 @@ class Controller:
         """Parse and return the map data."""
 
         self.parser.file_path = str(self.map_path)
-        parsed_data = self.parser.parse()
-        self.data = parsed_data
-
-        return parsed_data
+        self.data = self.parser.parse()
+        return self.data

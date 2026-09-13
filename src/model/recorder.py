@@ -27,28 +27,15 @@ class Recorder:
         Les valeurs sont copiées dans des états de replay indépendants des
         objets métier. Le graphe et les drones ne sont pas modifiés.
         """
-        drone_states: dict[int, DroneReplayState] = {}
-
-        for drone in drones:
-            state = self._drone_state(drone)
-
-            drone_states[drone.drone_id] = state
-
-        hub_states: dict[str, HubReplayState] = {}
-
-        for hub_id, hub in hubs.items():
-            hub_states[hub_id] = HubReplayState(
-                nb_drones=hub.nb_drone,
-                capacity=hub.capacity,
-            )
-
-        frame = ReplayFrame(
-            turn=turn,
-            drones=drone_states,
-            hubs=hub_states,
-        )
-
-        self.frames.append(frame)
+        drone_states = {
+            drone.drone_id: self._drone_state(drone)
+            for drone in drones
+        }
+        hub_states = {
+            hub_id: HubReplayState(hub.nb_drone, hub.capacity)
+            for hub_id, hub in hubs.items()
+        }
+        self.frames.append(ReplayFrame(turn, drone_states, hub_states))
 
     def _drone_state(
         self,

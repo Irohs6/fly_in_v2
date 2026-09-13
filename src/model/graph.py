@@ -38,10 +38,7 @@ class Graph:
         self,
         raw_connections: list[ConnectionDict],
     ) -> list[Connection]:
-        """Construit les connexions à partir des noms de hubs.
-        Retourne la liste des connexions et lève ValueError si une
-        extrémité est inconnue.
-        """
+        """Construit les connexions d’une carte déjà validée."""
 
         return [
             Connection(

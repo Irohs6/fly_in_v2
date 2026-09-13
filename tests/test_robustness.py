@@ -1,5 +1,7 @@
 import pytest
 
+from src.model.connection import Connection
+from src.model.hub import Hub
 from src.model.drone import Drone
 from src.model.graph import Graph
 from src.model.simulation import Simulation
@@ -220,3 +222,49 @@ def test_challenger_maps_finish(
     )
 
     assert simulation.turn > 0
+
+
+@pytest.mark.parametrize("resource", ["hub", "connection"])
+def test_move_reroutes_when_next_resource_is_full(resource: str) -> None:
+    graph = Graph(make_reroute_map())
+    simulation = Simulation(graph)
+    simulation.load_drones(1)
+    drone = simulation.drones[0]
+    drone.set_path([graph.hubs["a"], graph.end_zone])
+    if resource == "hub":
+        graph.hubs["a"].add_nb_drone()
+    else:
+        graph.connections[0].add_nb_drone()
+
+    movements: dict[int, Hub | Connection] = {}
+    simulation._try_drone_move(drone, movements)
+
+    assert drone.current_position is graph.hubs["b"]
+    assert movements == {1: graph.hubs["b"]}
+    assert drone.path == [graph.end_zone]
+
+
+def test_move_waits_and_keeps_path_when_all_routes_are_full() -> None:
+    graph = Graph(make_reroute_map())
+    simulation = Simulation(graph)
+    simulation.load_drones(1)
+    drone = simulation.drones[0]
+    graph.hubs["a"].add_nb_drone()
+    graph.hubs["b"].add_nb_drone()
+
+    movements: dict[int, Hub | Connection] = {}
+    simulation._try_drone_move(drone, movements)
+
+    assert drone.status == "waiting"
+    assert drone.current_position is graph.start_zone
+    assert drone.path == [graph.hubs["b"], graph.end_zone]
+    assert movements == {}
+
+
+def test_empty_path_before_arrival_fails_immediately() -> None:
+    simulation = Simulation(Graph(make_reroute_map()))
+    simulation.load_drones(1)
+    simulation.drones[0].set_path([])
+
+    with pytest.raises(RuntimeError, match="chemin vide"):
+        simulation.simulate()

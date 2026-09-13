@@ -242,7 +242,7 @@ def test_graph_raises_on_unknown_hub() -> None:
     ]
 
     with pytest.raises(
-        ValueError,
-        match=r"Unknown hub name\(s\)",
+        KeyError,
+        match="MISSING",
     ):
         Graph(data)

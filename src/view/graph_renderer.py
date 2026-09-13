@@ -223,8 +223,7 @@ class GraphRenderer:
         """Associe graphe, écran, coordonnées et police aux renderers."""
         self.graph = graph
         self.screen = screen
-        self.coord = coordinate_system
-        self.world_positions = self.coord.world_positions
+        self.world_positions = coordinate_system.world_positions
 
         self.hub_renderer = HubRenderer(font)
         self.connection_renderer = ConnectionRenderer()

@@ -130,18 +130,11 @@ class Parser:
             )
 
         if is_start:
-            zone["capacity"] = math.inf
             self.start_zone = zone
-            self.zone_entries.append((zone, nb_line))
-            return
-
-        if is_end:
-            zone["capacity"] = math.inf
+        elif is_end:
             self.end_zone = zone
-            self.zone_entries.append((zone, nb_line))
-            return
-
-        self.hub_zones.append(zone)
+        else:
+            self.hub_zones.append(zone)
         self.zone_entries.append((zone, nb_line))
 
     # --- Parsing des connexions ---
