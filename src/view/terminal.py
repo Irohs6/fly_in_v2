@@ -5,13 +5,13 @@ from src.model.hub import Hub
 
 
 class TerminalView:
-    """Affiche les mouvements dans le format obligatoire du sujet V3."""
+    """Display movements in the format required by the V3 subject."""
 
     def display(
         self,
         turns: Iterable[Mapping[int, Hub | Connection]],
     ) -> None:
-        """Affiche exactement une ligne par tour de simulation."""
+        """Print exactly one line per simulation turn."""
         for movements in turns:
             print(
                 " ".join(
@@ -22,7 +22,7 @@ class TerminalView:
 
     @staticmethod
     def _format_destination(destination: Hub | Connection) -> str:
-        """Nomme la zone ou la connexion telle que définie dans la carte."""
+        """Name a hub or connection as declared in the map."""
         if isinstance(destination, Connection):
             return f"{destination.source.name}-{destination.target.name}"
         return destination.name

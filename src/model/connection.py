@@ -3,10 +3,10 @@ from .errors import ConnectionError
 
 
 class Connection:
-    """Connexion bidirectionnelle avec capacité et occupation courante."""
+    """Bidirectional connection with capacity and current occupancy."""
     def __init__(self, source: Hub, target: Hub, capacity: int | float):
-        """Relie source et target avec la capacité donnée et une occupation
-        nulle.
+        """Connect source and target with the given capacity and no
+        occupants.
         """
         self.source = source
         self.target = target
@@ -14,7 +14,9 @@ class Connection:
         self.nb_drones = 0
 
     def add_nb_drone(self) -> None:
-        """Ajoute toujours 1 drone, jamais plus."""
+        """Add one drone, raising ConnectionError if capacity would be
+        exceeded.
+        """
         if self.nb_drones + 1 > self.capacity:
             raise ConnectionError(
                 "Cannot add more drones than the maximum allowed"
@@ -22,13 +24,12 @@ class Connection:
         self.nb_drones += 1
 
     def is_available(self) -> bool:
-        """Indique si la connexion peut accueillir un drone supplémentaire."""
+        """Return whether the connection can accommodate one more drone."""
         return self.nb_drones < self.capacity
 
     def get_extremities(self, hub: Hub) -> Hub:
-        """Retourne l’autre extrémité de la connexion.
-
-        Lève ConnectionError si hub ne fait pas partie de la connexion.
+        """Return the opposite hub. Raise ConnectionError if hub is not an
+        endpoint.
         """
         if self.source is hub:
             return self.target
@@ -41,9 +42,7 @@ class Connection:
         )
 
     def __repr__(self) -> str:
-        """Retourne une représentation détaillée de la connexion pour le
-        débogage.
-        """
+        """Return a detailed connection representation for debugging."""
         return (
             f"Connection(source={self.source.name}, target={self.target.name},"
             f" capacity={self.capacity}, nb_drones={self.nb_drones})"

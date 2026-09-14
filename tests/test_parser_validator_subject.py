@@ -65,7 +65,7 @@ def test_parser_reports_line_for_unknown_connection_endpoint(
         ),
     )
 
-    with pytest.raises(ParseError, match=r"Ligne 4:.*hub inconnu"):
+    with pytest.raises(ParseError, match=r"Line 4:.*unknown hub"):
         Parser(str(map_path)).parse()
 
 
@@ -83,7 +83,7 @@ def test_parser_reports_line_for_duplicate_hub_names(tmp_path: Path) -> None:
         ),
     )
 
-    with pytest.raises(ParseError, match=r"Ligne 4:.*dupliqué"):
+    with pytest.raises(ParseError, match=r"Line 4:.*duplicate hub name"):
         Parser(str(map_path)).parse()
 
 
@@ -142,7 +142,7 @@ def test_validator_reports_line_for_unknown_connection_endpoint() -> None:
         connection_entries,
     )
 
-    with pytest.raises(ValidationError, match=r"Ligne 5:.*hub inconnu"):
+    with pytest.raises(ValidationError, match=r"Line 5:.*unknown hub"):
         validator.validate()
 
 
@@ -192,7 +192,7 @@ def test_validator_reports_line_for_bad_zone_capacity() -> None:
         connection_entries,
     )
 
-    with pytest.raises(ValidationError, match=r"Ligne 3:.*capacité invalide"):
+    with pytest.raises(ValidationError, match=r"Line 3:.*invalid capacity"):
         validator.validate()
 
 
@@ -234,7 +234,7 @@ def test_parser_checks_reachability(
     else:
         with pytest.raises(
             ParseError,
-            match=r"Ligne 5: aucun chemin praticable.*start.*goal",
+            match=r"Line 5: no traversable path.*start.*goal",
         ):
             Parser(str(map_path)).parse()
 
@@ -256,5 +256,5 @@ def test_parser_rejects_blocked_terminal(
         for line in lines
     ]
     map_path = write_map(tmp_path, "\n".join(lines))
-    with pytest.raises(ParseError, match="aucun chemin praticable"):
+    with pytest.raises(ParseError, match="no traversable path"):
         Parser(str(map_path)).parse()

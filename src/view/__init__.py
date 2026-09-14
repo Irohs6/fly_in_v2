@@ -1,4 +1,4 @@
-"""Configuration commune aux vues."""
+"""Shared view configuration."""
 import os
 
 # Pygame ne doit pas ajouter sa bannière aux mouvements du terminal.

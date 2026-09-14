@@ -7,7 +7,7 @@ from .recorder import Recorder
 
 
 class Simulation:
-    """Gère la simulation tour par tour des drones."""
+    """Manage the drone simulation one turn at a time."""
 
     def __init__(
         self,
@@ -16,11 +16,9 @@ class Simulation:
         *,
         record_replay: bool = True,
     ) -> None:
-        """Prépare la simulation sur graph sans charger de drones.
-
-        Utilise le pathfinder fourni ou crée un Dijkstra. record_replay
-        contrôle l’enregistrement des frames ; le journal des mouvements
-        reste conservé.
+        """Initialize the simulation without loading drones. Use the
+        supplied pathfinder or create Dijkstra. record_replay controls
+        frame recording; movement logs are always retained.
         """
         self.graph = graph
         self.drones: list[Drone] = []
@@ -37,7 +35,7 @@ class Simulation:
         self.record_replay = record_replay
 
     def load_drones(self, nb_drones: int) -> None:
-        """Crée les drones dans le hub de départ."""
+        """Create drones in the starting hub."""
         if self.drones:
             raise RuntimeError(
                 "Drones have already been loaded."
@@ -64,11 +62,10 @@ class Simulation:
         connection: Connection,
         target_zone: Hub,
     ) -> None:
-        """Applique un mouvement dont les capacités ont été vérifiées.
-
-        Libère le hub de départ. Pour restricted, commence le transit et
-        réserve la destination ; sinon, occupe immédiatement le hub cible.
-        Lève RuntimeError si le drone n’a pas de hub courant.
+        """Apply a move after capacity checks. Free the departure hub. For
+        restricted hubs, start transit and reserve the destination;
+        otherwise occupy the destination immediately. Raise RuntimeError
+        if the drone is not in a hub.
         """
         current_zone = drone.current_position
 
@@ -101,12 +98,8 @@ class Simulation:
             tuple[Hub, Hub]
         ],
     ) -> bool:
-        """
-        Cherche un autre chemin pendant le même tour.
-
-        Dijkstra doit respecter :
-        - les zones bloquées ;
-        - les connexions saturées.
+        """Find an alternative path during the same turn, excluding blocked
+        hubs and saturated connections.
         """
 
         if isinstance(drone.current_position, Connection):
@@ -134,11 +127,9 @@ class Simulation:
         drone: Drone,
         movements: dict[int, Hub | Connection],
     ) -> None:
-        """
-        Essaie de faire avancer un drone.
-
-        Si le chemin est bloqué, Dijkstra cherche immédiatement
-        le prochain chemin différent disponible.
+        """Try to move a drone, rerouting immediately if the next passage is
+        blocked. Wait if no alternative remains. Raise RuntimeError if
+        the drone is in transit or has no path before arrival.
         """
 
         if isinstance(drone.current_position, Connection):
@@ -148,7 +139,7 @@ class Simulation:
 
         if not drone.path:
             raise RuntimeError(
-                f"Drone {drone.drone_id}: chemin vide avant l'arrivée."
+                f"Drone {drone.drone_id}: empty path before arrival."
             )
 
         blocked_zones: set[Hub] = set()
@@ -189,7 +180,7 @@ class Simulation:
     # SIMULATION
 
     def _all_drones_delivered(self) -> bool:
-        """Retourne True si tous les drones sont arrivés."""
+        """Return whether all drones have reached the destination."""
         return all(
             drone.current_position == self.graph.end_zone
             for drone in self.drones
@@ -200,7 +191,7 @@ class Simulation:
         drone: Drone,
         movements: dict[int, Hub | Connection],
     ) -> None:
-        """Traite un drone pendant le tour courant."""
+        """Process a drone during the current turn."""
         if drone.current_position == self.graph.end_zone:
             drone.deliver()
             return
@@ -218,7 +209,7 @@ class Simulation:
         drone: Drone,
         movements: dict[int, Hub | Connection],
     ) -> None:
-        """Fait progresser un drone actuellement en transit."""
+        """Advance a drone currently in transit."""
 
         destination = drone.advance_transit()
 
@@ -231,7 +222,7 @@ class Simulation:
         movements[drone.drone_id] = destination
 
     def _update_connections(self) -> None:
-        """Ne conserve que les occupations des transits encore en cours."""
+        """Retain only connection occupancy from ongoing transits."""
         for connection in self.graph.connections:
             connection.nb_drones = 0
         for drone in self.drones:
@@ -239,7 +230,7 @@ class Simulation:
                 drone.current_position.add_nb_drone()
 
     def simulate(self) -> list[dict[int, Hub | Connection]]:
-        """Simule le déplacement des drones tour par tour."""
+        """Simulate drone movements one turn at a time."""
         while not self._all_drones_delivered():
             movements: dict[int, Hub | Connection] = {}
             self.movements_log.append(movements)
@@ -263,7 +254,7 @@ class Simulation:
     # ==============================================================
 
     def _record_tour(self) -> None:
-        """Enregistre le tour si record_replay est activé."""
+        """Record the current turn when record_replay is enabled."""
 
         if not self.record_replay:
             return

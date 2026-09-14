@@ -1,6 +1,8 @@
 # Analyse générale de Fly-in
 
-Date : 10 septembre 2026. Sujet de référence : version 1.6, `docs/subject_fr_v3.md`.
+> Note du 14 septembre 2026 : cet audit historique utilisait une ancienne transcription du sujet, incorrecte sur les noms des capacités. La référence a depuis été remplacée par une transcription du PDF fourni.
+
+Date : 10 septembre 2026. Sujet de référence : version 1.6, `docs/subject.md`.
 Base Git : `865a49f`, avec les modifications locales présentes au moment de la revue, notamment les corrections de priority, de sortie terminal et de statut livré. Ce rapport porte sur le répertoire de travail, pas uniquement sur le commit.
 
 ## Bilan

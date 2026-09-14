@@ -1,13 +1,13 @@
 
 class ConnectionError(Exception):
-    """Custom exception for connection-related errors."""
+    """Exception for connection-related errors."""
     def __init__(self, message: str = "Connection error") -> None:
-        """Conserve le message décrivant l’erreur de connexion."""
+        """Initialize the exception with a connection error message."""
         super().__init__(message)
 
 
 class HubError(Exception):
-    """Custom exception for hub-related errors."""
+    """Exception for hub-related errors."""
     def __init__(self, message: str = "Hub error") -> None:
-        """Conserve le message décrivant l’erreur de hub."""
+        """Initialize the exception with a hub error message."""
         super().__init__(message)

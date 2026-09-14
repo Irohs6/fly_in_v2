@@ -6,7 +6,7 @@ from src.parser.parser import ParseError
 
 
 def main() -> int:
-    """Parse les options et lance la simulation dans le mode demandé."""
+    """Parse command-line options and run the requested simulation mode."""
     parser = argparse.ArgumentParser(description="Simulate drone routing.")
     parser.add_argument(
         "map", nargs="?", default="assets/maps/easy/02_simple_fork.txt",
@@ -21,7 +21,7 @@ def main() -> int:
         controller = Controller(args.map)
         controller.run(is_view=not args.no_gui)
     except (OSError, ParseError) as exc:
-        print(f"Erreur: {exc}", file=sys.stderr)
+        print(f"Error: {exc}", file=sys.stderr)
         return 1
     except KeyboardInterrupt:
         print("Simulation interrupted.", file=sys.stderr)

@@ -11,11 +11,11 @@ if TYPE_CHECKING:
 
 
 class Controller:
-    """Orchestrates the application components."""
+    """Coordinate parsing, simulation and display."""
 
     def __init__(self, map_path: str | Path):
-        """Prépare le chemin et le parser sans lire la carte ni lancer de
-        simulation.
+        """Store the map path and parser without reading or simulating the
+        map.
         """
         self.map_path = Path(map_path)
         self.parser = Parser(str(self.map_path))
@@ -26,7 +26,7 @@ class Controller:
         self.view: "PygameView | None" = None
 
     def run(self, *, is_view: bool = True) -> None:
-        """Charge la carte, simule et affiche les mouvements puis le replay."""
+        """Load the map, simulate movements and display the optional replay."""
         self.view = None
         self.data = self.load_map()
         self.graph = Graph(self.data)
@@ -43,7 +43,7 @@ class Controller:
             self.view.display()
 
     def load_map(self) -> ParsedMap:
-        """Parse and return the map data."""
+        """Parse the map and return its validated data."""
 
         self.parser.file_path = str(self.map_path)
         self.data = self.parser.parse()

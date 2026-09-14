@@ -5,11 +5,11 @@ from .connection import Connection
 
 
 class Graph:
-    """Graphe de hubs avec connexions bidirectionnelles indexées."""
+    """Hub graph with indexed bidirectional connections."""
     def __init__(self, data: ParsedMap) -> None:
 
         # Stockage des hubs et connexions
-        """Construit les hubs et leurs index à partir d’une carte validée."""
+        """Build hubs and their indexes from validated map data."""
         self.hubs: dict[str, Hub] = {
             hub["name"]: Hub(**hub) for hub in data.get("hubs", [])
         }
@@ -38,7 +38,7 @@ class Graph:
         self,
         raw_connections: list[ConnectionDict],
     ) -> list[Connection]:
-        """Construit les connexions d’une carte déjà validée."""
+        """Build connections from an already validated map."""
 
         return [
             Connection(
@@ -53,7 +53,9 @@ class Graph:
         self,
         connection: Connection,
     ) -> None:
-        """Indexe une connexion dans les structures de voisinage."""
+        """Index a connection in the adjacency and endpoint lookup
+        structures.
+        """
 
         self.adjacency[connection.source.name].append(connection)
         self.adjacency[connection.target.name].append(connection)
@@ -67,11 +69,11 @@ class Graph:
         ] = connection
 
     def get_neighbors(self, zone: Hub) -> list[Connection]:
-        """Retourne les connexions incidentes au hub, ou une liste vide."""
+        """Return connections incident to zone, or an empty list."""
         return self.adjacency.get(zone.name, [])
 
     def get_connection(self, source: Hub, target: Hub) -> Connection | None:
-        """Retourne la connexion entre source et target, ou None si elle
-        manque.
+        """Return the connection between source and target, or None if
+        absent.
         """
         return self.connection_map.get((source, target))

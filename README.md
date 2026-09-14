@@ -171,7 +171,11 @@ connection: roof1-goal
 # Comments start with #
 ```
 
-Map requirements from [the subject (version 1.6)](docs/subject_fr_v3.md):
+This application limits `nb_drones` to **200** to keep simulation costs bounded.
+Maps requesting more drones are rejected before simulation starts. This is a
+project-specific limit, not a requirement of the subject.
+
+Map requirements from [the subject (version 1.6)](docs/subject.md):
 
 - First line must be `nb_drones: <positive integer>`
 - Exactly one `start_hub` and one `end_hub`

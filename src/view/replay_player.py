@@ -5,7 +5,7 @@ from src.view.utils.camera import Camera
 
 
 class ReplayPlayer:
-    """Lit et affiche les frames enregistrées par la simulation."""
+    """Navigate and display recorded simulation frames."""
 
     DRONE_COLORS = (
             (100, 180, 255),
@@ -21,8 +21,7 @@ class ReplayPlayer:
         hub_positions: dict[str, tuple[float, float]],
         frames: list[ReplayFrame],
     ) -> None:
-        """Associe les positions monde aux frames et sélectionne la première.
-        """
+        """Store world positions and frames, selecting the first frame."""
         self.hub_positions = hub_positions
         self.frames = frames
 
@@ -33,8 +32,7 @@ class ReplayPlayer:
         drone_id: int,
     ) -> tuple[int, int, int]:
 
-        """Associe un identifiant de drone à une couleur stable de la palette.
-        """
+        """Assign a stable palette color to a drone ID."""
         color_index = (
             drone_id - 1
         ) % len(self.DRONE_COLORS)
@@ -42,7 +40,7 @@ class ReplayPlayer:
         return self.DRONE_COLORS[color_index]
 
     def handle_event(self, event: pygame.event.Event) -> None:
-        """Traite les flèches et R ; ignore les autres événements."""
+        """Handle arrow keys and R, ignoring other events."""
         if event.type != pygame.KEYDOWN:
             return
 
@@ -56,7 +54,7 @@ class ReplayPlayer:
             self.restart()
 
     def next_turn(self) -> None:
-        """Sélectionne la frame suivante sans dépasser la dernière."""
+        """Select the next frame without passing the last frame."""
         if not self.frames:
             return
 
@@ -66,22 +64,21 @@ class ReplayPlayer:
         )
 
     def previous_turn(self) -> None:
-        """Sélectionne la frame précédente sans passer avant la première."""
+        """Select the previous frame without passing the first frame."""
         self.current_index = max(
             self.current_index - 1,
             0,
         )
 
     def restart(self) -> None:
-        """Replace la sélection au début du replay."""
+        """Reset the selection to the beginning of the replay."""
         self.current_index = 0
 
     def _state_position(
         self,
         state: DroneReplayState,
     ) -> tuple[float, float]:
-        """Interpole la position monde à partir des extrémités et de progress.
-        """
+        """Interpolate a world position from the endpoints and progress."""
         sx, sy = self.hub_positions[state.source]
         tx, ty = self.hub_positions[state.target]
 
@@ -96,11 +93,9 @@ class ReplayPlayer:
         camera: Camera,
         font: pygame.font.Font,
     ) -> None:
-        """Dessine les drones de la frame sélectionnée.
-
-        Affiche le plus petit identifiant par hub et tous les drones en
-        transit. Convertit leurs positions monde en positions écran avec la
-        caméra.
+        """Draw drones in the selected frame. Show the lowest drone ID per
+        hub and every drone in transit. Convert world positions to screen
+        positions using the camera.
         """
         if not self.frames:
             return
@@ -150,7 +145,7 @@ class ReplayPlayer:
         drone_id: int,
         font: pygame.font.Font,
     ) -> None:
-        """Dessine un triangle coloré et l’identifiant du drone à l’écran."""
+        """Draw a colored triangle and the drone ID at a screen position."""
         color = self._drone_color(drone_id)
 
         size = 10
@@ -193,7 +188,7 @@ class ReplayPlayer:
         screen: pygame.Surface,
         font: pygame.font.Font,
     ) -> None:
-        """Affiche le tour sélectionné, le dernier tour et les commandes."""
+        """Display the selected turn, last turn and playback controls."""
         if not self.frames:
             return
 

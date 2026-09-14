@@ -1,5 +1,7 @@
 # PROJECT AUDIT - FLY-IN
 
+> Note du 14 septembre 2026 : cet audit historique utilisait une ancienne transcription du sujet, incorrecte sur les noms des capacités. La référence a depuis été remplacée par une transcription du PDF fourni.
+
 Date: 2026-08-16
 Workspace: fly_in_v2
 
@@ -17,7 +19,7 @@ Conclusion: projet prometteur, mais non pret pour une validation stricte du suje
 
 ## 2. Conformite au sujet
 
-Important: le fichier racine `# Fly-in.txt` n'est pas present dans ce workspace. L'audit a donc ete aligne strictement sur la specification disponible dans `docs/subject_fr_v3.md` (version 1.6) qui correspond au sujet fourni.
+Important: le fichier racine `# Fly-in.txt` n'est pas present dans ce workspace. L'audit a donc ete aligne strictement sur la specification disponible dans `docs/subject.md` (version 1.6) qui correspond au sujet fourni.
 
 ### Synthese conformite
 

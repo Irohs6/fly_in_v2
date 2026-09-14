@@ -6,9 +6,9 @@ from .hub import Hub
 
 
 class Dijkstra:
-    """Recherche les chemins minimisant les tours avec départage priority."""
+    """Find paths minimizing travel time, favoring priority hubs on ties."""
     def __init__(self, graph: Graph):
-        """Associe la recherche au graphe fourni sans calculer de chemin."""
+        """Associate the graph with the pathfinder without computing a path."""
         self.graph = graph
 
     def shortest_distances(
@@ -18,14 +18,11 @@ class Dijkstra:
         saturated_conns: set[tuple[Hub, Hub]] | None = None,
     ) -> tuple[dict[Hub, float], dict[Hub, Hub | None]]:
 
-        """Calcule les distances et prédécesseurs depuis source.
-
-        Exclut les hubs blocked, les blocked_zones et les connexions de
-        saturated_conns dans les deux sens. À durée égale, favorise les
-        chemins traversant davantage de hubs priority.
-
-        Retourne deux dictionnaires indexés par Hub. Une destination
-        inaccessible conserve une distance infinie et un prédécesseur None.
+        """Compute distances and predecessors from source. Exclude blocked
+        hubs, blocked_zones and saturated_conns in both directions. For
+        equal travel times, prefer paths through more priority hubs.
+        Return dictionaries keyed by Hub; unreachable hubs have infinite
+        distance and no predecessor.
         """
         distances: dict[Hub, float] = {
             hub: float("inf") for hub in self.graph.hubs.values()}
@@ -98,11 +95,10 @@ class Dijkstra:
         saturated_conns: set[tuple[Hub, Hub]] | None = None,
     ) -> list[Hub]:
 
-        """Retourne un chemin vers end_zone, extrémités comprises.
-
-        Utilise start_zone si source vaut None et respecte les exclusions
-        de hubs et de connexions. Retourne une liste vide si l’arrivée est
-        inaccessible.
+        """Return a path to end_zone including both endpoints. Default to
+        start_zone when source is None and respect hub and connection
+        exclusions. Return an empty list if the destination is
+        unreachable.
         """
         if source is None:
             source = self.graph.start_zone
@@ -130,6 +126,8 @@ class Dijkstra:
         return path
 
     def distance_to(self, source: Hub, target: Hub) -> float:
-        """Retourne le coût minimal source-target, ou l’infini sans chemin."""
+        """Return the minimum source-to-target cost, or infinity if
+        unreachable.
+        """
         distances, _ = self.shortest_distances(source)
         return distances[target]

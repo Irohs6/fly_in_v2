@@ -25,7 +25,7 @@ def make_parser(tmp_path: Path, lines: list[str]) -> Parser:
 def test_missing_separator(tmp_path: Path, index: int) -> None:
     lines = VALID_LINES.copy()
     lines[index] = lines[index].replace(":", "", 1)
-    with pytest.raises(ParseError, match=rf"Ligne {index + 1}:"):
+    with pytest.raises(ParseError, match=rf"Line {index + 1}:"):
         make_parser(tmp_path, lines).parse()
 
 
@@ -33,7 +33,7 @@ def test_missing_separator(tmp_path: Path, index: int) -> None:
 def test_empty_value(tmp_path: Path, index: int) -> None:
     lines = VALID_LINES.copy()
     lines[index] = lines[index].partition(":")[0] + ":"
-    with pytest.raises(ParseError, match=rf"Ligne {index + 1}:"):
+    with pytest.raises(ParseError, match=rf"Line {index + 1}:"):
         make_parser(tmp_path, lines).parse()
 
 
@@ -41,7 +41,7 @@ def test_empty_value(tmp_path: Path, index: int) -> None:
 def test_keyword_must_match_exactly(tmp_path: Path, index: int) -> None:
     lines = VALID_LINES.copy()
     lines[index] = lines[index].replace(":", "_typo:", 1)
-    with pytest.raises(ParseError, match=rf"Ligne {index + 1}:"):
+    with pytest.raises(ParseError, match=rf"Line {index + 1}:"):
         make_parser(tmp_path, lines).parse()
 
 
@@ -55,7 +55,7 @@ def test_invalid_positive_integer(
         lines[index] = f"nb_drones: {value}"
     else:
         lines[index] += f" [capacity={value}]"
-    with pytest.raises(ParseError, match=rf"Ligne {index + 1}:"):
+    with pytest.raises(ParseError, match=rf"Line {index + 1}:"):
         make_parser(tmp_path, lines).parse()
 
 
@@ -66,7 +66,7 @@ def test_invalid_coordinate(tmp_path: Path, value: str, axis: int) -> None:
     coordinates = ["1", "0"]
     coordinates[axis] = value
     lines[2] = f"hub: a {coordinates[0]} {coordinates[1]}"
-    with pytest.raises(ParseError, match="Ligne 3: coordonnée"):
+    with pytest.raises(ParseError, match="Line 3: invalid [xy] coordinate"):
         make_parser(tmp_path, lines).parse()
 
 
@@ -74,7 +74,9 @@ def test_invalid_coordinate(tmp_path: Path, value: str, axis: int) -> None:
 def test_hyphen_in_hub_name(tmp_path: Path, index: int) -> None:
     lines = VALID_LINES.copy()
     lines[index] = lines[index].replace(": ", ": invalid-", 1)
-    with pytest.raises(ParseError, match=rf"Ligne {index + 1}: nom"):
+    with pytest.raises(
+        ParseError, match=rf"Line {index + 1}: invalid hub name",
+    ):
         make_parser(tmp_path, lines).parse()
 
 
@@ -91,14 +93,14 @@ def test_hyphen_in_hub_name(tmp_path: Path, index: int) -> None:
 def test_invalid_metadata(tmp_path: Path, metadata: str, index: int) -> None:
     lines = VALID_LINES.copy()
     lines[index] += " " + metadata
-    with pytest.raises(ParseError, match=rf"Ligne {index + 1}:"):
+    with pytest.raises(ParseError, match=rf"Line {index + 1}:"):
         make_parser(tmp_path, lines).parse()
 
 
 def test_connection_rejects_zone_metadata(tmp_path: Path) -> None:
     lines = VALID_LINES.copy()
     lines[4] += " [zone=normal]"
-    with pytest.raises(ParseError, match="Ligne 5:.*inconnue"):
+    with pytest.raises(ParseError, match="Line 5:.*unknown metadata key"):
         make_parser(tmp_path, lines).parse()
 
 
@@ -108,7 +110,7 @@ def test_connection_rejects_zone_metadata(tmp_path: Path) -> None:
 def test_invalid_connection(tmp_path: Path, edge: str) -> None:
     lines = VALID_LINES.copy()
     lines[4] = f"connection: {edge}"
-    with pytest.raises(ParseError, match="Ligne 5: connection invalide"):
+    with pytest.raises(ParseError, match="Line 5: invalid connection"):
         make_parser(tmp_path, lines).parse()
 
 
@@ -116,13 +118,15 @@ def test_invalid_connection(tmp_path: Path, edge: str) -> None:
 def test_connection_before_hub(tmp_path: Path, edge: str) -> None:
     lines = VALID_LINES.copy()
     lines.insert(2, f"connection: {edge}")
-    with pytest.raises(ParseError, match="Ligne 3:.*non encore défini"):
+    with pytest.raises(ParseError, match="Line 3:.*not yet defined"):
         make_parser(tmp_path, lines).parse()
 
 
 def test_duplicate_drone_count(tmp_path: Path) -> None:
     lines = VALID_LINES + ["nb_drones: 3"]
-    with pytest.raises(ParseError, match="Ligne 7: nb_drones déjà défini"):
+    with pytest.raises(
+        ParseError, match="Line 7: nb_drones is already defined",
+    ):
         make_parser(tmp_path, lines).parse()
 
 
@@ -180,12 +184,12 @@ def test_max_drones_and_max_link_capacity_supported(tmp_path: Path) -> None:
 def test_conflicting_capacity_metadata_rejected(tmp_path: Path) -> None:
     lines_hub = VALID_LINES.copy()
     lines_hub[2] = "hub: a 1 0 [capacity=2 max_drones=3]"
-    with pytest.raises(ParseError, match="Ligne 3: métadonnée dupliquée"):
+    with pytest.raises(ParseError, match="Line 3: duplicate metadata"):
         make_parser(tmp_path, lines_hub).parse()
 
     lines_conn = VALID_LINES.copy()
     lines_conn[4] = "connection: start-a [capacity=2 max_link_capacity=3]"
-    with pytest.raises(ParseError, match="Ligne 5: métadonnée dupliquée"):
+    with pytest.raises(ParseError, match="Line 5: duplicate metadata"):
         make_parser(tmp_path, lines_conn).parse()
 
 
@@ -195,3 +199,18 @@ def test_parser_can_retry_after_error(tmp_path: Path) -> None:
         parser.parse()
     Path(parser.file_path).write_text("\n".join(VALID_LINES), encoding="utf-8")
     assert parser.parse()["nb_drones"] == 2
+
+
+@pytest.mark.parametrize("count", [1, 200])
+def test_drone_count_within_limit(tmp_path: Path, count: int) -> None:
+    lines = VALID_LINES.copy()
+    lines[0] = f"nb_drones: {count}"
+    assert make_parser(tmp_path, lines).parse()["nb_drones"] == count
+
+
+@pytest.mark.parametrize("count", [201, 1_000_000])
+def test_drone_count_above_limit(tmp_path: Path, count: int) -> None:
+    lines = VALID_LINES.copy()
+    lines[0] = f"nb_drones: {count}"
+    with pytest.raises(ParseError, match="allowed limit: 200"):
+        make_parser(tmp_path, lines).parse()

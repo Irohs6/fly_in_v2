@@ -4,7 +4,7 @@ from typing import TypedDict
 
 
 class HubDict(TypedDict):
-    """Données d’un hub parsé : identité, coordonnées, type et capacité."""
+    """Parsed hub identity, coordinates, type and capacity."""
     name: str
     x: int
     y: int
@@ -14,14 +14,14 @@ class HubDict(TypedDict):
 
 
 class ConnectionDict(TypedDict):
-    """Noms des extrémités et capacité d’une connexion parsée."""
+    """Parsed connection endpoint names and capacity."""
     source: str
     target: str
     capacity: float
 
 
 class ParsedMap(TypedDict):
-    """Carte validée avec effectif, hubs terminaux et connexions."""
+    """Validated map with drone count, terminal hubs and connections."""
     map_path: str
     nb_drones: int
     start_hub: HubDict
@@ -31,16 +31,18 @@ class ParsedMap(TypedDict):
 
 
 class ParseError(Exception):
-    """Erreur de parsing du fichier de carte Fly-in."""
+    """Error while parsing a Fly-in map file."""
 
     pass
 
 
 class Parser:
-    """Parser orienté objet pour les fichiers Fly-in."""
+    """Object-oriented parser for Fly-in map files."""
 
     def __init__(self, file_path: str):
-        """Mémorise le fichier et initialise l’état de parsing sans le lire."""
+        """Store the file path and initialize parser state without reading
+        it.
+        """
         self.file_path = file_path
         self.lines: list[tuple[int, str]] = []
         self.hub_zones: list[HubDict] = []
@@ -53,10 +55,9 @@ class Parser:
 
     # --- Lecture du fichier ---
     def read(self) -> None:
-        """Lit la carte UTF-8 en ignorant lignes vides et commentaires seuls.
-
-        Conserve les numéros de ligne et traduit les erreurs de lecture
-        ou de décodage en ParseError avec le chemin du fichier.
+        """Read a UTF-8 map, skipping empty lines and comment-only lines.
+        Preserve line numbers and wrap read or decoding failures in
+        ParseError with the file path.
         """
         self.lines = []
         try:
@@ -68,11 +69,11 @@ class Parser:
                     self.lines.append((nb_line, line))
         except UnicodeDecodeError as exc:
             raise ParseError(
-                f"Carte {self.file_path!r}: encodage UTF-8 invalide."
+                f"Map {self.file_path!r}: invalid UTF-8 encoding."
             ) from exc
         except OSError as exc:
             raise ParseError(
-                f"Impossible de lire la carte {self.file_path!r}: "
+                f"Cannot read map {self.file_path!r}: "
                 f"{exc.strerror or str(exc)}"
             ) from exc
 
@@ -84,24 +85,24 @@ class Parser:
         is_start: bool = False,
         is_end: bool = False,
     ) -> None:
-        """Parse une ligne de zone de hub."""
+        """Parse a hub declaration and its metadata."""
 
         zone_raw, marker, meta_raw = raw.partition("[")
         parts = zone_raw.split()
         if len(parts) != 3:
             raise ParseError(
-                f"Ligne {nb_line}: zone de hub invalide: {raw!r}. "
-                "Format attendu: <nom> <x> <y> [meta]"
+                f"Line {nb_line}: invalid hub declaration: {raw!r}. "
+                "Expected format: <name> <x> <y> [meta]"
             )
 
         name, x_str, y_str = parts
         if "-" in name:
             raise ParseError(
-                f"Ligne {nb_line}: nom de zone invalide: {name!r} "
-                "(tirets interdits)."
+                f"Line {nb_line}: invalid hub name: {name!r} "
+                "(hyphens are not allowed)."
             )
-        x = self._parse_integer(x_str, nb_line, "coordonnée x")
-        y = self._parse_integer(y_str, nb_line, "coordonnée y")
+        x = self._parse_integer(x_str, nb_line, "x coordinate")
+        y = self._parse_integer(y_str, nb_line, "y coordinate")
         meta = self.parse_meta(
             marker + meta_raw,
             nb_line,
@@ -111,7 +112,8 @@ class Parser:
         color = meta.get("color", "gray")
         if "max_drones" in meta and "capacity" in meta:
             raise ParseError(
-                f"Ligne {nb_line}: métadonnée dupliquée: capacité déjà définie."
+                f"Line {nb_line}: duplicate metadata: "
+                "capacity is already defined."
             )
         cap_raw = meta.get("max_drones") or meta.get("capacity") or "1"
         capacity = (
@@ -133,7 +135,7 @@ class Parser:
 
         if is_start and is_end:
             raise ParseError(
-                f"Ligne {nb_line}: une zone ne peut pas être start et end."
+                f"Line {nb_line}: a hub cannot be both start and end."
             )
 
         if is_start:
@@ -146,15 +148,15 @@ class Parser:
 
     # --- Parsing des connexions ---
     def parse_connection(self, raw: str, nb_line: int) -> None:
-        """Parse une ligne de connection."""
+        """Parse a connection declaration and its metadata."""
 
         edge_raw, marker, meta_raw = raw.partition("[")
         edge = edge_raw.strip()
 
         if edge.count("-") != 1:
             raise ParseError(
-                f"Ligne {nb_line}: connection invalide: {raw!r}. "
-                "Format attendu: <source>-<target> [meta]"
+                f"Line {nb_line}: invalid connection: {raw!r}. "
+                "Expected format: <source>-<target> [meta]"
             )
 
         source, target = edge.split("-", 1)
@@ -165,7 +167,7 @@ class Parser:
             not source or not target
             or any(char.isspace() for char in source + target)
         ):
-            raise ParseError(f"Ligne {nb_line}: connection invalide: {raw!r}.")
+            raise ParseError(f"Line {nb_line}: invalid connection: {raw!r}.")
 
         meta = self.parse_meta(
             marker + meta_raw,
@@ -174,7 +176,8 @@ class Parser:
         )
         if "max_link_capacity" in meta and "capacity" in meta:
             raise ParseError(
-                f"Ligne {nb_line}: métadonnée dupliquée: capacité déjà définie."
+                f"Line {nb_line}: duplicate metadata: "
+                "capacity is already defined."
             )
         cap_raw = meta.get("max_link_capacity") or meta.get("capacity") or "1"
         capacity = self._parse_integer(
@@ -197,7 +200,7 @@ class Parser:
         nb_line: int,
         allowed_keys: set[str],
     ) -> dict[str, str]:
-        """Valide un bloc complet de métadonnées et ses clés autorisées."""
+        """Validate a complete metadata block and its allowed keys."""
         if not raw:
             return {}
 
@@ -209,27 +212,27 @@ class Parser:
             or "]" in meta_raw[:-1]
         ):
             raise ParseError(
-                f"Ligne {nb_line}: métadonnées invalides: {raw!r}"
+                f"Line {nb_line}: invalid metadata: {raw!r}"
             )
 
         meta: dict[str, str] = {}
         for item in meta_raw[1:-1].split():
             if item.count("=") != 1:
                 raise ParseError(
-                    f"Ligne {nb_line}: métadonnée invalide: {item!r}"
+                    f"Line {nb_line}: invalid metadata item: {item!r}"
                 )
             key, value = item.split("=", 1)
             if not key or not value:
                 raise ParseError(
-                    f"Ligne {nb_line}: métadonnée invalide: {item!r}"
+                    f"Line {nb_line}: invalid metadata item: {item!r}"
                 )
             if key not in allowed_keys:
                 raise ParseError(
-                    f"Ligne {nb_line}: clé de métadonnée inconnue {key!r}"
+                    f"Line {nb_line}: unknown metadata key {key!r}"
                 )
             if key in meta:
                 raise ParseError(
-                    f"Ligne {nb_line}: métadonnée dupliquée: {key!r}"
+                    f"Line {nb_line}: duplicate metadata: {key!r}"
                 )
             meta[key] = value
         return meta
@@ -242,9 +245,11 @@ class Parser:
         *,
         positive: bool = False,
     ) -> int:
-        """Convertit un entier décimal avec une erreur contextualisée."""
+        """Convert a decimal integer, reporting errors with line and field
+        context.
+        """
         pattern = r"[0-9]+" if positive else r"[+-]?[0-9]+"
-        error = f"Ligne {nb_line}: {field} invalide: {raw!r}"
+        error = f"Line {nb_line}: invalid {field}: {raw!r}"
         if re.fullmatch(pattern, raw) is None:
             raise ParseError(error)
         try:
@@ -257,7 +262,7 @@ class Parser:
 
     # --- Parsing global ---
     def parse(self) -> ParsedMap:
-        """Lit, parse puis valide entièrement une carte."""
+        """Read, parse and validate a complete map."""
         from src.parser.validator import MapValidator, ValidationError
 
         # De nouvelles listes préservent les résultats d'un précédent parse.
@@ -272,17 +277,17 @@ class Parser:
         self.parse_lines()
         if self.nb_drones is None:
             raise ParseError(
-                "nb_drones manquant."
+                "missing nb_drones."
             )
 
         if self.start_zone is None:
             raise ParseError(
-                "start_hub manquant."
+                "missing start_hub."
             )
 
         if self.end_zone is None:
             raise ParseError(
-                "end_hub manquant."
+                "missing end_hub."
             )
 
         validator = MapValidator(
@@ -311,11 +316,9 @@ class Parser:
 
     # --- Parsing des lignes ---
     def parse_lines(self) -> None:
-        """Interprète les lignes lues en conservant leurs numéros.
-
-        Exige nb_drones en première ligne utile, puis reconnaît les
-        déclarations de hubs et de connexions. Lève ParseError pour une
-        syntaxe invalide.
+        """Interpret input lines while preserving line numbers. Require
+        nb_drones on the first meaningful line, then recognize hub and
+        connection declarations. Raise ParseError for invalid syntax.
         """
         if not self.lines:
             raise ParseError("No lines to parse. Please read the file first.")
@@ -324,8 +327,8 @@ class Parser:
         first_keyword = first_line.partition(":")[0].strip()
         if first_keyword not in ("nb_drones", "drones", "nb_drone"):
             raise ParseError(
-                f"Ligne {first_number}: la première ligne doit définir "
-                "nb_drones: <entier positif>."
+                f"Line {first_number}: the first line must define "
+                "nb_drones: <positive integer>."
             )
 
         for nb_line, line in self.lines:
@@ -334,14 +337,14 @@ class Parser:
             raw = raw.strip()
             if not separator or not raw:
                 raise ParseError(
-                    f"Ligne {nb_line}: ligne invalide: {line!r}. "
-                    "Format attendu: <mot-clé>: <valeur>."
+                    f"Line {nb_line}: invalid line: {line!r}. "
+                    "Expected format: <keyword>: <value>."
                 )
 
             if keyword in ("nb_drones", "drones", "nb_drone"):
                 if self.nb_drones is not None:
                     raise ParseError(
-                        f"Ligne {nb_line}: nb_drones déjà défini."
+                        f"Line {nb_line}: nb_drones is already defined."
                     )
                 self.nb_drones = self._parse_integer(
                     raw, nb_line, "nb_drones", positive=True,
@@ -349,16 +352,20 @@ class Parser:
             elif keyword == "start_hub":
                 if self.start_zone is not None:
                     raise ParseError(
-                        f"Ligne {nb_line}: start_hub déjà défini."
+                        f"Line {nb_line}: start_hub is already defined."
                     )
                 self.parse_hub_zone(raw, nb_line, is_start=True)
             elif keyword == "hub":
                 self.parse_hub_zone(raw, nb_line)
             elif keyword == "end_hub":
                 if self.end_zone is not None:
-                    raise ParseError(f"Ligne {nb_line}: end_hub déjà défini.")
+                    raise ParseError(
+                        f"Line {nb_line}: end_hub is already defined."
+                    )
                 self.parse_hub_zone(raw, nb_line, is_end=True)
             elif keyword == "connection":
                 self.parse_connection(raw, nb_line)
             else:
-                raise ParseError(f"Ligne {nb_line}: ligne inconnue: {line!r}")
+                raise ParseError(
+                    f"Line {nb_line}: unknown declaration: {line!r}"
+                )

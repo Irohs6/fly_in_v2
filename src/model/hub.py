@@ -2,13 +2,12 @@ from .errors import HubError
 
 
 class Hub:
-    """Zone du réseau avec type, coordonnées, occupation et réservations."""
+    """Network hub with coordinates, type, capacity and reservations."""
     def __init__(self, name: str, color: str = "white",
                  zone_type: str = "normal", capacity: int | float = 1,
                  x: int = 0, y: int = 0) -> None:
 
-        """Initialise les propriétés du hub avec zéro occupant et réservation.
-        """
+        """Initialize hub properties with no occupants or reservations."""
         self.name = name
         self.color = color
         self.zone_type = zone_type
@@ -19,25 +18,24 @@ class Hub:
         self.reserved = 0
 
     def add_nb_drone(self) -> None:
-        """Ajoute toujours 1 drone, jamais plus."""
+        """Add one drone, raising HubError if capacity would be exceeded."""
         if self.nb_drone + 1 + self.reserved > self.capacity:
             raise HubError("Cannot add more drones than the maximum allowed")
         self.nb_drone += 1
 
     def remove_nb_drone(self) -> None:
-        """Retire toujours 1 drone."""
+        """Remove one drone, raising HubError if the hub is empty."""
         if self.nb_drone - 1 < 0:
             raise HubError("Cannot remove more drones than currently present")
         self.nb_drone -= 1
 
     def is_available(self) -> bool:
-        """Indique si une place reste libre, réservations comprises."""
+        """Return whether a slot is free, accounting for reservations."""
         return self.nb_drone + self.reserved < self.capacity
 
     def reserve(self) -> None:
-        """Réserve une place pour un drone en transit.
-
-        Lève HubError si occupants et réservations atteignent la capacité.
+        """Reserve a slot for a drone in transit. Raise HubError if
+        occupancy and reservations reach capacity.
         """
         if (
             self.nb_drone
@@ -52,7 +50,7 @@ class Hub:
         self.reserved += 1
 
     def release_reservation(self) -> None:
-        """Libère une réservation ou lève HubError si aucune n’existe."""
+        """Release one reservation, raising HubError if none exists."""
         if self.reserved == 0:
             raise HubError(
                 "No reservation to release"
@@ -61,7 +59,7 @@ class Hub:
         self.reserved -= 1
 
     def move_cost(self) -> float:
-        """Calculate the cost of moving to this hub based on its zone type."""
+        """Return the movement cost associated with this hub type."""
         if self.zone_type == "restricted":
             return 2.0
         elif self.zone_type == "blocked":
@@ -69,10 +67,8 @@ class Hub:
         return 1.0
 
     def transit_duration(self) -> int:
-        """Retourne deux tours pour restricted, un pour les autres types.
-
-        L’interdiction d’entrer dans blocked est traitée par le
-        pathfinding.
+        """Return two turns for restricted hubs and one for other types.
+        Pathfinding prevents entry into blocked hubs.
         """
         if self.zone_type == "restricted":
             return 2
@@ -80,7 +76,7 @@ class Hub:
         return 1
 
     def __str__(self) -> str:
-        """Décrit les propriétés du hub et son occupation courante."""
+        """Describe the hub properties and current occupancy."""
         return (
             f"Hub(name={self.name}, color={self.color}, "
             f"zone_type={self.zone_type}, capacity={self.capacity}, "
@@ -88,5 +84,5 @@ class Hub:
         )
 
     def __repr__(self) -> str:
-        """Retourne la description du hub pour le débogage."""
+        """Return the hub description for debugging."""
         return self.__str__()

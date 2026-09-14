@@ -6,14 +6,15 @@ if TYPE_CHECKING:
 
 
 class CoordinateSystem:
-    """Convertit les coordonnées de la map en coordonnées monde."""
+    """Convert map coordinates into world positions."""
+
+    MAX_WORLD_SPAN = 10_000
 
     def __init__(
         self,
         cell_size: int = 400,
     ) -> None:
-        """Prépare les positions monde avec cell_size comme facteur d’échelle.
-        """
+        """Initialize world positions with cell_size as the scale factor."""
         self.cell_size = cell_size
         self.world_positions: dict[
             str,
@@ -25,12 +26,11 @@ class CoordinateSystem:
         hubs: Iterable["Hub"],
     ) -> dict[str, tuple[float, float]]:
 
-        """Centre les hubs et retourne leurs positions monde par nom.
-
-        Utilise le centre de la boîte englobante et applique cell_size.
-        Remplace les positions mémorisées pour une entrée non vide ;
-        retourne un dictionnaire vide sans les modifier si aucun hub n’est
-        fourni.
+        """Center hubs and return their world positions by name. Scale by
+        cell_size, reducing large extents proportionally on both axes to
+        keep positions usable by Pygame. Replace stored positions for
+        nonempty input; return an empty dictionary without changing
+        stored positions for empty input.
         """
         hub_list = list(hubs)
 
@@ -43,15 +43,26 @@ class CoordinateSystem:
         min_y = min(hub.y for hub in hub_list)
         max_y = max(hub.y for hub in hub_list)
 
-        center_x = (min_x + max_x) / 2
-        center_y = (min_y + max_y) / 2
-
-        self.world_positions = {
-            hub.name: (
-                (hub.x - center_x) * self.cell_size,
-                (hub.y - center_y) * self.cell_size,
-            )
-            for hub in hub_list
-        }
+        span = max(max_x - min_x, max_y - min_y)
+        if span * self.cell_size > self.MAX_WORLD_SPAN:
+            # Diviser les entiers avant de convertir évite un float infini.
+            self.world_positions = {
+                hub.name: (
+                    (2 * hub.x - min_x - max_x) / (2 * span)
+                    * self.MAX_WORLD_SPAN,
+                    (2 * hub.y - min_y - max_y) / (2 * span)
+                    * self.MAX_WORLD_SPAN,
+                )
+                for hub in hub_list
+            }
+        else:
+            # Soustraire avant la conversion supporte un grand décalage.
+            self.world_positions = {
+                hub.name: (
+                    (2 * hub.x - min_x - max_x) / 2 * self.cell_size,
+                    (2 * hub.y - min_y - max_y) / 2 * self.cell_size,
+                )
+                for hub in hub_list
+            }
 
         return self.world_positions

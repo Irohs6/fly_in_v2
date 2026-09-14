@@ -3,10 +3,9 @@ from dataclasses import dataclass
 
 @dataclass
 class DroneReplayState:
-    """Position et statut enregistrés d’un drone.
-
-    source et target sont des noms de hubs ; ils sont identiques à l’arrêt.
-    progress décrit la fraction de la connexion parcourue, entre 0 et 1.
+    """Recorded drone position and status. source and target are hub names
+    and match when the drone is in a hub. progress is the fraction of the
+    connection traversed, between zero and one.
     """
     source: str
     target: str
@@ -16,14 +15,14 @@ class DroneReplayState:
 
 @dataclass
 class HubReplayState:
-    """Occupation et capacité d’un hub à un tour donné."""
+    """Hub occupancy and capacity at a given turn."""
     nb_drones: int
     capacity: int | float
 
 
 @dataclass
 class ReplayFrame:
-    """Instantané d’un tour, avec états indexés par drone et nom de hub."""
+    """Turn snapshot with states indexed by drone ID and hub name."""
     turn: int
     drones: dict[int, DroneReplayState]
     hubs: dict[str, HubReplayState]

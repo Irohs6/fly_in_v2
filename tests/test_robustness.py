@@ -266,5 +266,5 @@ def test_empty_path_before_arrival_fails_immediately() -> None:
     simulation.load_drones(1)
     simulation.drones[0].set_path([])
 
-    with pytest.raises(RuntimeError, match="chemin vide"):
+    with pytest.raises(RuntimeError, match="empty path"):
         simulation.simulate()

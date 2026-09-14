@@ -31,12 +31,12 @@ def test_cli_reports_unreadable_map_without_traceback(
     )
     assert result.returncode == 1
     assert result.stdout == ""
-    assert result.stderr.startswith("Erreur: ")
+    assert result.stderr.startswith("Error: ")
     assert str(target) in result.stderr
     assert "Traceback" not in result.stderr
     assert len(result.stderr.splitlines()) == 1
     if case == "encoding":
-        assert "UTF-8 invalide" in result.stderr
+        assert "invalid UTF-8 encoding" in result.stderr
 
 
 @pytest.mark.parametrize("code", [errno.EACCES, errno.EIO])
@@ -44,7 +44,7 @@ def test_read_os_error_is_contextualized(tmp_path: Path, code: int) -> None:
     target = tmp_path / "map.txt"
     error = OSError(code, "read failure", str(target))
     with patch("builtins.open", side_effect=error):
-        with pytest.raises(ParseError, match="Impossible de lire") as caught:
+        with pytest.raises(ParseError, match="Cannot read") as caught:
             Parser(str(target)).parse()
     assert str(target) in str(caught.value)
     assert caught.value.__cause__ is error

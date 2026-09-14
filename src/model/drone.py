@@ -3,16 +3,15 @@ from .connection import Connection
 
 
 class Drone:
-    """Drone avec position, chemin restant et état de transit.
-
-    Les compteurs de hubs et de connexions sont gérés par Simulation.
+    """Drone position, remaining path and transit state. Simulation manages
+    hub and connection occupancy.
     """
     def __init__(
         self,
         drone_id: int,
         current_position: Hub
     ) -> None:
-        """Place le drone dans un hub, sans chemin ni transit."""
+        """Place the drone in a hub with no path or active transit."""
         self.drone_id = drone_id
 
         self.current_position: Hub | Connection = current_position
@@ -28,10 +27,9 @@ class Drone:
         self,
         zone: Hub,
     ) -> None:
-        """Déplace le drone vers zone et retire cette étape de son chemin.
-
-        Mémorise le hub précédent et passe le statut à moving. Lève
-        RuntimeError si le drone n’est pas actuellement dans un hub.
+        """Move to zone, consume the next path step and set the status to
+        moving. Store the previous hub; raise RuntimeError if the drone
+        is not in a hub.
         """
         if isinstance(self.current_position, Connection):
             raise RuntimeError(
@@ -49,11 +47,10 @@ class Drone:
         connection: Connection,
         duration: int,
     ) -> None:
-        """Commence le premier des duration tours sur connection.
-
-        Le hub actuel devient le hub précédent et la connexion devient
-        la position courante. Lève RuntimeError sans hub de départ.
-        Les réservations et capacités sont gérées par Simulation.
+        """Start the first of duration transit turns on connection. Store
+        the departure hub and use the connection as the current position.
+        Raise RuntimeError without a departure hub. Simulation manages
+        reservations and capacity.
         """
         if isinstance(self.current_position, Connection):
             raise RuntimeError(
@@ -67,10 +64,9 @@ class Drone:
         self.status = "in_transit"
 
     def advance_transit(self) -> Hub | None:
-        """Avance le transit d’un tour et retourne le hub atteint.
-
-        Retourne None si le drone n’est pas en transit ou si le trajet
-        n’est pas terminé.
+        """Advance transit by one turn and return the destination on
+        arrival. Return None when there is no active transit or the trip
+        is incomplete.
         """
         if not isinstance(self.current_position, Connection):
             return None
@@ -83,10 +79,9 @@ class Drone:
         return self.finish_transit()
 
     def finish_transit(self) -> Hub:
-        """Place le drone à destination et réinitialise son état de transit.
-
-        Retourne le hub atteint après avoir consommé l’étape du chemin.
-        Lève RuntimeError si la connexion ou le hub de départ manque.
+        """Reach the destination, consume the path step and reset transit
+        state. Return the destination hub. Raise RuntimeError if the
+        connection or departure hub is missing.
         """
         if not isinstance(self.current_position,
                           Connection) or self.previous_zone is None:
@@ -106,22 +101,20 @@ class Drone:
         return destination
 
     def wait(self) -> None:
-        """Marque le drone en attente sans changer sa position."""
+        """Mark the drone as waiting without changing its position."""
         self.status = "waiting"
 
     def moving(self) -> None:
-        """Marque le drone comme mobile sans effectuer de déplacement."""
+        """Mark the drone as moving without changing its position."""
         self.status = "moving"
 
     def deliver(self) -> None:
-        """Marque le drone comme livré sans modifier sa position."""
+        """Mark the drone as delivered without changing its position."""
         self.status = "delivered"
 
     def path_turns(self) -> int:
-        """Additionne les durées des hubs restant dans le chemin.
-
-        Le temps déjà passé en transit n’est pas retranché de cette
-        estimation.
+        """Sum the travel durations of the remaining path. Time already
+        spent in transit is not subtracted.
         """
         return sum(
             zone.transit_duration()
@@ -129,5 +122,5 @@ class Drone:
         )
 
     def set_path(self, path: list[Hub]) -> None:
-        """Remplace le chemin restant par une copie de path."""
+        """Replace the remaining path with a copy of path."""
         self.path = path.copy()

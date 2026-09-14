@@ -1,0 +1,19 @@
+nb_drones: 6
+start_hub: start 0 0
+hub: h2 2 0 [zone=restricted max_drones=1]
+hub: h4 4 0 [zone=priority max_drones=2]
+hub: h5 5 0 [zone=priority max_drones=1]
+hub: h6 6 0 [zone=normal max_drones=1]
+hub: h7 7 0 [zone=priority max_drones=1]
+hub: h8 8 0 [zone=restricted max_drones=1]
+end_hub: end 10 0
+connection: start-h5 [max_link_capacity=1]
+connection: start-h6 [max_link_capacity=1]
+connection: h2-h7 [max_link_capacity=1]
+connection: h2-h8 [max_link_capacity=2]
+connection: h4-h6 [max_link_capacity=2]
+connection: h4-h7 [max_link_capacity=2]
+connection: h4-end [max_link_capacity=1]
+connection: h5-h7 [max_link_capacity=2]
+connection: h6-h7 [max_link_capacity=1]
+connection: h8-end [max_link_capacity=1]

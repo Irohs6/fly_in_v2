@@ -12,7 +12,7 @@ from src.model.replay import HubReplayState
 
 
 class HubRenderer:
-    """Dessine les hubs, leurs noms et leurs occupations enregistrées."""
+    """Draw hubs, their names and recorded occupancy."""
     COLOR_MAP = {
         "black": (40, 40, 45),
         "blue": (0, 128, 255),
@@ -40,14 +40,12 @@ class HubRenderer:
     HUB_MAX_RADIUS = 55
 
     def __init__(self, font: pygame.font.Font) -> None:
-        """Mémorise la police utilisée pour les étiquettes des hubs."""
+        """Store the font used for hub labels."""
         self.font = font
 
     def radius(self, zone: Hub, zoom: float) -> int:
         # Rayon calculé en fonction de la capacité maximale du hub
-        """Calcule un rayon en pixels selon la capacité, les bornes et le
-        zoom.
-        """
+        """Compute the pixel radius from capacity, radius bounds and zoom."""
         hub_radius = self.HUB_BASE_RADIUS + zone.capacity * self.HUB_SCALE
 
         # On limite le rayon entre une valeur minimale et maximale
@@ -67,11 +65,9 @@ class HubRenderer:
         is_start: bool = False,
         is_end: bool = False,
     ) -> None:
-        """Dessine le hub à position et son occupation si elle est fournie.
-
-        position est exprimée en pixels écran. Les hubs start/end reçoivent
-        une bordure distincte ; une couleur inconnue utilise la couleur de
-        repli.
+        """Draw a hub at a screen position, optionally showing occupancy.
+        Distinguish start and end hubs with a border and use a fallback
+        for unknown colors.
         """
         hub_color = self.COLOR_MAP.get(
             zone.color,
@@ -139,7 +135,7 @@ class HubRenderer:
         radius: int,
     ) -> None:
 
-        """Dessine le nom du hub au-dessus du cercle de rayon donné."""
+        """Draw the hub name above the circle with the given radius."""
         label = self.font.render(
             zone.name,
             True,
@@ -160,7 +156,7 @@ class HubRenderer:
 
 
 class ConnectionRenderer:
-    """Dessine les connexions sous forme de lignes avec bordure."""
+    """Draw connections as bordered lines."""
     CONN_FILL = (55, 60, 78)
     CONN_BORDER = (40, 45, 60)
     BAND_WIDTH = 9
@@ -169,9 +165,8 @@ class ConnectionRenderer:
              source_position: tuple[int, int],
              target_position: tuple[int, int], zoom: float) -> None:
         # Ne rien dessiner si les deux hubs sont au même endroit
-        """Relie deux positions écran avec une épaisseur adaptée au zoom.
-
-        Ne dessine rien si les deux positions sont identiques.
+        """Connect two screen positions with a zoom-adjusted width. Skip
+        drawing when the positions are identical.
         """
         if source_position == target_position:
             return
@@ -210,7 +205,7 @@ class ConnectionRenderer:
 
 
 class GraphRenderer:
-    """Compose le dessin du réseau et des états de hubs du replay."""
+    """Draw the network and recorded hub states."""
     BG_COLOR = (20, 20, 25)
 
     def __init__(
@@ -220,7 +215,7 @@ class GraphRenderer:
         coordinate_system: CoordinateSystem,
         font: pygame.font.Font
     ) -> None:
-        """Associe graphe, écran, coordonnées et police aux renderers."""
+        """Associate the graph, screen, coordinates and font with renderers."""
         self.graph = graph
         self.screen = screen
         self.world_positions = coordinate_system.world_positions
@@ -230,7 +225,9 @@ class GraphRenderer:
 
     def draw(self, camera: Camera,
              hub_states: dict[str, HubReplayState]) -> None:
-        """Efface l’écran puis dessine connexions et hubs avec la caméra."""
+        """Clear the screen and draw connections and hubs through the
+        camera.
+        """
         screen_width, screen_height = self.screen.get_size()
         self.screen.fill(self.BG_COLOR)
 
