@@ -103,14 +103,21 @@ class Parser:
         x = self._parse_integer(x_str, nb_line, "coordonnée x")
         y = self._parse_integer(y_str, nb_line, "coordonnée y")
         meta = self.parse_meta(
-            marker + meta_raw, nb_line, {"zone", "color", "capacity"},
+            marker + meta_raw,
+            nb_line,
+            {"zone", "color", "capacity", "max_drones"},
         )
 
         color = meta.get("color", "gray")
+        if "max_drones" in meta and "capacity" in meta:
+            raise ParseError(
+                f"Ligne {nb_line}: métadonnée dupliquée: capacité déjà définie."
+            )
+        cap_raw = meta.get("max_drones") or meta.get("capacity") or "1"
         capacity = (
             math.inf if is_start or is_end
             else self._parse_integer(
-                meta.get("capacity", "1"), nb_line, "capacity", positive=True,
+                cap_raw, nb_line, "capacity", positive=True,
             )
         )
         zone_type = meta.get("zone", "normal")
@@ -160,9 +167,18 @@ class Parser:
         ):
             raise ParseError(f"Ligne {nb_line}: connection invalide: {raw!r}.")
 
-        meta = self.parse_meta(marker + meta_raw, nb_line, {"capacity"})
+        meta = self.parse_meta(
+            marker + meta_raw,
+            nb_line,
+            {"capacity", "max_link_capacity"},
+        )
+        if "max_link_capacity" in meta and "capacity" in meta:
+            raise ParseError(
+                f"Ligne {nb_line}: métadonnée dupliquée: capacité déjà définie."
+            )
+        cap_raw = meta.get("max_link_capacity") or meta.get("capacity") or "1"
         capacity = self._parse_integer(
-            meta.get("capacity", "1"), nb_line, "capacity", positive=True,
+            cap_raw, nb_line, "capacity", positive=True,
         )
 
         self.connections.append(
@@ -305,7 +321,8 @@ class Parser:
             raise ParseError("No lines to parse. Please read the file first.")
 
         first_number, first_line = self.lines[0]
-        if first_line.partition(":")[0].strip() != "nb_drones":
+        first_keyword = first_line.partition(":")[0].strip()
+        if first_keyword not in ("nb_drones", "drones", "nb_drone"):
             raise ParseError(
                 f"Ligne {first_number}: la première ligne doit définir "
                 "nb_drones: <entier positif>."
@@ -321,7 +338,7 @@ class Parser:
                     "Format attendu: <mot-clé>: <valeur>."
                 )
 
-            if keyword == "nb_drones":
+            if keyword in ("nb_drones", "drones", "nb_drone"):
                 if self.nb_drones is not None:
                     raise ParseError(
                         f"Ligne {nb_line}: nb_drones déjà défini."

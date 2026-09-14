@@ -162,6 +162,33 @@ def test_parser_can_be_reused_without_mutating_previous_result(
     assert len(second["connections"]) == 2
 
 
+def test_max_drones_and_max_link_capacity_supported(tmp_path: Path) -> None:
+    lines = [
+        "drones: 4",
+        "start_hub: start 0 0",
+        "hub: a 1 0 [max_drones=3 color=blue zone=priority]",
+        "end_hub: goal 2 0",
+        "connection: start-a [max_link_capacity=2]",
+        "connection: a-goal",
+    ]
+    data = make_parser(tmp_path, lines).parse()
+    assert data["nb_drones"] == 4
+    assert data["hubs"][0]["capacity"] == 3
+    assert data["connections"][0]["capacity"] == 2
+
+
+def test_conflicting_capacity_metadata_rejected(tmp_path: Path) -> None:
+    lines_hub = VALID_LINES.copy()
+    lines_hub[2] = "hub: a 1 0 [capacity=2 max_drones=3]"
+    with pytest.raises(ParseError, match="Ligne 3: métadonnée dupliquée"):
+        make_parser(tmp_path, lines_hub).parse()
+
+    lines_conn = VALID_LINES.copy()
+    lines_conn[4] = "connection: start-a [capacity=2 max_link_capacity=3]"
+    with pytest.raises(ParseError, match="Ligne 5: métadonnée dupliquée"):
+        make_parser(tmp_path, lines_conn).parse()
+
+
 def test_parser_can_retry_after_error(tmp_path: Path) -> None:
     parser = make_parser(tmp_path, VALID_LINES + ["invalid"])
     with pytest.raises(ParseError):

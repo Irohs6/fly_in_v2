@@ -40,7 +40,7 @@ hub: micro_gate2 8 0 [color=orange max_drones=1]
 hub: micro_gate3 9 0 [color=orange max_drones=1]
 
 # Overflow areas with terrible costs
-hub: overflow_hell1 7 1 [zone=restricted color=maroon max_drones=2]
+hub: overflow_hell1 7 1 [zone=restricted color=maroon max_drones=4]
 hub: overflow_hell2 8 1 [zone=restricted color=maroon max_drones=2]
 hub: overflow_hell3 9 1 [zone=restricted color=maroon max_drones=2]
 hub: overflow_hell4 7 -1 [zone=restricted color=maroon max_drones=2]
@@ -127,7 +127,7 @@ connection: micro_gate1-micro_gate2
 connection: micro_gate2-micro_gate3
 
 # Overflow hell connections
-connection: micro_gate1-overflow_hell1
+connection: micro_gate1-overflow_hell1 [max_link_capacity=4]
 connection: micro_gate2-overflow_hell2
 connection: micro_gate3-overflow_hell3
 connection: micro_gate1-overflow_hell4
