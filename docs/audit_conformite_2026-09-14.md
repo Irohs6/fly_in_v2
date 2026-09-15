@@ -40,7 +40,12 @@ nb_drones: 201 drones requested, allowed limit: 200.
 
 Cette limite avait été demandée pour les performances, mais elle contredit explicitement le sujet. **Correction proposée : retirer le rejet inconditionnel.** Une limite volontaire d’exécution peut être une option utilisateur, pas une restriction du format obligatoire. Adapter également le README et les tests qui exigent actuellement ce rejet.
 
-### 2. Priorité haute — erreurs graphiques non gérées
+### 2. Corrigé — erreurs graphiques non gérées
+
+**Mise à jour après correction :** `PygameView.display()` intercepte uniquement les erreurs Pygame attendues et les convertit en `DisplayError`, une exception indépendante de Pygame que `main()` affiche proprement. Un `finally` garantit `pygame.quit()` à la fermeture normale, à l’échec d’initialisation ou de rendu, et à l’interruption. Les exceptions inattendues restent propagées après nettoyage. Le mode terminal n’importe toujours pas Pygame.
+
+Validation : **178 tests réussis**, `make lint` réussi. Douze nouveaux cas couvrent trois points d’échec, les exceptions attendues et inattendues, l’interruption, la fermeture normale et les deux modes avec pilote vidéo indisponible. Le constat ci-dessous décrit l’état avant correction.
+
 
 **Exigence :** III.1, page 5 : éviter les crashes dus aux exceptions non gérées et nettoyer les ressources.
 

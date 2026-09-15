@@ -2,6 +2,7 @@ import pygame
 
 from src.model.graph import Graph
 from src.model.replay import HubReplayState, ReplayFrame
+from src.view.errors import DisplayError
 from src.view.graph_renderer import GraphRenderer
 from src.view.replay_player import ReplayPlayer
 from src.view.utils.camera import Camera
@@ -25,10 +26,22 @@ class PygameView:
         self.replay_frames = replay_frames
 
     def display(self) -> None:
-        """Open the window and process events until it closes. Display
-        frames through ReplayPlayer and handle camera zoom and panning.
-        Shut down Pygame after the event loop exits normally.
+        """Display the replay and always release Pygame resources.
+
+        Wrap expected Pygame errors in DisplayError for the entry point.
+        Other exceptions propagate after cleanup.
         """
+        try:
+            self._display_replay()
+        except pygame.error as exc:
+            raise DisplayError(
+                f"Cannot display graphical replay: {exc}"
+            ) from exc
+        finally:
+            pygame.quit()
+
+    def _display_replay(self) -> None:
+        """Initialize the window and run the interactive replay loop."""
         pygame.init()
 
         screen = pygame.display.set_mode(
@@ -154,5 +167,3 @@ class PygameView:
             )
 
             pygame.display.flip()
-
-        pygame.quit()

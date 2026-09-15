@@ -3,6 +3,7 @@ import sys
 
 from src.controller.controller import Controller
 from src.parser.parser import ParseError
+from src.view.errors import DisplayError
 
 
 def main() -> int:
@@ -20,7 +21,7 @@ def main() -> int:
     try:
         controller = Controller(args.map)
         controller.run(is_view=not args.no_gui)
-    except (OSError, ParseError) as exc:
+    except (OSError, ParseError, DisplayError) as exc:
         print(f"Error: {exc}", file=sys.stderr)
         return 1
     except KeyboardInterrupt:
