@@ -1,4 +1,3 @@
-import math
 from collections import deque
 from .parser import ConnectionDict, HubDict
 
@@ -9,124 +8,52 @@ class ValidationError(Exception):
 
 
 class MapValidator:
-    """Validate parsed map data against the Fly-in rules and project limits."""
+    """Validate zone types and graph consistency of parsed map data.
 
-    MAX_DRONES = 200
+    Parser has already checked the input syntax, keys and numeric values.
+    """
+
     VALID_ZONE_TYPES = {"normal", "blocked", "restricted", "priority"}
 
     def __init__(
         self,
-        nb_drones: int | None,
         start_hub: HubDict,
         end_hub: HubDict,
-        hubs: list[HubDict],
-        connections: list[ConnectionDict],
-        zone_entries: list[tuple[HubDict, int]],
+        hub_entries: list[tuple[HubDict, int]],
         connection_entries: list[tuple[ConnectionDict, int]],
     ) -> None:
 
-        """Store parsed data and declaration line numbers. zone_entries and
+        """Store parsed data and declaration line numbers. hub_entries and
         connection_entries associate declarations with their lines for
         error reporting.
         """
-        self.nb_drones = nb_drones
         self.start_hub = start_hub
         self.end_hub = end_hub
-        self.hubs = hubs
-        self.connections = connections
-        self.zone_entries = zone_entries
+        self.hub_entries = hub_entries
         self.connection_entries = connection_entries
 
     def validate(self) -> None:
-        """Validate every section of the map."""
-        self._validate_nb_drones()
-        self._validate_zones()
-        self._validate_connections()
-        self._check_unique_zone_names()
+        """Validate the consistency of parsed map data."""
+        self._check_zone_types()
+        self._check_unique_hub_names()
         self._check_connection_endpoints()
         self._check_duplicate_connections()
         self._check_reachable_end()
 
-    def _validate_nb_drones(self) -> None:
-        """Require a positive drone count no greater than MAX_DRONES."""
-        if not isinstance(self.nb_drones, int):
-            raise ValidationError(
-                "Line 1: missing nb_drones declaration."
-            )
-        if self.nb_drones <= 0:
-            raise ValidationError(
-                "Line 1: the drone count must be positive."
-            )
-
-        if self.nb_drones > self.MAX_DRONES:
-            raise ValidationError(
-                f"nb_drones: {self.nb_drones} drones requested, "
-                f"allowed limit: {self.MAX_DRONES}."
-            )
-
-    def _validate_zones(self) -> None:
-        """Validate hubs and their metadata."""
-        for hub, line in self.zone_entries:
-
-            # Vérification du type de zone
-            zone_type = hub.get("zone_type", "normal")
+    def _check_zone_types(self) -> None:
+        """Require a supported zone type for every hub."""
+        for hub, line in self.hub_entries:
+            zone_type = hub["zone_type"]
             if zone_type not in self.VALID_ZONE_TYPES:
                 raise ValidationError(
                     f"Line {line}: invalid zone type '{zone_type}' "
                     f"for hub {hub['name']!r}"
                 )
 
-            # Vérification des clés inconnues
-            for key in hub:
-                if key in {"name", "x", "y", "zone_type", "color", "capacity"}:
-                    continue
-                raise ValidationError(
-                    f"Line {line}: unknown metadata key '{key}' "
-                    f"for hub {hub['name']!r}"
-                )
-
-            # Vérification de la capacité
-            capacity = hub["capacity"]
-            is_terminal_hub = hub is self.start_hub or hub is self.end_hub
-
-            if is_terminal_hub and capacity == math.inf:
-                continue
-
-            if not isinstance(capacity, int) or capacity < 1:
-                raise ValidationError(
-                    f"Line {line}: invalid capacity "
-                    f"for hub {hub['name']!r}"
-                )
-
-    def _validate_connections(self) -> None:
-        """Validate connection keys and capacities. Raise ValidationError
-        with the offending declaration line.
-        """
-        for connection, line in self.connection_entries:
-
-            # Vérification des clés inconnues
-            for key in connection:
-                if key in {"source", "target", "capacity"}:
-                    continue
-                raise ValidationError(
-                    f"Line {line}: unknown metadata key '{key}' "
-                    "for connection "
-                    f"{connection['source']!r}-{connection['target']!r}"
-                )
-
-            # Vérification de la capacité
-            cap = connection["capacity"]
-            if not isinstance(cap, int) or cap <= 0:
-                raise ValidationError(
-                    f"Line {line}: invalid connection capacity "
-                    "for connection "
-                    f"{connection['source']!r}-{connection['target']!r}"
-                )
-
-    def _check_unique_zone_names(self) -> None:
+    def _check_unique_hub_names(self) -> None:
         """Reject duplicate hub names and report their declaration lines."""
         names: dict[str, int] = {}
-        for hub, line in self.zone_entries:
+        for hub, line in self.hub_entries:
             name = hub["name"]
             if name in names:
                 first_line = names[name]
@@ -141,7 +68,7 @@ class MapValidator:
         Raise ValidationError for unknown hubs or late declarations.
         """
         definition_lines = {
-            hub["name"]: line for hub, line in self.zone_entries
+            hub["name"]: line for hub, line in self.hub_entries
         }
         for connection, line in self.connection_entries:
             for endpoint in (connection["source"], connection["target"]):
@@ -184,14 +111,13 @@ class MapValidator:
 
     def _check_reachable_end(self) -> None:
         """Use BFS to check that start can reach end without blocked hubs."""
-        hubs = [self.start_hub, *self.hubs, self.end_hub]
         adjacency: dict[str, list[str]] = {
             hub["name"]: []
-            for hub in hubs
+            for hub, _ in self.hub_entries
             if hub["zone_type"] != "blocked"
         }
 
-        for connection in self.connections:
+        for connection, _ in self.connection_entries:
             source = connection["source"]
             target = connection["target"]
             if source in adjacency and target in adjacency:
@@ -216,7 +142,7 @@ class MapValidator:
                     queue.append(neighbor)
 
         end_line = next(
-            line for hub, line in self.zone_entries
+            line for hub, line in self.hub_entries
             if hub is self.end_hub
         )
         raise ValidationError(

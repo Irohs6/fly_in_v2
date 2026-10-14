@@ -26,7 +26,7 @@ def view(monkeypatch: pytest.MonkeyPatch) -> PygameView:
     simulation = Simulation(Graph(Parser(str(MAP)).parse()))
     simulation.load_drones(1)
     simulation.simulate()
-    return PygameView(simulation.graph, simulation.recorder.frames)
+    return PygameView(simulation.recorder.frames)
 
 
 @pytest.mark.parametrize("target", [
@@ -73,7 +73,7 @@ def test_cli_with_unavailable_video_driver(terminal_only: bool) -> None:
     env["SDL_AUDIODRIVER"] = "dummy"
     command = [sys.executable, "main.py", str(MAP)]
     if terminal_only:
-        command.append("--no-gui")
+        command.append("--view-desactivate")
     result = subprocess.run(
         command, cwd=ROOT, env=env, capture_output=True, text=True, timeout=10,
     )

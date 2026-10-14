@@ -14,35 +14,30 @@ class Hub:
         self.capacity = capacity
         self.x = x
         self.y = y
-        self.nb_drone = 0
+        self.nb_drones = 0
         self.reserved = 0
 
-    def add_nb_drone(self) -> None:
+    def add_drone(self) -> None:
         """Add one drone, raising HubError if capacity would be exceeded."""
-        if self.nb_drone + 1 + self.reserved > self.capacity:
+        if not self.is_available():
             raise HubError("Cannot add more drones than the maximum allowed")
-        self.nb_drone += 1
+        self.nb_drones += 1
 
-    def remove_nb_drone(self) -> None:
+    def remove_drone(self) -> None:
         """Remove one drone, raising HubError if the hub is empty."""
-        if self.nb_drone - 1 < 0:
+        if self.nb_drones - 1 < 0:
             raise HubError("Cannot remove more drones than currently present")
-        self.nb_drone -= 1
+        self.nb_drones -= 1
 
     def is_available(self) -> bool:
         """Return whether a slot is free, accounting for reservations."""
-        return self.nb_drone + self.reserved < self.capacity
+        return self.nb_drones + self.reserved < self.capacity
 
     def reserve(self) -> None:
         """Reserve a slot for a drone in transit. Raise HubError if
         occupancy and reservations reach capacity.
         """
-        if (
-            self.nb_drone
-            + self.reserved
-            + 1
-            > self.capacity
-        ):
+        if not self.is_available():
             raise HubError(
                 "Cannot reserve more than hub capacity"
             )
@@ -80,7 +75,7 @@ class Hub:
         return (
             f"Hub(name={self.name}, color={self.color}, "
             f"zone_type={self.zone_type}, capacity={self.capacity}, "
-            f"nb_drone={self.nb_drone}, x={self.x}, y={self.y})"
+            f"nb_drones={self.nb_drones}, x={self.x}, y={self.y})"
         )
 
     def __repr__(self) -> str:

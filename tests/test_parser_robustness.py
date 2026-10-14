@@ -156,7 +156,7 @@ def test_parser_can_be_reused_without_mutating_previous_result(
 ) -> None:
     parser = make_parser(tmp_path, VALID_LINES)
     first = parser.parse()
-    Path(parser.file_path).write_text(
+    Path(parser.map_path).write_text(
         "\n".join(VALID_LINES).replace("hub: a 1 0", "hub: a 3 0"),
         encoding="utf-8",
     )
@@ -197,20 +197,14 @@ def test_parser_can_retry_after_error(tmp_path: Path) -> None:
     parser = make_parser(tmp_path, VALID_LINES + ["invalid"])
     with pytest.raises(ParseError):
         parser.parse()
-    Path(parser.file_path).write_text("\n".join(VALID_LINES), encoding="utf-8")
+    Path(parser.map_path).write_text("\n".join(VALID_LINES), encoding="utf-8")
     assert parser.parse()["nb_drones"] == 2
 
 
-@pytest.mark.parametrize("count", [1, 200])
-def test_drone_count_within_limit(tmp_path: Path, count: int) -> None:
+@pytest.mark.parametrize("count", [1, 200, 201, 1_000_000])
+def test_positive_drone_count_has_no_fixed_limit(
+    tmp_path: Path, count: int,
+) -> None:
     lines = VALID_LINES.copy()
     lines[0] = f"nb_drones: {count}"
     assert make_parser(tmp_path, lines).parse()["nb_drones"] == count
-
-
-@pytest.mark.parametrize("count", [201, 1_000_000])
-def test_drone_count_above_limit(tmp_path: Path, count: int) -> None:
-    lines = VALID_LINES.copy()
-    lines[0] = f"nb_drones: {count}"
-    with pytest.raises(ParseError, match="allowed limit: 200"):
-        make_parser(tmp_path, lines).parse()

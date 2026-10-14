@@ -1,7 +1,5 @@
 import pytest
 
-from src.model.connection import Connection
-from src.model.hub import Hub
 from src.model.drone import Drone
 from src.model.graph import Graph
 from src.model.simulation import Simulation
@@ -136,14 +134,14 @@ def test_drone_reroutes_to_alternate_path() -> None:
 
     simulation = Simulation(graph)
 
-    start = graph.start_zone
+    start = graph.start_hub
     a = graph.hubs["a"]
     b = graph.hubs["b"]
-    goal = graph.end_zone
+    goal = graph.end_hub
 
     assert goal is not None
 
-    a.add_nb_drone()
+    a.add_drone()
 
     drone = Drone(
         1,
@@ -180,7 +178,7 @@ def test_zone_freed_can_be_reused_in_same_turn() -> None:
 
     assert simulation.turn == 5
     assert all(
-        drone.current_position is graph.end_zone
+        drone.current_position is graph.end_hub
         for drone in simulation.drones
     )
 
@@ -217,7 +215,7 @@ def test_challenger_maps_finish(
 
     assert all(
         drone.current_position
-        is graph.end_zone
+        is graph.end_hub
         for drone in simulation.drones
     )
 
@@ -230,18 +228,16 @@ def test_move_reroutes_when_next_resource_is_full(resource: str) -> None:
     simulation = Simulation(graph)
     simulation.load_drones(1)
     drone = simulation.drones[0]
-    drone.set_path([graph.hubs["a"], graph.end_zone])
+    drone.set_path([graph.hubs["a"], graph.end_hub])
     if resource == "hub":
-        graph.hubs["a"].add_nb_drone()
+        graph.hubs["a"].add_drone()
     else:
-        graph.connections[0].add_nb_drone()
+        graph.connections[0].use_capacity()
 
-    movements: dict[int, Hub | Connection] = {}
-    simulation._try_drone_move(drone, movements)
+    assert simulation._try_drone_move(drone) is True
 
     assert drone.current_position is graph.hubs["b"]
-    assert movements == {1: graph.hubs["b"]}
-    assert drone.path == [graph.end_zone]
+    assert drone.path == [graph.end_hub]
 
 
 def test_move_waits_and_keeps_path_when_all_routes_are_full() -> None:
@@ -249,16 +245,14 @@ def test_move_waits_and_keeps_path_when_all_routes_are_full() -> None:
     simulation = Simulation(graph)
     simulation.load_drones(1)
     drone = simulation.drones[0]
-    graph.hubs["a"].add_nb_drone()
-    graph.hubs["b"].add_nb_drone()
+    graph.hubs["a"].add_drone()
+    graph.hubs["b"].add_drone()
 
-    movements: dict[int, Hub | Connection] = {}
-    simulation._try_drone_move(drone, movements)
+    assert simulation._try_drone_move(drone) is False
 
     assert drone.status == "waiting"
-    assert drone.current_position is graph.start_zone
-    assert drone.path == [graph.hubs["b"], graph.end_zone]
-    assert movements == {}
+    assert drone.current_position is graph.start_hub
+    assert drone.path == [graph.hubs["b"], graph.end_hub]
 
 
 def test_empty_path_before_arrival_fails_immediately() -> None:

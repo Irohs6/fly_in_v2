@@ -88,7 +88,7 @@ def test_parser_reports_line_for_duplicate_hub_names(tmp_path: Path) -> None:
 
 
 def test_validator_reports_line_for_unknown_connection_endpoint() -> None:
-    start: HubDict = {
+    start_hub: HubDict = {
         "name": "hub",
         "x": 0,
         "y": 0,
@@ -96,7 +96,7 @@ def test_validator_reports_line_for_unknown_connection_endpoint() -> None:
         "capacity": float("inf"),
         "zone_type": "normal",
     }
-    end: HubDict = {
+    end_hub: HubDict = {
         "name": "goal",
         "x": 1,
         "y": 0,
@@ -122,10 +122,10 @@ def test_validator_reports_line_for_unknown_connection_endpoint() -> None:
         }
     ]
 
-    zone_entries: list[tuple[HubDict, int]] = [
-        (start, 2),
+    hub_entries: list[tuple[HubDict, int]] = [
+        (start_hub, 2),
         (hubs[0], 3),
-        (end, 4),
+        (end_hub, 4),
     ]
 
     connection_entries: list[tuple[ConnectionDict, int]] = [
@@ -133,67 +133,31 @@ def test_validator_reports_line_for_unknown_connection_endpoint() -> None:
     ]
 
     validator = MapValidator(
-        1,
-        start,
-        end,
-        hubs,
-        connections,
-        zone_entries,
-        connection_entries,
+        start_hub=start_hub,
+        end_hub=end_hub,
+        hub_entries=hub_entries,
+        connection_entries=connection_entries,
     )
 
     with pytest.raises(ValidationError, match=r"Line 5:.*unknown hub"):
         validator.validate()
 
 
-def test_validator_reports_line_for_bad_zone_capacity() -> None:
-    start: HubDict = {
-        "name": "hub",
-        "x": 0,
-        "y": 0,
-        "color": "green",
-        "capacity": float("inf"),
-        "zone_type": "normal",
-    }
-    end: HubDict = {
-        "name": "goal",
-        "x": 1,
-        "y": 0,
-        "color": "yellow",
-        "capacity": float("inf"),
-        "zone_type": "normal",
-    }
-    hubs: list[HubDict] = [
-        {
-            "name": "a",
-            "x": 1,
-            "y": 1,
-            "color": "red",
-            "capacity": 0,
-            "zone_type": "normal",
-        }
-    ]
-    connections: list[ConnectionDict] = []
-    zone_entries: list[tuple[HubDict, int]] = [
-        (start, 2),
-        (hubs[0], 3),
-        (end, 4),
-    ]
-
-    connection_entries: list[tuple[ConnectionDict, int]] = []
-
-    validator = MapValidator(
-        1,
-        start,
-        end,
-        hubs,
-        connections,
-        zone_entries,
-        connection_entries,
+def test_parser_reports_line_for_bad_hub_capacity(tmp_path: Path) -> None:
+    map_path = write_map(
+        tmp_path,
+        "\n".join([
+            "nb_drones: 1",
+            "start_hub: start 0 0",
+            "hub: a 1 0 [max_drones=0]",
+            "end_hub: goal 2 0",
+            "connection: start-a",
+            "connection: a-goal",
+        ]),
     )
 
-    with pytest.raises(ValidationError, match=r"Line 3:.*invalid capacity"):
-        validator.validate()
+    with pytest.raises(ParseError, match=r"Line 3:.*invalid capacity"):
+        Parser(str(map_path)).parse()
 
 
 @pytest.mark.parametrize(

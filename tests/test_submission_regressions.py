@@ -48,7 +48,7 @@ def test_priority_never_overrides_shorter_duration(
     finder = Dijkstra(graph)
     path = finder.shortest_path()
     assert path[1].name == expected_prefix + "0"
-    assert finder.distance_to(graph.start_zone, graph.end_zone) == (
+    assert finder.distance_to(graph.start_hub, graph.end_hub) == (
         min(normal_count, priority_count) + 1
     )
 
@@ -87,14 +87,14 @@ def test_delivered_status_in_arrival_frame(
     turns = simulation.simulate()
     for frame in simulation.recorder.frames:
         for drone_id, state in frame.drones.items():
-            if state.source == state.target == "goal":
+            if state.current_position == "goal":
                 assert state.status == "delivered"
     assert all(drone.status == "delivered" for drone in simulation.drones)
     assert all(
         state.status == "delivered"
         for state in simulation.recorder.frames[-1].drones.values()
     )
-    assert turns[-1][2] is graph.end_zone
+    assert turns[-1].drones[2].current_position == "goal"
 
 
 def test_main_prints_only_movements() -> None:

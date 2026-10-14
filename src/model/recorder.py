@@ -1,95 +1,63 @@
-from .drone import Drone
-from .hub import Hub
+from collections import Counter
+
 from .connection import Connection
-from .replay import (
-    DroneReplayState,
-    HubReplayState,
-    ReplayFrame,
-)
+from .drone import Drone
+from .graph import Graph
+from .state import ConnectionState, DroneState, HubState, TurnState
 
 
 class Recorder:
+    """Store complete, independent turn states for every output view."""
 
-    """Collect drone and hub states for replay."""
     def __init__(self) -> None:
-        """Initialize an empty list of recorded frames."""
-        self.frames: list[ReplayFrame] = []
+        """Initialize the shared simulation history."""
+        self.frames: list[TurnState] = []
 
     def record(
         self,
         turn: int,
+        graph: Graph,
         drones: list[Drone],
-        hubs: dict[str, Hub],
+        moved_drones: tuple[int, ...] = (),
     ) -> None:
-        """Append a frame with the current drone and hub states. Copy values
-        into independent replay states without modifying the graph or
-        drones.
-        """
-        drone_states = {
-            drone.drone_id: self._drone_state(drone)
-            for drone in drones
-        }
-        hub_states = {
-            hub_id: HubReplayState(hub.nb_drone, hub.capacity)
-            for hub_id, hub in hubs.items()
-        }
-        self.frames.append(ReplayFrame(turn, drone_states, hub_states))
-
-    def _drone_state(
-        self,
-        drone: Drone,
-    ) -> DroneReplayState:
-
-        """Return the replay state for a drone in a hub or in transit."""
-        if isinstance(drone.current_position, Connection):
-            return self._transit_state(drone)
-
-        zone_name = drone.current_position.name
-
-        return DroneReplayState(
-            source=zone_name,
-            target=zone_name,
-            progress=1.0,
-            status=drone.status,
-        )
-
-    def _transit_state(
-        self,
-        drone: Drone,
-    ) -> DroneReplayState:
-
-        """Return transit endpoints and progress clamped between zero and
-        one. Raise RuntimeError if the departure hub or connection is
-        missing.
-        """
-        if (
-            drone.previous_zone is None
-            or not isinstance(drone.current_position, Connection)
-        ):
-            raise RuntimeError(
-                f"Invalid transit state for {drone.drone_id}."
+        """Copy the full model state before turn capacity counters reset."""
+        drone_states: dict[int, DroneState] = {}
+        transits: Counter[tuple[str, str]] = Counter()
+        for drone in drones:
+            position = drone.current_position
+            if isinstance(position, Connection):
+                transits[(position.source.name, position.target.name)] += 1
+            drone_states[drone.drone_id] = DroneState(
+                current_position=(position.source.name, position.target.name)
+                if isinstance(position, Connection) else position.name,
+                previous_zone=drone.previous_zone.name
+                if drone.previous_zone is not None else None,
+                path=tuple(hub.name for hub in drone.path),
+                status=drone.status,
+                transit_duration=drone.transit_duration,
+                transit_turns=drone.transit_turns,
             )
 
-        source = drone.previous_zone
-
-        target = drone.current_position.get_extremities(source)
-
-        progress = 0.0
-
-        if drone.transit_duration > 0:
-            progress = (
-                drone.transit_turns
-                / drone.transit_duration
-            )
-
-        progress = max(
-            0.0,
-            min(1.0, progress),
-        )
-
-        return DroneReplayState(
-            source=source.name,
-            target=target.name,
-            progress=progress,
-            status=drone.status,
-        )
+        self.frames.append(TurnState(
+            turn=turn,
+            start_hub=graph.start_hub.name,
+            end_hub=graph.end_hub.name,
+            drones=drone_states,
+            hubs={
+                hub.name: HubState(
+                    name=hub.name, x=hub.x, y=hub.y, color=hub.color,
+                    zone_type=hub.zone_type, capacity=hub.capacity,
+                    nb_drones=hub.nb_drones, reserved=hub.reserved,
+                )
+                for hub in graph.hubs.values()
+            },
+            connections={
+                (conn.source.name, conn.target.name): ConnectionState(
+                    source=conn.source.name, target=conn.target.name,
+                    capacity=conn.capacity, used_capacity=conn.used_capacity,
+                    in_transit=transits[(conn.source.name, conn.target.name)],
+                )
+                for conn in graph.connections
+            },
+            moved_drones=moved_drones,
+        ))

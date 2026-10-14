@@ -1,7 +1,6 @@
 import pygame
 
-from src.model.graph import Graph
-from src.model.replay import HubReplayState, ReplayFrame
+from src.model.state import TurnState
 from src.view.errors import DisplayError
 from src.view.graph_renderer import GraphRenderer
 from src.view.replay_player import ReplayPlayer
@@ -18,11 +17,9 @@ class PygameView:
 
     def __init__(
         self,
-        graph: Graph,
-        replay_frames: list[ReplayFrame],
+        replay_frames: list[TurnState],
     ) -> None:
-        """Store the graph and frames without opening a window."""
-        self.graph = graph
+        """Store complete turn states without opening a window."""
         self.replay_frames = replay_frames
 
     def display(self) -> None:
@@ -42,6 +39,8 @@ class PygameView:
 
     def _display_replay(self) -> None:
         """Initialize the window and run the interactive replay loop."""
+        if not self.replay_frames:
+            return
         pygame.init()
 
         screen = pygame.display.set_mode(
@@ -65,19 +64,12 @@ class PygameView:
             cell_size=self.CELL_SIZE
         )
 
-        coord.compute(
-            self.graph.hubs.values()
-        )
-
         renderer = GraphRenderer(
-            graph=self.graph,
             screen=screen,
-            coordinate_system=coord,
             font=font_small,
         )
 
         replay = ReplayPlayer(
-            hub_positions=coord.world_positions,
             frames=self.replay_frames,
         )
 
@@ -147,18 +139,15 @@ class PygameView:
 
                 replay.handle_event(event)
 
-            hub_states: dict[str, HubReplayState] = {}
-
-            if replay.frames:
-                hub_states = replay.frames[
-                    replay.current_index].hubs
-
-            renderer.draw(camera, hub_states)
+            frame = replay.frames[replay.current_index]
+            positions = coord.compute(frame.hubs.values())
+            renderer.draw(camera, frame, positions)
 
             replay.draw(
                 screen,
                 camera,
                 font_small,
+                positions,
             )
 
             replay.draw_overlay(

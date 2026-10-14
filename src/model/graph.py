@@ -11,21 +11,21 @@ class Graph:
         # Stockage des hubs et connexions
         """Build hubs and their indexes from validated map data."""
         self.hubs: dict[str, Hub] = {
-            hub["name"]: Hub(**hub) for hub in data.get("hubs", [])
+            hub["name"]: Hub(**hub) for hub in data["hubs"]
         }
 
         # Zones spéciales
-        self.start_zone: Hub = (
+        self.start_hub: Hub = (
             Hub(**data["start_hub"])
         )
-        self.end_zone: Hub = (
+        self.end_hub: Hub = (
             Hub(**data["end_hub"])
         )
 
-        self.hubs[self.start_zone.name] = self.start_zone
-        self.hubs[self.end_zone.name] = self.end_zone
+        self.hubs[self.start_hub.name] = self.start_hub
+        self.hubs[self.end_hub.name] = self.end_hub
 
-        self.connections = self._build_connections(data.get("connections", []))
+        self.connections = self._build_connections(data["connections"])
 
         # Adjacence
         self.adjacency: dict[str, list[Connection]] = defaultdict(list)
@@ -42,11 +42,11 @@ class Graph:
 
         return [
             Connection(
-                source=self.hubs[conn["source"]],
-                target=self.hubs[conn["target"]],
-                capacity=conn.get("capacity", 1),
+                source=self.hubs[connection["source"]],
+                target=self.hubs[connection["target"]],
+                capacity=connection["capacity"],
             )
-            for conn in raw_connections
+            for connection in raw_connections
         ]
 
     def _index_connection(
@@ -68,9 +68,9 @@ class Graph:
             (connection.target, connection.source)
         ] = connection
 
-    def get_neighbors(self, zone: Hub) -> list[Connection]:
-        """Return connections incident to zone, or an empty list."""
-        return self.adjacency.get(zone.name, [])
+    def get_connections(self, hub: Hub) -> list[Connection]:
+        """Return connections incident to hub, or an empty list."""
+        return self.adjacency.get(hub.name, [])
 
     def get_connection(self, source: Hub, target: Hub) -> Connection | None:
         """Return the connection between source and target, or None if

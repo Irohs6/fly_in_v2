@@ -72,19 +72,19 @@ def test_hub_capacity_and_move_cost_rules() -> None:
         capacity=1,
     )
 
-    hub.add_nb_drone()
+    hub.add_drone()
 
-    assert hub.nb_drone == 1
-
-    with pytest.raises(HubError):
-        hub.add_nb_drone()
-
-    hub.remove_nb_drone()
-
-    assert hub.nb_drone == 0
+    assert hub.nb_drones == 1
 
     with pytest.raises(HubError):
-        hub.remove_nb_drone()
+        hub.add_drone()
+
+    hub.remove_drone()
+
+    assert hub.nb_drones == 0
+
+    with pytest.raises(HubError):
+        hub.remove_drone()
 
     restricted = Hub(
         name="R",
@@ -142,12 +142,12 @@ def test_connection_capacity_rules() -> None:
         capacity=1,
     )
 
-    connection.add_nb_drone()
+    connection.use_capacity()
 
-    assert connection.nb_drones == 1
+    assert connection.used_capacity == 1
 
     with pytest.raises(ConnectionError):
-        connection.add_nb_drone()
+        connection.use_capacity()
 
 
 @pytest.mark.parametrize("duration", [2, 3])
@@ -207,7 +207,7 @@ def test_graph_builds_connections() -> None:
     assert first.target is graph.hubs["A"]
 
 
-def test_graph_neighbors_and_connection_map() -> None:
+def test_graph_connections_and_connection_map() -> None:
     graph = Graph(
         make_map_data()
     )
@@ -215,9 +215,9 @@ def test_graph_neighbors_and_connection_map() -> None:
     start = graph.hubs["START"]
     a = graph.hubs["A"]
 
-    neighbors = graph.get_neighbors(a)
+    connections = graph.get_connections(a)
 
-    assert len(neighbors) == 2
+    assert len(connections) == 2
 
     assert graph.get_connection(
         start,

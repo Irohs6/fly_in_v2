@@ -66,7 +66,8 @@ class Drone:
     def advance_transit(self) -> Hub | None:
         """Advance transit by one turn and return the destination on
         arrival. Return None when there is no active transit or the trip
-        is incomplete.
+        is incomplete. On arrival, consume the path step and reset transit
+        state. Raise RuntimeError if the departure hub is missing.
         """
         if not isinstance(self.current_position, Connection):
             return None
@@ -76,21 +77,12 @@ class Drone:
         if self.transit_turns < self.transit_duration:
             return None
 
-        return self.finish_transit()
-
-    def finish_transit(self) -> Hub:
-        """Reach the destination, consume the path step and reset transit
-        state. Return the destination hub. Raise RuntimeError if the
-        connection or departure hub is missing.
-        """
-        if not isinstance(self.current_position,
-                          Connection) or self.previous_zone is None:
-
+        if self.previous_zone is None:
             raise RuntimeError(
                 f"Drone {self.drone_id}: missing connection or departure hub."
             )
 
-        destination = self.current_position.get_extremities(
+        destination = self.current_position.get_other_hub(
             self.previous_zone)
         self.current_position = destination
         self.path.pop(0)
@@ -103,10 +95,6 @@ class Drone:
     def wait(self) -> None:
         """Mark the drone as waiting without changing its position."""
         self.status = "waiting"
-
-    def moving(self) -> None:
-        """Mark the drone as moving without changing its position."""
-        self.status = "moving"
 
     def deliver(self) -> None:
         """Mark the drone as delivered without changing its position."""

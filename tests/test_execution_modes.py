@@ -1,5 +1,3 @@
-from contextlib import redirect_stdout
-from io import StringIO
 from pathlib import Path
 import subprocess
 import sys
@@ -9,11 +7,10 @@ import pytest
 
 from src.controller.controller import Controller
 from src.model.graph import Graph
-from src.model.replay import DroneReplayState, ReplayFrame
+from src.model.state import DroneState, TurnState
 from src.model.simulation import Simulation
 from src.parser.parser import Parser
 from src.view.replay_player import ReplayPlayer
-from src.view.terminal import TerminalView
 from src.view.utils.camera import Camera
 
 
@@ -24,12 +21,10 @@ MAP = "assets/maps/easy/01_linear_path.txt"
 def test_controller_construction_has_no_execution(
     tmp_path: Path, capsys: pytest.CaptureFixture[str],
 ) -> None:
+    map_path = tmp_path / "missing.txt"
     with patch.object(Parser, "parse", side_effect=AssertionError):
-        controller = Controller(tmp_path / "missing.txt")
-    assert controller.data is None
-    assert controller.graph is None
-    assert controller.simulation is None
-    assert controller.view is None
+        controller = Controller(map_path=map_path)
+    assert controller.map_path == map_path
     assert capsys.readouterr().out == ""
 
 
@@ -40,7 +35,7 @@ def test_terminal_mode_does_not_import_pygame() -> None:
             "result = main.main(); "
             "assert 'pygame' not in sys.modules; "
             "raise SystemExit(result)"
-        ), MAP, "--no-gui"],
+        ), MAP, "--view-desactivate"],
         cwd=ROOT, text=True, capture_output=True, timeout=10, check=True,
     )
     assert result.stdout == (
@@ -57,19 +52,15 @@ def test_controller_can_run_both_modes_again(
     with patch("src.view.pygame_view.PygameView.display") as display:
         controller.run()
         display.assert_called_once()
-    graphic_output = capsys.readouterr().out
-    assert controller.simulation is not None
-    assert len(controller.simulation.recorder.frames) == 5
-    assert controller.view is not None
+        graphic_output = capsys.readouterr().out
 
-    controller.run(is_view=False)
-    assert capsys.readouterr().out == graphic_output
-    assert controller.simulation.recorder.frames == []
-    assert controller.view is None
+        controller.run(view_active=False)
+        assert capsys.readouterr().out == graphic_output
+        display.assert_called_once()
 
 
 @pytest.mark.parametrize("restricted", [False, True])
-def test_recording_is_optional_without_changing_movements(
+def test_complete_history_is_recorded_once_per_turn(
     tmp_path: Path, restricted: bool,
 ) -> None:
     content = (ROOT / MAP).read_text()
@@ -81,35 +72,33 @@ def test_recording_is_optional_without_changing_movements(
     path = tmp_path / "map.txt"
     path.write_text(content)
     data = Parser(str(path)).parse()
-    outputs = []
-    for recording in (True, False):
-        simulation = Simulation(Graph(data), record_replay=recording)
-        buffer = StringIO()
-        with patch.object(
-            simulation.recorder, "record", wraps=simulation.recorder.record,
-        ) as record:
-            simulation.load_drones(data["nb_drones"])
-            with redirect_stdout(buffer):
-                TerminalView().display(simulation.simulate())
-        if not recording:
-            record.assert_not_called()
-        outputs.append(buffer.getvalue())
-        assert bool(simulation.recorder.frames) is recording
-        assert all(d.status == "delivered" for d in simulation.drones)
-    assert outputs[0] == outputs[1]
+    simulation = Simulation(Graph(data))
+    simulation.load_drones(data["nb_drones"])
+    frames = simulation.simulate()
+    assert frames is simulation.recorder.frames
+    assert [frame.turn for frame in frames] == list(range(simulation.turn + 1))
+    assert all(frame.connections for frame in frames)
+    assert all(d.status == "delivered" for d in simulation.drones)
+    completed_count = len(frames)
+    assert simulation.simulate() is frames
+    assert len(frames) == completed_count
 
 
 def test_replay_draws_lowest_id_per_hub_and_all_transits() -> None:
-    frame = ReplayFrame(turn=1, hubs={}, drones={
-        5: DroneReplayState("a", "a", 1.0, "waiting"),
-        2: DroneReplayState("a", "a", 1.0, "waiting"),
-        4: DroneReplayState("a", "b", 0.5, "in_transit"),
-        3: DroneReplayState("b", "b", 1.0, "moving"),
-        6: DroneReplayState("a", "b", 0.5, "in_transit"),
-    })
-    replay = ReplayPlayer({"a": (0.0, 0.0), "b": (10.0, 0.0)}, [frame])
+    frame = TurnState(
+        turn=1, start_hub="a", end_hub="b", hubs={}, connections={},
+        drones={
+            5: DroneState("a", None, ("b",), "waiting", 0, 0),
+            2: DroneState("a", None, ("b",), "waiting", 0, 0),
+            4: DroneState(("a", "b"), "a", ("b",), "in_transit", 2, 1),
+            3: DroneState("b", "a", (), "moving", 0, 0),
+            6: DroneState(("a", "b"), "a", ("b",), "in_transit", 2, 1),
+        },
+    )
+    replay = ReplayPlayer([frame])
     screen = Mock()
     screen.get_size.return_value = (800, 600)
     with patch.object(replay, "_draw_drone") as draw:
-        replay.draw(screen, Camera(), Mock())
+        replay.draw(screen, Camera(), Mock(),
+                    {"a": (0.0, 0.0), "b": (10.0, 0.0)})
     assert [call.args[2] for call in draw.call_args_list] == [2, 4, 3, 6]

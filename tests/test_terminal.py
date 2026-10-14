@@ -4,6 +4,7 @@ import pytest
 
 from src.model.graph import Graph
 from src.model.simulation import Simulation
+from src.model.state import TurnState
 from src.parser.parser import Parser
 from src.view.terminal import TerminalView
 
@@ -51,7 +52,7 @@ def test_terminal_pipeline(
         "D2-goal D3-b\n"
         "D3-goal\n"
     )
-    assert turns[0][1] is simulation.graph.hubs["a"]
+    assert turns[1].drones[1].current_position == "a"
     assert simulation.turn == 5
 
 
@@ -77,23 +78,25 @@ def test_terminal_restricted_transit(
         "D3-b\n"
         "D3-goal\n"
     )
-    assert turns[0][1] is simulation.graph.connections[0]
-    assert turns[1][1] is simulation.graph.hubs["a"]
+    assert turns[1].drones[1].current_position == tuple(connection.split("-"))
+    assert turns[2].drones[1].current_position == "a"
 
-    # Le replay conserve ses états indépendamment du journal terminal.
+    # Both views use the same recorded states.
     frames = simulation.recorder.frames
+    assert frames is turns
     assert len(frames) == simulation.turn + 1
     transit = frames[1].drones[1]
-    assert (transit.source, transit.target) == ("start", "a")
+    assert transit.previous_zone == "start"
+    assert transit.path == ("a", "b", "goal")
     assert transit.status == "in_transit"
-    assert transit.progress == 0.5
+    assert (transit.transit_turns, transit.transit_duration) == (1, 2)
     arrival = frames[2].drones[1]
-    assert (arrival.source, arrival.target) == ("a", "a")
-    assert arrival.progress == 1.0
+    assert arrival.current_position == "a"
+    assert (arrival.transit_turns, arrival.transit_duration) == (0, 0)
 
 
 def test_terminal_empty_turn(capsys: pytest.CaptureFixture[str]) -> None:
-    TerminalView().display([{}])
+    TerminalView().display([TurnState(1, "start", "end", {}, {}, {})])
     assert capsys.readouterr().out == "\n"
 
 

@@ -1,28 +1,21 @@
-from collections.abc import Iterable, Mapping
+from collections.abc import Iterable
 
-from src.model.connection import Connection
-from src.model.hub import Hub
+from src.model.state import TurnState
 
 
 class TerminalView:
-    """Display movements in the format required by the V3 subject."""
+    """Display recorded movements in the format required by the subject."""
 
-    def display(
-        self,
-        turns: Iterable[Mapping[int, Hub | Connection]],
-    ) -> None:
-        """Print exactly one line per simulation turn."""
-        for movements in turns:
-            print(
-                " ".join(
-                    f"D{drone_id}-{self._format_destination(destination)}"
-                    for drone_id, destination in movements.items()
+    def display(self, turns: Iterable[TurnState]) -> None:
+        """Print one line per completed turn, omitting the initial state."""
+        for frame in turns:
+            if frame.turn == 0:
+                continue
+            movements = []
+            for drone_id in frame.moved_drones:
+                position = frame.drones[drone_id].current_position
+                destination = position if isinstance(position, str) else (
+                    "-".join(position)
                 )
-            )
-
-    @staticmethod
-    def _format_destination(destination: Hub | Connection) -> str:
-        """Name a hub or connection as declared in the map."""
-        if isinstance(destination, Connection):
-            return f"{destination.source.name}-{destination.target.name}"
-        return destination.name
+                movements.append(f"D{drone_id}-{destination}")
+            print(" ".join(movements))

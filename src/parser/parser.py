@@ -39,92 +39,102 @@ class ParseError(Exception):
 class Parser:
     """Object-oriented parser for Fly-in map files."""
 
-    def __init__(self, file_path: str):
+    def __init__(self, map_path: str):
         """Store the file path and initialize parser state without reading
         it.
         """
-        self.file_path = file_path
-        self.lines: list[tuple[int, str]] = []
-        self.hub_zones: list[HubDict] = []
-        self.zone_entries: list[tuple[HubDict, int]] = []
-        self.connections: list[ConnectionDict] = []
+        self.map_path = map_path
+        self.line_count = 0
+        self.hub_entries: list[tuple[HubDict, int]] = []
         self.connection_entries: list[tuple[ConnectionDict, int]] = []
         self.nb_drones: int | None = None
-        self.start_zone: HubDict | None = None
-        self.end_zone: HubDict | None = None
+        self.start_hub: HubDict | None = None
+        self.end_hub: HubDict | None = None
 
     # --- Lecture du fichier ---
-    def read(self) -> None:
-        """Read a UTF-8 map, skipping empty lines and comment-only lines.
-        Preserve line numbers and wrap read or decoding failures in
-        ParseError with the file path.
+    def read_file(self) -> None:
+        """Read and parse a UTF-8 map one line at a time.
+        Skip empty lines and comment-only lines.
+        Preserve physical line numbers and the total line count. Wrap
+        read or decoding failures in ParseError with the file path.
         """
-        self.lines = []
+        self.line_count = 0
         try:
-            with open(self.file_path, "r", encoding="utf-8") as maps_file:
-                for nb_line, raw in enumerate(maps_file, start=1):
+            with open(self.map_path, "r", encoding="utf-8") as maps_file:
+                for line_number, raw in enumerate(maps_file, start=1):
+                    self.line_count = line_number
                     line = raw.strip()
                     if not line or line.startswith("#"):
                         continue
-                    self.lines.append((nb_line, line))
-        except UnicodeDecodeError as exc:
+                    self.parse_line(line, line_number)
+        except UnicodeDecodeError as error:
             raise ParseError(
-                f"Map {self.file_path!r}: invalid UTF-8 encoding."
-            ) from exc
-        except OSError as exc:
+                f"Map {self.map_path!r}: invalid UTF-8 encoding."
+            ) from error
+        except OSError as error:
             raise ParseError(
-                f"Cannot read map {self.file_path!r}: "
-                f"{exc.strerror or str(exc)}"
-            ) from exc
+                f"Cannot read map {self.map_path!r}: "
+                f"{error.strerror or str(error)}"
+            ) from error
 
     # --- Parsing des zones ---
-    def parse_hub_zone(
+    def parse_hub(
         self,
+        keyword: str,
         raw: str,
-        nb_line: int,
-        is_start: bool = False,
-        is_end: bool = False,
+        line_number: int,
     ) -> None:
-        """Parse a hub declaration and its metadata."""
+        """Parse a hub and its metadata, rejecting repeated start or end
+        declarations.
+        """
+        if keyword == "start_hub" and self.start_hub is not None:
+            raise ParseError(
+                f"Line {line_number}: start_hub is already defined."
+            )
+
+        if keyword == "end_hub" and self.end_hub is not None:
+            raise ParseError(
+                f"Line {line_number}: end_hub is already defined."
+            )
 
         zone_raw, marker, meta_raw = raw.partition("[")
         parts = zone_raw.split()
         if len(parts) != 3:
             raise ParseError(
-                f"Line {nb_line}: invalid hub declaration: {raw!r}. "
+                f"Line {line_number}: invalid hub declaration: {raw!r}. "
                 "Expected format: <name> <x> <y> [meta]"
             )
 
         name, x_str, y_str = parts
         if "-" in name:
             raise ParseError(
-                f"Line {nb_line}: invalid hub name: {name!r} "
+                f"Line {line_number}: invalid hub name: {name!r} "
                 "(hyphens are not allowed)."
             )
-        x = self._parse_integer(x_str, nb_line, "x coordinate")
-        y = self._parse_integer(y_str, nb_line, "y coordinate")
-        meta = self.parse_meta(
+        x = self._parse_integer(x_str, line_number, "x coordinate")
+        y = self._parse_integer(y_str, line_number, "y coordinate")
+        meta = self.parse_metadata(
             marker + meta_raw,
-            nb_line,
+            line_number,
             {"zone", "color", "capacity", "max_drones"},
         )
 
         color = meta.get("color", "gray")
         if "max_drones" in meta and "capacity" in meta:
             raise ParseError(
-                f"Line {nb_line}: duplicate metadata: "
+                f"Line {line_number}: duplicate metadata: "
                 "capacity is already defined."
             )
         cap_raw = meta.get("max_drones") or meta.get("capacity") or "1"
         capacity = (
-            math.inf if is_start or is_end
+            math.inf if keyword in ("start_hub", "end_hub")
             else self._parse_integer(
-                cap_raw, nb_line, "capacity", positive=True,
+                cap_raw, line_number, "capacity", positive=True,
             )
         )
         zone_type = meta.get("zone", "normal")
 
-        zone: HubDict = {
+        hub: HubDict = {
             "name": name,
             "x": x,
             "y": y,
@@ -133,21 +143,14 @@ class Parser:
             "zone_type": zone_type,
         }
 
-        if is_start and is_end:
-            raise ParseError(
-                f"Line {nb_line}: a hub cannot be both start and end."
-            )
-
-        if is_start:
-            self.start_zone = zone
-        elif is_end:
-            self.end_zone = zone
-        else:
-            self.hub_zones.append(zone)
-        self.zone_entries.append((zone, nb_line))
+        if keyword == "start_hub":
+            self.start_hub = hub
+        elif keyword == "end_hub":
+            self.end_hub = hub
+        self.hub_entries.append((hub, line_number))
 
     # --- Parsing des connexions ---
-    def parse_connection(self, raw: str, nb_line: int) -> None:
+    def parse_connection(self, raw: str, line_number: int) -> None:
         """Parse a connection declaration and its metadata."""
 
         edge_raw, marker, meta_raw = raw.partition("[")
@@ -155,7 +158,7 @@ class Parser:
 
         if edge.count("-") != 1:
             raise ParseError(
-                f"Line {nb_line}: invalid connection: {raw!r}. "
+                f"Line {line_number}: invalid connection: {raw!r}. "
                 "Expected format: <source>-<target> [meta]"
             )
 
@@ -167,37 +170,37 @@ class Parser:
             not source or not target
             or any(char.isspace() for char in source + target)
         ):
-            raise ParseError(f"Line {nb_line}: invalid connection: {raw!r}.")
+            raise ParseError(
+                f"Line {line_number}: invalid connection: {raw!r}."
+            )
 
-        meta = self.parse_meta(
+        meta = self.parse_metadata(
             marker + meta_raw,
-            nb_line,
+            line_number,
             {"capacity", "max_link_capacity"},
         )
         if "max_link_capacity" in meta and "capacity" in meta:
             raise ParseError(
-                f"Line {nb_line}: duplicate metadata: "
+                f"Line {line_number}: duplicate metadata: "
                 "capacity is already defined."
             )
         cap_raw = meta.get("max_link_capacity") or meta.get("capacity") or "1"
         capacity = self._parse_integer(
-            cap_raw, nb_line, "capacity", positive=True,
+            cap_raw, line_number, "capacity", positive=True,
         )
 
-        self.connections.append(
-            {
-                "source": source,
-                "target": target,
-                "capacity": capacity,
-            }
-        )
-        self.connection_entries.append((self.connections[-1], nb_line))
+        connection: ConnectionDict = {
+            "source": source,
+            "target": target,
+            "capacity": capacity,
+        }
+        self.connection_entries.append((connection, line_number))
 
     # --- Parsing des métadonnées ---
-    def parse_meta(
+    def parse_metadata(
         self,
         raw: str,
-        nb_line: int,
+        line_number: int,
         allowed_keys: set[str],
     ) -> dict[str, str]:
         """Validate a complete metadata block and its allowed keys."""
@@ -212,27 +215,27 @@ class Parser:
             or "]" in meta_raw[:-1]
         ):
             raise ParseError(
-                f"Line {nb_line}: invalid metadata: {raw!r}"
+                f"Line {line_number}: invalid metadata: {raw!r}"
             )
 
         meta: dict[str, str] = {}
         for item in meta_raw[1:-1].split():
             if item.count("=") != 1:
                 raise ParseError(
-                    f"Line {nb_line}: invalid metadata item: {item!r}"
+                    f"Line {line_number}: invalid metadata item: {item!r}"
                 )
             key, value = item.split("=", 1)
             if not key or not value:
                 raise ParseError(
-                    f"Line {nb_line}: invalid metadata item: {item!r}"
+                    f"Line {line_number}: invalid metadata item: {item!r}"
                 )
             if key not in allowed_keys:
                 raise ParseError(
-                    f"Line {nb_line}: unknown metadata key {key!r}"
+                    f"Line {line_number}: unknown metadata key {key!r}"
                 )
             if key in meta:
                 raise ParseError(
-                    f"Line {nb_line}: duplicate metadata: {key!r}"
+                    f"Line {line_number}: duplicate metadata: {key!r}"
                 )
             meta[key] = value
         return meta
@@ -240,7 +243,7 @@ class Parser:
     @staticmethod
     def _parse_integer(
         raw: str,
-        nb_line: int,
+        line_number: int,
         field: str,
         *,
         positive: bool = False,
@@ -249,15 +252,15 @@ class Parser:
         context.
         """
         pattern = r"[0-9]+" if positive else r"[+-]?[0-9]+"
-        error = f"Line {nb_line}: invalid {field}: {raw!r}"
+        error_message = f"Line {line_number}: invalid {field}: {raw!r}"
         if re.fullmatch(pattern, raw) is None:
-            raise ParseError(error)
+            raise ParseError(error_message)
         try:
             value = int(raw)
-        except ValueError as exc:
-            raise ParseError(error) from exc
+        except ValueError as error:
+            raise ParseError(error_message) from error
         if positive and value <= 0:
-            raise ParseError(error)
+            raise ParseError(error_message)
         return value
 
     # --- Parsing global ---
@@ -266,106 +269,89 @@ class Parser:
         from src.parser.validator import MapValidator, ValidationError
 
         # De nouvelles listes préservent les résultats d'un précédent parse.
-        self.hub_zones = []
-        self.zone_entries = []
-        self.connections = []
+        self.hub_entries = []
         self.connection_entries = []
         self.nb_drones = None
-        self.start_zone = None
-        self.end_zone = None
-        self.read()
-        self.parse_lines()
+        self.start_hub = None
+        self.end_hub = None
+        self.read_file()
         if self.nb_drones is None:
             raise ParseError(
-                "missing nb_drones."
+                f"Line {self.line_count}: missing nb_drones at end of file."
             )
 
-        if self.start_zone is None:
+        if self.start_hub is None:
             raise ParseError(
-                "missing start_hub."
+                f"Line {self.line_count}: missing start_hub at end of file."
             )
 
-        if self.end_zone is None:
+        if self.end_hub is None:
             raise ParseError(
-                "missing end_hub."
+                f"Line {self.line_count}: missing end_hub at end of file."
             )
 
         validator = MapValidator(
-            self.nb_drones,
-            self.start_zone,
-            self.end_zone,
-            self.hub_zones,
-            self.connections,
-            self.zone_entries,
-            self.connection_entries,
+            start_hub=self.start_hub,
+            end_hub=self.end_hub,
+            hub_entries=self.hub_entries,
+            connection_entries=self.connection_entries,
         )
 
         try:
             validator.validate()
-        except ValidationError as exc:
-            raise ParseError(str(exc)) from exc
+        except ValidationError as error:
+            raise ParseError(str(error)) from error
 
         return {
-            "map_path": self.file_path,
+            "map_path": self.map_path,
             "nb_drones": self.nb_drones,
-            "start_hub": self.start_zone,
-            "hubs": self.hub_zones,
-            "end_hub": self.end_zone,
-            "connections": self.connections,
+            "start_hub": self.start_hub,
+            "hubs": [
+                hub for hub, _ in self.hub_entries
+                if hub is not self.start_hub and hub is not self.end_hub
+            ],
+            "end_hub": self.end_hub,
+            "connections": [
+                connection for connection, _ in self.connection_entries
+            ],
         }
 
     # --- Parsing des lignes ---
-    def parse_lines(self) -> None:
-        """Interpret input lines while preserving line numbers. Require
-        nb_drones on the first meaningful line, then recognize hub and
-        connection declarations. Raise ParseError for invalid syntax.
+    def parse_line(self, line: str, line_number: int) -> None:
+        """Parse one declaration, requiring the drone count before any hub
+        or connection. Report invalid syntax with its physical line number.
         """
-        if not self.lines:
-            raise ParseError("No lines to parse. Please read the file first.")
-
-        first_number, first_line = self.lines[0]
-        first_keyword = first_line.partition(":")[0].strip()
-        if first_keyword not in ("nb_drones", "drones", "nb_drone"):
+        keyword, separator, raw = line.partition(":")
+        keyword = keyword.strip()
+        raw = raw.strip()
+        if (
+            self.nb_drones is None
+            and keyword not in ("nb_drones", "drones", "nb_drone")
+        ):
             raise ParseError(
-                f"Line {first_number}: the first line must define "
+                f"Line {line_number}: the first line must define "
                 "nb_drones: <positive integer>."
             )
 
-        for nb_line, line in self.lines:
-            keyword, separator, raw = line.partition(":")
-            keyword = keyword.strip()
-            raw = raw.strip()
-            if not separator or not raw:
-                raise ParseError(
-                    f"Line {nb_line}: invalid line: {line!r}. "
-                    "Expected format: <keyword>: <value>."
-                )
+        if not separator or not raw:
+            raise ParseError(
+                f"Line {line_number}: invalid line: {line!r}. "
+                "Expected format: <keyword>: <value>."
+            )
 
-            if keyword in ("nb_drones", "drones", "nb_drone"):
-                if self.nb_drones is not None:
-                    raise ParseError(
-                        f"Line {nb_line}: nb_drones is already defined."
-                    )
-                self.nb_drones = self._parse_integer(
-                    raw, nb_line, "nb_drones", positive=True,
-                )
-            elif keyword == "start_hub":
-                if self.start_zone is not None:
-                    raise ParseError(
-                        f"Line {nb_line}: start_hub is already defined."
-                    )
-                self.parse_hub_zone(raw, nb_line, is_start=True)
-            elif keyword == "hub":
-                self.parse_hub_zone(raw, nb_line)
-            elif keyword == "end_hub":
-                if self.end_zone is not None:
-                    raise ParseError(
-                        f"Line {nb_line}: end_hub is already defined."
-                    )
-                self.parse_hub_zone(raw, nb_line, is_end=True)
-            elif keyword == "connection":
-                self.parse_connection(raw, nb_line)
-            else:
+        if keyword in ("nb_drones", "drones", "nb_drone"):
+            if self.nb_drones is not None:
                 raise ParseError(
-                    f"Line {nb_line}: unknown declaration: {line!r}"
+                    f"Line {line_number}: nb_drones is already defined."
                 )
+            self.nb_drones = self._parse_integer(
+                raw, line_number, "nb_drones", positive=True,
+            )
+        elif keyword in ("start_hub", "hub", "end_hub"):
+            self.parse_hub(keyword, raw, line_number)
+        elif keyword == "connection":
+            self.parse_connection(raw, line_number)
+        else:
+            raise ParseError(
+                f"Line {line_number}: unknown declaration: {line!r}"
+            )

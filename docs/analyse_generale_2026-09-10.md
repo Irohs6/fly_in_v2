@@ -151,7 +151,7 @@ Le dépôt présentait déjà des changements locaux et un nouveau fichier de te
 Les six propositions de la section « Refactors facultatifs » ont été traitées :
 
 - `Controller.__init__()` prépare uniquement la configuration ; `run(gui=True)` charge la carte, lance une nouvelle simulation et affiche les résultats.
-- `--no-gui` exécute le programme sans importer Pygame. Exemple : `poetry run python main.py assets/maps/easy/01_linear_path.txt --no-gui`. Avec Make : `make run MAP=assets/maps/easy/01_linear_path.txt ARGS=--no-gui`.
+- `--view-desactivate` exécute le programme sans importer Pygame. Exemple : `poetry run python main.py assets/maps/easy/01_linear_path.txt --view-desactivate`. Avec Make : `make run MAP=assets/maps/easy/01_linear_path.txt ARGS=--view-desactivate`.
 - `Simulation(..., record_replay=False)` désactive les snapshots. Le Recorder conserve une liste de frames vide ; le journal des mouvements reste en mémoire. L’enregistrement est activé par défaut et désactivé dans le mode terminal et le script d’export des cartes.
 - Dijkstra vérifie les connexions exclues par deux recherches directes dans l’ensemble, une pour chaque orientation. L’interface des exclusions reste identique.
 - ReplayPlayer calcule les représentants de chaque hub en une passe, puis dessine les drones. Le plus petit identifiant reste affiché sur chaque hub et tous les drones en transit sont conservés.

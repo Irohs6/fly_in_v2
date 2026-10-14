@@ -50,8 +50,8 @@ class Dijkstra:
 
             visited.add(current_hub)
 
-            for connection in self.graph.get_neighbors(current_hub):
-                neighbor = connection.get_extremities(current_hub)
+            for connection in self.graph.get_connections(current_hub):
+                neighbor = connection.get_other_hub(current_hub)
 
                 if blocked_zones and neighbor in blocked_zones:
                     continue
@@ -95,15 +95,15 @@ class Dijkstra:
         saturated_conns: set[tuple[Hub, Hub]] | None = None,
     ) -> list[Hub]:
 
-        """Return a path to end_zone including both endpoints. Default to
-        start_zone when source is None and respect hub and connection
+        """Return a path to end_hub including both endpoints. Default to
+        start_hub when source is None and respect hub and connection
         exclusions. Return an empty list if the destination is
         unreachable.
         """
         if source is None:
-            source = self.graph.start_zone
+            source = self.graph.start_hub
 
-        target = self.graph.end_zone
+        target = self.graph.end_hub
 
         distances, predecessors = self.shortest_distances(
             source,

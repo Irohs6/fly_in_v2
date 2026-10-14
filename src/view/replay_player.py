@@ -1,6 +1,6 @@
 import pygame
 
-from src.model.replay import DroneReplayState, ReplayFrame
+from src.model.state import DroneState, TurnState
 from src.view.utils.camera import Camera
 
 
@@ -18,11 +18,9 @@ class ReplayPlayer:
 
     def __init__(
         self,
-        hub_positions: dict[str, tuple[float, float]],
-        frames: list[ReplayFrame],
+        frames: list[TurnState],
     ) -> None:
-        """Store world positions and frames, selecting the first frame."""
-        self.hub_positions = hub_positions
+        """Store recorded states, selecting the first frame."""
         self.frames = frames
 
         self.current_index = 0
@@ -76,15 +74,25 @@ class ReplayPlayer:
 
     def _state_position(
         self,
-        state: DroneReplayState,
+        state: DroneState,
+        hub_positions: dict[str, tuple[float, float]],
     ) -> tuple[float, float]:
-        """Interpolate a world position from the endpoints and progress."""
-        sx, sy = self.hub_positions[state.source]
-        tx, ty = self.hub_positions[state.target]
+        """Compute a screen-independent position from recorded model data."""
+        position = state.current_position
+        if isinstance(position, str):
+            return hub_positions[position]
+
+        source = state.previous_zone
+        if source is None:
+            raise ValueError("A recorded transit must have a departure hub.")
+        target = position[1] if position[0] == source else position[0]
+        sx, sy = hub_positions[source]
+        tx, ty = hub_positions[target]
+        progress = state.transit_turns / state.transit_duration
 
         return (
-            sx + (tx - sx) * state.progress,
-            sy + (ty - sy) * state.progress,
+            sx + (tx - sx) * progress,
+            sy + (ty - sy) * progress,
         )
 
     def draw(
@@ -92,6 +100,7 @@ class ReplayPlayer:
         screen: pygame.Surface,
         camera: Camera,
         font: pygame.font.Font,
+        hub_positions: dict[str, tuple[float, float]],
     ) -> None:
         """Draw drones in the selected frame. Show the lowest drone ID per
         hub and every drone in transit. Convert world positions to screen
@@ -108,20 +117,22 @@ class ReplayPlayer:
 
         representatives: dict[str, int] = {}
         for drone_id, state in current_frame.drones.items():
-            if state.source == state.target:
-                representatives[state.source] = min(
-                    drone_id, representatives.get(state.source, drone_id),
+            recorded_position = state.current_position
+            if isinstance(recorded_position, str):
+                representatives[recorded_position] = min(
+                    drone_id,
+                    representatives.get(recorded_position, drone_id),
                 )
 
         for drone_id, state in current_frame.drones.items():
             if (
-                state.source == state.target
-                and drone_id != representatives[state.source]
+                isinstance(state.current_position, str)
+                and drone_id != representatives[state.current_position]
             ):
                 continue
 
             position = self._state_position(
-                state
+                state, hub_positions,
             )
 
             screen_position = camera.world_to_screen(
@@ -209,10 +220,16 @@ class ReplayPlayer:
 
         controls = font.render(
             (
-                "← Prev | → Next | R Restart"
+                "Left: Prev | Right: Next | R: Restart"
             ),
             True,
             (180, 180, 180),
         )
 
         screen.blit(controls, (10, 35))
+
+        legend = font.render(
+            "Hubs: present/capacity + reserved | Links: used/capacity",
+            True, (180, 180, 180),
+        )
+        screen.blit(legend, (10, 60))

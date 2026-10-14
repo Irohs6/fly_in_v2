@@ -25,7 +25,7 @@ def test_cli_reports_unreadable_map_without_traceback(
         target.write_bytes(b"\xff\xfe")
     command = [sys.executable, "main.py", str(target)]
     if terminal_only:
-        command.append("--no-gui")
+        command.append("--view-desactivate")
     result = subprocess.run(
         command, cwd=ROOT, capture_output=True, text=True, timeout=10,
     )
@@ -55,7 +55,7 @@ def test_permission_denied_at_entry_point(
     capsys: pytest.CaptureFixture[str],
 ) -> None:
     monkeypatch.setattr(sys, "argv", [
-        "main.py", "assets/maps/easy/01_linear_path.txt", "--no-gui",
+        "main.py", "assets/maps/easy/01_linear_path.txt", "--view-desactivate",
     ])
     with patch("builtins.open", side_effect=PermissionError(
         errno.EACCES, "Permission denied",

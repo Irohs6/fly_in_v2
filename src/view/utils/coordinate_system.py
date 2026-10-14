@@ -3,6 +3,7 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from src.model.hub import Hub
+    from src.model.state import HubState
 
 
 class CoordinateSystem:
@@ -23,7 +24,7 @@ class CoordinateSystem:
 
     def compute(
         self,
-        hubs: Iterable["Hub"],
+        hubs: Iterable["Hub | HubState"],
     ) -> dict[str, tuple[float, float]]:
 
         """Center hubs and return their world positions by name. Scale by
