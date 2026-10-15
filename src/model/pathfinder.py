@@ -14,13 +14,13 @@ class Dijkstra:
     def shortest_distances(
         self,
         source: Hub,
-        blocked_zones: set[Hub] | None = None,
-        saturated_conns: set[tuple[Hub, Hub]] | None = None,
+        blocked_hubs: set[Hub] | None = None,
+        saturated_connections: set[tuple[Hub, Hub]] | None = None,
     ) -> tuple[dict[Hub, float], dict[Hub, Hub | None]]:
 
         """Compute distances and predecessors from source. Exclude blocked
-        hubs, blocked_zones and saturated_conns in both directions. For
-        equal travel times, prefer paths through more priority hubs.
+        hubs, blocked_hubs and saturated_connections in both directions.
+        Favor priority hubs when updating equal-cost paths.
         Return dictionaries keyed by Hub; unreachable hubs have infinite
         distance and no predecessor.
         """
@@ -31,7 +31,7 @@ class Dijkstra:
             hub: None for hub in self.graph.hubs.values()}
 
         distances[source] = 0
-        # À durée égale, maximiser le nombre de zones priority traversées.
+        # Prefer priority hubs when routing weights are equal.
         priorities: dict[Hub, int] = {
             hub: 0 for hub in self.graph.hubs.values()
         }
@@ -53,13 +53,18 @@ class Dijkstra:
             for connection in self.graph.get_connections(current_hub):
                 neighbor = connection.get_other_hub(current_hub)
 
-                if blocked_zones and neighbor in blocked_zones:
+                # Keep finalized paths intact.
+                if neighbor in visited:
                     continue
 
-                if saturated_conns and (
-                    (connection.source, connection.target) in saturated_conns
+                if blocked_hubs and neighbor in blocked_hubs:
+                    continue
+
+                if saturated_connections and (
+                    (connection.source, connection.target)
+                    in saturated_connections
                     or (connection.target, connection.source)
-                    in saturated_conns
+                    in saturated_connections
                 ):
                     continue
 
@@ -91,8 +96,8 @@ class Dijkstra:
     def shortest_path(
         self,
         source: Hub | None = None,
-        blocked_zones: set[Hub] | None = None,
-        saturated_conns: set[tuple[Hub, Hub]] | None = None,
+        blocked_hubs: set[Hub] | None = None,
+        saturated_connections: set[tuple[Hub, Hub]] | None = None,
     ) -> list[Hub]:
 
         """Return a path to end_hub including both endpoints. Default to
@@ -107,8 +112,8 @@ class Dijkstra:
 
         distances, predecessors = self.shortest_distances(
             source,
-            blocked_zones,
-            saturated_conns,
+            blocked_hubs,
+            saturated_connections,
         )
 
         if distances[target] == float("inf"):

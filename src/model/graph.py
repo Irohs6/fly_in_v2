@@ -8,13 +8,13 @@ class Graph:
     """Hub graph with indexed bidirectional connections."""
     def __init__(self, data: ParsedMap) -> None:
 
-        # Stockage des hubs et connexions
+        # Hub and connection storage
         """Build hubs and their indexes from validated map data."""
         self.hubs: dict[str, Hub] = {
             hub["name"]: Hub(**hub) for hub in data["hubs"]
         }
 
-        # Zones spéciales
+        # Start and end hubs
         self.start_hub: Hub = (
             Hub(**data["start_hub"])
         )
@@ -27,7 +27,7 @@ class Graph:
 
         self.connections = self._build_connections(data["connections"])
 
-        # Adjacence
+        # Adjacency
         self.adjacency: dict[str, list[Connection]] = defaultdict(list)
         self.connection_map: dict[tuple[Hub, Hub], Connection] = {}
 

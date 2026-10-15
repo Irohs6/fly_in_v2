@@ -84,10 +84,8 @@ def test_complete_turn_keeps_capacity_usage_before_reset(
         assert arrival.hubs["a"].reserved == 0
         assert arrival.drones[1].path == ("goal",)
         assert first.drones[1].path == ("a", "goal")
-        assert first.drones[1].transit_turns == 1
-        assert first.drones[1].transit_duration == 2
-        assert arrival.drones[1].transit_turns == 0
-        assert arrival.drones[1].transit_duration == 0
+        assert first.drones[1].status == "in_transit"
+        assert arrival.drones[1].current_position == "a"
 
     assert frames[-1].hubs["goal"].nb_drones == 3
     assert frames[-1].connections[("a", "goal")].used_capacity == 1
@@ -122,8 +120,6 @@ def test_history_survives_live_model_changes(
         drone.current_position = simulation.graph.start_hub
         drone.previous_zone = None
         drone.status = "changed"
-        drone.transit_turns = 99
-        drone.transit_duration = 99
     simulation.graph.hubs.clear()
     simulation.graph.connections.clear()
 
@@ -133,12 +129,12 @@ def test_history_survives_live_model_changes(
 
 
 @pytest.mark.parametrize("edge", [("a", "b"), ("b", "a")])
-def test_replay_uses_transit_direction_and_raw_counters(
+def test_replay_places_transit_at_connection_midpoint(
     edge: tuple[str, str],
 ) -> None:
-    state = DroneState(edge, "a", ("b",), "in_transit", 4, 1)
+    state = DroneState(edge, "a", ("b",), "in_transit")
     positions = {"a": (0.0, 0.0), "b": (100.0, 20.0)}
-    assert ReplayPlayer([])._state_position(state, positions) == (25.0, 5.0)
+    assert ReplayPlayer([])._state_position(state, positions) == (50.0, 10.0)
 
 
 def test_visual_labels_follow_selected_turn(tmp_path: Path) -> None:

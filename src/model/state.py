@@ -6,16 +6,14 @@ class DroneState:
     """Drone state copied at the end of a turn.
 
     A position is a hub name or the endpoints of a connection in map order.
-    The path and transit counters retain the simulation data, not screen
-    coordinates or an animation progress value.
+    A drone on a connection is between the two turns of a restricted move
+    and will arrive on the next turn. No screen coordinates are recorded.
     """
 
     current_position: str | tuple[str, str]
     previous_zone: str | None
     path: tuple[str, ...]
     status: str
-    transit_duration: int
-    transit_turns: int
 
 
 @dataclass(frozen=True)

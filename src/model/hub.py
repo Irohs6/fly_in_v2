@@ -54,12 +54,10 @@ class Hub:
         self.reserved -= 1
 
     def move_cost(self) -> float:
-        """Return the movement cost associated with this hub type."""
-        if self.zone_type == "restricted":
-            return 2.0
-        elif self.zone_type == "blocked":
+        """Return the travel duration as weight, or infinity if blocked."""
+        if self.zone_type == "blocked":
             return float("inf")
-        return 1.0
+        return float(self.transit_duration())
 
     def transit_duration(self) -> int:
         """Return two turns for restricted hubs and one for other types.

@@ -51,7 +51,7 @@ class Parser:
         self.start_hub: HubDict | None = None
         self.end_hub: HubDict | None = None
 
-    # --- Lecture du fichier ---
+    # --- File reading ---
     def read_file(self) -> None:
         """Read and parse a UTF-8 map one line at a time.
         Skip empty lines and comment-only lines.
@@ -77,7 +77,7 @@ class Parser:
                 f"{error.strerror or str(error)}"
             ) from error
 
-    # --- Parsing des zones ---
+    # --- Hub parsing ---
     def parse_hub(
         self,
         keyword: str,
@@ -149,7 +149,7 @@ class Parser:
             self.end_hub = hub
         self.hub_entries.append((hub, line_number))
 
-    # --- Parsing des connexions ---
+    # --- Connection parsing ---
     def parse_connection(self, raw: str, line_number: int) -> None:
         """Parse a connection declaration and its metadata."""
 
@@ -196,7 +196,7 @@ class Parser:
         }
         self.connection_entries.append((connection, line_number))
 
-    # --- Parsing des métadonnées ---
+    # --- Metadata parsing ---
     def parse_metadata(
         self,
         raw: str,
@@ -263,12 +263,12 @@ class Parser:
             raise ParseError(error_message)
         return value
 
-    # --- Parsing global ---
+    # --- Map parsing ---
     def parse(self) -> ParsedMap:
         """Read, parse and validate a complete map."""
         from src.parser.validator import MapValidator, ValidationError
 
-        # De nouvelles listes préservent les résultats d'un précédent parse.
+        # New lists preserve the results of a previous parse.
         self.hub_entries = []
         self.connection_entries = []
         self.nb_drones = None
@@ -316,7 +316,7 @@ class Parser:
             ],
         }
 
-    # --- Parsing des lignes ---
+    # --- Line parsing ---
     def parse_line(self, line: str, line_number: int) -> None:
         """Parse one declaration, requiring the drone count before any hub
         or connection. Report invalid syntax with its physical line number.

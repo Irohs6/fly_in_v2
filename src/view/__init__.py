@@ -1,5 +1,5 @@
 """Shared view configuration."""
 import os
 
-# Pygame ne doit pas ajouter sa bannière aux mouvements du terminal.
+# Keep the Pygame banner out of terminal movement output.
 os.environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "1"

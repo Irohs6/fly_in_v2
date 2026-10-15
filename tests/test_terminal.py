@@ -89,10 +89,10 @@ def test_terminal_restricted_transit(
     assert transit.previous_zone == "start"
     assert transit.path == ("a", "b", "goal")
     assert transit.status == "in_transit"
-    assert (transit.transit_turns, transit.transit_duration) == (1, 2)
     arrival = frames[2].drones[1]
     assert arrival.current_position == "a"
-    assert (arrival.transit_turns, arrival.transit_duration) == (0, 0)
+    assert arrival.path == ("b", "goal")
+    assert arrival.status == "moving"
 
 
 def test_terminal_empty_turn(capsys: pytest.CaptureFixture[str]) -> None:

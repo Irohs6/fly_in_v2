@@ -109,6 +109,7 @@ def test_hub_capacity_and_move_cost_rules() -> None:
     assert restricted.move_cost() == 2.0
     assert blocked.move_cost() == float("inf")
     assert priority.move_cost() == 1.0
+    assert priority.transit_duration() == 1
     assert normal.move_cost() == 1.0
 
 
@@ -150,9 +151,8 @@ def test_connection_capacity_rules() -> None:
         connection.use_capacity()
 
 
-@pytest.mark.parametrize("duration", [2, 3])
 @pytest.mark.parametrize("reverse", [False, True])
-def test_drone_transit_lifecycle(duration: int, reverse: bool) -> None:
+def test_drone_transit_lifecycle(reverse: bool) -> None:
     start = Hub("START")
     end = Hub("END")
 
@@ -169,19 +169,13 @@ def test_drone_transit_lifecycle(duration: int, reverse: bool) -> None:
 
     drone.set_path([end])
 
-    drone.begin_transit(
-        connection=connection,
-        duration=duration,
-    )
+    drone.begin_transit(connection=connection)
 
     assert drone.current_position is connection
     assert drone.previous_zone is start
     assert drone.status == "in_transit"
 
-    for _ in range(duration - 2):
-        assert drone.advance_transit() is None
-        assert drone.current_position is connection
-        assert drone.path == [end]
+    assert drone.path == [end]
 
     destination = drone.advance_transit()
 
@@ -190,8 +184,6 @@ def test_drone_transit_lifecycle(duration: int, reverse: bool) -> None:
     assert drone.previous_zone is start
     assert drone.status == "moving"
     assert drone.path == []
-    assert drone.transit_duration == 0
-    assert drone.transit_turns == 0
 
 
 def test_graph_builds_connections() -> None:

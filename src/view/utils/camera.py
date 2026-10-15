@@ -14,7 +14,7 @@ class Camera:
         self._drag_start: tuple[float, float, float, float] | None = None
 
     # ───────────────────────────────────────────────
-    # Projection monde → écran
+    # World-to-screen projection
     # ───────────────────────────────────────────────
     def world_to_screen(self, world_x: float, world_y: float, screen_w: int,
                         screen_h: int) -> tuple[int, int]:
@@ -43,7 +43,7 @@ class Camera:
         factors below one zoom out.
         """
 
-        # Position monde avant zoom
+        # World position before zooming
         world_x, world_y = self.screen_to_world(mouse_x, mouse_y,
                                                 screen_w, screen_h)
 

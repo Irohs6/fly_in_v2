@@ -20,9 +20,6 @@ class Drone:
         self.path: list[Hub] = []
         self.status: str = "idle"
 
-        self.transit_duration = 0
-        self.transit_turns = 0
-
     def move_to_zone(
         self,
         zone: Hub,
@@ -45,10 +42,9 @@ class Drone:
     def begin_transit(
         self,
         connection: Connection,
-        duration: int,
     ) -> None:
-        """Start the first of duration transit turns on connection. Store
-        the departure hub and use the connection as the current position.
+        """Start a two-turn move to a restricted hub on connection. Store
+        the departure hub; arrival occurs on the next simulation turn.
         Raise RuntimeError without a departure hub. Simulation manages
         reservations and capacity.
         """
@@ -58,23 +54,15 @@ class Drone:
             )
         self.previous_zone = self.current_position
         self.current_position = connection
-        self.transit_duration = duration
-        # Le tour de départ compte comme premier tour de transit.
-        self.transit_turns = 1
         self.status = "in_transit"
 
     def advance_transit(self) -> Hub | None:
-        """Advance transit by one turn and return the destination on
-        arrival. Return None when there is no active transit or the trip
-        is incomplete. On arrival, consume the path step and reset transit
-        state. Raise RuntimeError if the departure hub is missing.
+        """Complete a restricted move on the turn after departure.
+
+        Return the destination, or None when there is no active transit.
+        Consume the path step and raise RuntimeError if departure is missing.
         """
         if not isinstance(self.current_position, Connection):
-            return None
-
-        self.transit_turns += 1
-
-        if self.transit_turns < self.transit_duration:
             return None
 
         if self.previous_zone is None:
@@ -88,8 +76,6 @@ class Drone:
         self.path.pop(0)
         self.status = "moving"
 
-        self.transit_duration = 0
-        self.transit_turns = 0
         return destination
 
     def wait(self) -> None:

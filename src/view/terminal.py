@@ -18,4 +18,4 @@ class TerminalView:
                     "-".join(position)
                 )
                 movements.append(f"D{drone_id}-{destination}")
-            print(" ".join(movements))
+            print(" ".join(movements), flush=True)

@@ -53,13 +53,10 @@ class ReplayPlayer:
 
     def next_turn(self) -> None:
         """Select the next frame without passing the last frame."""
-        if not self.frames:
+        if self.current_index >= len(self.frames) - 1:
             return
 
-        self.current_index = min(
-            self.current_index + 1,
-            len(self.frames) - 1,
-        )
+        self.current_index += 1
 
     def previous_turn(self) -> None:
         """Select the previous frame without passing the first frame."""
@@ -77,23 +74,14 @@ class ReplayPlayer:
         state: DroneState,
         hub_positions: dict[str, tuple[float, float]],
     ) -> tuple[float, float]:
-        """Compute a screen-independent position from recorded model data."""
+        """Return the hub position or midpoint of a restricted transit."""
         position = state.current_position
         if isinstance(position, str):
             return hub_positions[position]
 
-        source = state.previous_zone
-        if source is None:
-            raise ValueError("A recorded transit must have a departure hub.")
-        target = position[1] if position[0] == source else position[0]
-        sx, sy = hub_positions[source]
-        tx, ty = hub_positions[target]
-        progress = state.transit_turns / state.transit_duration
-
-        return (
-            sx + (tx - sx) * progress,
-            sy + (ty - sy) * progress,
-        )
+        source_x, source_y = hub_positions[position[0]]
+        target_x, target_y = hub_positions[position[1]]
+        return ((source_x + target_x) / 2, (source_y + target_y) / 2)
 
     def draw(
         self,

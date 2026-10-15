@@ -155,7 +155,7 @@ def test_drone_reroutes_to_alternate_path() -> None:
 
     found = simulation._reroute_drone(
         drone,
-        blocked_zones={a},
+        blocked_hubs={a},
         saturated_connections=set(),
     )
 
@@ -234,7 +234,7 @@ def test_move_reroutes_when_next_resource_is_full(resource: str) -> None:
     else:
         graph.connections[0].use_capacity()
 
-    assert simulation._try_drone_move(drone) is True
+    assert simulation._move_or_wait(drone) is True
 
     assert drone.current_position is graph.hubs["b"]
     assert drone.path == [graph.end_hub]
@@ -248,7 +248,7 @@ def test_move_waits_and_keeps_path_when_all_routes_are_full() -> None:
     graph.hubs["a"].add_drone()
     graph.hubs["b"].add_drone()
 
-    assert simulation._try_drone_move(drone) is False
+    assert simulation._move_or_wait(drone) is False
 
     assert drone.status == "waiting"
     assert drone.current_position is graph.start_hub

@@ -8,7 +8,7 @@
 
 ## Description
 
-**Fly-in** is a drone routing simulator built in Python with an optional Pygame graphical interface. Given a map file describing a graph of zones and their connections, the program routes drones turn by turn, prints their movements in the terminal, and opens a Pygame replay of the recorded states. Use `--view-desactivate` to run with terminal output only. The routing heuristic aims to reduce the total number of turns; it does not guarantee a globally optimal solution.
+**Fly-in** is a drone routing simulator built in Python with an optional Pygame graphical interface. Given a map file describing a graph of zones and their connections, the program computes and records the simulation, prints all movements in the terminal, then opens a Pygame replay. Use `--view-desactivate` to run without opening a window. The routing heuristic aims to reduce the total number of turns; it does not guarantee a globally optimal solution.
 
 The core challenge is a constrained multi-agent pathfinding problem: drones must reach the destination in the minimum number of turns while respecting zone capacity limits, connection throughput, and zone-type movement costs (including 2-turn restricted zones).
 
@@ -53,7 +53,7 @@ The routing engine uses **Dijkstra's algorithm** with dynamic replanning:
 3. If a hub or connection is saturated, the drone retries Dijkstra from its current position, excluding the unavailable resources encountered during that turn. Rerouting also excludes the previous hub to avoid immediately going back. If no alternative is found, the drone waits and keeps its last path for the next turn.
 4. Entering a `restricted` hub takes two turns: the drone occupies the connection on the first turn and arrives on the next. The destination is reserved before transit begins, so the drone cannot be left waiting on the connection.
 5. A departing drone frees hub capacity immediately, allowing a later drone in the same turn to use it.
-6. `Recorder` captures the initial state and each completed turn before connection counters are reset for the next turn. `TerminalView` and `PygameView` read this same history. The terminal uses each state's ordered list of moved drone IDs to print the required movements.
+6. `Recorder` captures the initial state and each completed turn before connection counters are reset for the next turn. `TerminalView` and `PygameView` read this same history. The terminal prints all movements automatically before the optional replay opens, using each state's ordered list of moved drone IDs.
 
 Connection capacity is shared by both directions. A one-turn crossing consumes capacity for the current turn; a restricted transit occupies the connection through its arrival turn. At the start of the next turn, connection counters are reset and ongoing transits are retained.
 
@@ -63,14 +63,14 @@ Connection capacity is shared by both directions. A one-turn crossing consumes c
 
 | Recorded entity | Data |
 |---|---|
-| Drone | Hub or connection position, previous hub, remaining path, status, transit duration and elapsed transit turns |
+| Drone | Hub or connection position, previous hub, remaining path and status |
 | Hub | Name, coordinates, color, zone type, capacity, present drones and reserved arrival slots |
 | Connection | Declared endpoints, capacity used during the turn and number of drones still in transit, plus maximum capacity |
 | Turn | Turn number, start/end hub names and moved drone IDs in processing order |
 
 `used_capacity` and `in_transit` describe different facts: a connection may have served two drones during a turn while containing none at its end. Recording before the next reset preserves both values. Snapshots contain no references to live hubs, connections or drone paths, so completing the simulation cannot rewrite earlier states.
 
-The views only interpret these records. The graphical view derives interpolation from the saved transit counters; the recorder contains no animation-specific progress calculation. Returning to an earlier turn restores its hub reservations and connection usage as well as drone positions.
+The views only interpret these records. A drone on a connection is between the two turns of a restricted move and arrives on the next turn; no transit counters are needed. The graphical view places it at the connection midpoint. Returning to an earlier turn restores its hub reservations and connection usage as well as drone positions. Fixed hub coordinates are calculated once when the replay opens; zoom and pan are applied during drawing.
 
 **Zone movement costs:**
 
@@ -95,7 +95,7 @@ For `T` turns, `N` drones and maximum remaining path length `L`, the complete hi
 
 ## Performance Results
 
-Rechecked on 13 October 2026 on all 11 maps in the repository, using their original drone counts and without Pygame. These are observed turn counts, not proofs of optimality:
+Rechecked on 14 October 2026 on all 11 maps in the repository, using their original drone counts and without Pygame. These are observed turn counts, not proofs of optimality:
 
 | Map | Drones | Result |
 |---|---|---|
@@ -295,7 +295,7 @@ D2-goal
 
 ## Graphical interface (Pygame)
 
-After the simulation prints its movements, a Pygame window opens at the initial recorded state. Use the arrow keys to inspect successive turns. A drone in restricted transit is drawn between the connection endpoints using its recorded progress.
+All movements are printed in the terminal before the Pygame window opens at the initial recorded state. Replay navigation and closing the window produce no additional terminal output. A drone in restricted transit is drawn at the midpoint of the connection until its arrival on the next turn.
 
 | Control | Action |
 |---|---|

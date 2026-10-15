@@ -88,11 +88,11 @@ def test_replay_draws_lowest_id_per_hub_and_all_transits() -> None:
     frame = TurnState(
         turn=1, start_hub="a", end_hub="b", hubs={}, connections={},
         drones={
-            5: DroneState("a", None, ("b",), "waiting", 0, 0),
-            2: DroneState("a", None, ("b",), "waiting", 0, 0),
-            4: DroneState(("a", "b"), "a", ("b",), "in_transit", 2, 1),
-            3: DroneState("b", "a", (), "moving", 0, 0),
-            6: DroneState(("a", "b"), "a", ("b",), "in_transit", 2, 1),
+            5: DroneState("a", None, ("b",), "waiting"),
+            2: DroneState("a", None, ("b",), "waiting"),
+            4: DroneState(("a", "b"), "a", ("b",), "in_transit"),
+            3: DroneState("b", "a", (), "moving"),
+            6: DroneState(("a", "b"), "a", ("b",), "in_transit"),
         },
     )
     replay = ReplayPlayer([frame])

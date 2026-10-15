@@ -63,6 +63,7 @@ class PygameView:
         coord = CoordinateSystem(
             cell_size=self.CELL_SIZE
         )
+        positions = coord.compute(self.replay_frames[0].hubs.values())
 
         renderer = GraphRenderer(
             screen=screen,
@@ -140,7 +141,6 @@ class PygameView:
                 replay.handle_event(event)
 
             frame = replay.frames[replay.current_index]
-            positions = coord.compute(frame.hubs.values())
             renderer.draw(camera, frame, positions)
 
             replay.draw(

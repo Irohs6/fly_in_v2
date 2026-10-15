@@ -48,9 +48,11 @@ def test_priority_never_overrides_shorter_duration(
     finder = Dijkstra(graph)
     path = finder.shortest_path()
     assert path[1].name == expected_prefix + "0"
-    assert finder.distance_to(graph.start_hub, graph.end_hub) == (
-        min(normal_count, priority_count) + 1
-    )
+    expected_turns = min(normal_count, priority_count) + 1
+    assert finder.distance_to(graph.start_hub, graph.end_hub) == expected_turns
+    simulation = Simulation(graph)
+    simulation.load_drones(1)
+    assert simulation.simulate()[-1].turn == expected_turns
 
 
 def test_priority_tie_after_restricted_route(tmp_path: Path) -> None:
@@ -67,9 +69,9 @@ def test_priority_tie_after_restricted_route(tmp_path: Path) -> None:
     assert [hub.name for hub in finder.shortest_path()] == [
         "start", "a", "p", "merge", "goal",
     ]
-    # Les exclusions utilisées pour le reroutage restent respectées.
+    # Rerouting still respects connection exclusions.
     assert [hub.name for hub in finder.shortest_path(
-        saturated_conns={(graph.hubs["p"], graph.hubs["a"])},
+        saturated_connections={(graph.hubs["p"], graph.hubs["a"])},
     )] == ["start", "r", "merge", "goal"]
 
 
@@ -102,9 +104,9 @@ def test_main_prints_only_movements() -> None:
     environment.pop("PYGAME_HIDE_SUPPORT_PROMPT", None)
     result = subprocess.run(
         [sys.executable, "-c", (
-            "import main; "
-            "from src.view.pygame_view import PygameView; "
-            "PygameView.display = lambda self: None; "
+            "import main\n"
+            "from src.view.pygame_view import PygameView\n"
+            "PygameView.display = lambda self: None\n"
             "raise SystemExit(main.main())"
         ), "assets/maps/easy/01_linear_path.txt"],
         cwd=ROOT,

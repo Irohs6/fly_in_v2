@@ -48,47 +48,44 @@ class Simulation:
         self.recorder.record(self.turn, self.graph, self.drones)
 
     # ==============================================================
-    # DEPLACEMENT
+    # MOVEMENT
     # ==============================================================
 
     def move_drone(
         self,
         drone: Drone,
         connection: Connection,
-        target_zone: Hub,
+        target_hub: Hub,
     ) -> None:
         """Apply a move after capacity checks. Free the departure hub. For
         restricted hubs, start transit and reserve the destination;
         otherwise occupy the destination immediately. Raise RuntimeError
         if the drone is not in a hub.
         """
-        current_zone = drone.current_position
+        current_hub = drone.current_position
 
-        if isinstance(current_zone, Connection):
+        if isinstance(current_hub, Connection):
             raise RuntimeError(
                 f"{drone.drone_id} has no current zone."
             )
 
-        current_zone.remove_drone()
-        if target_zone.zone_type == "restricted":
-            drone.begin_transit(
-                connection,
-                target_zone.transit_duration(),
-            )
+        current_hub.remove_drone()
+        if target_hub.zone_type == "restricted":
+            drone.begin_transit(connection)
 
-            target_zone.reserve()
+            target_hub.reserve()
         else:
-            drone.move_to_zone(target_zone)
-            target_zone.add_drone()
+            drone.move_to_zone(target_hub)
+            target_hub.add_drone()
 
         connection.use_capacity()
 
-    # REROUTAGE
+    # REROUTING
 
     def _reroute_drone(
         self,
         drone: Drone,
-        blocked_zones: set[Hub],
+        blocked_hubs: set[Hub],
         saturated_connections: set[
             tuple[Hub, Hub]
         ],
@@ -102,21 +99,21 @@ class Simulation:
 
         path = self.pathfinder.shortest_path(
             source=drone.current_position,
-            blocked_zones=blocked_zones,
-            saturated_conns=saturated_connections,
+            blocked_hubs=blocked_hubs,
+            saturated_connections=saturated_connections,
         )
 
         if len(path) < 2:
             return False
 
-        # Le chemin est disponible.
+        # An alternative path was found.
         drone.set_path(path[1:])
 
         return True
 
-    # TENTATIVE DE DEPLACEMENT
+    # MOVE OR WAIT
 
-    def _try_drone_move(
+    def _move_or_wait(
         self,
         drone: Drone,
     ) -> bool:
@@ -136,36 +133,36 @@ class Simulation:
                 f"Drone {drone.drone_id}: empty path before arrival."
             )
 
-        blocked_zones: set[Hub] = set()
+        blocked_hubs: set[Hub] = set()
         saturated_connections: set[tuple[Hub, Hub]] = set()
-        # Le reroutage ne doit pas revenir au hub précédent.
+        # Rerouting must not return to the previous hub.
         if drone.previous_zone is not None:
-            blocked_zones.add(drone.previous_zone)
+            blocked_hubs.add(drone.previous_zone)
 
         while True:
-            target_zone = drone.path[0]
+            target_hub = drone.path[0]
             connection = self.graph.get_connection(
-                drone.current_position, target_zone,
+                drone.current_position, target_hub,
             )
 
             if connection is None:
-                blocked_zones.add(target_zone)
+                blocked_hubs.add(target_hub)
             else:
-                zone_available = target_zone.is_available()
+                zone_available = target_hub.is_available()
                 connection_available = connection.is_available()
                 if zone_available and connection_available:
-                    self.move_drone(drone, connection, target_zone)
+                    self.move_drone(drone, connection, target_hub)
                     return True
 
                 if not zone_available:
-                    blocked_zones.add(target_zone)
+                    blocked_hubs.add(target_hub)
                 if not connection_available:
                     saturated_connections.add(
                         (connection.source, connection.target)
                     )
 
             if not self._reroute_drone(
-                drone, blocked_zones, saturated_connections,
+                drone, blocked_hubs, saturated_connections,
             ):
                 drone.wait()
                 return False
@@ -195,13 +192,13 @@ class Simulation:
                 destination.add_drone()
             moved = True
         else:
-            moved = self._try_drone_move(drone)
+            moved = self._move_or_wait(drone)
 
         if drone.current_position == self.graph.end_hub:
             drone.deliver()
         return moved
 
-    def _update_connections(self) -> None:
+    def _prepare_connections_for_turn(self) -> None:
         """Prepare a new turn, retaining only ongoing transit occupancy."""
         for connection in self.graph.connections:
             connection.used_capacity = 0
@@ -212,7 +209,7 @@ class Simulation:
     def simulate(self) -> list[TurnState]:
         """Run to completion and return the initial and completed states."""
         while not self._all_drones_delivered():
-            self._update_connections()
+            self._prepare_connections_for_turn()
             moved_drones = []
             for drone in sorted(
                 self.drones, key=lambda drone: drone.path_turns(),
