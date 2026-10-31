@@ -1,5 +1,3 @@
-from pathlib import Path
-
 from src.parser.parser import Parser
 from src.model.graph import Graph
 from src.model.simulation import Simulation
@@ -10,13 +8,13 @@ from src.view.terminal import TerminalView
 class Controller:
     """Coordinate map loading, simulation and display."""
 
-    def __init__(self, map_path: str | Path) -> None:
+    def __init__(self, map_path: str) -> None:
         """Store the map path without starting the simulation."""
         self.map_path = map_path
 
     def run(self, *, view_active: bool = True) -> None:
         """Simulate the map and display the results."""
-        parser = Parser(str(self.map_path))
+        parser = Parser(self.map_path)
         data = parser.parse()
 
         graph = Graph(data)
