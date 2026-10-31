@@ -133,6 +133,9 @@ class Simulation:
                 f"Drone {drone.drone_id}: empty path before arrival."
             )
 
+        original_path = drone.path.copy()
+        original_cost = drone.path_turns()
+
         blocked_hubs: set[Hub] = set()
         saturated_connections: set[tuple[Hub, Hub]] = set()
         # Rerouting must not return to the previous hub.
@@ -164,6 +167,12 @@ class Simulation:
             if not self._reroute_drone(
                 drone, blocked_hubs, saturated_connections,
             ):
+                drone.wait()
+                return False
+
+            # Waiting is preferable to an excessively long detour.
+            if drone.path_turns() > original_cost + 2:
+                drone.set_path(original_path)
                 drone.wait()
                 return False
 

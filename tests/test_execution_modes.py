@@ -23,8 +23,8 @@ def test_controller_construction_has_no_execution(
 ) -> None:
     map_path = tmp_path / "missing.txt"
     with patch.object(Parser, "parse", side_effect=AssertionError):
-        controller = Controller(map_path=map_path)
-    assert controller.map_path == map_path
+        controller = Controller(map_path=str(map_path))
+    assert controller.map_path == str(map_path)
     assert capsys.readouterr().out == ""
 
 

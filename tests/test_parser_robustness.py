@@ -208,3 +208,12 @@ def test_positive_drone_count_has_no_fixed_limit(
     lines = VALID_LINES.copy()
     lines[0] = f"nb_drones: {count}"
     assert make_parser(tmp_path, lines).parse()["nb_drones"] == count
+
+@pytest.mark.parametrize("index", range(len(VALID_LINES)))
+def test_multiple_colons_rejected(tmp_path: Path, index: int) -> None:
+    lines = VALID_LINES.copy()
+    lines[index] += ": unexpected"
+    with pytest.raises(
+        ParseError, match=rf"Line {index + 1}:.*exactly one"
+    ):
+        make_parser(tmp_path, lines).parse()
