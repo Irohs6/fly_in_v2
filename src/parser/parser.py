@@ -80,19 +80,19 @@ class Parser:
     # --- Hub parsing ---
     def parse_hub(
         self,
-        keyword: str,
+        hub_type: str,
         raw: str,
         line_number: int,
     ) -> None:
         """Parse a hub and its metadata, rejecting repeated start or end
         declarations.
         """
-        if keyword == "start_hub" and self.start_hub is not None:
+        if hub_type == "start_hub" and self.start_hub is not None:
             raise ParseError(
                 f"Line {line_number}: start_hub is already defined."
             )
 
-        if keyword == "end_hub" and self.end_hub is not None:
+        if hub_type == "end_hub" and self.end_hub is not None:
             raise ParseError(
                 f"Line {line_number}: end_hub is already defined."
             )
@@ -125,11 +125,11 @@ class Parser:
                 f"Line {line_number}: duplicate metadata: "
                 "capacity is already defined."
             )
-        cap_raw = meta.get("max_drones") or meta.get("capacity") or "1"
+        capacity_raw = meta.get("max_drones") or meta.get("capacity") or "1"
         capacity = (
-            math.inf if keyword in ("start_hub", "end_hub")
+            math.inf if hub_type in ("start_hub", "end_hub")
             else self._parse_integer(
-                cap_raw, line_number, "capacity", positive=True,
+                capacity_raw, line_number, "capacity", positive=True,
             )
         )
         zone_type = meta.get("zone", "normal")
@@ -143,9 +143,9 @@ class Parser:
             "zone_type": zone_type,
         }
 
-        if keyword == "start_hub":
+        if hub_type == "start_hub":
             self.start_hub = hub
-        elif keyword == "end_hub":
+        elif hub_type == "end_hub":
             self.end_hub = hub
         self.hub_entries.append((hub, line_number))
 
@@ -197,8 +197,8 @@ class Parser:
         self.connection_entries.append((connection, line_number))
 
     # --- Metadata parsing ---
+    @staticmethod
     def parse_metadata(
-        self,
         raw: str,
         line_number: int,
         allowed_keys: set[str],
@@ -277,17 +277,20 @@ class Parser:
         self.read_file()
         if self.nb_drones is None:
             raise ParseError(
-                f"Line {self.line_count}: missing nb_drones at end of file."
+                f"Line {self.line_count + 1}: "
+                "missing nb_drones at end of file."
             )
 
         if self.start_hub is None:
             raise ParseError(
-                f"Line {self.line_count}: missing start_hub at end of file."
+                f"Line {self.line_count + 1}:"
+                " missing start_hub at end of file."
             )
 
         if self.end_hub is None:
             raise ParseError(
-                f"Line {self.line_count}: missing end_hub at end of file."
+                f"Line {self.line_count + 1}:"
+                " missing end_hub at end of file."
             )
 
         validator = MapValidator(
@@ -326,7 +329,7 @@ class Parser:
                 f"Line {line_number}: invalid line: {line!r}. "
                 "Expected exactly one ':'."
             )
-        keyword, separator, raw = line.partition(":")
+        keyword, _, raw = line.partition(":")
         keyword = keyword.strip()
         raw = raw.strip()
         if (
@@ -338,7 +341,7 @@ class Parser:
                 "nb_drones: <positive integer>."
             )
 
-        if not separator or not raw:
+        if not raw:
             raise ParseError(
                 f"Line {line_number}: invalid line: {line!r}. "
                 "Expected format: <keyword>: <value>."
