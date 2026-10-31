@@ -214,6 +214,6 @@ def test_multiple_colons_rejected(tmp_path: Path, index: int) -> None:
     lines = VALID_LINES.copy()
     lines[index] += ": unexpected"
     with pytest.raises(
-        ParseError, match=rf"Line {index + 1}:.*multiple"
+        ParseError, match=rf"Line {index + 1}:.*exactly one"
     ):
         make_parser(tmp_path, lines).parse()
