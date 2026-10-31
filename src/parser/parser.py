@@ -321,6 +321,11 @@ class Parser:
         """Parse one declaration, requiring the drone count before any hub
         or connection. Report invalid syntax with its physical line number.
         """
+        if line.count(":") != 1:
+            raise ParseError(
+                f"Line {line_number}: invalid line: {line!r}. "
+                "Expected exactly one ':'."
+            )
         keyword, separator, raw = line.partition(":")
         keyword = keyword.strip()
         raw = raw.strip()
