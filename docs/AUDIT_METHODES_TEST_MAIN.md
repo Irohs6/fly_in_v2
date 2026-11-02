@@ -2,7 +2,7 @@
 
 **Branche de travail :** `test-main`. Base historique : commit `4c1eeddfc1bda589d62c77bf7b5689f6def5c8fe`. Les corrections auditées sont développées sur `test-main`. Le passage à `argparse` a d’abord été poussé par erreur sur `main` (`3246d28131dfdc44dbb5b9aea162af50edc3fb28`), puis reporté sur `test-main` avec la prise en charge de `ValidatorError`. Depuis cette décision, toutes les nouvelles modifications restent sur `test-main` jusqu’à la fusion finale.
 
-**Inventaire vérifié : 93 méthodes et fonctions explicites dans 18 fichiers applicatifs.** Chaque définition `def` a été comparée à l’index ci-dessous : aucune ne manque. L’audit inclut aussi les dataclasses, erreurs et branches rarement exécutées.
+**Inventaire vérifié : 85 méthodes et fonctions explicites dans 17 fichiers applicatifs.** Chaque définition `def` a été comparée à l’index ci-dessous : aucune ne manque. L’audit inclut aussi les dataclasses, erreurs et branches rarement exécutées.
 
 ## 1. Chemin réel des appels depuis main
 
@@ -202,19 +202,19 @@ Pour chaque entrée : **signature effective du fichier**, paramètres, rôle/év
 |---|---|---|
 | [`PygameView.__init__`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/pygame_view.py#L18) — `def __init__( self, replay_frames: list[TurnState], ) -> None:` | Conserve replay_frames, sans ouvrir de fenêtre dans le constructeur. | **CONSERVER** |
 | [`PygameView.display`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/pygame_view.py#L25) — `def display(self) -> None:` | Lance l’écran, transforme pygame.error en DisplayError et assure pygame.quit en finally. | **CONSERVER** |
-| [`PygameView._display_replay`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/pygame_view.py#L40) — `def _display_replay(self) -> None:` | Crée fenêtre, caméra, projections, renderers et boucle d’événements/redraws. | **À VÉRIFIER SUR ÉCRAN** |
+| [`PygameView._display_replay`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/pygame_view.py#L40) — `def _display_replay(self) -> None:` | Crée une fenêtre redimensionnable et ajuste automatiquement le graphe à l’écran, sans zoom ni pan. | **À VÉRIFIER SUR ÉCRAN** |
 
 ### `src/view/graph_renderer.py` (7 méthodes)
 
 | Méthode et paramètres | Rôle, analyse | Décision |
 |---|---|---|
 | [`HubRenderer.__init__`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/graph_renderer.py#L41) — `def __init__(self, font: pygame.font.Font) -> None:` | Conserve la police de texte des Hub. | **CONSERVER** |
-| [`HubRenderer.radius`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/graph_renderer.py#L45) — `def radius(self, zone: HubState, zoom: float) -> int:` | Calcule rayon proportionné à capacité, borné, puis ajusté au zoom. | **CONSERVER** |
-| [`HubRenderer.draw`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/graph_renderer.py#L51) — `def draw( self, screen: pygame.Surface, zone: HubState, position: tuple[int, int], zoom: float, is_terminal: bool = False, ) -> None:` | Affiche zone avec contour, label, occupants, capacité et réservations ; palette fixe. | **LIMITE VISUELLE** |
+| [`HubRenderer.radius`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/graph_renderer.py#L45) — `def radius(self, zone: HubState) -> int:` | Calcule un rayon borné selon la capacité, sans zoom. | **CONSERVER** |
+| [`HubRenderer.draw`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/graph_renderer.py#L51) — `def draw( self, screen: pygame.Surface, zone: HubState, position: tuple[int, int], is_terminal: bool = False, ) -> None:` | Dessine le hub, son contour et ses labels ; le mode `rainbow` utilise sept cercles colorés concentriques. | **LIMITE VISUELLE** |
 | [`ConnectionRenderer.__init__`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/graph_renderer.py#L91) — `def __init__(self, font: pygame.font.Font) -> None:` | Conserve la police des étiquettes de connexions. | **CONSERVER** |
-| [`ConnectionRenderer.draw`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/graph_renderer.py#L95) — `def draw( self, screen: pygame.Surface, source_position: tuple[int, int], target_position: tuple[int, int], zoom: float, state: ConnectionState, ) -> None:` | Affiche liens et compteurs used/capacity et in_transit. | **CONSERVER** |
+| [`ConnectionRenderer.draw`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/graph_renderer.py#L95) — `def draw( self, screen: pygame.Surface, source_position: tuple[int, int], target_position: tuple[int, int], state: ConnectionState, ) -> None:` | Affiche liens et compteurs used/capacity et in_transit. | **CONSERVER** |
 | [`GraphRenderer.__init__`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/graph_renderer.py#L136) — `def __init__(self, screen: pygame.Surface, font: pygame.font.Font) -> None:` | Assemble HubRenderer et ConnectionRenderer autour de l’écran Pygame. | **CONSERVER** |
-| [`GraphRenderer.draw`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/graph_renderer.py#L142) — `def draw( self, camera: Camera, frame: TurnState, world_positions: dict[str, tuple[float, float]], ) -> None:` | Projette les coordonnées avec Camera, dessine les liens puis les zones. | **CONSERVER** |
+| [`GraphRenderer.draw`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/graph_renderer.py#L142) — `def draw( self, frame: TurnState, positions: dict[str, tuple[int, int]], ) -> None:` | Dessine les connexions et les hubs aux positions écran fournies par PygameView. | **CONSERVER** |
 
 ### `src/view/replay_player.py` (10 méthodes)
 
@@ -227,22 +227,9 @@ Pour chaque entrée : **signature effective du fichier**, paramètres, rôle/év
 | [`ReplayPlayer.previous_turn`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/replay_player.py#L61) — `def previous_turn(self) -> None:` | Décrémente sans aller avant le tour zéro. | **CONSERVER** |
 | [`ReplayPlayer.restart`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/replay_player.py#L68) — `def restart(self) -> None:` | Replace l’index sur zéro. | **CONSERVER** |
 | [`ReplayPlayer._state_position`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/replay_player.py#L72) — `def _state_position( self, state: DroneState, hub_positions: dict[str, tuple[float, float]], ) -> tuple[float, float]:` | Pour un Hub retourne sa position, pour un transit retourne milieu des deux extrémités. | **CONSERVER** |
-| [`ReplayPlayer.draw`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/replay_player.py#L86) — `def draw( self, screen: pygame.Surface, camera: Camera, font: pygame.font.Font, hub_positions: dict[str, tuple[float, float]], ) -> None:` | Dessine un drone représentant chaque zone plus tous les drones en transit ; utilise Camera. | **CONSERVER** |
+| [`ReplayPlayer.draw`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/replay_player.py#L86) — `def draw( self, screen: pygame.Surface, font: pygame.font.Font, hub_positions: Mapping[str, tuple[float, float]], ) -> None:` | Dessine un représentant de chaque hub et tous les transits aux positions écran partagées. | **CONSERVER** |
 | [`ReplayPlayer._draw_drone`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/replay_player.py#L140) — `def _draw_drone( self, screen: pygame.Surface, position: tuple[int, int], drone_id: int, font: pygame.font.Font, ) -> None:` | Dessine triangle, contour et ID du drone. | **CONSERVER** |
 | [`ReplayPlayer.draw_overlay`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/replay_player.py#L185) — `def draw_overlay( self, screen: pygame.Surface, font: pygame.font.Font, ) -> None:` | Affiche numéro de tour, durée totale et commandes du replay. | **CONSERVER** |
-
-### `src/view/utils/camera.py` (8 méthodes)
-
-| Méthode et paramètres | Rôle, analyse | Décision |
-|---|---|---|
-| [`Camera.__init__`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/utils/camera.py#L4) — `def __init__(self, zoom_min: float = 0.15, zoom_max: float = 5.0) -> None:` | Initialise zoom/pan, bornes de zoom et état du drag. | **CONSERVER** |
-| [`Camera.world_to_screen`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/utils/camera.py#L19) — `def world_to_screen(self, world_x: float, world_y: float, screen_w: int, screen_h: int) -> tuple[int, int]:` | Transforme coordonnées monde en coordonnées de l’écran selon centre, zoom et pan. | **CONSERVER** |
-| [`Camera.screen_to_world`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/utils/camera.py#L28) — `def screen_to_world(self, screen_x: float, screen_y: float, screen_w: int, screen_h: int) -> tuple[float, float]:` | Transformation inverse pour fixer le point de zoom sous la souris. | **CONSERVER** |
-| [`Camera.apply_zoom`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/utils/camera.py#L40) — `def apply_zoom(self, mouse_x: float, mouse_y: float, screen_w: int, screen_h: int, factor: float) -> None:` | Limite le facteur de zoom et recalcule le pan autour de la souris. | **CONSERVER** |
-| [`Camera.start_drag`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/utils/camera.py#L63) — `def start_drag(self, mouse_x: float, mouse_y: float) -> None:` | Mémorise coordonnées initiales et déplacement avant glisser. | **CONSERVER** |
-| [`Camera.drag`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/utils/camera.py#L67) — `def drag(self, mouse_x: float, mouse_y: float) -> None:` | Calcule déplacement courant depuis l’ancre de drag. | **CONSERVER** |
-| [`Camera.end_drag`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/utils/camera.py#L76) — `def end_drag(self) -> None:` | Remet à None le marqueur de glisser. | **CONSERVER** |
-| [`Camera.reset`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/utils/camera.py#L83) — `def reset(self) -> None:` | Réinitialise zoom à 1 et translation à zéro. | **CONSERVER** |
 
 ### `src/view/utils/coordinate_system.py` (2 méthodes)
 
@@ -271,6 +258,8 @@ Pour chaque entrée : **signature effective du fichier**, paramètres, rôle/év
 6. Tests de validateur adaptés ; fichier `tests/test_review_regressions.py` pour remontée d’erreur au CLI et seuil +2 sur le reroutage.
 7. Suppression de la méthode inutilisée `Dijkstra.distance_to` et de son assertion dans le test de priorité, sans affecter les autres contrôles de ce test.
 8. Workflow de contrôle sur la branche : `.github/workflows/test-main-audit.yml`.
+10. `rainbow` est rendu par sept disques concentriques colorés dans `HubRenderer.draw`.
+11. Module `Camera` et ses huit méthodes supprimés ; retrait des commandes de zoom/pan et des paramètres `camera`/`zoom` des renderers. La vue calcule désormais le cadrage automatique. Tests de rendu mis à jour.
 9. `main.py` : parsing artisanal remplacé par `argparse` ; suppression de la liste `map_paths`, une seule map positionnelle, option `--no-view` sans alias, et conservation de `ValidatorError` dans les exceptions interceptées.
 
 ## 5. Limites et défauts possibles non changés sans preuve
@@ -301,3 +290,12 @@ Après l'intégration d’`argparse`, le [workflow d’audit réussi](https://gi
 - **Mypy réussi** avec les options obligatoires : « Success: no issues found in 36 source files ».
 
 Ces résultats incluent la version de `main.py` avec `argparse` et `ValidatorError`. Les éditions documentaires ultérieures ne modifient pas le programme testé. Ils ne prouvent pas la terminaison pour toutes les cartes possibles.
+
+## 8. Modification du rendu graphique — 2 novembre 2026
+
+- **Branche :** `test-main` ; `main` n'est pas modifiée.
+- **Rainbow :** sept disques concentriques rouge, orange, jaune, vert, cyan, indigo, violet ; contour et labels inchangés.
+- **Caméra :** suppression de `src/view/utils/camera.py` et de ses huit méthodes. Suppression des contrôles de zoom, glisser et reset caméra.
+- **Placement :** `CoordinateSystem.compute` garde son rôle de calcul des coordonnées logiques centrées ; `PygameView._display_replay` transforme celles-ci en positions écran ajustées à la taille de la fenêtre. `GraphRenderer` et `ReplayPlayer` partagent les mêmes positions.
+- **Inventaire :** 85 méthodes dans 17 fichiers applicatifs.
+- **Tests :** les tests existants de rendu sont adaptés et un test vérifie les couleurs et les rayons décroissants de `rainbow`. Les résultats de vérification précédemment mentionnés dans la section 7 concernent une version antérieure à ce changement ; la validation actuelle doit être confirmée par GitHub Actions.
