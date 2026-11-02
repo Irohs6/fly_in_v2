@@ -292,12 +292,12 @@ Cet audit documente le contenu de `test-main`. Exception historique : le changem
 
 ## 7. Résultats d’exécution confirmés sur GitHub Actions
 
-Avant l'intégration de `argparse`, le [workflow d’audit](https://github.com/Irohs6/fly_in_v2/actions/runs/41412098443) a exécuté la branche `test-main` sur Python 3.13 :
+Après l'intégration d’`argparse`, le [workflow d’audit réussi](https://github.com/Irohs6/fly_in_v2/actions/runs/41422135161) a exécuté `test-main` sur Python 3.13 (commit `fa548614b976c7a4ba871918c0d688e42b0297d7`) :
 
-- **205 tests pytest réussis** (1,72 s pour la phase pytest).
+- **205 tests pytest réussis** (2,01 s pour la phase pytest).
 - **11 cartes du dépôt terminées** sans Pygame, et toutes les sorties enregistrées sans erreur.
 - Tours par carte : challenger/Impossible Dream **43**, challenger/Spaghetti **46** ; Easy **4 / 4 / 4** ; Medium **8 / 15 / 7** ; Hard **13 / 16 / 26**.
 - **Flake8 réussi**.
 - **Mypy réussi** avec les options obligatoires : « Success: no issues found in 36 source files ».
 
-Ces résultats concernent le commit testé avant le changement CLI, pas encore le dernier commit de `test-main`. Ils ne prouvent pas la terminaison pour toutes les cartes possibles.
+Ces résultats incluent la version de `main.py` avec `argparse` et `ValidatorError`. Les éditions documentaires ultérieures ne modifient pas le programme testé. Ils ne prouvent pas la terminaison pour toutes les cartes possibles.
