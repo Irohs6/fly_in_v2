@@ -2,7 +2,7 @@
 
 **Branche de travail :** `test-main`. Base historique : commit `4c1eeddfc1bda589d62c77bf7b5689f6def5c8fe`. Les corrections auditées sont développées sur `test-main`. Le passage à `argparse` a d’abord été poussé par erreur sur `main` (`3246d28131dfdc44dbb5b9aea162af50edc3fb28`), puis reporté sur `test-main` avec la prise en charge de `ValidatorError`. Depuis cette décision, toutes les nouvelles modifications restent sur `test-main` jusqu’à la fusion finale.
 
-**Inventaire vérifié : 85 méthodes et fonctions explicites dans 17 fichiers applicatifs.** Chaque définition `def` a été comparée à l’index ci-dessous : aucune ne manque. L’audit inclut aussi les dataclasses, erreurs et branches rarement exécutées.
+**Inventaire vérifié : 83 méthodes et fonctions explicites dans 17 fichiers applicatifs.** Chaque définition `def` a été comparée à l’index ci-dessous : aucune ne manque. L’audit inclut aussi les dataclasses, erreurs et branches rarement exécutées.
 
 ## 1. Chemin réel des appels depuis main
 
@@ -183,12 +183,9 @@ Pour chaque entrée : **signature effective du fichier**, paramètres, rôle/év
 | [`Recorder.__init__`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/recorder.py#L12) — `def __init__(self) -> None:` | Initialise la liste des TurnState du replay. | **CONSERVER** |
 | [`Recorder.record`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/recorder.py#L16) — `def record( self, turn: int, graph: Graph, drones: list[Drone], moved_drones: tuple[int, ...] = (), ) -> None:` | Copie tous les états (drones, Hub, Connection) pour figer le tour indépendamment du modèle vivant. | **CONSERVER** |
 
-### `src/model/errors.py` (2 méthodes)
+### `src/model/errors.py` (0 méthode explicite)
 
-| Méthode et paramètres | Rôle, analyse | Décision |
-|---|---|---|
-| [`ConnectionError.__init__`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/errors.py#L4) — `def __init__(self, message: str = "Connection error") -> None:` | Construit erreur lors d’usage ou connexion invalide ; distincte des erreurs de parsing. | **CONSERVER** |
-| [`HubError.__init__`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/errors.py#L11) — `def __init__(self, message: str = "Hub error") -> None:` | Construit erreur de capacité/occupation de Hub ; contrat d’invariant interne. | **CONSERVER** |
+Les classes `ConnectionError` et `HubError` héritent directement d'`Exception`. Tous leurs appels dans l'application fournissent un message explicite. Les constructeurs personnalisés ont donc été supprimés ; les exceptions métier restent utilisées par `Connection` et `Hub`. **MODIFIÉ**
 
 ### `src/view/terminal.py` (1 méthodes)
 
@@ -260,6 +257,7 @@ Pour chaque entrée : **signature effective du fichier**, paramètres, rôle/év
 8. Workflow de contrôle sur la branche : `.github/workflows/test-main-audit.yml`.
 10. `rainbow` est rendu par sept disques concentriques colorés dans `HubRenderer.draw`.
 11. Module `Camera` et ses huit méthodes supprimés ; retrait des commandes de zoom/pan et des paramètres `camera`/`zoom` des renderers. La vue calcule désormais le cadrage automatique. Tests de rendu mis à jour.
+12. Suppression des deux constructeurs `ConnectionError.__init__` et `HubError.__init__`. Les deux classes restent des sous-classes d'`Exception`; les appels existants fournissent toujours leurs messages.
 9. `main.py` : parsing artisanal remplacé par `argparse` ; suppression de la liste `map_paths`, une seule map positionnelle, option `--no-view` sans alias, et conservation de `ValidatorError` dans les exceptions interceptées.
 
 ## 5. Limites et défauts possibles non changés sans preuve
@@ -297,5 +295,9 @@ Ces résultats incluent la version de `main.py` avec `argparse` et `ValidatorErr
 - **Rainbow :** sept disques concentriques rouge, orange, jaune, vert, cyan, indigo, violet ; contour et labels inchangés.
 - **Caméra :** suppression de `src/view/utils/camera.py` et de ses huit méthodes. Suppression des contrôles de zoom, glisser et reset caméra.
 - **Placement :** `CoordinateSystem.compute` garde son rôle de calcul des coordonnées logiques centrées ; `PygameView._display_replay` transforme celles-ci en positions écran ajustées à la taille de la fenêtre. `GraphRenderer` et `ReplayPlayer` partagent les mêmes positions.
-- **Inventaire :** 85 méthodes dans 17 fichiers applicatifs.
+- **Inventaire :** 83 méthodes dans 17 fichiers applicatifs (dont un fichier d'exceptions sans méthode explicite).
 - **Tests :** les tests existants de rendu sont adaptés et un test vérifie les couleurs et les rayons décroissants de `rainbow`. **Vérification actuelle :** [workflow GitHub Actions réussi](https://github.com/Irohs6/fly_in_v2/actions/runs/41425411792) avec **206 tests réussis**, **11 cartes terminées**, **Flake8** et **mypy** sans erreur (35 fichiers Python vérifiés).
+
+## 9. Simplification des exceptions — 2 novembre 2026
+
+Sur `test-main`, les deux constructeurs `ConnectionError.__init__` et `HubError.__init__` sont supprimés. Les appels réels dans `Connection` et `Hub` fournissent tous un message ; aucun appel nu n'a été relevé dans les sources et tests. Les classes d'exceptions métier sont conservées, sans logique propre. L'inventaire descend donc de **85 à 83 méthodes explicites**. La vérification CI mentionnée plus haut précède cette dernière modification et doit être reconfirmée sur le nouveau commit.

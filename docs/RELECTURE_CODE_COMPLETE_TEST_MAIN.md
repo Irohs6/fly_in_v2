@@ -2,11 +2,11 @@
 
 > **Objectif : te réapproprier le projet**, relire chaque ligne et retrouver les choix techniques. Ce n'est pas un bulletin de notes ni une proposition de refonte automatique. Les corrections décidées lors de la relecture ont été appliquées à `test-main` ; les autres idées restent des questions à trancher.
 
-**Source exacte :** branche [`test-main`](https://github.com/Irohs6/fly_in_v2/tree/test-main), état du 2 novembre 2026 après suppression de `Camera` et ajout du rendu `rainbow`. **85 méthodes/fonctions explicites dans 17 fichiers applicatifs.** Les structures sans méthode explicite et classes d'erreurs sont présentées à part.
+**Source exacte :** branche [`test-main`](https://github.com/Irohs6/fly_in_v2/tree/test-main), état du 2 novembre 2026 après suppression de `Camera` et ajout du rendu `rainbow`. **83 méthodes/fonctions explicites dans 17 fichiers applicatifs.** Les structures sans méthode explicite et classes d'erreurs sont présentées à part.
 
 ## Comment lire le document
 
-Pour **chacune** des 85 méthodes : tu disposes du **code relevé sur la branche après modifications**, du fichier GitHub d'origine et de la ligne, d'une explication des paramètres/variables et des décisions à discuter. L'ordre suit un **parcours des appels depuis `main()`** : quand une méthode appelle une autre méthode du projet, on descend dans l'appel ; quand elle est déjà étudiée, on ne reproduit pas une deuxième fois son code. Les chemins alternatifs (déclarations de carte, transit restricted, reroutage, événements Pygame) sont placés à la suite de leur point d'entrée. Les méthodes implicites `__str__`, `__repr__` et les exceptions sont à la fin. **Ce n'est pas un ordre chronologique unique valable pour toutes les cartes**, car le flux dépend de l'entrée, des capacités et des événements utilisateur.
+Pour **chacune** des 83 méthodes : tu disposes du **code relevé sur la branche après modifications**, du fichier GitHub d'origine et de la ligne, d'une explication des paramètres/variables et des décisions à discuter. L'ordre suit un **parcours des appels depuis `main()`** : quand une méthode appelle une autre méthode du projet, on descend dans l'appel ; quand elle est déjà étudiée, on ne reproduit pas une deuxième fois son code. Les chemins alternatifs (déclarations de carte, transit restricted, reroutage, événements Pygame) sont placés à la suite de leur point d'entrée. Les méthodes implicites `__str__`, `__repr__` et les exceptions sont à la fin. **Ce n'est pas un ordre chronologique unique valable pour toutes les cartes**, car le flux dépend de l'entrée, des capacités et des événements utilisateur.
 
 **À bien distinguer :** `ParseError` = erreur de lecture/syntaxe ; `ValidatorError` = carte syntaxiquement lisible mais structurellement invalide ; `HubError`/`ConnectionError` = invariants du modèle ; `DisplayError` = interface. `main` capte les erreurs attendues.
 
@@ -108,8 +108,6 @@ Pour **chacune** des 85 méthodes : tu disposes du **code relevé sur la branche
 - [81 — `Connection.__repr__`](#m081)
 - [82 — `Hub.__str__`](#m082)
 - [83 — `Hub.__repr__`](#m083)
-- [84 — `ConnectionError.__init__`](#m084)
-- [85 — `HubError.__init__`](#m085)
 
 ## Schéma du parcours principal
 
@@ -2377,52 +2375,13 @@ def main() -> int:
 
 **Décision à prendre.** À discuter : nécessité de deux méthodes spéciales pour un projet scolaire.
 
-<a id="m084"></a>
-
-### 84 — `ConnectionError.__init__`
-
-**Source :** [`src/model/errors.py`, ligne 4](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/errors.py#L4)
-
-```python
-    def __init__(self, message: str = "Connection error") -> None:
-        """Initialize the exception with a connection error message."""
-        super().__init__(message)
-```
-
-**Lecture du code.** Passe un message optionnel à `Exception.__init__` via `super()`. Les méthodes Connection lèvent le plus souvent une erreur avec message explicite, donc le message par défaut est rarement utilisé.
-
-**Variables, noms et cohérence.** Cette surcharge est équivalente à la gestion standard d'une Exception sauf pour **le message par défaut**. Si personne ne construit `ConnectionError()` sans argument, ce constructeur pourrait être supprimé et la classe garder `pass` : point de simplification légitime.
-
-**Décision à prendre.** À discuter : retirer le constructeur personnalisé, sans supprimer l'exception métier.
-
-<a id="m085"></a>
-
-### 85 — `HubError.__init__`
-
-**Source :** [`src/model/errors.py`, ligne 11](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/errors.py#L11)
-
-```python
-    def __init__(self, message: str = "Hub error") -> None:
-        """Initialize the exception with a hub error message."""
-        super().__init__(message)
-```
-
-**Lecture du code.** Même idée que ConnectionError : constructeur qui fournit un message par défaut puis délègue à Exception. Les méthodes Hub fournissent déjà des messages dans leurs `raise`.
-
-**Variables, noms et cohérence.** Le constructeur personnalisé n'apporte de valeur que si le projet appelle réellement `HubError()` sans argument ; sinon la classe peut hériter directement d'Exception. C'est **une candidate à la suppression**, à confirmer en cherchant les appels.
-
-**Décision à prendre.** À discuter : garder seulement la classe `HubError`, retirer son `__init__` si aucun appel sans message.
-
-
----
-
 ## VIII. Les classes qui ne définissent pas de méthode explicite
 
 Les `TypedDict` `HubDict`, `ConnectionDict` et `ParsedMap` dans `parser.py` définissent la **forme des dictionnaires**. `Parser` fabrique ces structures, `MapValidator` les valide, `Graph` les transforme en vrais objets. Elles ne possèdent pas de méthode applicative : inutile d'inventer un objet `Hub` dans le parser.
 
 `src/model/state.py` contient quatre `@dataclass(frozen=True)` : `DroneState` (position/état/chemin), `HubState` (coordonnées/occupation/réservations), `ConnectionState` (connexion/usage/transit) et `TurnState` (ensemble d'un tour, avec `moved_drones`). Elles sont créées par `Recorder.record` et lues par les vues. Elles **n'ont aucune méthode `def` écrite dans le fichier**, Python génère certaines méthodes spéciales. Leur `frozen=True` ne rend pas immuables les dictionnaires contenues dans `TurnState`.
 
-`ParseError`, `ValidatorError`, `DisplayError` sont des classes d'exception sans constructeur spécifique. `HubError` et `ConnectionError` ont en revanche un `__init__` dédié, détaillé dans les deux dernières méthodes de ce rapport.
+`ParseError`, `ValidatorError`, `DisplayError`, `ConnectionError` et `HubError` sont des classes d'exception sans constructeur spécifique. Les deux dernières gardent leur rôle d'exception métier pour les opérations sur `Connection` et `Hub`. Tous les appels relevés fournissent un message explicite.
 
 Le `src/view/__init__.py` configure `PYGAME_HIDE_SUPPORT_PROMPT=1` pour éviter que Pygame imprime une bannière qui polluerait la sortie terminal du sujet. Dans `main.py`, le bloc `if __name__ == "__main__": raise SystemExit(main())` convertit le code retour en statut processus.
 
@@ -2441,7 +2400,6 @@ Le `src/view/__init__.py` configure `PYGAME_HIDE_SUPPORT_PROMPT=1` pour éviter 
 | 9 | `Drone.advance_transit()` **termine** un trajet et `path_turns()` fournit un **coût** de chemin | `finish_transit` et `remaining_path_cost` |
 | 10 | `Simulation.move_drone` est publique mais suppose des vérifications faites ailleurs | Rendre privée ou documenter la précondition |
 | 11 | `Hub.remove_drone` teste `nb_drones - 1 < 0` | Test direct `nb_drones <= 0` |
-| 12 | `ConnectionError.__init__` et `HubError.__init__` ne font que définir un message par défaut | Vérifier appels sans argument puis retirer les constructeurs si inutiles |
 | 13 | `Hub.__str__` ne montre pas `reserved` | Ajouter ce champ ou supprimer un debug non utilisé |
 | 15 | `ReplayPlayer.restart` revient au début du **replay**, sans relancer le moteur | `reset_replay` |
 | 17 | `Simulation.simulate` ne détecte pas un état sans progression | Construire d'abord un cas reproductible, puis décider |
@@ -2451,7 +2409,10 @@ Le `src/view/__init__.py` configure `PYGAME_HIDE_SUPPORT_PROMPT=1` pour éviter 
 
 ## X. Vérification technique et limites
 
-**Actualisation du 2 novembre 2026 :** suppression des huit méthodes de caméra et du module `camera.py` ; l'inventaire compte désormais 85 méthodes. La fenêtre ajuste automatiquement les positions au cadre, sans zoom/pan. `rainbow` est dessiné par sept disques concentriques. Les six méthodes d'affichage modifiées figurent ci-dessus avec leur code réel.
+**Simplification effectuée :** `ConnectionError.__init__` et `HubError.__init__` ont été supprimés après vérification des appels. Les classes métier restent définies dans `src/model/errors.py` avec un simple `pass`. Le présent inventaire recense donc **83 méthodes**, et les sections 84 et 85 précédentes n'ont plus lieu d'être. La vérification automatisée citée plus bas ne couvre pas encore cette suppression.
+
+
+**Actualisation du 2 novembre 2026 :** suppression des huit méthodes de caméra et du module `camera.py` ; l'inventaire comptait alors 85 méthodes, puis 83 après suppression des deux constructeurs d'exceptions. La fenêtre ajuste automatiquement les positions au cadre, sans zoom/pan. `rainbow` est dessiné par sept disques concentriques. Les six méthodes d'affichage modifiées figurent ci-dessus avec leur code réel.
 
 
 Le [dernier workflow de vérification après les modifications graphiques](https://github.com/Irohs6/fly_in_v2/actions/runs/41425411792) a réussi : **206 tests**, **11 cartes sur 11**, **Flake8 et mypy sans erreur** (35 fichiers Python vérifiés). Cela couvre les tests exécutés, pas tous les graphes possibles.
