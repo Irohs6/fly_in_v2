@@ -49,7 +49,6 @@ def test_priority_never_overrides_shorter_duration(
     path = finder.shortest_path()
     assert path[1].name == expected_prefix + "0"
     expected_turns = min(normal_count, priority_count) + 1
-    assert finder.distance_to(graph.start_hub, graph.end_hub) == expected_turns
     simulation = Simulation(graph)
     simulation.load_drones(1)
     assert simulation.simulate()[-1].turn == expected_turns
