@@ -91,8 +91,8 @@ class Drone:
         spent in transit is not subtracted.
         """
         return sum(
-            zone.transit_duration()
-            for zone in self.path
+            hub.transit_duration()
+            for hub in self.path
         )
 
     def set_path(self, path: list[Hub]) -> None:

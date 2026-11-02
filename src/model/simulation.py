@@ -78,7 +78,7 @@ class Simulation:
             drone.move_to_hub(target_hub)
             target_hub.add_drone()
 
-        connection.use_capacity()
+        connection.occupy_for_turn()
 
     # REROUTING
 
@@ -213,7 +213,7 @@ class Simulation:
             connection.used_capacity = 0
         for drone in self.drones:
             if isinstance(drone.current_position, Connection):
-                drone.current_position.use_capacity()
+                drone.current_position.occupy_for_turn()
 
     def simulate(self) -> list[TurnState]:
         """Run to completion and return the initial and completed states."""

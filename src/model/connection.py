@@ -12,8 +12,8 @@ class Connection:
         self.capacity = capacity
         self.used_capacity = 0
 
-    def use_capacity(self) -> None:
-        """Use one unit of capacity for the current turn.
+    def occupy_for_turn(self) -> None:
+        """Occupy one connection slot for the current turn.
         Raise ConnectionError if capacity would be exceeded.
         """
         if not self.is_available():

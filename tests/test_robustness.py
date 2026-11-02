@@ -232,7 +232,7 @@ def test_move_reroutes_when_next_resource_is_full(resource: str) -> None:
     if resource == "hub":
         graph.hubs["a"].add_drone()
     else:
-        graph.connections[0].use_capacity()
+        graph.connections[0].occupy_for_turn()
 
     assert simulation._Simulation__move_or_wait(drone) is True
 

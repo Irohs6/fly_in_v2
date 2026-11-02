@@ -84,7 +84,7 @@ def test_reroute_cost_threshold(
     drone = simulation.drones[0]
     direct = graph.get_connection(graph.start_hub, graph.end_hub)
     assert direct is not None
-    direct.use_capacity()
+    direct.occupy_for_turn()
 
     assert simulation._Simulation__move_or_wait(drone) is reroutes
     if reroutes:
