@@ -288,3 +288,15 @@ Pour chaque entrée : **signature effective du fichier**, paramètres, rôle/év
 Les tests ciblés et la suite complète sont lancés via le workflow GitHub Actions de `test-main` : `poetry run pytest -q`, `poetry run flake8 . --exclude=.venv`, puis `poetry run mypy` avec les drapeaux obligatoires. Les étapes doivent être vérifiées dans le run avant d’annoncer leur succès. Le terminal local de cette conversation ne peut pas résoudre github.com.
 
 Aucune modification de `main` n’est incluse dans cet audit. Le document, les tests et les corrections sont limités à la branche de travail.
+
+## 7. Résultats d’exécution confirmés sur GitHub Actions
+
+Le [workflow d’audit](https://github.com/Irohs6/fly_in_v2/actions/runs/41412098443) a exécuté directement le code de cette branche sur Python 3.13 :
+
+- **205 tests pytest réussis** (1,72 s pour la phase pytest).
+- **11 cartes du dépôt terminées** sans Pygame, et toutes les sorties enregistrées sans erreur.
+- Tours par carte : challenger/Impossible Dream **43**, challenger/Spaghetti **46** ; Easy **4 / 4 / 4** ; Medium **8 / 15 / 7** ; Hard **13 / 16 / 26**.
+- **Flake8 réussi**.
+- **Mypy réussi** avec les options obligatoires : « Success: no issues found in 36 source files ».
+
+Ces résultats concernent les cas effectivement testés ; ils n’apportent pas une preuve de terminaison pour toutes les cartes possibles. Aucun push sur `main`.
