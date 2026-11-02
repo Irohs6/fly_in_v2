@@ -7,9 +7,8 @@ from .connection import Connection
 class Graph:
     """Hub graph with indexed bidirectional connections."""
     def __init__(self, data: ParsedMap) -> None:
-
-        # Hub and connection storage
         """Build hubs and their indexes from validated map data."""
+        # Hub and connection storage
         self.hubs: dict[str, Hub] = {
             hub["name"]: Hub(**hub) for hub in data["hubs"]
         }
