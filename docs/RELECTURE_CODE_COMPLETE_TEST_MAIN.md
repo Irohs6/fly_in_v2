@@ -6,7 +6,7 @@
 
 ## Comment lire le document
 
-Pour **chacune** des 93 méthodes : tu disposes du **code complet et non modifié**, du fichier GitHub d'origine et de la ligne, d'une explication des paramètres/variables et des décisions à discuter. L'ordre suit un **parcours des appels depuis `main()`** : quand une méthode appelle une autre méthode du projet, on descend dans l'appel ; quand elle est déjà étudiée, on ne reproduit pas une deuxième fois son code. Les chemins alternatifs (déclarations de carte, transit restricted, reroutage, événements Pygame) sont placés à la suite de leur point d'entrée. Les méthodes implicites `__str__`, `__repr__` et les exceptions sont à la fin. **Ce n'est pas un ordre chronologique unique valable pour toutes les cartes**, car le flux dépend de l'entrée, des capacités et des événements utilisateur.
+Pour **chacune** des 85 méthodes : tu disposes du **code complet et non modifié**, du fichier GitHub d'origine et de la ligne, d'une explication des paramètres/variables et des décisions à discuter. L'ordre suit un **parcours des appels depuis `main()`** : quand une méthode appelle une autre méthode du projet, on descend dans l'appel ; quand elle est déjà étudiée, on ne reproduit pas une deuxième fois son code. Les chemins alternatifs (déclarations de carte, transit restricted, reroutage, événements Pygame) sont placés à la suite de leur point d'entrée. Les méthodes implicites `__str__`, `__repr__` et les exceptions sont à la fin. **Ce n'est pas un ordre chronologique unique valable pour toutes les cartes**, car le flux dépend de l'entrée, des capacités et des événements utilisateur.
 
 **À bien distinguer :** `ParseError` = erreur de lecture/syntaxe ; `ValidatorError` = carte syntaxiquement lisible mais structurellement invalide ; `HubError`/`ConnectionError` = invariants du modèle ; `DisplayError` = interface. `main` capte les erreurs attendues.
 
@@ -84,40 +84,32 @@ Pour **chacune** des 93 méthodes : tu disposes du **code complet et non modifi�
 - [59 — `PygameView.__init__`](#m059)
 - [60 — `PygameView.display`](#m060)
 - [61 — `PygameView._display_replay`](#m061)
-- [62 — `Camera.__init__`](#m062)
-- [63 — `CoordinateSystem.__init__`](#m063)
-- [64 — `CoordinateSystem.compute`](#m064)
-- [65 — `GraphRenderer.__init__`](#m065)
-- [66 — `HubRenderer.__init__`](#m066)
-- [67 — `ConnectionRenderer.__init__`](#m067)
-- [68 — `ReplayPlayer.__init__`](#m068)
-- [69 — `ReplayPlayer.handle_event`](#m069)
-- [70 — `ReplayPlayer.next_turn`](#m070)
-- [71 — `ReplayPlayer.previous_turn`](#m071)
-- [72 — `ReplayPlayer.restart`](#m072)
-- [73 — `Camera.reset`](#m073)
-- [74 — `Camera.apply_zoom`](#m074)
-- [75 — `Camera.screen_to_world`](#m075)
-- [76 — `Camera.start_drag`](#m076)
-- [77 — `Camera.drag`](#m077)
-- [78 — `Camera.end_drag`](#m078)
-- [79 — `GraphRenderer.draw`](#m079)
-- [80 — `Camera.world_to_screen`](#m080)
-- [81 — `ConnectionRenderer.draw`](#m081)
-- [82 — `HubRenderer.draw`](#m082)
-- [83 — `HubRenderer.radius`](#m083)
-- [84 — `ReplayPlayer.draw`](#m084)
-- [85 — `ReplayPlayer._state_position`](#m085)
-- [86 — `ReplayPlayer._draw_drone`](#m086)
-- [87 — `ReplayPlayer._drone_color`](#m087)
-- [88 — `ReplayPlayer.draw_overlay`](#m088)
+- [62 — `CoordinateSystem.__init__`](#m062)
+- [63 — `CoordinateSystem.compute`](#m063)
+- [64 — `GraphRenderer.__init__`](#m064)
+- [65 — `HubRenderer.__init__`](#m065)
+- [66 — `ConnectionRenderer.__init__`](#m066)
+- [67 — `ReplayPlayer.__init__`](#m067)
+- [68 — `ReplayPlayer.handle_event`](#m068)
+- [69 — `ReplayPlayer.next_turn`](#m069)
+- [70 — `ReplayPlayer.previous_turn`](#m070)
+- [71 — `ReplayPlayer.restart`](#m071)
+- [72 — `GraphRenderer.draw`](#m072)
+- [73 — `ConnectionRenderer.draw`](#m073)
+- [74 — `HubRenderer.draw`](#m074)
+- [75 — `HubRenderer.radius`](#m075)
+- [76 — `ReplayPlayer.draw`](#m076)
+- [77 — `ReplayPlayer._state_position`](#m077)
+- [78 — `ReplayPlayer._draw_drone`](#m078)
+- [79 — `ReplayPlayer._drone_color`](#m079)
+- [80 — `ReplayPlayer.draw_overlay`](#m080)
 
 ### VII. Méthodes spéciales et exceptions non déclenchées par le chemin nominal
-- [89 — `Connection.__repr__`](#m089)
-- [90 — `Hub.__str__`](#m090)
-- [91 — `Hub.__repr__`](#m091)
-- [92 — `ConnectionError.__init__`](#m092)
-- [93 — `HubError.__init__`](#m093)
+- [81 — `Connection.__repr__`](#m081)
+- [82 — `Hub.__str__`](#m082)
+- [83 — `Hub.__repr__`](#m083)
+- [84 — `ConnectionError.__init__`](#m084)
+- [85 — `HubError.__init__`](#m085)
 
 ## Schéma du parcours principal
 
@@ -141,7 +133,7 @@ main
     │  └─ Recorder.record → TurnState
     ├─ TerminalView.display
     └─ PygameView.display (si mode graphique)
-       └─ _display_replay → Camera / CoordinateSystem /
+       └─ _display_replay → CoordinateSystem /
                             GraphRenderer / ReplayPlayer
 ```
 
@@ -1743,7 +1735,7 @@ def main() -> int:
 
 ### 61 — `PygameView._display_replay`
 
-**Source :** [`src/view/pygame_view.py`, ligne 40](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/pygame_view.py#L40)
+**Source :** [`src/view/pygame_view.py`, ligne 39](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/pygame_view.py#L39)
 
 ```python
     def _display_replay(self) -> None:
@@ -1767,12 +1759,12 @@ def main() -> int:
 
         clock = pygame.time.Clock()
 
-        camera = Camera()
-
         coord = CoordinateSystem(
             cell_size=self.CELL_SIZE
         )
-        positions = coord.compute(self.replay_frames[0].hubs.values())
+        world_positions = coord.compute(
+            self.replay_frames[0].hubs.values()
+        )
 
         renderer = GraphRenderer(
             screen=screen,
@@ -1788,120 +1780,57 @@ def main() -> int:
         while running:
             clock.tick(60)
 
-            screen_w, screen_h = (
-                screen.get_size()
-            )
-
             for event in pygame.event.get():
-
                 if event.type == pygame.QUIT:
                     running = False
-                    continue
-
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_ESCAPE:
-                        running = False
-
-                    elif event.key == pygame.K_c:
-                        camera.reset()
-
-                elif event.type == pygame.MOUSEWHEEL:
-                    mouse_x, mouse_y = (
-                        pygame.mouse.get_pos()
-                    )
-
-                    factor = (
-                        1.15
-                        if event.y > 0
-                        else 1 / 1.15
-                    )
-
-                    camera.apply_zoom(
-                        mouse_x,
-                        mouse_y,
-                        screen_w,
-                        screen_h,
-                        factor,
-                    )
-
                 elif (
-                    event.type
-                    == pygame.MOUSEBUTTONDOWN
-                    and event.button in (2, 3)
+                    event.type == pygame.KEYDOWN
+                    and event.key == pygame.K_ESCAPE
                 ):
-                    camera.start_drag(
-                        event.pos[0],
-                        event.pos[1],
-                    )
-
-                elif (
-                    event.type
-                    == pygame.MOUSEBUTTONUP
-                    and event.button in (2, 3)
-                ):
-                    camera.end_drag()
-
-                elif event.type == pygame.MOUSEMOTION:
-                    camera.drag(
-                        event.pos[0],
-                        event.pos[1],
-                    )
+                    running = False
 
                 replay.handle_event(event)
 
+            screen_w, screen_h = screen.get_size()
+            max_x = max(
+                (abs(x) for x, _ in world_positions.values()),
+                default=0.0,
+            )
+            max_y = max(
+                (abs(y) for _, y in world_positions.values()),
+                default=0.0,
+            )
+            scale = min(
+                1.0,
+                (screen_w - 160) / (2 * max_x) if max_x else 1.0,
+                (screen_h - 160) / (2 * max_y) if max_y else 1.0,
+            )
+            scale = max(0.0, scale)
+            positions = {
+                name: (
+                    int(screen_w / 2 + x * scale),
+                    int(screen_h / 2 + y * scale),
+                )
+                for name, (x, y) in world_positions.items()
+            }
+
             frame = replay.frames[replay.current_index]
-            renderer.draw(camera, frame, positions)
-
-            replay.draw(
-                screen,
-                camera,
-                font_small,
-                positions,
-            )
-
-            replay.draw_overlay(
-                screen,
-                font_small,
-            )
+            renderer.draw(frame, positions)
+            replay.draw(screen, font_small, positions)
+            replay.draw_overlay(screen, font_small)
 
             pygame.display.flip()
 ```
 
-**Lecture du code.** Quitte immédiatement si aucun instantané ; initialise Pygame, crée fenêtre redimensionnable, police et horloge 60 FPS, puis instancie Camera, CoordinateSystem, GraphRenderer et ReplayPlayer. À chaque itération, traite fermeture, Échap, C, roulette, bouton du milieu/droit pour drag, envoie également l'événement au ReplayPlayer ; choisit la frame courante, dessine le graphe, les drones, l'overlay puis `pygame.display.flip()`.
+**Lecture du code.** Initialise la fenêtre et le replay, puis calcule les coordonnées logiques centrées avec `CoordinateSystem`. Chaque rafraîchissement convertit ces coordonnées en positions écran ajustées à la taille de la fenêtre, sans zoom ni déplacement de caméra. Échap ferme la fenêtre, les flèches et R pilotent le replay.
 
-**Variables, noms et cohérence.** `coord` est une abréviation ; `coordinate_system` serait plus clair. `positions` désigne les coordonnées **monde**, alors qu'après Camera il existe des positions **écran** : `world_positions` réduirait les confusions. `font_small` est la seule police de la méthode, donc `font` suffirait. La boucle est longue mais correspond à un vrai contrôleur d'interface ; pas de refactor gratuit.
+**Variables, noms et cohérence.** `world_positions` conserve les coordonnées logiques centrées, `positions` les pixels de l'écran. `scale` ajuste automatiquement le cadrage lors d'un redimensionnement ; ce n'est pas un zoom interactif.
 
-**Décision à prendre.** À discuter : noms, mapping touches et conventions de zoom. Le facteur de roulette ne tient compte que du signe de `event.y`, pas de l'amplitude d'une roulette rapide.
+**Décision à prendre.** **MODIFIÉ** : suppression de `Camera`, du zoom, du glisser et de la touche C. Cadrage automatique conservé.
 
 <a id="m062"></a>
 
-### 62 — `Camera.__init__`
-
-**Source :** [`src/view/utils/camera.py`, ligne 4](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/utils/camera.py#L4)
-
-```python
-    def __init__(self, zoom_min: float = 0.15, zoom_max: float = 5.0) -> None:
-        """Initialize a centered camera with the given zoom limits."""
-        self.zoom = 1.0
-        self.pan_x = 0.0
-        self.pan_y = 0.0
-
-        self.zoom_min = zoom_min
-        self.zoom_max = zoom_max
-
-        # For dragging
-        self._drag_start: tuple[float, float, float, float] | None = None
-```
-
-**Lecture du code.** Fixe `zoom=1`, translations `pan_x/pan_y=0`, limites `zoom_min/max` et ancre de glisser absente. `pan` est le déplacement de caméra en pixels écran, et `_drag_start` stocke position souris initiale et translation initiale.
-
-**Variables, noms et cohérence.** Les bornes de zoom sont configurables ; à vérifier que `zoom_min <= zoom_max` si on rend la classe publique pour d'autres usages. Les attributs ont des noms standards dans une caméra 2D.
-
-**Décision à prendre.** Conserver.
-
-<a id="m063"></a>
-
-### 63 — `CoordinateSystem.__init__`
+### 62 — `CoordinateSystem.__init__`
 
 **Source :** [`src/view/utils/coordinate_system.py`, ligne 14](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/utils/coordinate_system.py#L14)
 
@@ -1917,9 +1846,9 @@ def main() -> int:
 
 **Décision à prendre.** À discuter : supprimer la valeur par défaut si cette classe est toujours appelée avec un paramètre explicite, ou aligner les constantes.
 
-<a id="m064"></a>
+<a id="m063"></a>
 
-### 64 — `CoordinateSystem.compute`
+### 63 — `CoordinateSystem.compute`
 
 **Source :** [`src/view/utils/coordinate_system.py`, ligne 21](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/utils/coordinate_system.py#L21)
 
@@ -1935,9 +1864,9 @@ def main() -> int:
 
 **Décision à prendre.** Conserver l'algorithme tant que les tests de grandes coordonnées passent ; on peut discuter `compute` → `world_positions` ou `compute_positions`.
 
-<a id="m065"></a>
+<a id="m064"></a>
 
-### 65 — `GraphRenderer.__init__`
+### 64 — `GraphRenderer.__init__`
 
 **Source :** [`src/view/graph_renderer.py`, ligne 136](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/graph_renderer.py#L136)
 
@@ -1955,9 +1884,9 @@ def main() -> int:
 
 **Décision à prendre.** À discuter : cohérence du passage de `screen`, sans imposer une refonte de toutes les signatures.
 
-<a id="m066"></a>
+<a id="m065"></a>
 
-### 66 — `HubRenderer.__init__`
+### 65 — `HubRenderer.__init__`
 
 **Source :** [`src/view/graph_renderer.py`, ligne 41](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/graph_renderer.py#L41)
 
@@ -1973,9 +1902,9 @@ def main() -> int:
 
 **Décision à prendre.** Conserver.
 
-<a id="m067"></a>
+<a id="m066"></a>
 
-### 67 — `ConnectionRenderer.__init__`
+### 66 — `ConnectionRenderer.__init__`
 
 **Source :** [`src/view/graph_renderer.py`, ligne 91](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/graph_renderer.py#L91)
 
@@ -1991,9 +1920,9 @@ def main() -> int:
 
 **Décision à prendre.** Conserver.
 
-<a id="m068"></a>
+<a id="m067"></a>
 
-### 68 — `ReplayPlayer.__init__`
+### 67 — `ReplayPlayer.__init__`
 
 **Source :** [`src/view/replay_player.py`, ligne 19](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/replay_player.py#L19)
 
@@ -2009,9 +1938,9 @@ def main() -> int:
 
 **Décision à prendre.** Conserver ; `current_turn_index` serait plus explicite mais plus long.
 
-<a id="m069"></a>
+<a id="m068"></a>
 
-### 69 — `ReplayPlayer.handle_event`
+### 68 — `ReplayPlayer.handle_event`
 
 **Source :** [`src/view/replay_player.py`, ligne 40](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/replay_player.py#L40)
 
@@ -2037,9 +1966,9 @@ def main() -> int:
 
 **Décision à prendre.** Conserver.
 
-<a id="m070"></a>
+<a id="m069"></a>
 
-### 70 — `ReplayPlayer.next_turn`
+### 69 — `ReplayPlayer.next_turn`
 
 **Source :** [`src/view/replay_player.py`, ligne 54](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/replay_player.py#L54)
 
@@ -2058,9 +1987,9 @@ def main() -> int:
 
 **Décision à prendre.** Conserver.
 
-<a id="m071"></a>
+<a id="m070"></a>
 
-### 71 — `ReplayPlayer.previous_turn`
+### 70 — `ReplayPlayer.previous_turn`
 
 **Source :** [`src/view/replay_player.py`, ligne 61](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/replay_player.py#L61)
 
@@ -2079,9 +2008,9 @@ def main() -> int:
 
 **Décision à prendre.** Conserver.
 
-<a id="m072"></a>
+<a id="m071"></a>
 
-### 72 — `ReplayPlayer.restart`
+### 71 — `ReplayPlayer.restart`
 
 **Source :** [`src/view/replay_player.py`, ligne 68](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/replay_player.py#L68)
 
@@ -2097,190 +2026,43 @@ def main() -> int:
 
 **Décision à prendre.** À discuter : renommer pour ne pas confondre avec un redémarrage de la mission.
 
-<a id="m073"></a>
+<a id="m072"></a>
 
-### 73 — `Camera.reset`
+### 72 — `GraphRenderer.draw`
 
-**Source :** [`src/view/utils/camera.py`, ligne 83](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/utils/camera.py#L83)
-
-```python
-    def reset(self) -> None:
-        """Reset the camera zoom and pan to their defaults."""
-        self.zoom = 1.0
-        self.pan_x = 0.0
-        self.pan_y = 0.0
-```
-
-**Lecture du code.** Réinitialise zoom et translations, mais pas l'ancre `_drag_start`. Appelée sur la touche C. Remet donc la vue au centre, pas l'index de tour.
-
-**Variables, noms et cohérence.** Le nom `reset` est classique pour une caméra ; si reset est invoqué en cours de drag, `_drag_start` conserve l'ancienne ancre jusqu'au relâchement.
-
-**Décision à prendre.** À discuter : faut-il aussi annuler un drag dans `reset` ? Comportement d'interface, à décider.
-
-<a id="m074"></a>
-
-### 74 — `Camera.apply_zoom`
-
-**Source :** [`src/view/utils/camera.py`, ligne 40](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/utils/camera.py#L40)
-
-```python
-    def apply_zoom(self, mouse_x: float, mouse_y: float, screen_w: int,
-                   screen_h: int, factor: float) -> None:
-        """Zoom around the mouse position. Factors above one zoom in;
-        factors below one zoom out.
-        """
-
-        # World position before zooming
-        world_x, world_y = self.screen_to_world(mouse_x, mouse_y,
-                                                screen_w, screen_h)
-
-        # Apply the zoom
-        new_zoom = self.zoom * factor
-        new_zoom = max(self.zoom_min, min(self.zoom_max, new_zoom))
-
-        # Recalculate the pan to keep the world point under the mouse
-        self.pan_x = mouse_x - screen_w / 2 - world_x * new_zoom
-        self.pan_y = mouse_y - screen_h / 2 - world_y * new_zoom
-
-        self.zoom = new_zoom
-```
-
-**Lecture du code.** Lit la position monde sous le curseur via `screen_to_world`, multiplie le zoom par un facteur puis le limite entre min/max. Recalcule `pan_x` et `pan_y` pour maintenir **le même point monde sous la souris** après le changement, puis applique `self.zoom`.
-
-**Variables, noms et cohérence.** `factor > 1` agrandit ; en dessous de 1 réduit. Les variables `world_x/y` sont utiles et évitent d'approcher le zoom en pixels directement.
-
-**Décision à prendre.** Conserver ; tests de centrage utiles si l'interface est refactorisée.
-
-<a id="m075"></a>
-
-### 75 — `Camera.screen_to_world`
-
-**Source :** [`src/view/utils/camera.py`, ligne 28](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/utils/camera.py#L28)
-
-```python
-    def screen_to_world(self, screen_x: float, screen_y: float, screen_w: int,
-                        screen_h: int) -> tuple[float, float]:
-        """Convert screen pixels to world coordinates. Subtract the screen
-        center and pan, then divide by zoom.
-        """
-        world_x = (screen_x - screen_w / 2 - self.pan_x) / self.zoom
-        world_y = (screen_y - screen_h / 2 - self.pan_y) / self.zoom
-        return world_x, world_y
-```
-
-**Lecture du code.** Inverse la projection en retirant le centre de l'écran et `pan`, puis en divisant par `zoom`. Renvoie un tuple de flottants. Utilisée pour la position du curseur durant le zoom.
-
-**Variables, noms et cohérence.** Les paramètres `screen_w/h` sont dimensions de fenêtre, pas coordonnées monde. `self.zoom` ne doit pas être zéro ; les bornes actuelles sont strictement positives par défaut.
-
-**Décision à prendre.** Conserver.
-
-<a id="m076"></a>
-
-### 76 — `Camera.start_drag`
-
-**Source :** [`src/view/utils/camera.py`, ligne 63](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/utils/camera.py#L63)
-
-```python
-    def start_drag(self, mouse_x: float, mouse_y: float) -> None:
-        """Start dragging from the given mouse position."""
-        self._drag_start = (mouse_x, mouse_y, self.pan_x, self.pan_y)
-```
-
-**Lecture du code.** Enregistre `(mouse_x, mouse_y, pan_x, pan_y)` au début du déplacement de caméra. Il ne bouge encore rien.
-
-**Variables, noms et cohérence.** `_drag_start` est un tuple de quatre valeurs dans un ordre implicite ; acceptable vu la taille de la méthode. Si d'autres comportements de drag apparaissent, une petite structure nommée deviendrait utile.
-
-**Décision à prendre.** Conserver.
-
-<a id="m077"></a>
-
-### 77 — `Camera.drag`
-
-**Source :** [`src/view/utils/camera.py`, ligne 67](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/utils/camera.py#L67)
-
-```python
-    def drag(self, mouse_x: float, mouse_y: float) -> None:
-        """Pan the camera according to mouse movement during a drag."""
-        if not self._drag_start:
-            return
-
-        sx, sy, pan_start_x, pan_start_y = self._drag_start
-        self.pan_x = pan_start_x + (mouse_x - sx)
-        self.pan_y = pan_start_y + (mouse_y - sy)
-```
-
-**Lecture du code.** Si aucune ancre, retourne immédiatement. Sinon retrouve les coordonnées souris et translations initiales, puis ajoute la différence du mouvement pour calculer le `pan` courant. Le calcul repart toujours de l'ancre, évitant l'accumulation d'erreurs.
-
-**Variables, noms et cohérence.** `sx`, `sy` sont des abréviations peu explicites : `start_x`, `start_y` seraient plus faciles à relire ; `pan_start_x/y` sont déjà explicites.
-
-**Décision à prendre.** À discuter : harmoniser les noms locaux.
-
-<a id="m078"></a>
-
-### 78 — `Camera.end_drag`
-
-**Source :** [`src/view/utils/camera.py`, ligne 76](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/utils/camera.py#L76)
-
-```python
-    def end_drag(self) -> None:
-        """End the current drag operation."""
-        self._drag_start = None
-```
-
-**Lecture du code.** Supprime l'ancre (`_drag_start=None`), ce qui fait ensuite ignorer les événements de mouvement sans bouton actif.
-
-**Variables, noms et cohérence.** Nom symétrique avec `start_drag`.
-
-**Décision à prendre.** Conserver.
-
-<a id="m079"></a>
-
-### 79 — `GraphRenderer.draw`
-
-**Source :** [`src/view/graph_renderer.py`, ligne 142](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/graph_renderer.py#L142)
+**Source :** [`src/view/graph_renderer.py`, ligne 154](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/graph_renderer.py#L154)
 
 ```python
     def draw(
         self,
-        camera: Camera,
         frame: TurnState,
-        world_positions: dict[str, tuple[float, float]],
+        positions: dict[str, tuple[int, int]],
+    ) -> None:
+        """Draw the recorded connections and hubs at screen positions."""
+        self.screen.fill(self.BG_COLOR)
+        for connection in frame.connections.values():
+            self.connection_renderer.draw(
+                self.screen, positions[connection.source],
+                positions[connection.target], connection,
+            )
+        for hub in frame.hubs.values():
+            self.hub_renderer.draw(
+                self.screen, hub, positions[hub.name],
+                is_terminal=hub.name in (frame.start_hub, frame.end_hub),
+            )
 ```
 
-**Lecture du code.** Efface l'écran, transforme toutes les positions monde en coordonnées écran avec la Camera, dessine chaque `ConnectionState` puis chaque `HubState`. Les terminaux sont identifiés par leur nom et reçoivent un contour différent.
+**Lecture du code.** Efface l'écran, dessine les connexions puis les hubs aux positions écran déjà calculées. La transformation des coordonnées n'appartient plus au renderer.
 
-**Variables, noms et cohérence.** `positions` à ce point sont des positions **écran**, alors que `world_positions` sont des positions monde : c'est déjà bien séparé. `camera.zoom` est transmis aux renderer pour taille/largeur. Dessiner les liens avant les hubs évite de masquer les zones.
+**Variables, noms et cohérence.** `positions` contient directement les coordonnées en pixels partagées avec `ReplayPlayer.draw` ; aucun paramètre caméra.
 
-**Décision à prendre.** Conserver.
+**Décision à prendre.** **MODIFIÉ** : dessin direct, sans projection caméra.
 
-<a id="m080"></a>
+<a id="m073"></a>
 
-### 80 — `Camera.world_to_screen`
+### 73 — `ConnectionRenderer.draw`
 
-**Source :** [`src/view/utils/camera.py`, ligne 19](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/utils/camera.py#L19)
-
-```python
-    def world_to_screen(self, world_x: float, world_y: float, screen_w: int,
-                        screen_h: int) -> tuple[int, int]:
-        """Convert world coordinates to screen pixels. Apply zoom and pan,
-        then offset by the screen center.
-        """
-        screen_x = world_x * self.zoom + screen_w / 2 + self.pan_x
-        screen_y = world_y * self.zoom + screen_h / 2 + self.pan_y
-        return int(screen_x), int(screen_y)
-```
-
-**Lecture du code.** Projette une coordonnée monde en pixels : multiplie par `zoom`, ajoute le centre de l'écran et la translation `pan`, puis convertit le résultat en entiers pour Pygame.
-
-**Variables, noms et cohérence.** Le système Y augmente vers le bas, choix naturel pour l'écran Pygame. Appelée pour les hubs **et** les drones : les positions restent alignées.
-
-**Décision à prendre.** Conserver.
-
-<a id="m081"></a>
-
-### 81 — `ConnectionRenderer.draw`
-
-**Source :** [`src/view/graph_renderer.py`, ligne 95](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/graph_renderer.py#L95)
+**Source :** [`src/view/graph_renderer.py`, ligne 108](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/graph_renderer.py#L108)
 
 ```python
     def draw(
@@ -2288,21 +2070,47 @@ def main() -> int:
         screen: pygame.Surface,
         source_position: tuple[int, int],
         target_position: tuple[int, int],
-        zoom: float,
         state: ConnectionState,
+    ) -> None:
+        """Draw turn usage separately from drones still in transit."""
+        if source_position == target_position:
+            return
+        border_width = self.BAND_WIDTH
+        pygame.draw.line(
+            screen, self.CONN_BORDER, source_position, target_position,
+            border_width,
+        )
+        color = (90, 150, 210) if state.used_capacity else self.CONN_FILL
+        pygame.draw.line(
+            screen, color, source_position, target_position,
+            max(1, border_width - 3),
+        )
+        capacity = (
+            "∞" if state.capacity == float("inf") else str(state.capacity)
+        )
+        usage = f"{state.used_capacity}/{capacity}"
+        if state.in_transit:
+            usage += f" ({state.in_transit} in transit)"
+        label = self.font.render(usage, True, (210, 220, 235))
+        label_rect = label.get_rect()
+        label_rect.midbottom = (
+            (source_position[0] + target_position[0]) // 2,
+            (source_position[1] + target_position[1]) // 2 - 6,
+        )
+        screen.blit(label, label_rect)
 ```
 
-**Lecture du code.** Ignore une connexion dont les deux points écran coïncident. Dessine une large ligne de contour puis une ligne intérieure colorée selon `used_capacity`; affiche `usage/capacity` et le nombre de drones toujours en transit. Le label est positionné au milieu du lien.
+**Lecture du code.** Ignore les liens sans longueur à l'écran, dessine une bande de fond et une bande intérieure dépendant de l'occupation, puis les compteurs de capacité et de transit.
 
-**Variables, noms et cohérence.** `state.used_capacity` compte l'usage du **tour enregistré**, `state.in_transit` uniquement les drones encore entre deux hubs à la fin du tour. `zoom` modifie l'épaisseur. `source_position`/`target_position` sont des pixels, pas des Hub.
+**Variables, noms et cohérence.** `source_position` et `target_position` sont des pixels ; `BAND_WIDTH` fixe désormais l'épaisseur, sans zoom.
 
-**Décision à prendre.** Conserver ; à discuter seulement le rendu quand plusieurs liens se chevauchent à l'écran.
+**Décision à prendre.** **MODIFIÉ** : suppression du paramètre zoom.
 
-<a id="m082"></a>
+<a id="m074"></a>
 
-### 82 — `HubRenderer.draw`
+### 74 — `HubRenderer.draw`
 
-**Source :** [`src/view/graph_renderer.py`, ligne 51](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/graph_renderer.py#L51)
+**Source :** [`src/view/graph_renderer.py`, ligne 59](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/graph_renderer.py#L59)
 
 ```python
     def draw(
@@ -2310,60 +2118,125 @@ def main() -> int:
         screen: pygame.Surface,
         zone: HubState,
         position: tuple[int, int],
-        zoom: float,
         is_terminal: bool = False,
+    ) -> None:
+        """Draw a hub using only the selected turn's recorded values."""
+        radius = self.radius(zone)
+        if zone.color == "rainbow":
+            count = len(self.RAINBOW_COLORS)
+            for index, color in enumerate(self.RAINBOW_COLORS):
+                ring_radius = max(1, radius * (count - index) // count)
+                pygame.draw.circle(screen, color, position, ring_radius)
+        else:
+            pygame.draw.circle(
+                screen, self.COLOR_MAP.get(zone.color, (200, 200, 200)),
+                position, radius,
+            )
+        pygame.draw.circle(
+            screen, (255, 215, 0) if is_terminal else (255, 255, 255),
+            position, radius, 3 if is_terminal else 2,
+        )
+        label = self.font.render(zone.name, True, (230, 230, 235))
+        label_rect = label.get_rect()
+        label_rect.midbottom = (position[0], position[1] - radius - 6)
+        screen.blit(label, label_rect)
+
+        capacity = "∞" if zone.capacity == float("inf") else str(zone.capacity)
+        occupancy = f"{zone.nb_drones}/{capacity}"
+        if zone.reserved:
+            occupancy += f" +{zone.reserved} reserved"
+        info = self.font.render(occupancy, True, (255, 255, 255))
+        info_rect = info.get_rect()
+        info_rect.midtop = (position[0], position[1] + radius + 6)
+        screen.blit(info, info_rect)
 ```
 
-**Lecture du code.** Calcule un rayon via `radius`; dessine un disque coloré selon `COLOR_MAP` (gris de repli si couleur inconnue), contour doré pour start/end, nom au-dessus, puis occupation/capacité et éventuelles réservations au-dessous. Utilise exclusivement `HubState` enregistré.
+**Lecture du code.** Dessine un disque normal pour les couleurs classiques. Si `zone.color == 'rainbow'`, dessine sept disques pleins concentriques avec des rayons décroissants : rouge, orange, jaune, vert, cyan, indigo, violet. Dessine ensuite le contour, le nom, l'occupation/capacité et les réservations.
 
-**Variables, noms et cohérence.** `zone` est un `HubState`, tandis que les autres fonctions utilisent `hub`. `position` est un couple de pixels. La palette « rainbow » est une couleur fixe, pas un arc-en-ciel ; c'est une approximation visuelle. Les couleurs inconnues ne provoquent pas d'exception.
+**Variables, noms et cohérence.** `RAINBOW_COLORS` contient sept RGB distincts. `count`, `index` et `ring_radius` assurent l'empilement du plus grand au plus petit. Les couleurs inconnues conservent le gris de repli.
 
-**Décision à prendre.** À discuter : renommer `zone` → `hub` et revoir les couleurs uniquement si tu veux un affichage plus fidèle.
+**Décision à prendre.** **MODIFIÉ** : vrai rendu `rainbow` concentrique, sans zoom.
 
-<a id="m083"></a>
+<a id="m075"></a>
 
-### 83 — `HubRenderer.radius`
+### 75 — `HubRenderer.radius`
 
-**Source :** [`src/view/graph_renderer.py`, ligne 45](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/graph_renderer.py#L45)
+**Source :** [`src/view/graph_renderer.py`, ligne 53](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/graph_renderer.py#L53)
 
 ```python
-    def radius(self, zone: HubState, zoom: float) -> int:
-        """Compute a bounded pixel radius from capacity and zoom."""
+    def radius(self, zone: HubState) -> int:
+        """Compute a bounded pixel radius from hub capacity."""
         radius = self.HUB_BASE_RADIUS + zone.capacity * self.HUB_SCALE
         radius = max(self.HUB_MIN_RADIUS, min(self.HUB_MAX_RADIUS, radius))
-        return max(4, int(radius * zoom))
+        return int(radius)
 ```
 
-**Lecture du code.** Calcule `HUB_BASE_RADIUS + capacity * HUB_SCALE`, borne entre minimum/maximum puis applique le zoom avec au moins 4 pixels. Le bornage évite que la capacité infinie des terminaux rende un rayon infini ou impossible à dessiner.
+**Lecture du code.** Calcule le rayon à partir de la capacité puis le borne entre des tailles minimales et maximales ; la capacité infinie de start/end reste correctement bornée.
 
-**Variables, noms et cohérence.** `zone.capacity` peut être `math.inf`, mais le `min(..., HUB_MAX_RADIUS, ...)` garde une valeur finie avant `int`. La méthode concerne une zone, pas le drone.
+**Variables, noms et cohérence.** Le paramètre `zoom` a disparu ; le rayon est fixe en pixels.
 
-**Décision à prendre.** Conserver ; pourrait être `_radius()` si elle n'est utilisée qu'à l'intérieur de HubRenderer.
+**Décision à prendre.** **MODIFIÉ** : suppression du zoom, calcul borné conservé.
 
-<a id="m084"></a>
+<a id="m076"></a>
 
-### 84 — `ReplayPlayer.draw`
+### 76 — `ReplayPlayer.draw`
 
-**Source :** [`src/view/replay_player.py`, ligne 86](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/replay_player.py#L86)
+**Source :** [`src/view/replay_player.py`, ligne 87](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/replay_player.py#L87)
 
 ```python
     def draw(
         self,
         screen: pygame.Surface,
-        camera: Camera,
         font: pygame.font.Font,
-        hub_positions: dict[str, tuple[float, float]],
+        hub_positions: Mapping[str, tuple[float, float]],
+    ) -> None:
+        """Draw one representative per hub and all drones in transit."""
+        if not self.frames:
+            return
+
+        current_frame = self.frames[
+            self.current_index
+        ]
+
+        representatives: dict[str, int] = {}
+        for drone_id, state in current_frame.drones.items():
+            recorded_position = state.current_position
+            if isinstance(recorded_position, str):
+                representatives[recorded_position] = min(
+                    drone_id,
+                    representatives.get(recorded_position, drone_id),
+                )
+
+        for drone_id, state in current_frame.drones.items():
+            if (
+                isinstance(state.current_position, str)
+                and drone_id != representatives[state.current_position]
+            ):
+                continue
+
+            position = self._state_position(
+                state, hub_positions,
+            )
+
+            screen_position = (int(position[0]), int(position[1]))
+
+            self._draw_drone(
+                screen,
+                screen_position,
+                drone_id,
+                font,
+            )
 ```
 
-**Lecture du code.** Si aucune frame, retourne. Choisit la frame par index et établit, pour chaque Hub, le plus petit ID présent comme **représentant visuel**. Parcourt ensuite tous les drones : saute ceux qui sont dans un Hub déjà représenté par un ID inférieur, mais dessine **tous les drones sur une connexion**. Calcule position monde via `_state_position`, puis position écran via Camera, puis `_draw_drone`.
+**Lecture du code.** Prend le plus petit ID comme représentant des drones présents sur un même hub et affiche tous les drones encore en transit. `_state_position` donne la position écran du hub ou le milieu de la connexion ; `_draw_drone` dessine directement.
 
-**Variables, noms et cohérence.** `representatives` est un dictionnaire `hub_name -> drone_id_min`, pas un objet graphique. Ce regroupement est nécessaire pour ne pas superposer 42 triangles au départ. Le texte d'occupation des Hub montre combien de drones sont cachés visuellement.
+**Variables, noms et cohérence.** `hub_positions` est une `Mapping[str, tuple[float, float]]` acceptant des coordonnées écran calculées dans la vue. Il n'y a plus de transformation par la caméra.
 
-**Décision à prendre.** Conserver. À discuter : afficher uniquement un drone par hub ou des sprites regroupés selon la capacité.
+**Décision à prendre.** **MODIFIÉ** : coordonnées écran partagées avec GraphRenderer ; caméra supprimée.
 
-<a id="m085"></a>
+<a id="m077"></a>
 
-### 85 — `ReplayPlayer._state_position`
+### 77 — `ReplayPlayer._state_position`
 
 **Source :** [`src/view/replay_player.py`, ligne 72](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/replay_player.py#L72)
 
@@ -2380,9 +2253,9 @@ def main() -> int:
 
 **Décision à prendre.** Conserver si la visualisation reste tour par tour ; une animation fluide demanderait une autre donnée temporelle.
 
-<a id="m086"></a>
+<a id="m078"></a>
 
-### 86 — `ReplayPlayer._draw_drone`
+### 78 — `ReplayPlayer._draw_drone`
 
 **Source :** [`src/view/replay_player.py`, ligne 140](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/replay_player.py#L140)
 
@@ -2401,9 +2274,9 @@ def main() -> int:
 
 **Décision à prendre.** À discuter : uniformiser la taille des drones avec le zoom si tu le souhaites, mais préserver l'étiquette lisible.
 
-<a id="m087"></a>
+<a id="m079"></a>
 
-### 87 — `ReplayPlayer._drone_color`
+### 79 — `ReplayPlayer._drone_color`
 
 **Source :** [`src/view/replay_player.py`, ligne 28](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/replay_player.py#L28)
 
@@ -2419,9 +2292,9 @@ def main() -> int:
 
 **Décision à prendre.** Conserver.
 
-<a id="m088"></a>
+<a id="m080"></a>
 
-### 88 — `ReplayPlayer.draw_overlay`
+### 80 — `ReplayPlayer.draw_overlay`
 
 **Source :** [`src/view/replay_player.py`, ligne 185](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/replay_player.py#L185)
 
@@ -2443,9 +2316,9 @@ def main() -> int:
 
 ## VII. Méthodes spéciales et exceptions non déclenchées par le chemin nominal
 
-<a id="m089"></a>
+<a id="m081"></a>
 
-### 89 — `Connection.__repr__`
+### 81 — `Connection.__repr__`
 
 **Source :** [`src/model/connection.py`, ligne 43](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/connection.py#L43)
 
@@ -2464,9 +2337,9 @@ def main() -> int:
 
 **Décision à prendre.** À discuter : garder une représentation informative ou s'en passer pour alléger.
 
-<a id="m090"></a>
+<a id="m082"></a>
 
-### 90 — `Hub.__str__`
+### 82 — `Hub.__str__`
 
 **Source :** [`src/model/hub.py`, ligne 71](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/hub.py#L71)
 
@@ -2486,9 +2359,9 @@ def main() -> int:
 
 **Décision à prendre.** À discuter : supprimer la méthode si aucun diagnostic ne l'utilise, ou ajouter `reserved` pour la rendre réellement utile.
 
-<a id="m091"></a>
+<a id="m083"></a>
 
-### 91 — `Hub.__repr__`
+### 83 — `Hub.__repr__`
 
 **Source :** [`src/model/hub.py`, ligne 79](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/hub.py#L79)
 
@@ -2504,9 +2377,9 @@ def main() -> int:
 
 **Décision à prendre.** À discuter : nécessité de deux méthodes spéciales pour un projet scolaire.
 
-<a id="m092"></a>
+<a id="m084"></a>
 
-### 92 — `ConnectionError.__init__`
+### 84 — `ConnectionError.__init__`
 
 **Source :** [`src/model/errors.py`, ligne 4](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/errors.py#L4)
 
@@ -2522,9 +2395,9 @@ def main() -> int:
 
 **Décision à prendre.** À discuter : retirer le constructeur personnalisé, sans supprimer l'exception métier.
 
-<a id="m093"></a>
+<a id="m085"></a>
 
-### 93 — `HubError.__init__`
+### 85 — `HubError.__init__`
 
 **Source :** [`src/model/errors.py`, ligne 11](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/errors.py#L11)
 
@@ -2572,7 +2445,6 @@ Le `src/view/__init__.py` configure `PYGAME_HIDE_SUPPORT_PROMPT=1` pour éviter 
 | 13 | `Hub.__str__` ne montre pas `reserved` | Ajouter ce champ ou supprimer un debug non utilisé |
 | 14 | `PygameView._display_replay` nomme `positions` des positions monde | `world_positions`, `coordinate_system` |
 | 15 | `ReplayPlayer.restart` revient au début du **replay**, sans relancer le moteur | `reset_replay` |
-| 16 | `Camera.drag` contient `sx/sy` | `start_x/start_y` |
 | 17 | `Simulation.simulate` ne détecte pas un état sans progression | Construire d'abord un cas reproductible, puis décider |
 | 18 | `Simulation._move_or_wait` bloque les retours vers `previous_zone` et refuse les détours > coût+2 | Choix métier / heuristique à retester avec cartes précises |
 | 19 | `Connection` emploie `source/target` pour un lien bidirectionnel | Conserver pour coller au fichier ou renommer `endpoint_a/b` |
@@ -2580,6 +2452,9 @@ Le `src/view/__init__.py` configure `PYGAME_HIDE_SUPPORT_PROMPT=1` pour éviter 
 
 ## X. Vérification technique et limites
 
-La dernière exécution automatisée précédant cette relecture sur `test-main` a réussi avec **205 tests**, **11 cartes sur 11 terminées**, Flake8 et Mypy sans erreur : [GitHub Actions](https://github.com/Irohs6/fly_in_v2/actions/runs/41412890201). Cela confirme l'état précédent des tests, **pas** que toutes les décisions de design sont idéales ni que tous les graphes imaginables terminent.
+**Actualisation du 2 novembre 2026 :** suppression des huit méthodes de caméra et du module `camera.py` ; l'inventaire compte désormais 85 méthodes. La fenêtre ajuste automatiquement les positions au cadre, sans zoom/pan. `rainbow` est dessiné par sept disques concentriques. Les six méthodes d'affichage modifiées figurent ci-dessus avec leur code réel.
+
+
+Une exécution automatisée antérieure aux changements graphiques sur `test-main` a réussi avec **205 tests**, **11 cartes sur 11 terminées**, Flake8 et Mypy sans erreur : [GitHub Actions](https://github.com/Irohs6/fly_in_v2/actions/runs/41412890201). Cela confirme l'état précédent des tests, **pas** que toutes les décisions de design sont idéales ni que tous les graphes imaginables terminent.
 
 **Aucune proposition du tableau IX n'est appliquée dans le code**. Ce rapport te laisse décider, après lecture, quelles modifications valent la peine et dans quel ordre les réaliser. Sauf mention explicite, les remarques « à discuter » sont des recommandations de clarté, non des bugs prouvés.
