@@ -9,6 +9,7 @@ class Connection:
         """
         self.source = source
         self.target = target
+        self.name = f"{source.name}-{target.name}"
         self.capacity = capacity
         self.used_capacity = 0
 

@@ -1024,11 +1024,12 @@ def main() -> int:
         """
         self.source = source
         self.target = target
+        self.name = f"{source.name}-{target.name}"
         self.capacity = capacity
         self.used_capacity = 0
 ```
 
-**Lecture du code.** Stocke les deux objets Hub de la connexion non orientée, la capacité et `used_capacity=0`. C'est un état vivant, à la différence de `ConnectionState` qui est une copie figée pour l'affichage.
+**Lecture du code.** Stocke les deux objets Hub de la connexion non orientée, son `name` sous la forme `source-target`, la capacité et `used_capacity=0`. C'est un état vivant, à la différence de `ConnectionState` qui est une copie figée pour l'affichage.
 
 **Variables, noms et cohérence.** `source` et `target` peuvent suggérer un sens unique, alors que l'accès est bidirectionnel. Ce sont les noms lus dans la carte, **pas une direction imposée**. `endpoint_a`/`endpoint_b` refléterait mieux le modèle mais entraînerait beaucoup de renommages. `used_capacity` signifie « passages consommés ce tour ».
 
@@ -1537,7 +1538,7 @@ def main() -> int:
         connection_states = {
             (connection.source.name, connection.target.name): ConnectionState(
                 source=connection.source.name, target=connection.target.name,
-                capacity=connection.capacity,
+                name=connection.name, capacity=connection.capacity,
                 used_capacity=connection.used_capacity,
                 in_transit=transits[
                     (connection.source.name, connection.target.name)
@@ -1557,7 +1558,7 @@ def main() -> int:
         ))
 ```
 
-**Lecture du code.** Pour chaque drone, copie sa position comme **nom de Hub** ou **paire de noms d'extrémités** si en transit. Le `Counter` compte les transits restés sur chaque connexion. Copie ensuite tous les hubs et les connexions dans des dataclasses `frozen=True`, puis ajoute un `TurnState` dans `self.turn_states` avec le tour, les mouvements et les structures indépendantes du modèle.
+**Lecture du code.** Pour chaque drone, copie sa position comme **nom de Hub** ou **paire de noms d'extrémités** si en transit. Le `Counter` compte les transits restés sur chaque connexion. Copie ensuite tous les hubs et les connexions, dont `ConnectionState.name` issu de `Connection.name`, dans des dataclasses `frozen=True`, puis ajoute un `TurnState` dans `self.turn_states` avec le tour, les mouvements et les structures indépendantes du modèle.
 
 **Variables, noms et cohérence.** `moved_drones` contient uniquement les IDs qui ont avancé **ce tour**, et sert à la sortie texte. `frame.drones` est un dictionnaire de snapshots par ID. Important : `frozen=True` protège les objets dataclass, pas les dictionnaires imbriqués de `TurnState` contre une modification extérieure. L'historique est indépendant des objets vivants, mais pas profondément immutable.
 
@@ -2998,7 +2999,7 @@ def main() -> int:
 
 Les `TypedDict` `HubDict`, `ConnectionDict` et `ParsedMap` dans `parser.py` définissent la **forme des dictionnaires**. `Parser` fabrique ces structures, `MapValidator` les valide, `Graph` les transforme en vrais objets. Elles ne possèdent pas de méthode applicative : inutile d'inventer un objet `Hub` dans le parser.
 
-`src/model/state.py` contient quatre `@dataclass(frozen=True)` : `DroneState` (position/état/chemin), `HubState` (coordonnées/occupation/réservations), `ConnectionState` (connexion/usage/transit) et `TurnState` (ensemble d'un tour, avec `moved_drones`). Elles sont créées par `Recorder.record` et lues par les vues. Elles **n'ont aucune méthode `def` écrite dans le fichier**, Python génère certaines méthodes spéciales. Leur `frozen=True` ne rend pas immuables les dictionnaires contenues dans `TurnState`.
+`src/model/state.py` contient quatre `@dataclass(frozen=True)` : `DroneState` (position/état/chemin), `HubState` (coordonnées/occupation/réservations), `ConnectionState` (nom de connexion/usage/transit) et `TurnState` (ensemble d'un tour, avec `moved_drones`). Elles sont créées par `Recorder.record` et lues par les vues. Elles **n'ont aucune méthode `def` écrite dans le fichier**, Python génère certaines méthodes spéciales. Leur `frozen=True` ne rend pas immuables les dictionnaires contenues dans `TurnState`.
 
 `ParseError`, `ValidatorError`, `DisplayError`, `ConnectionError` et `HubError` sont des classes d'exception sans constructeur spécifique. Les deux dernières gardent leur rôle d'exception métier pour les opérations sur `Connection` et `Hub`. Tous les appels relevés fournissent un message explicite.
 

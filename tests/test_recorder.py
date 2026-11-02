@@ -59,6 +59,7 @@ def test_complete_turn_keeps_capacity_usage_before_reset(
     first = frames[1]
     assert first.moved_drones == (1, 2)
     assert first.hubs["start"].nb_drones == 1
+    assert first.connections[edge].name == "-".join(edge)
     assert first.connections[edge].capacity == 2
     assert first.connections[edge].used_capacity == 2
     assert first.connections[edge].in_transit == (2 if restricted else 0)
@@ -114,6 +115,7 @@ def test_history_survives_live_model_changes(
     for connection in simulation.graph.connections:
         connection.used_capacity = 99
         connection.capacity = 99
+        connection.name = "changed"
     for drone in simulation.drones:
         drone.path.append(simulation.graph.start_hub)
         drone.current_position = simulation.graph.start_hub

@@ -50,7 +50,7 @@ class Recorder:
         connection_states = {
             (connection.source.name, connection.target.name): ConnectionState(
                 source=connection.source.name, target=connection.target.name,
-                capacity=connection.capacity,
+                name=connection.name, capacity=connection.capacity,
                 used_capacity=connection.used_capacity,
                 in_transit=transits[
                     (connection.source.name, connection.target.name)

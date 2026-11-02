@@ -134,7 +134,7 @@ Pour chaque entrée : **signature effective du fichier**, paramètres, rôle/év
 
 | Méthode et paramètres | Rôle, analyse | Décision |
 |---|---|---|
-| [`Connection.__init__`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/connection.py#L7) — `def __init__(self, source: Hub, target: Hub, capacity: int \| float):` | Conserve deux Hub, capacité maximale et consommation du tour. | **CONSERVER** |
+| [`Connection.__init__`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/connection.py#L7) — `def __init__(self, source: Hub, target: Hub, capacity: int \| float):` | Conserve deux Hub, leur nom de liaison `source-target`, la capacité maximale et la consommation du tour. | **CONSERVER** |
 | [`Connection.occupy_for_turn`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/connection.py#L15) — `def occupy_for_turn(self) -> None:` | Consomme une unité après vérification ; erreur métier si dépassement. | **CONSERVER** |
 | [`Connection.is_available`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/connection.py#L25) — `def is_available(self) -> bool:` | Contrôle used_capacity < capacity, capacité partagée par les deux directions. | **CONSERVER** |
 | [`Connection.get_other_hub`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/connection.py#L29) — `def get_other_hub(self, hub: Hub) -> Hub:` | Récupère le voisin opposé ou déclenche ConnectionError si Hub étranger au lien. | **CONSERVER** |
@@ -180,7 +180,7 @@ Pour chaque entrée : **signature effective du fichier**, paramètres, rôle/év
 | Méthode et paramètres | Rôle, analyse | Décision |
 |---|---|---|
 | [`Recorder.__init__`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/recorder.py#L12) — `def __init__(self) -> None:` | Initialise `self.turn_states: list[TurnState]` pour stocker les instantanés de chaque tour, sans confusion avec les images Pygame. | **MODIFIÉ** |
-| [`Recorder.record`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/recorder.py#L16) — `def record( self, turn: int, graph: Graph, drones: list[Drone], moved_drones: tuple[int, ...] = (), ) -> None:` | Copie tous les états (drones, Hub, Connection) pour figer le tour indépendamment du modèle vivant. | **CONSERVER** |
+| [`Recorder.record`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/recorder.py#L16) — `def record( self, turn: int, graph: Graph, drones: list[Drone], moved_drones: tuple[int, ...] = (), ) -> None:` | Copie les états des drones, des hubs et des connexions, dont `Connection.name`, sans référence aux objets du modèle vivant. | **CONSERVER** |
 
 ### `src/model/errors.py` (0 méthode explicite)
 
@@ -313,3 +313,7 @@ Dans `Recorder`, l'attribut `self.frames` est renommé `self.turn_states` : il s
 - **État et transit :** `Connection.occupy_for_turn()` remplace `use_capacity()`, puisque l'usage d'un lien est remis à zéro au prochain tour (hors occupation prolongée en transit). `Drone.finish_transit()` remplace `advance_transit()` pour indiquer l'achèvement de la traversée restricted.
 - **Contrôle Hub :** `Hub.remove_drone()` utilise `self.nb_drones <= 0` sans changer le comportement.
 - **Tests :** les tests qui vérifient les helpers privés utilisent `getattr` avec leur nom manglé ; ce sont des tests internes, pas une API recommandée.
+
+## 12. Nommage des connexions — 2 novembre 2026
+
+Chaque `Connection` expose désormais `name` au format `source-target`, comme les hubs exposent `name`. `Recorder.record` le recopie dans `ConnectionState.name`, afin que les vues lisent directement `frame.connections[...].name` sans reconstituer le nom à partir des extrémités. Aucun changement aux capacités, aux itinéraires ni à la sortie normale.

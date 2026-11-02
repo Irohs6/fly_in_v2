@@ -143,6 +143,7 @@ def test_connection_capacity_rules() -> None:
         capacity=1,
     )
 
+    assert connection.name == "A-B"
     connection.occupy_for_turn()
 
     assert connection.used_capacity == 1

@@ -41,6 +41,7 @@ class ConnectionState:
 
     source: str
     target: str
+    name: str
     capacity: int | float
     used_capacity: int
     in_transit: int
