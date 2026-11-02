@@ -129,10 +129,3 @@ class Dijkstra:
         path.reverse()
 
         return path
-
-    def distance_to(self, source: Hub, target: Hub) -> float:
-        """Return the minimum source-to-target cost, or infinity if
-        unreachable.
-        """
-        distances, _ = self.shortest_distances(source)
-        return distances[target]
