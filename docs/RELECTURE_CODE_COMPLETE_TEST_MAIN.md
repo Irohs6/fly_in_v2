@@ -18,28 +18,28 @@ Pour **chacune** des 83 méthodes : tu disposes du **code relevé sur la branche
 - [03 — `Controller.run`](#m003)
 - [04 — `Parser.__init__`](#m004)
 - [05 — `Parser.parse`](#m005)
-- [06 — `Parser.read_file`](#m006)
-- [07 — `Parser.parse_line`](#m007)
-- [08 — `Parser._parse_integer`](#m008)
-- [09 — `Parser.parse_hub`](#m009)
-- [10 — `Parser.parse_metadata`](#m010)
-- [11 — `Parser.parse_connection`](#m011)
+- [06 — `Parser.__read_file`](#m006)
+- [07 — `Parser.__parse_line`](#m007)
+- [08 — `Parser.__parse_integer`](#m008)
+- [09 — `Parser.__parse_hub`](#m009)
+- [10 — `Parser.__parse_metadata`](#m010)
+- [11 — `Parser.__parse_connection`](#m011)
 
 ### II. Validation sémantique de la carte
 - [12 — `MapValidator.__init__`](#m012)
 - [13 — `MapValidator.validate`](#m013)
-- [14 — `MapValidator._check_zone_types`](#m014)
-- [15 — `MapValidator._check_unique_hub_names`](#m015)
-- [16 — `MapValidator._check_connection_endpoints`](#m016)
-- [17 — `MapValidator._check_duplicate_connections`](#m017)
-- [18 — `MapValidator._check_reachable_end`](#m018)
+- [14 — `MapValidator.__check_zone_types`](#m014)
+- [15 — `MapValidator.__check_unique_hub_names`](#m015)
+- [16 — `MapValidator.__check_connection_endpoints`](#m016)
+- [17 — `MapValidator.__check_duplicate_connections`](#m017)
+- [18 — `MapValidator.__check_reachable_end`](#m018)
 
 ### III. Construction du graphe
 - [19 — `Graph.__init__`](#m019)
 - [20 — `Hub.__init__`](#m020)
-- [21 — `Graph._build_connections`](#m021)
+- [21 — `Graph.__build_connections`](#m021)
 - [22 — `Connection.__init__`](#m022)
-- [23 — `Graph._index_connection`](#m023)
+- [23 — `Graph.__index_connection`](#m023)
 
 ### IV. Préparation de la simulation et calcul du chemin initial
 - [24 — `Simulation.__init__`](#m024)
@@ -47,7 +47,7 @@ Pour **chacune** des 83 méthodes : tu disposes du **code relevé sur la branche
 - [26 — `Recorder.__init__`](#m026)
 - [27 — `Simulation.load_drones`](#m027)
 - [28 — `Dijkstra.shortest_path`](#m028)
-- [29 — `Dijkstra.shortest_distances`](#m029)
+- [29 — `Dijkstra.__shortest_distances`](#m029)
 - [30 — `Graph.get_connections`](#m030)
 - [31 — `Connection.get_other_hub`](#m031)
 - [32 — `Hub.move_cost`](#m032)
@@ -60,22 +60,22 @@ Pour **chacune** des 83 méthodes : tu disposes du **code relevé sur la branche
 
 ### V. Boucle des tours, mouvement, transit et reroutage
 - [39 — `Simulation.simulate`](#m039)
-- [40 — `Simulation._all_drones_delivered`](#m040)
-- [41 — `Simulation._prepare_connections_for_turn`](#m041)
+- [40 — `Simulation.__all_drones_delivered`](#m040)
+- [41 — `Simulation.__prepare_connections_for_turn`](#m041)
 - [42 — `Drone.path_turns`](#m042)
-- [43 — `Simulation._advance_drone`](#m043)
-- [44 — `Simulation._move_or_wait`](#m044)
+- [43 — `Simulation.__advance_drone`](#m043)
+- [44 — `Simulation.__move_or_wait`](#m044)
 - [45 — `Graph.get_connection`](#m045)
 - [46 — `Connection.is_available`](#m046)
-- [47 — `Simulation.move_drone`](#m047)
+- [47 — `Simulation.__move_drone`](#m047)
 - [48 — `Hub.remove_drone`](#m048)
-- [49 — `Drone.move_to_zone`](#m049)
+- [49 — `Drone.move_to_hub`](#m049)
 - [50 — `Drone.begin_transit`](#m050)
 - [51 — `Hub.reserve`](#m051)
-- [52 — `Connection.use_capacity`](#m052)
-- [53 — `Simulation._reroute_drone`](#m053)
+- [52 — `Connection.occupy_for_turn`](#m052)
+- [53 — `Simulation.__reroute_drone`](#m053)
 - [54 — `Drone.wait`](#m054)
-- [55 — `Drone.advance_transit`](#m055)
+- [55 — `Drone.finish_transit`](#m055)
 - [56 — `Hub.release_reservation`](#m056)
 - [57 — `Drone.deliver`](#m057)
 
@@ -83,7 +83,7 @@ Pour **chacune** des 83 méthodes : tu disposes du **code relevé sur la branche
 - [58 — `TerminalView.display`](#m058)
 - [59 — `PygameView.__init__`](#m059)
 - [60 — `PygameView.display`](#m060)
-- [61 — `PygameView._display_replay`](#m061)
+- [61 — `PygameView.__display_replay`](#m061)
 - [62 — `CoordinateSystem.__init__`](#m062)
 - [63 — `CoordinateSystem.compute`](#m063)
 - [64 — `GraphRenderer.__init__`](#m064)
@@ -97,11 +97,11 @@ Pour **chacune** des 83 méthodes : tu disposes du **code relevé sur la branche
 - [72 — `GraphRenderer.draw`](#m072)
 - [73 — `ConnectionRenderer.draw`](#m073)
 - [74 — `HubRenderer.draw`](#m074)
-- [75 — `HubRenderer.radius`](#m075)
+- [75 — `HubRenderer.__radius`](#m075)
 - [76 — `ReplayPlayer.draw`](#m076)
-- [77 — `ReplayPlayer._state_position`](#m077)
-- [78 — `ReplayPlayer._draw_drone`](#m078)
-- [79 — `ReplayPlayer._drone_color`](#m079)
+- [77 — `ReplayPlayer.__state_position`](#m077)
+- [78 — `ReplayPlayer.__draw_drone`](#m078)
+- [79 — `ReplayPlayer.__drone_color`](#m079)
 - [80 — `ReplayPlayer.draw_overlay`](#m080)
 
 ### VII. Méthodes spéciales et exceptions non déclenchées par le chemin nominal
@@ -115,23 +115,23 @@ Pour **chacune** des 83 méthodes : tu disposes du **code relevé sur la branche
 main
  └─ Controller.run
     ├─ Parser.parse
-    │  ├─ read_file → parse_line
-    │  │  ├─ _parse_integer
-    │  │  ├─ parse_hub → _parse_integer → parse_metadata
-    │  │  └─ parse_connection → parse_metadata → _parse_integer
+    │  ├─ __read_file → __parse_line
+    │  │  ├─ __parse_integer
+    │  │  ├─ __parse_hub → __parse_integer → __parse_metadata
+    │  │  └─ __parse_connection → __parse_metadata → __parse_integer
     │  └─ MapValidator.validate → 5 vérifications
     ├─ Graph.__init__ → Hub / Connection / index
-    ├─ Simulation.load_drones → Dijkstra.shortest_path → shortest_distances
+    ├─ Simulation.load_drones → Dijkstra.shortest_path → __shortest_distances
     ├─ Simulation.simulate (tours)
-    │  ├─ _prepare_connections_for_turn
-    │  ├─ _advance_drone → _move_or_wait
-    │  │  ├─ move_drone → Hub / Drone / Connection
-    │  │  └─ _reroute_drone → Dijkstra (si obstacle)
-    │  ├─ Drone.advance_transit (si restricted)
+    │  ├─ __prepare_connections_for_turn
+    │  ├─ __advance_drone → __move_or_wait
+    │  │  ├─ __move_drone → Hub / Drone / Connection
+    │  │  └─ __reroute_drone → Dijkstra (si obstacle)
+    │  ├─ Drone.finish_transit (si restricted)
     │  └─ Recorder.record → TurnState
     ├─ TerminalView.display
     └─ PygameView.display (si mode graphique)
-       └─ _display_replay → CoordinateSystem /
+       └─ __display_replay → CoordinateSystem /
                             GraphRenderer / ReplayPlayer
 ```
 
@@ -285,7 +285,7 @@ def main() -> int:
         self.nb_drones = None
         self.start_hub = None
         self.end_hub = None
-        self.read_file()
+        self.__read_file()
         if self.nb_drones is None:
             raise ParseError(
                 f"Line {self.line_count + 1}: "
@@ -328,7 +328,7 @@ def main() -> int:
         }
 ```
 
-**Lecture du code.** Réinitialise cinq champs avant la lecture : le **même objet Parser peut relire un fichier modifié** sans réutiliser les anciens hubs. Appelle `read_file`, vérifie que le fichier annonce drones, départ et arrivée, puis construit et appelle `MapValidator`. Il n'attrape pas `ValidatorError` : cette erreur remonte désormais directement à `main`. Le dictionnaire retourné contient start/end séparément et les autres hubs dans `hubs`.
+**Lecture du code.** Réinitialise cinq champs avant la lecture : le **même objet Parser peut relire un fichier modifié** sans réutiliser les anciens hubs. Appelle `__read_file`, vérifie que le fichier annonce drones, départ et arrivée, puis construit et appelle `MapValidator`. Il n'attrape pas `ValidatorError` : cette erreur remonte désormais directement à `main`. Le dictionnaire retourné contient start/end séparément et les autres hubs dans `hubs`.
 
 **Variables, noms et cohérence.** Le commentaire « New lists preserve the results of a previous parse » mérite explication : on affecte de **nouvelles listes**, on ne vide pas les anciennes en place. Dans le `return`, `hub is not self.start_hub` teste l'identité du dictionnaire pour retirer les deux terminaux, et non une égalité de nom. L'import local `MapValidator` évite la dépendance circulaire `validator.py` → `parser.py`.
 
@@ -336,12 +336,12 @@ def main() -> int:
 
 <a id="m006"></a>
 
-### 06 — `Parser.read_file`
+### 06 — `Parser.__read_file`
 
 **Source :** [`src/parser/parser.py`, ligne 55](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/parser/parser.py#L55)
 
 ```python
-    def read_file(self) -> None:
+    def __read_file(self) -> None:
         """Read and parse a UTF-8 map one line at a time.
         Skip empty lines and comment-only lines.
         Preserve physical line numbers and the total line count. Wrap
@@ -355,7 +355,7 @@ def main() -> int:
                     line = raw.strip()
                     if not line or line.startswith("#"):
                         continue
-                    self.parse_line(line, line_number)
+                    self.__parse_line(line, line_number)
         except UnicodeDecodeError as error:
             raise ParseError(
                 f"Map {self.map_path!r}: invalid UTF-8 encoding."
@@ -365,22 +365,24 @@ def main() -> int:
                 f"Cannot read map {self.map_path!r}: "
                 f"{error.strerror or str(error)}"
             ) from error
+
+    # --- Hub parsing ---
 ```
 
-**Lecture du code.** Ouvre le fichier avec `encoding='utf-8'`, fait `enumerate(..., start=1)` et conserve les **vrais numéros de lignes**, y compris commentaires et lignes vides. `strip()` enlève les espaces extérieurs ; un commentaire n'est ignoré que si la ligne commence par `#` après nettoyage. Appelle `parse_line` sur chaque déclaration. Les erreurs UTF-8 et lecture système sont contextualisées avec le chemin.
+**Lecture du code.** Ouvre le fichier avec `encoding='utf-8'`, fait `enumerate(..., start=1)` et conserve les **vrais numéros de lignes**, y compris commentaires et lignes vides. `strip()` enlève les espaces extérieurs ; un commentaire n'est ignoré que si la ligne commence par `#` après nettoyage. Appelle `__parse_line` sur chaque déclaration. Les erreurs UTF-8 et lecture système sont contextualisées avec le chemin.
 
 **Variables, noms et cohérence.** `raw` est ici la ligne physique brute, puis `line` la ligne nettoyée. `maps_file` pourrait être `map_file` au singulier. Les commentaires **en fin de ligne** ne sont pas traités comme commentaires : à vérifier par rapport au sujet, pas à modifier sans accord.
 
-**Décision à prendre.** À discuter : garder `read_file` comme méthode séparée de `parse` (utile pour la séparation lecture/syntaxe).
+**Décision à prendre.** À discuter : garder `__read_file` comme méthode séparée de `parse` (utile pour la séparation lecture/syntaxe).
 
 <a id="m007"></a>
 
-### 07 — `Parser.parse_line`
+### 07 — `Parser.__parse_line`
 
 **Source :** [`src/parser/parser.py`, ligne 322](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/parser/parser.py#L322)
 
 ```python
-    def parse_line(self, line: str, line_number: int) -> None:
+    def __parse_line(self, line: str, line_number: int) -> None:
         """Parse one declaration, requiring the drone count before any hub
         or connection. Report invalid syntax with its physical line number.
         """
@@ -412,20 +414,20 @@ def main() -> int:
                 raise ParseError(
                     f"Line {line_number}: nb_drones is already defined."
                 )
-            self.nb_drones = self._parse_integer(
+            self.nb_drones = self.__parse_integer(
                 raw, line_number, "nb_drones", positive=True,
             )
         elif keyword in ("start_hub", "hub", "end_hub"):
-            self.parse_hub(keyword, raw, line_number)
+            self.__parse_hub(keyword, raw, line_number)
         elif keyword == "connection":
-            self.parse_connection(raw, line_number)
+            self.__parse_connection(raw, line_number)
         else:
             raise ParseError(
                 f"Line {line_number}: unknown declaration: {line!r}"
             )
 ```
 
-**Lecture du code.** Vérifie qu'il y a **exactement un `:`** ; `partition(':')` sépare mot-clé et valeur, puis `strip()` enlève les espaces. Tant que `nb_drones` n'est pas présent, aucune autre déclaration n'est acceptée. Le nombre de drones passe par `_parse_integer`; les zones par `parse_hub`; les connexions par `parse_connection`; tout autre mot-clé lève `ParseError`.
+**Lecture du code.** Vérifie qu'il y a **exactement un `:`** ; `partition(':')` sépare mot-clé et valeur, puis `strip()` enlève les espaces. Tant que `nb_drones` n'est pas présent, aucune autre déclaration n'est acceptée. Le nombre de drones passe par `__parse_integer`; les zones par `__parse_hub`; les connexions par `__parse_connection`; tout autre mot-clé lève `ParseError`.
 
 **Variables, noms et cohérence.** Le `_` est le séparateur renvoyé par `partition`, volontairement inutilisé puisqu'il est déjà validé par `count`. Les alias `drones` et `nb_drone` coexistent avec `nb_drones` : bonne compatibilité, mais à confronter au sujet si l'on préfère une grammaire stricte.
 
@@ -433,18 +435,12 @@ def main() -> int:
 
 <a id="m008"></a>
 
-### 08 — `Parser._parse_integer`
+### 08 — `Parser.__parse_integer`
 
 **Source :** [`src/parser/parser.py`, ligne 245](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/parser/parser.py#L245)
 
 ```python
     @staticmethod
-    def _parse_integer(
-        raw: str,
-        line_number: int,
-        field: str,
-        *,
-        positive: bool = False,
 ```
 
 **Lecture du code.** `@staticmethod` car n'utilise aucun état de `Parser`. Construit une expression régulière pour entier signé ou chiffres uniquement si `positive=True`; renvoie un vrai `int`. La vérification `value <= 0` rejette explicitement zéro en mode positif. Une valeur mal formée déclenche `ParseError` avec champ et numéro de ligne.
@@ -455,19 +451,86 @@ def main() -> int:
 
 <a id="m009"></a>
 
-### 09 — `Parser.parse_hub`
+### 09 — `Parser.__parse_hub`
 
 **Source :** [`src/parser/parser.py`, ligne 81](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/parser/parser.py#L81)
 
 ```python
-    def parse_hub(
+    def __parse_hub(
         self,
         hub_type: str,
         raw: str,
         line_number: int,
+    ) -> None:
+        """Parse a hub and its metadata, rejecting repeated start or end
+        declarations.
+        """
+        if hub_type == "start_hub" and self.start_hub is not None:
+            raise ParseError(
+                f"Line {line_number}: start_hub is already defined."
+            )
+
+        if hub_type == "end_hub" and self.end_hub is not None:
+            raise ParseError(
+                f"Line {line_number}: end_hub is already defined."
+            )
+
+        zone_raw, bracket, meta_raw = raw.partition("[")
+        parts = zone_raw.split()
+        if len(parts) != 3:
+            raise ParseError(
+                f"Line {line_number}: invalid hub declaration: {raw!r}. "
+                "Expected format: <name> <x> <y> [meta]"
+            )
+
+        name, x_str, y_str = parts
+        if "-" in name:
+            raise ParseError(
+                f"Line {line_number}: invalid hub name: {name!r} "
+                "(hyphens are not allowed)."
+            )
+        x = self.__parse_integer(x_str, line_number, "x coordinate")
+        y = self.__parse_integer(y_str, line_number, "y coordinate")
+        meta = self.__parse_metadata(
+            bracket + meta_raw,
+            line_number,
+            {"zone", "color", "capacity", "max_drones"},
+        )
+
+        color = meta.get("color", "gray")
+        if "max_drones" in meta and "capacity" in meta:
+            raise ParseError(
+                f"Line {line_number}: duplicate metadata: "
+                "capacity is already defined."
+            )
+        capacity_raw = meta.get("max_drones") or meta.get("capacity") or "1"
+        capacity = (
+            math.inf if hub_type in ("start_hub", "end_hub")
+            else self.__parse_integer(
+                capacity_raw, line_number, "capacity", positive=True,
+            )
+        )
+        zone_type = meta.get("zone", "normal")
+
+        hub: HubDict = {
+            "name": name,
+            "x": x,
+            "y": y,
+            "color": color,
+            "capacity": capacity,
+            "zone_type": zone_type,
+        }
+
+        if hub_type == "start_hub":
+            self.start_hub = hub
+        elif hub_type == "end_hub":
+            self.end_hub = hub
+        self.hub_entries.append((hub, line_number))
+
+    # --- Connection parsing ---
 ```
 
-**Lecture du code.** Refuse plusieurs start/end. `partition('[')` sépare les trois champs `name x y` des métadonnées ; l'appel `parse_metadata` contrôle crochets, clés et valeurs. Deux appels à `_parse_integer` lisent les coordonnées ; `capacity` par défaut vaut 1 sauf **start/end à capacité infinie**. Le dictionnaire final garde nom, position, couleur, capacité et type de zone, et est ajouté avec sa ligne.
+**Lecture du code.** Refuse plusieurs start/end. `partition('[')` sépare les trois champs `name x y` des métadonnées ; l'appel `__parse_metadata` contrôle crochets, clés et valeurs. Deux appels à `__parse_integer` lisent les coordonnées ; `capacity` par défaut vaut 1 sauf **start/end à capacité infinie**. Le dictionnaire final garde nom, position, couleur, capacité et type de zone, et est ajouté avec sa ligne.
 
 **Variables, noms et cohérence.** `hub_type` signifie ici **type de déclaration** (`start_hub`, `hub`, `end_hub`) alors que `zone_type` signifie **nature de zone** (`normal`, `restricted`, etc.) : attention au mot « type » employé pour deux choses. `zone_raw`, `bracket`, `meta_raw`, `capacity_raw` sont des noms liés au parsing. Les métadonnées `max_drones` et `capacity` sont deux alias, refusés ensemble.
 
@@ -475,16 +538,12 @@ def main() -> int:
 
 <a id="m010"></a>
 
-### 10 — `Parser.parse_metadata`
+### 10 — `Parser.__parse_metadata`
 
 **Source :** [`src/parser/parser.py`, ligne 202](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/parser/parser.py#L202)
 
 ```python
     @staticmethod
-    def parse_metadata(
-        raw: str,
-        line_number: int,
-        allowed_keys: set[str],
 ```
 
 **Lecture du code.** Si `raw` est vide, renvoie `{}`. Sinon exige une paire unique de crochets englobants, découpe les éléments par espaces, exige **un seul `=`**, une clé/valeur non vide, une clé autorisée et aucune clé répétée ; renvoie `dict[str, str]` sans convertir les nombres (responsabilité des parsers spécialisés).
@@ -495,12 +554,12 @@ def main() -> int:
 
 <a id="m011"></a>
 
-### 11 — `Parser.parse_connection`
+### 11 — `Parser.__parse_connection`
 
 **Source :** [`src/parser/parser.py`, ligne 153](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/parser/parser.py#L153)
 
 ```python
-    def parse_connection(self, raw: str, line_number: int) -> None:
+    def __parse_connection(self, raw: str, line_number: int) -> None:
         """Parse a connection declaration and its metadata."""
 
         edge_raw, bracket, meta_raw = raw.partition("[")
@@ -524,7 +583,7 @@ def main() -> int:
                 f"Line {line_number}: invalid connection: {raw!r}."
             )
 
-        meta = self.parse_metadata(
+        meta = self.__parse_metadata(
             bracket + meta_raw,
             line_number,
             {"capacity", "max_link_capacity"},
@@ -537,7 +596,7 @@ def main() -> int:
         capacity_raw = (
             meta.get("max_link_capacity") or meta.get("capacity") or "1"
         )
-        capacity = self._parse_integer(
+        capacity = self.__parse_integer(
             capacity_raw, line_number, "capacity", positive=True,
         )
 
@@ -547,9 +606,11 @@ def main() -> int:
             "capacity": capacity,
         }
         self.connection_entries.append((connection, line_number))
+
+    # --- Metadata parsing ---
 ```
 
-**Lecture du code.** Découpe `source-target` et les métadonnées éventuelles, exige un seul tiret, enlève les espaces aux extrémités, refuse les noms vides/avec espaces internes. `parse_metadata` autorise `capacity` ou `max_link_capacity` ; les deux ensemble sont refusés ; la capacité est un entier strictement positif ou 1 par défaut. Enregistre le dictionnaire et la ligne source.
+**Lecture du code.** Découpe `source-target` et les métadonnées éventuelles, exige un seul tiret, enlève les espaces aux extrémités, refuse les noms vides/avec espaces internes. `__parse_metadata` autorise `capacity` ou `max_link_capacity` ; les deux ensemble sont refusés ; la capacité est un entier strictement positif ou 1 par défaut. Enregistre le dictionnaire et la ligne source.
 
 **Variables, noms et cohérence.** `edge_raw`, `edge`, `source`, `target`, `bracket`, `meta_raw`, `capacity_raw` sont les valeurs intermédiaires. `edge` est le nom générique anglais d'une connexion ; ailleurs le projet dit `connection`. `edge_raw` → `connection_raw` serait plus cohérent, ou adopter « edge » partout.
 
@@ -590,11 +651,11 @@ def main() -> int:
 ```python
     def validate(self) -> None:
         """Validate the consistency of parsed map data."""
-        self._check_zone_types()
-        self._check_unique_hub_names()
-        self._check_connection_endpoints()
-        self._check_duplicate_connections()
-        self._check_reachable_end()
+        self.__check_zone_types()
+        self.__check_unique_hub_names()
+        self.__check_connection_endpoints()
+        self.__check_duplicate_connections()
+        self.__check_reachable_end()
 ```
 
 **Lecture du code.** Exécute successivement les cinq contrôles : types, noms, références, doublons de connexions, accessibilité. **L'ordre détermine quelle erreur sort en premier** quand plusieurs erreurs sont présentes. Ne renvoie aucune valeur, l'absence d'exception signifie réussite.
@@ -605,12 +666,12 @@ def main() -> int:
 
 <a id="m014"></a>
 
-### 14 — `MapValidator._check_zone_types`
+### 14 — `MapValidator.__check_zone_types`
 
 **Source :** [`src/parser/validator.py`, ligne 43](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/parser/validator.py#L43)
 
 ```python
-    def _check_zone_types(self) -> None:
+    def __check_zone_types(self) -> None:
         """Require a supported zone type for every hub."""
         for hub, line in self.hub_entries:
             zone_type = hub["zone_type"]
@@ -623,18 +684,18 @@ def main() -> int:
 
 **Lecture du code.** Parcourt toutes les zones (départ et arrivée inclus), vérifie `zone_type` dans `VALID_ZONE_TYPES`. Une valeur non reconnue entraîne `ValidatorError` avec la ligne et le nom de la zone.
 
-**Variables, noms et cohérence.** `zone_type` est cohérent avec le champ du dictionnaire ; le nom `_check_zone_types` annonce précisément le contrôle. Ici, `line` est un entier de ligne et non du texte.
+**Variables, noms et cohérence.** `zone_type` est cohérent avec le champ du dictionnaire ; le nom `__check_zone_types` annonce précisément le contrôle. Ici, `line` est un entier de ligne et non du texte.
 
 **Décision à prendre.** Conserver.
 
 <a id="m015"></a>
 
-### 15 — `MapValidator._check_unique_hub_names`
+### 15 — `MapValidator.__check_unique_hub_names`
 
 **Source :** [`src/parser/validator.py`, ligne 53](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/parser/validator.py#L53)
 
 ```python
-    def _check_unique_hub_names(self) -> None:
+    def __check_unique_hub_names(self) -> None:
         """Reject duplicate hub names and report their declaration lines."""
         names: dict[str, int] = {}
         for hub, line in self.hub_entries:
@@ -656,12 +717,12 @@ def main() -> int:
 
 <a id="m016"></a>
 
-### 16 — `MapValidator._check_connection_endpoints`
+### 16 — `MapValidator.__check_connection_endpoints`
 
 **Source :** [`src/parser/validator.py`, ligne 66](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/parser/validator.py#L66)
 
 ```python
-    def _check_connection_endpoints(self) -> None:
+    def __check_connection_endpoints(self) -> None:
         """Verify that each endpoint exists and precedes its connection.
         Raise ValidatorError for unknown hubs or late declarations.
         """
@@ -690,12 +751,12 @@ def main() -> int:
 
 <a id="m017"></a>
 
-### 17 — `MapValidator._check_duplicate_connections`
+### 17 — `MapValidator.__check_duplicate_connections`
 
 **Source :** [`src/parser/validator.py`, ligne 86](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/parser/validator.py#L86)
 
 ```python
-    def _check_duplicate_connections(self) -> None:
+    def __check_duplicate_connections(self) -> None:
         """Reject duplicate connections, including reversed endpoint pairs."""
         checked_conn: dict[tuple[str, str], int] = {}
 
@@ -730,12 +791,12 @@ def main() -> int:
 
 <a id="m018"></a>
 
-### 18 — `MapValidator._check_reachable_end`
+### 18 — `MapValidator.__check_reachable_end`
 
 **Source :** [`src/parser/validator.py`, ligne 112](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/parser/validator.py#L112)
 
 ```python
-    def _check_reachable_end(self) -> None:
+    def __check_reachable_end(self) -> None:
         """Use BFS to check that start can reach end without blocked hubs."""
         adjacency: dict[str, list[str]] = {
             hub["name"]: []
@@ -813,17 +874,17 @@ def main() -> int:
         self.hubs[self.start_hub.name] = self.start_hub
         self.hubs[self.end_hub.name] = self.end_hub
 
-        self.connections = self._build_connections(data["connections"])
+        self.connections = self.__build_connections(data["connections"])
 
         # Adjacency
         self.adjacency: dict[str, list[Connection]] = defaultdict(list)
         self.connection_map: dict[tuple[Hub, Hub], Connection] = {}
 
         for connection in self.connections:
-            self._index_connection(connection)
+            self.__index_connection(connection)
 ```
 
-**Lecture du code.** Transforme chaque dictionnaire `HubDict` en `Hub(**hub)`, crée ensuite les objets start/end, les ajoute au même dictionnaire `self.hubs`. `_build_connections` crée les `Connection`. Enfin, `adjacency` associe un nom à ses liens et `connection_map` associe deux objets Hub à un même lien, indexé dans les deux sens.
+**Lecture du code.** Transforme chaque dictionnaire `HubDict` en `Hub(**hub)`, crée ensuite les objets start/end, les ajoute au même dictionnaire `self.hubs`. `__build_connections` crée les `Connection`. Enfin, `adjacency` associe un nom à ses liens et `connection_map` associe deux objets Hub à un même lien, indexé dans les deux sens.
 
 **Variables, noms et cohérence.** `data` pourrait être `parsed_map`. `self.hubs` inclut aussi les terminaux après construction. `self.connections` est une liste ; `connection_map` permet la recherche rapide, `adjacency` fournit les voisins. Les trois structures ne sont pas automatiquement du doublon inutile : elles servent à des accès différents.
 
@@ -859,14 +920,25 @@ def main() -> int:
 
 <a id="m021"></a>
 
-### 21 — `Graph._build_connections`
+### 21 — `Graph.__build_connections`
 
 **Source :** [`src/model/graph.py`, ligne 36](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/graph.py#L36)
 
 ```python
-    def _build_connections(
+    def __build_connections(
         self,
         raw_connections: list[ConnectionDict],
+    ) -> list[Connection]:
+        """Build connections from an already validated map."""
+
+        return [
+            Connection(
+                source=self.hubs[connection["source"]],
+                target=self.hubs[connection["target"]],
+                capacity=connection["capacity"],
+            )
+            for connection in raw_connections
+        ]
 ```
 
 **Lecture du code.** Transforme la liste de dictionnaires de connexion en objets `Connection`, en retrouvant les deux références `Hub` depuis `self.hubs`. Le validateur garantit que les noms existent. Retourne une liste d'objets sans enregistrer leur adjacence.
@@ -899,21 +971,36 @@ def main() -> int:
 
 <a id="m023"></a>
 
-### 23 — `Graph._index_connection`
+### 23 — `Graph.__index_connection`
 
 **Source :** [`src/model/graph.py`, ligne 51](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/graph.py#L51)
 
 ```python
-    def _index_connection(
+    def __index_connection(
         self,
         connection: Connection,
+    ) -> None:
+        """Index a connection in the adjacency and endpoint lookup
+        structures.
+        """
+
+        self.adjacency[connection.source.name].append(connection)
+        self.adjacency[connection.target.name].append(connection)
+
+        self.connection_map[
+            (connection.source, connection.target)
+        ] = connection
+
+        self.connection_map[
+            (connection.target, connection.source)
+        ] = connection
 ```
 
 **Lecture du code.** Ajoute chaque connexion à la liste d'adjacence de ses deux zones, puis à `connection_map` sous les clés `(source,target)` et `(target,source)`. Les deux clés renvoient **le même objet Connection** : sa capacité est donc partagée entre les sens.
 
 **Variables, noms et cohérence.** `connection_map` est un index de couple d'objets, pas une copie des connexions. L'implémentation est volontairement symétrique ; ne pas supprimer l'une des entrées.
 
-**Décision à prendre.** Conserver, éventuellement renommer `_index_connection` → `_register_connection` selon le vocabulaire choisi.
+**Décision à prendre.** Conserver, éventuellement renommer `__index_connection` → `_register_connection` selon le vocabulaire choisi.
 
 
 ---
@@ -951,7 +1038,7 @@ def main() -> int:
         self.graph = graph
 ```
 
-**Lecture du code.** Stocke une référence à `Graph` ; ne cherche aucun chemin à la construction. Le vrai calcul se produit à l'appel de `shortest_distances`.
+**Lecture du code.** Stocke une référence à `Graph` ; ne cherche aucun chemin à la construction. Le vrai calcul se produit à l'appel de `__shortest_distances`.
 
 **Variables, noms et cohérence.** `graph` est un nom clair ; cette classe ne manipule pas les données de parsing.
 
@@ -1021,7 +1108,7 @@ def main() -> int:
         saturated_connections: set[tuple[Hub, Hub]] | None = None,
 ```
 
-**Lecture du code.** Prend éventuellement une zone de départ différente du start habituel et des ensembles de hubs/liens exclus. Utilise `shortest_distances`, vérifie si `end_hub` est atteignable, remonte les prédécesseurs de end jusqu'au départ, inverse la liste et retourne le chemin **avec les deux extrémités**.
+**Lecture du code.** Prend éventuellement une zone de départ différente du start habituel et des ensembles de hubs/liens exclus. Utilise `__shortest_distances`, vérifie si `end_hub` est atteignable, remonte les prédécesseurs de end jusqu'au départ, inverse la liste et retourne le chemin **avec les deux extrémités**.
 
 **Variables, noms et cohérence.** `source=None` signifie « utiliser le départ du Graph », pas un sommet indéfini. `target` est toujours le end du projet. `path` contient des `Hub`, pas des noms. La condition `current is not None` arrête la remontée au prédécesseur initial absent.
 
@@ -1029,16 +1116,92 @@ def main() -> int:
 
 <a id="m029"></a>
 
-### 29 — `Dijkstra.shortest_distances`
+### 29 — `Dijkstra.__shortest_distances`
 
 **Source :** [`src/model/pathfinder.py`, ligne 14](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/pathfinder.py#L14)
 
 ```python
-    def shortest_distances(
+    def __shortest_distances(
         self,
         source: Hub,
         blocked_hubs: set[Hub] | None = None,
         saturated_connections: set[tuple[Hub, Hub]] | None = None,
+    ) -> tuple[dict[Hub, float], dict[Hub, Hub | None]]:
+
+        """Compute distances and predecessors from source. Exclude blocked
+        hubs, blocked_hubs and saturated_connections in both directions.
+        Favor priority hubs when updating equal-cost paths.
+        Return dictionaries keyed by Hub; unreachable hubs have infinite
+        distance and no predecessor.
+        """
+        distances: dict[Hub, float] = {
+            hub: float("inf") for hub in self.graph.hubs.values()}
+
+        predecessors: dict[Hub, Hub | None] = {
+            hub: None for hub in self.graph.hubs.values()}
+
+        distances[source] = 0
+        # Prefer priority hubs when routing weights are equal.
+        priorities: dict[Hub, int] = {
+            hub: 0 for hub in self.graph.hubs.values()
+        }
+
+        queue_counter = count()
+        queue: list[tuple[float, int, int, Hub]] = [
+            (0, 0, next(queue_counter), source)
+        ]
+        visited: set[Hub] = set()
+
+        while queue:
+            current_distance, priority_score, _, current_hub = heappop(queue)
+
+            if current_hub in visited:
+                continue
+
+            visited.add(current_hub)
+
+            for connection in self.graph.get_connections(current_hub):
+                neighbor = connection.get_other_hub(current_hub)
+
+                # Keep finalized paths intact.
+                if neighbor in visited:
+                    continue
+
+                if blocked_hubs and neighbor in blocked_hubs:
+                    continue
+
+                if saturated_connections and (
+                    (connection.source, connection.target)
+                    in saturated_connections
+                    or (connection.target, connection.source)
+                    in saturated_connections
+                ):
+                    continue
+
+                weight = neighbor.move_cost()
+
+                if weight == float("inf"):
+                    continue
+
+                new_distance = current_distance + weight
+
+                new_priority = priority_score - int(
+                    neighbor.zone_type == "priority"
+                )
+                if (new_distance, new_priority) < (
+                    distances[neighbor], priorities[neighbor]
+                ):
+                    distances[neighbor] = new_distance
+                    priorities[neighbor] = new_priority
+                    predecessors[neighbor] = current_hub
+
+                    heappush(
+                        queue,
+                        (new_distance, new_priority,
+                         next(queue_counter), neighbor),
+                    )
+
+        return distances, predecessors
 ```
 
 **Lecture du code.** Construit `distances` initialisées à l'infini, `predecessors` à `None` et `priorities` à zéro. Un tas `heapq` contient `(distance, score_priority, compteur_unique, Hub)`, ce qui évite de comparer directement les objets Hub en cas d'égalité. Parcourt les connexions bidirectionnelles, ignore les voisins déjà finalisés, les hubs bloqués et les liens saturés, puis met à jour distance et prédécesseur si le tuple **(coût, score de priorité)** est meilleur.
@@ -1246,13 +1409,13 @@ def main() -> int:
 ```python
     def simulate(self) -> list[TurnState]:
         """Run to completion and return the initial and completed states."""
-        while not self._all_drones_delivered():
-            self._prepare_connections_for_turn()
+        while not self.__all_drones_delivered():
+            self.__prepare_connections_for_turn()
             moved_drones = []
             for drone in sorted(
                 self.drones, key=lambda drone: drone.path_turns(),
             ):
-                if self._advance_drone(drone):
+                if self.__advance_drone(drone):
                     moved_drones.append(drone.drone_id)
             self.turn += 1
             self.recorder.record(
@@ -1261,7 +1424,7 @@ def main() -> int:
         return self.recorder.turn_states
 ```
 
-**Lecture du code.** La boucle continue tant que `_all_drones_delivered()` est faux. À chaque tour, `_prepare_connections_for_turn` remet les usages des liens à jour. Les drones sont triés par `path_turns()` croissant, puis chacun passe au plus une fois dans `_advance_drone`. Les IDs de ceux qui ont bougé sont conservés, le compteur de tour est incrémenté et `Recorder.record` prend la photographie. La méthode retourne `recorder.turn_states`.
+**Lecture du code.** La boucle continue tant que `__all_drones_delivered()` est faux. À chaque tour, `__prepare_connections_for_turn` remet les usages des liens à jour. Les drones sont triés par `path_turns()` croissant, puis chacun passe au plus une fois dans `__advance_drone`. Les IDs de ceux qui ont bougé sont conservés, le compteur de tour est incrémenté et `Recorder.record` prend la photographie. La méthode retourne `recorder.turn_states`.
 
 **Variables, noms et cohérence.** `moved_drones` est une liste locale convertie en tuple dans la frame ; les vues ne recalculent pas les déplacements. **Le tri en cours de tour** est calculé sur un snapshot de la liste triée : la modification du chemin d'un drone ne le fait pas changer de rang avant le prochain tour. La boucle n'a pas de détection d'absence de progrès prolongée.
 
@@ -1269,12 +1432,12 @@ def main() -> int:
 
 <a id="m040"></a>
 
-### 40 — `Simulation._all_drones_delivered`
+### 40 — `Simulation.__all_drones_delivered`
 
 **Source :** [`src/model/simulation.py`, ligne 181](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/simulation.py#L181)
 
 ```python
-    def _all_drones_delivered(self) -> bool:
+    def __all_drones_delivered(self) -> bool:
         """Return whether all drones have reached the destination."""
         return all(
             drone.current_position == self.graph.end_hub
@@ -1284,24 +1447,24 @@ def main() -> int:
 
 **Lecture du code.** Renvoie `all(drone.current_position == end_hub for drone in drones)`. C'est la condition d'arrêt de la simulation. `all([])` vaudrait `True`, mais `load_drones` est censé être appelé avant et le parser exige un nombre positif.
 
-**Variables, noms et cohérence.** Le nom explique parfaitement le prédicat ; il ne vérifie pas `status == 'delivered'`, car la **position** est le fait déterminant. `_advance_drone` marque l'état delivered à l'arrivée.
+**Variables, noms et cohérence.** Le nom explique parfaitement le prédicat ; il ne vérifie pas `status == 'delivered'`, car la **position** est le fait déterminant. `__advance_drone` marque l'état delivered à l'arrivée.
 
 **Décision à prendre.** Conserver.
 
 <a id="m041"></a>
 
-### 41 — `Simulation._prepare_connections_for_turn`
+### 41 — `Simulation.__prepare_connections_for_turn`
 
 **Source :** [`src/model/simulation.py`, ligne 210](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/simulation.py#L210)
 
 ```python
-    def _prepare_connections_for_turn(self) -> None:
+    def __prepare_connections_for_turn(self) -> None:
         """Prepare a new turn, retaining only ongoing transit occupancy."""
         for connection in self.graph.connections:
             connection.used_capacity = 0
         for drone in self.drones:
             if isinstance(drone.current_position, Connection):
-                drone.current_position.use_capacity()
+                drone.current_position.occupy_for_turn()
 ```
 
 **Lecture du code.** Remet d'abord `used_capacity=0` sur toutes les connexions, puis parcourt les drones **encore en transit** pour consommer leurs places sur le lien durant le tour courant. Cette réoccupation évite qu'un nouveau drone emprunte un lien déjà occupé.
@@ -1335,39 +1498,118 @@ def main() -> int:
 
 <a id="m043"></a>
 
-### 43 — `Simulation._advance_drone`
+### 43 — `Simulation.__advance_drone`
 
 **Source :** [`src/model/simulation.py`, ligne 188](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/simulation.py#L188)
 
 ```python
-    def _advance_drone(
+    def __advance_drone(
         self,
         drone: Drone,
+    ) -> bool:
+        """Advance a drone for one turn and report whether it moved."""
+        if drone.current_position == self.graph.end_hub:
+            drone.deliver()
+            return False
+
+        if isinstance(drone.current_position, Connection):
+            destination = drone.finish_transit()
+            if destination is not None:
+                destination.release_reservation()
+                destination.add_drone()
+            moved = True
+        else:
+            moved = self.__move_or_wait(drone)
+
+        if drone.current_position == self.graph.end_hub:
+            drone.deliver()
+        return moved
 ```
 
-**Lecture du code.** Si le drone est déjà à end, le marque delivered et ne bouge pas. S'il est sur une connexion, appelle `advance_transit()`, libère la réservation de la destination puis y incrémente l'occupation. Sinon tente `_move_or_wait()`. Termine en marquant `delivered` tout drone arrivé à end et renvoie si le drone s'est déplacé.
+**Lecture du code.** Si le drone est déjà à end, le marque delivered et ne bouge pas. S'il est sur une connexion, appelle `finish_transit()`, libère la réservation de la destination puis y incrémente l'occupation. Sinon tente `__move_or_wait()`. Termine en marquant `delivered` tout drone arrivé à end et renvoie si le drone s'est déplacé.
 
-**Variables, noms et cohérence.** `moved=True` lors d'une arrivée de transit signifie qu'elle doit apparaître dans la sortie de ce tour ; le lien parcouru est encore compté par le Recorder. `destination` est `Hub | None` pour le contrat de `advance_transit`, même si dans cette branche le drone est bien sur Connection et devrait toujours recevoir un Hub.
+**Variables, noms et cohérence.** `moved=True` lors d'une arrivée de transit signifie qu'elle doit apparaître dans la sortie de ce tour ; le lien parcouru est encore compté par le Recorder. `destination` est `Hub | None` pour le contrat de `finish_transit`, même si dans cette branche le drone est bien sur Connection et devrait toujours recevoir un Hub.
 
 **Décision à prendre.** À discuter : la vérification `if destination is not None` est défensive ; on peut la garder pour cohérence avec l'annotation plutôt que l'effacer aveuglément.
 
 <a id="m044"></a>
 
-### 44 — `Simulation._move_or_wait`
+### 44 — `Simulation.__move_or_wait`
 
 **Source :** [`src/model/simulation.py`, ligne 116](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/simulation.py#L116)
 
 ```python
-    def _move_or_wait(
+    def __move_or_wait(
         self,
         drone: Drone,
+    ) -> bool:
+        """Try to move a drone, rerouting immediately if the next passage is
+        blocked. Return whether a move occurred; wait if no alternative
+        remains. Raise RuntimeError if the drone is in transit or has no
+        path before arrival.
+        """
+
+        if isinstance(drone.current_position, Connection):
+            raise RuntimeError(
+                f"{drone.drone_id} has no current zone."
+            )
+
+        if not drone.path:
+            raise RuntimeError(
+                f"Drone {drone.drone_id}: empty path before arrival."
+            )
+
+        original_path = drone.path.copy()
+        original_cost = drone.path_turns()
+
+        blocked_hubs: set[Hub] = set()
+        saturated_connections: set[tuple[Hub, Hub]] = set()
+        # Rerouting must not return to the previous hub.
+        if drone.previous_zone is not None:
+            blocked_hubs.add(drone.previous_zone)
+
+        while True:
+            target_hub = drone.path[0]
+            connection = self.graph.get_connection(
+                drone.current_position, target_hub,
+            )
+
+            if connection is None:
+                blocked_hubs.add(target_hub)
+            else:
+                hub_available = target_hub.is_available()
+                connection_available = connection.is_available()
+                if hub_available and connection_available:
+                    self.__move_drone(drone, connection, target_hub)
+                    return True
+
+                if not hub_available:
+                    blocked_hubs.add(target_hub)
+                if not connection_available:
+                    saturated_connections.add(
+                        (connection.source, connection.target)
+                    )
+
+            if not self.__reroute_drone(
+                drone, blocked_hubs, saturated_connections,
+            ):
+                drone.wait()
+                return False
+
+            # Waiting is preferable to an excessively long detour.
+            if drone.path_turns() > original_cost + 2:
+                drone.set_path(original_path)
+                drone.wait()
+                return False
+
+    # SIMULATION
 ```
 
-**Lecture du code.** Vérifie que le drone est dans un Hub et possède un chemin restant. Sauvegarde **une copie du chemin d'origine et son coût** ; prépare les ensembles de hubs bloqués et de liens saturés, et interdit d'abord la zone précédente pour éviter le demi-tour immédiat. Dans la boucle, regarde le prochain Hub, cherche la connexion, vérifie les deux capacités, ordonne un mouvement si possible ; sinon exclut les ressources indisponibles et appelle `_reroute_drone`. Si aucun chemin alternatif n'existe, le drone attend. Si le détour coûte **plus de deux tours supplémentaires** par rapport au chemin original, il restaure ce dernier puis attend.
+**Lecture du code.** Vérifie que le drone est dans un Hub et possède un chemin restant. Sauvegarde **une copie du chemin d'origine et son coût** ; prépare les ensembles de hubs bloqués et de liens saturés, et interdit d'abord la zone précédente pour éviter le demi-tour immédiat. Dans la boucle, regarde le prochain Hub, cherche la connexion, vérifie les deux capacités, ordonne un mouvement si possible ; sinon exclut les ressources indisponibles et appelle `__reroute_drone`. Si aucun chemin alternatif n'existe, le drone attend. Si le détour coûte **plus de deux tours supplémentaires** par rapport au chemin original, il restaure ce dernier puis attend.
 
 **Variables, noms et cohérence.** `blocked_hubs` inclut ici les hubs temporairement pleins **et** le hub précédent ; ce n'est pas la même chose qu'un hub de type `blocked`. `saturated_connections` stocke des couples de Hub et Dijkstra vérifie les deux orientations. `original_cost` est calculé avant la tentative et ne représente **pas** la durée réelle d'attente.
 
-**Décision à prendre.** À discuter : noms `_move_or_wait` et `_reroute_drone` sont clairs ; l'exclusion systématique de `previous_zone`, le seuil `+2` et le risque de repasser plusieurs fois dans `while True` méritent un scénario concret. Ne pas modifier l'heuristique sans validation.
+**Décision à prendre.** À discuter : noms `__move_or_wait` et `__reroute_drone` sont clairs ; l'exclusion systématique de `previous_zone`, le seuil `+2` et le risque de repasser plusieurs fois dans `while True` méritent un scénario concret. Ne pas modifier l'heuristique sans validation.
 
 <a id="m045"></a>
 
@@ -1385,7 +1627,7 @@ def main() -> int:
 
 **Lecture du code.** Consulte le dictionnaire `connection_map` indexé par deux objets Hub. Retourne la même `Connection` quel que soit l'ordre des deux Hub, ou `None` si aucun lien direct.
 
-**Variables, noms et cohérence.** `get_connection` est le terme juste ; renvoie `Connection | None`, donc le test `if connection is None` dans `_move_or_wait` est nécessaire.
+**Variables, noms et cohérence.** `get_connection` est le terme juste ; renvoie `Connection | None`, donc le test `if connection is None` dans `__move_or_wait` est nécessaire.
 
 **Décision à prendre.** Conserver.
 
@@ -1403,29 +1645,54 @@ def main() -> int:
 
 **Lecture du code.** Compare `used_capacity < capacity`. Une connexion est bidirectionnelle, donc la capacité est partagée : deux drones en sens opposés consomment le même compteur.
 
-**Variables, noms et cohérence.** `is_available` signifie place **sur le lien pendant le tour**, pas capacité de destination. Le code doit vérifier en plus `Hub.is_available()` ; c'est fait dans `_move_or_wait`.
+**Variables, noms et cohérence.** `is_available` signifie place **sur le lien pendant le tour**, pas capacité de destination. Le code doit vérifier en plus `Hub.is_available()` ; c'est fait dans `__move_or_wait`.
 
 **Décision à prendre.** Conserver.
 
 <a id="m047"></a>
 
-### 47 — `Simulation.move_drone`
+### 47 — `Simulation.__move_drone`
 
 **Source :** [`src/model/simulation.py`, ligne 54](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/simulation.py#L54)
 
 ```python
-    def move_drone(
+    def __move_drone(
         self,
         drone: Drone,
         connection: Connection,
         target_hub: Hub,
+    ) -> None:
+        """Apply a move after capacity checks. Free the departure hub. For
+        restricted hubs, start transit and reserve the destination;
+        otherwise occupy the destination immediately. Raise RuntimeError
+        if the drone is not in a hub.
+        """
+        current_hub = drone.current_position
+
+        if isinstance(current_hub, Connection):
+            raise RuntimeError(
+                f"{drone.drone_id} has no current zone."
+            )
+
+        current_hub.remove_drone()
+        if target_hub.zone_type == "restricted":
+            drone.begin_transit(connection)
+
+            target_hub.reserve()
+        else:
+            drone.move_to_hub(target_hub)
+            target_hub.add_drone()
+
+        connection.occupy_for_turn()
+
+    # REROUTING
 ```
 
-**Lecture du code.** Récupère le Hub actuel, refuse qu'il s'agisse déjà d'une connexion, puis décrémente l'occupation de départ. Si le Hub cible est restricted, le drone entre sur la connexion (`begin_transit`) et **réserve** une place d'arrivée. Sinon le drone rejoint immédiatement le Hub (`move_to_zone`) et on incrémente l'occupation. Termine par la consommation d'une capacité de lien.
+**Lecture du code.** Récupère le Hub actuel, refuse qu'il s'agisse déjà d'une connexion, puis décrémente l'occupation de départ. Si le Hub cible est restricted, le drone entre sur la connexion (`begin_transit`) et **réserve** une place d'arrivée. Sinon le drone rejoint immédiatement le Hub (`move_to_hub`) et on incrémente l'occupation. Termine par la consommation d'une capacité de lien.
 
-**Variables, noms et cohérence.** La méthode suppose que les capacités ont été vérifiées **avant son appel** par `_move_or_wait`; elle n'effectue pas une validation atomique avant de modifier le départ. Cela fonctionne avec la structure courante, mais explique pourquoi elle ne doit pas être appelée arbitrairement depuis un autre endroit. `move_drone` peut être nommé `_move_drone` si l'on veut marquer cette convention.
+**Variables, noms et cohérence.** La méthode est interne à `Simulation`, avec name mangling (`__move_drone`) ; les disponibilités du Hub et de la connexion sont contrôlées au préalable par `__move_or_wait`. Aucune seconde validation n'a été ajoutée.
 
-**Décision à prendre.** À discuter : faut-il rendre la méthode privée ou lui faire vérifier elle-même les préconditions ? Éviter une double vérification inutile sans raison.
+**Décision à prendre.** **MODIFIÉ.** Méthode passée en `__move_drone()` sans modifier ses préconditions.
 
 <a id="m048"></a>
 
@@ -1436,34 +1703,49 @@ def main() -> int:
 ```python
     def remove_drone(self) -> None:
         """Remove one drone, raising HubError if the hub is empty."""
-        if self.nb_drones - 1 < 0:
+        if self.nb_drones <= 0:
             raise HubError("Cannot remove more drones than currently present")
         self.nb_drones -= 1
 ```
 
 **Lecture du code.** Vérifie que `nb_drones` ne deviendrait pas négatif, puis décrémente. Utilisée au début d'un mouvement et avant une réservation restricted.
 
-**Variables, noms et cohérence.** `self.nb_drones - 1 < 0` équivaut ici à `self.nb_drones <= 0`, plus direct à lire ; les valeurs sont des compteurs entiers.
+**Variables, noms et cohérence.** Le test `self.nb_drones <= 0` exprime directement l'interdiction de décrémenter une occupation nulle ou négative.
 
-**Décision à prendre.** À discuter : simplifier la condition, changement sans effet fonctionnel.
+**Décision à prendre.** **MODIFIÉ.** Condition simplifiée ; comportement inchangé.
 
 <a id="m049"></a>
 
-### 49 — `Drone.move_to_zone`
+### 49 — `Drone.move_to_hub`
 
 **Source :** [`src/model/drone.py`, ligne 23](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/drone.py#L23)
 
 ```python
-    def move_to_zone(
+    def move_to_hub(
         self,
-        zone: Hub,
+        hub: Hub,
+    ) -> None:
+        """Move to hub, consume the next path step and set the status to
+        moving. Store the previous hub; raise RuntimeError if the drone
+        is not in a hub.
+        """
+        if isinstance(self.current_position, Connection):
+            raise RuntimeError(
+                f"Drone {self.drone_id} is not currently in any hub."
+            )
+        self.previous_zone = self.current_position
+        self.current_position = hub
+
+        self.path.pop(0)
+
+        self.status = "moving"
 ```
 
 **Lecture du code.** Vérifie que le drone n'est pas sur une Connection, conserve l'ancien Hub comme `previous_zone`, change `current_position` pour la zone cible, consomme le premier élément du chemin avec `pop(0)`, puis marque `moving`.
 
-**Variables, noms et cohérence.** `zone: Hub` alors que le reste parle le plus souvent de `hub` et `target_hub`. `move_to_zone()` pourrait être `move_to_hub()` pour cohérence, à condition de renommer les appels. `pop(0)` coûte O(n) sur une liste, mais les chemins usuels sont courts ; pas un problème à optimiser sans mesure.
+**Variables, noms et cohérence.** `hub` est un objet `Hub`, cohérent avec `target_hub` dans `Simulation`. Le renommage `move_to_zone` → `move_to_hub` est appliqué sans modifier le mouvement.
 
-**Décision à prendre.** À discuter : cohérence `zone` vs `hub`, qui revient dans plusieurs classes.
+**Décision à prendre.** **MODIFIÉ.** La méthode s'appelle `move_to_hub(hub)`.
 
 <a id="m050"></a>
 
@@ -1510,13 +1792,13 @@ def main() -> int:
 
 <a id="m052"></a>
 
-### 52 — `Connection.use_capacity`
+### 52 — `Connection.occupy_for_turn`
 
 **Source :** [`src/model/connection.py`, ligne 15](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/connection.py#L15)
 
 ```python
-    def use_capacity(self) -> None:
-        """Use one unit of capacity for the current turn.
+    def occupy_for_turn(self) -> None:
+        """Occupy one connection slot for the current turn.
         Raise ConnectionError if capacity would be exceeded.
         """
         if not self.is_available():
@@ -1528,29 +1810,52 @@ def main() -> int:
 
 **Lecture du code.** Vérifie `is_available()` puis incrémente `used_capacity`. Appelée lors d'un nouveau passage et lors de la réservation de la place d'un transit toujours en cours au début d'un tour.
 
-**Variables, noms et cohérence.** `use_capacity` fait penser à une consommation définitive, mais le compteur est **réinitialisé chaque tour** ; `occupy_for_turn()` serait plus descriptif. Message d'erreur « add more drones » décrit un dépassement de lien, pas l'ajout d'un drone au hub : à clarifier.
+**Variables, noms et cohérence.** L'appel `occupy_for_turn()` augmente `used_capacity` pour le tour en cours. Le compteur est remis à zéro au prochain tour avant de réserver à nouveau les transits encore actifs.
 
-**Décision à prendre.** À discuter : noms `used_capacity`/`use_capacity`, et texte d'erreur.
+**Décision à prendre.** **MODIFIÉ.** Anciennement `use_capacity()`. Le compteur `used_capacity` conserve son nom car il représente l'utilisation du tour.
 
 <a id="m053"></a>
 
-### 53 — `Simulation._reroute_drone`
+### 53 — `Simulation.__reroute_drone`
 
 **Source :** [`src/model/simulation.py`, ligne 85](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/simulation.py#L85)
 
 ```python
-    def _reroute_drone(
+    def __reroute_drone(
         self,
         drone: Drone,
         blocked_hubs: set[Hub],
         saturated_connections: set[
             tuple[Hub, Hub]
         ],
+    ) -> bool:
+        """Find an alternative path during the same turn, excluding blocked
+        hubs and saturated connections.
+        """
+
+        if isinstance(drone.current_position, Connection):
+            return False
+
+        path = self.pathfinder.shortest_path(
+            source=drone.current_position,
+            blocked_hubs=blocked_hubs,
+            saturated_connections=saturated_connections,
+        )
+
+        if len(path) < 2:
+            return False
+
+        # An alternative path was found.
+        drone.set_path(path[1:])
+
+        return True
+
+    # MOVE OR WAIT
 ```
 
 **Lecture du code.** Si le drone se trouve sur Connection, renvoie `False`. Sinon appelle Dijkstra depuis son Hub courant avec les interdictions temporaires. Une route de longueur inférieure à deux n'apporte aucun prochain saut ; sinon `set_path(path[1:])` remplace le chemin restant et renvoie `True`.
 
-**Variables, noms et cohérence.** Cette méthode **ne déplace pas** le drone ; la boucle appelante réessaie immédiatement `_move_or_wait` avec la nouvelle première étape. Le contrôle du coût de détour reste dans `_move_or_wait`, donc la méthode n'est pas responsable du seuil `+2`.
+**Variables, noms et cohérence.** Cette méthode **ne déplace pas** le drone ; la boucle appelante réessaie immédiatement `__move_or_wait` avec la nouvelle première étape. Le contrôle du coût de détour reste dans `__move_or_wait`, donc la méthode n'est pas responsable du seuil `+2`.
 
 **Décision à prendre.** Conserver ; ne pas mélanger recherche de chemin et déplacement.
 
@@ -1574,12 +1879,12 @@ def main() -> int:
 
 <a id="m055"></a>
 
-### 55 — `Drone.advance_transit`
+### 55 — `Drone.finish_transit`
 
 **Source :** [`src/model/drone.py`, ligne 59](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/drone.py#L59)
 
 ```python
-    def advance_transit(self) -> Hub | None:
+    def finish_transit(self) -> Hub | None:
         """Complete a restricted move on the turn after departure.
 
         Return the destination, or None when there is no active transit.
@@ -1604,9 +1909,9 @@ def main() -> int:
 
 **Lecture du code.** Si le drone n'est pas sur Connection, renvoie `None`. Sinon vérifie qu'il connaît le Hub d'origine, récupère l'autre extrémité de la connexion, déplace le drone sur ce Hub, consomme la prochaine étape du chemin et marque `moving`. **Simulation** libère ensuite la réservation et incrémente le Hub.
 
-**Variables, noms et cohérence.** `advance_transit` est un nom assez général alors qu'il **termine** ici un transit en un seul appel : `finish_transit()` serait peut-être plus exact. `destination` est reconstruite à partir de `previous_zone` et non stockée séparément.
+**Variables, noms et cohérence.** `finish_transit()` termine entièrement un trajet restricted déjà engagé. `destination` est déduit de la connexion et du Hub précédent ; aucun nouvel état n'est nécessaire.
 
-**Décision à prendre.** À discuter : renommer `finish_transit` pour rendre le cycle de deux tours explicite.
+**Décision à prendre.** **MODIFIÉ.** Anciennement `advance_transit()`, renommé pour rendre explicite l'achèvement de la traversée.
 
 <a id="m056"></a>
 
@@ -1714,7 +2019,7 @@ def main() -> int:
         Other exceptions propagate after cleanup.
         """
         try:
-            self._display_replay()
+            self.__display_replay()
         except pygame.error as exc:
             raise DisplayError(
                 f"Cannot display graphical replay: {exc}"
@@ -1723,20 +2028,20 @@ def main() -> int:
             pygame.quit()
 ```
 
-**Lecture du code.** Lance `_display_replay` dans un `try`. Seuls les `pygame.error` sont transformés en `DisplayError` ; toute autre exception remonte, mais `pygame.quit()` s'exécute **toujours** grâce à `finally`. Une interruption ne laisse donc pas de fenêtre ouverte par cette méthode.
+**Lecture du code.** Lance `__display_replay` dans un `try`. Seuls les `pygame.error` sont transformés en `DisplayError` ; toute autre exception remonte, mais `pygame.quit()` s'exécute **toujours** grâce à `finally`. Une interruption ne laisse donc pas de fenêtre ouverte par cette méthode.
 
-**Variables, noms et cohérence.** `exc` pour l'exception est idiomatique. La séparation de `display` et `_display_replay` permet d'isoler le nettoyage du détail de la boucle événementielle.
+**Variables, noms et cohérence.** `exc` pour l'exception est idiomatique. La séparation de `display` et `__display_replay` permet d'isoler le nettoyage du détail de la boucle événementielle.
 
 **Décision à prendre.** Conserver.
 
 <a id="m061"></a>
 
-### 61 — `PygameView._display_replay`
+### 61 — `PygameView.__display_replay`
 
 **Source :** [`src/view/pygame_view.py`, ligne 39](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/pygame_view.py#L39)
 
 ```python
-    def _display_replay(self) -> None:
+    def __display_replay(self) -> None:
         """Initialize the window and run the interactive replay loop."""
         if not self.replay_frames:
             return
@@ -2114,35 +2419,35 @@ def main() -> int:
     def draw(
         self,
         screen: pygame.Surface,
-        zone: HubState,
+        hub: HubState,
         position: tuple[int, int],
         is_terminal: bool = False,
     ) -> None:
         """Draw a hub using only the selected turn's recorded values."""
-        radius = self.radius(zone)
-        if zone.color == "rainbow":
+        radius = self.__radius(hub)
+        if hub.color == "rainbow":
             count = len(self.RAINBOW_COLORS)
             for index, color in enumerate(self.RAINBOW_COLORS):
                 ring_radius = max(1, radius * (count - index) // count)
                 pygame.draw.circle(screen, color, position, ring_radius)
         else:
             pygame.draw.circle(
-                screen, self.COLOR_MAP.get(zone.color, (200, 200, 200)),
+                screen, self.COLOR_MAP.get(hub.color, (200, 200, 200)),
                 position, radius,
             )
         pygame.draw.circle(
             screen, (255, 215, 0) if is_terminal else (255, 255, 255),
             position, radius, 3 if is_terminal else 2,
         )
-        label = self.font.render(zone.name, True, (230, 230, 235))
+        label = self.font.render(hub.name, True, (230, 230, 235))
         label_rect = label.get_rect()
         label_rect.midbottom = (position[0], position[1] - radius - 6)
         screen.blit(label, label_rect)
 
-        capacity = "∞" if zone.capacity == float("inf") else str(zone.capacity)
-        occupancy = f"{zone.nb_drones}/{capacity}"
-        if zone.reserved:
-            occupancy += f" +{zone.reserved} reserved"
+        capacity = "∞" if hub.capacity == float("inf") else str(hub.capacity)
+        occupancy = f"{hub.nb_drones}/{capacity}"
+        if hub.reserved:
+            occupancy += f" +{hub.reserved} reserved"
         info = self.font.render(occupancy, True, (255, 255, 255))
         info_rect = info.get_rect()
         info_rect.midtop = (position[0], position[1] + radius + 6)
@@ -2151,20 +2456,20 @@ def main() -> int:
 
 **Lecture du code.** Dessine un disque normal pour les couleurs classiques. Si `zone.color == 'rainbow'`, dessine sept disques pleins concentriques avec des rayons décroissants : rouge, orange, jaune, vert, cyan, indigo, violet. Dessine ensuite le contour, le nom, l'occupation/capacité et les réservations.
 
-**Variables, noms et cohérence.** `RAINBOW_COLORS` contient sept RGB distincts. `count`, `index` et `ring_radius` assurent l'empilement du plus grand au plus petit. Les couleurs inconnues conservent le gris de repli.
+**Variables, noms et cohérence.** `hub` désigne désormais un `HubState`, pour harmoniser les noms ; le rendu des couleurs et des informations est inchangé.
 
-**Décision à prendre.** **MODIFIÉ** : vrai rendu `rainbow` concentrique, sans zoom.
+**Décision à prendre.** **MODIFIÉ.** Paramètre `hub` en remplacement de `zone`.
 
 <a id="m075"></a>
 
-### 75 — `HubRenderer.radius`
+### 75 — `HubRenderer.__radius`
 
 **Source :** [`src/view/graph_renderer.py`, ligne 53](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/graph_renderer.py#L53)
 
 ```python
-    def radius(self, zone: HubState) -> int:
+    def __radius(self, hub: HubState) -> int:
         """Compute a bounded pixel radius from hub capacity."""
-        radius = self.HUB_BASE_RADIUS + zone.capacity * self.HUB_SCALE
+        radius = self.HUB_BASE_RADIUS + hub.capacity * self.HUB_SCALE
         radius = max(self.HUB_MIN_RADIUS, min(self.HUB_MAX_RADIUS, radius))
         return int(radius)
 ```
@@ -2212,13 +2517,13 @@ def main() -> int:
             ):
                 continue
 
-            position = self._state_position(
+            position = self.__state_position(
                 state, hub_positions,
             )
 
             screen_position = (int(position[0]), int(position[1]))
 
-            self._draw_drone(
+            self.__draw_drone(
                 screen,
                 screen_position,
                 drone_id,
@@ -2226,7 +2531,7 @@ def main() -> int:
             )
 ```
 
-**Lecture du code.** Prend le plus petit ID comme représentant des drones présents sur un même hub et affiche tous les drones encore en transit. `_state_position` donne la position écran du hub ou le milieu de la connexion ; `_draw_drone` dessine directement.
+**Lecture du code.** Prend le plus petit ID comme représentant des drones présents sur un même hub et affiche tous les drones encore en transit. `__state_position` donne la position écran du hub ou le milieu de la connexion ; `__draw_drone` dessine directement.
 
 **Variables, noms et cohérence.** `hub_positions` est une `Mapping[str, tuple[float, float]]` acceptant des coordonnées écran calculées dans la vue. Il n'y a plus de transformation par la caméra.
 
@@ -2234,15 +2539,24 @@ def main() -> int:
 
 <a id="m077"></a>
 
-### 77 — `ReplayPlayer._state_position`
+### 77 — `ReplayPlayer.__state_position`
 
-**Source :** [`src/view/replay_player.py`, ligne 72](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/replay_player.py#L72)
+**Source :** [`src/view/replay_player.py`, ligne 73](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/replay_player.py#L73)
 
 ```python
-    def _state_position(
+    def __state_position(
         self,
         state: DroneState,
-        hub_positions: dict[str, tuple[float, float]],
+        hub_positions: Mapping[str, tuple[float, float]],
+    ) -> tuple[float, float]:
+        """Return the hub position or midpoint of a restricted transit."""
+        position = state.current_position
+        if isinstance(position, str):
+            return hub_positions[position]
+
+        source_x, source_y = hub_positions[position[0]]
+        target_x, target_y = hub_positions[position[1]]
+        return ((source_x + target_x) / 2, (source_y + target_y) / 2)
 ```
 
 **Lecture du code.** Si la position est un nom de Hub, renvoie sa coordonnée monde ; si c'est le couple d'extrémités d'une connexion, renvoie le **milieu géométrique**. Cela représente le drone au milieu pendant son transit restricted.
@@ -2253,17 +2567,55 @@ def main() -> int:
 
 <a id="m078"></a>
 
-### 78 — `ReplayPlayer._draw_drone`
+### 78 — `ReplayPlayer.__draw_drone`
 
-**Source :** [`src/view/replay_player.py`, ligne 140](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/replay_player.py#L140)
+**Source :** [`src/view/replay_player.py`, ligne 130](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/replay_player.py#L130)
 
 ```python
-    def _draw_drone(
+    def __draw_drone(
         self,
         screen: pygame.Surface,
         position: tuple[int, int],
         drone_id: int,
         font: pygame.font.Font,
+    ) -> None:
+        """Draw a colored triangle and the drone ID at a screen position."""
+        color = self.__drone_color(drone_id)
+
+        size = 10
+
+        points = [
+            (position[0], position[1] - size),
+            (position[0] - size, position[1] + size),
+            (position[0] + size, position[1] + size),
+        ]
+
+        pygame.draw.polygon(
+            screen,
+            color,
+            points,
+        )
+
+        pygame.draw.polygon(
+            screen,
+            (255, 255, 255),
+            points,
+            2,
+        )
+
+        label = font.render(
+            f"D_{drone_id}",
+            True,
+            (240, 240, 240),
+        )
+
+        screen.blit(
+            label,
+            (
+                position[0] + 12,
+                position[1] - 10,
+            ),
+        )
 ```
 
 **Lecture du code.** Calcule la couleur selon l'ID, construit trois sommets autour de la position, dessine un triangle plein avec contour blanc, puis rend l'étiquette `D_<id>` à droite.
@@ -2274,14 +2626,22 @@ def main() -> int:
 
 <a id="m079"></a>
 
-### 79 — `ReplayPlayer._drone_color`
+### 79 — `ReplayPlayer.__drone_color`
 
-**Source :** [`src/view/replay_player.py`, ligne 28](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/replay_player.py#L28)
+**Source :** [`src/view/replay_player.py`, ligne 29](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/replay_player.py#L29)
 
 ```python
-    def _drone_color(
+    def __drone_color(
         self,
         drone_id: int,
+    ) -> tuple[int, int, int]:
+
+        """Assign a stable palette color to a drone ID."""
+        color_index = (
+            drone_id - 1
+        ) % len(self.DRONE_COLORS)
+
+        return self.DRONE_COLORS[color_index]
 ```
 
 **Lecture du code.** Assigne l'une des six couleurs de `DRONE_COLORS` selon `(drone_id-1) % len(...)`. Les drones ont une couleur stable d'un tour à l'autre ; les couleurs se répètent à partir du septième.
@@ -2391,23 +2751,22 @@ Le `src/view/__init__.py` configure `PYGAME_HIDE_SUPPORT_PROMPT=1` pour éviter 
 |---|---|---|
 | 1 | `main.main` manipule `map_paths` alors qu'une seule carte est admise | Une variable unique |
 | 2 | `Controller.run` utilise `data` et `frames` | `parsed_map` et `turn_states` |
-| 3 | `Parser.parse_hub` utilise `hub_type` pour start/hub/end et `zone_type` pour normal/restricted | `declaration_type` |
-| 4 | `Parser.parse_connection` alterne `edge_raw` et `connection` | Un seul vocabulaire |
+| 3 | `Parser.__parse_hub` utilise `hub_type` pour start/hub/end et `zone_type` pour normal/restricted | `declaration_type` |
+| 4 | `Parser.__parse_connection` alterne `edge_raw` et `connection` | Un seul vocabulaire |
 | 5 | `MapValidator` utilise `names` et `checked_conn` pour des dictionnaires de **lignes** | `hub_name_lines` et `connection_lines` |
-| 6 | `Graph._build_connections` reçoit des données déjà validées mais les appelle `raw_connections` | `connection_data` |
+| 6 | `Graph.__build_connections` reçoit des données déjà validées mais les appelle `raw_connections` | `connection_data` |
 | 7 | `Hub.nb_drones` et `Hub.reserved` mélangent unités implicites | `occupants` et `reserved_slots` selon préférence |
-| 8 | `Drone.move_to_zone` vs `Hub` et `HubRenderer.draw(zone=...)` | Unifier `zone` et `hub` |
-| 9 | `Drone.advance_transit()` **termine** un trajet et `path_turns()` fournit un **coût** de chemin | `finish_transit` et `remaining_path_cost` |
-| 10 | `Simulation.move_drone` est publique mais suppose des vérifications faites ailleurs | Rendre privée ou documenter la précondition |
-| 11 | `Hub.remove_drone` teste `nb_drones - 1 < 0` | Test direct `nb_drones <= 0` |
 | 13 | `Hub.__str__` ne montre pas `reserved` | Ajouter ce champ ou supprimer un debug non utilisé |
 | 15 | `ReplayPlayer.restart` revient au début du **replay**, sans relancer le moteur | `reset_replay` |
 | 17 | `Simulation.simulate` ne détecte pas un état sans progression | Construire d'abord un cas reproductible, puis décider |
-| 18 | `Simulation._move_or_wait` bloque les retours vers `previous_zone` et refuse les détours > coût+2 | Choix métier / heuristique à retester avec cartes précises |
+| 18 | `Simulation.__move_or_wait` bloque les retours vers `previous_zone` et refuse les détours > coût+2 | Choix métier / heuristique à retester avec cartes précises |
 | 19 | `Connection` emploie `source/target` pour un lien bidirectionnel | Conserver pour coller au fichier ou renommer `endpoint_a/b` |
 | 20 | Le parser et le validateur importent leurs types dans des sens qui obligent un import local | Conserver ou isoler les TypedDict, mais pas inventer de complexité sans besoin |
 
 ## X. Vérification technique et limites
+
+**Mise à jour des signatures (2 novembre 2026) :** les méthodes utilisées uniquement à l'intérieur de leur classe ont désormais un préfixe double `__`, avec name mangling Python. `Drone.move_to_hub(hub)`, `Connection.occupy_for_turn()`, `Drone.finish_transit()` et la condition `Hub.remove_drone()` ont été mis à jour. Les extraits des méthodes modifiées reproduisent la version courante de `test-main`.
+
 
 **Simplification effectuée :** `ConnectionError.__init__` et `HubError.__init__` ont été supprimés après vérification des appels. Les classes métier restent définies dans `src/model/errors.py` avec un simple `pass`. Le présent inventaire recense donc **83 méthodes**, et les sections 84 et 85 précédentes n'ont plus lieu d'être. La vérification automatisée citée plus bas ne couvre pas encore cette suppression.
 
