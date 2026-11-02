@@ -97,7 +97,7 @@ class Parser:
                 f"Line {line_number}: end_hub is already defined."
             )
 
-        zone_raw, marker, meta_raw = raw.partition("[")
+        zone_raw, bracket, meta_raw = raw.partition("[")
         parts = zone_raw.split()
         if len(parts) != 3:
             raise ParseError(
@@ -114,7 +114,7 @@ class Parser:
         x = self._parse_integer(x_str, line_number, "x coordinate")
         y = self._parse_integer(y_str, line_number, "y coordinate")
         meta = self.parse_metadata(
-            marker + meta_raw,
+            bracket + meta_raw,
             line_number,
             {"zone", "color", "capacity", "max_drones"},
         )
@@ -153,7 +153,7 @@ class Parser:
     def parse_connection(self, raw: str, line_number: int) -> None:
         """Parse a connection declaration and its metadata."""
 
-        edge_raw, marker, meta_raw = raw.partition("[")
+        edge_raw, bracket, meta_raw = raw.partition("[")
         edge = edge_raw.strip()
 
         if edge.count("-") != 1:
@@ -175,7 +175,7 @@ class Parser:
             )
 
         meta = self.parse_metadata(
-            marker + meta_raw,
+            bracket + meta_raw,
             line_number,
             {"capacity", "max_link_capacity"},
         )
@@ -184,9 +184,9 @@ class Parser:
                 f"Line {line_number}: duplicate metadata: "
                 "capacity is already defined."
             )
-        cap_raw = meta.get("max_link_capacity") or meta.get("capacity") or "1"
+        capacity_raw = meta.get("max_link_capacity") or meta.get("capacity") or "1"
         capacity = self._parse_integer(
-            cap_raw, line_number, "capacity", positive=True,
+            capacity_raw, line_number, "capacity", positive=True,
         )
 
         connection: ConnectionDict = {
@@ -266,7 +266,7 @@ class Parser:
     # --- Map parsing ---
     def parse(self) -> ParsedMap:
         """Read, parse and validate a complete map."""
-        from src.parser.validator import MapValidator, ValidationError
+        from src.parser.validator import MapValidator
 
         # New lists preserve the results of a previous parse.
         self.hub_entries = []
@@ -300,10 +300,7 @@ class Parser:
             connection_entries=self.connection_entries,
         )
 
-        try:
-            validator.validate()
-        except ValidationError as error:
-            raise ParseError(str(error)) from error
+        validator.validate()
 
         return {
             "map_path": self.map_path,
