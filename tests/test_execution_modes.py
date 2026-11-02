@@ -35,7 +35,7 @@ def test_terminal_mode_does_not_import_pygame() -> None:
             "result = main.main(); "
             "assert 'pygame' not in sys.modules; "
             "raise SystemExit(result)"
-        ), MAP, "--view-desactivate"],
+        ), MAP, "--no-view"],
         cwd=ROOT, text=True, capture_output=True, timeout=10, check=True,
     )
     assert result.stdout == (

@@ -8,7 +8,7 @@
 
 ## Description
 
-**Fly-in** is a drone routing simulator built in Python with an optional Pygame graphical interface. Given a map file describing a graph of zones and their connections, the program computes and records the simulation, prints all movements in the terminal, then opens a Pygame replay. Use `--view-desactivate` to run without opening a window. The routing heuristic aims to reduce the total number of turns; it does not guarantee a globally optimal solution.
+**Fly-in** is a drone routing simulator built in Python with an optional Pygame graphical interface. Given a map file describing a graph of zones and their connections, the program computes and records the simulation, prints all movements in the terminal, then opens a Pygame replay. Use `--no-view` to run without opening a window. The routing heuristic aims to reduce the total number of turns; it does not guarantee a globally optimal solution.
 
 The core challenge is a constrained multi-agent pathfinding problem: drones must reach the destination in the minimum number of turns while respecting zone capacity limits, connection throughput, and zone-type movement costs (including 2-turn restricted zones).
 
@@ -89,7 +89,7 @@ The simulation can run several searches for one drone in one turn. Its total run
 
 Dynamic rerouting allows drones to use alternative paths without precomputing every route. Processing drones sequentially keeps capacity checks straightforward, but makes results depend on processing order: a waiting drone is not reconsidered if another drone frees its destination later in the same turn. Static reachability does not prove that every possible fleet configuration will finish, and there is no general deadlock detector.
 
-For `T` turns, `N` drones and maximum remaining path length `L`, the complete history uses up to `O((T + 1) × (V + E + N × (L + 1)))` storage. This includes copies of the remaining paths. Both execution modes record the same states: `--view-desactivate` avoids the graphical window and Pygame import, but does not reduce history storage. There is no separate movement log.
+For `T` turns, `N` drones and maximum remaining path length `L`, the complete history uses up to `O((T + 1) × (V + E + N × (L + 1)))` storage. This includes copies of the remaining paths. Both execution modes record the same states: `--no-view` avoids the graphical window and Pygame import, but does not reduce history storage. There is no separate movement log.
 
 ---
 
@@ -122,7 +122,7 @@ Average turn counts are **4** for Easy, **10** for Medium and **18.33** for Hard
 - Python ≥ 3.10
 - [Poetry](https://python-poetry.org/) (dependency manager)
 - `make` for the Makefile commands
-- A working graphical display for Pygame replay; `--view-desactivate` also works without a display
+- A working graphical display for Pygame replay; `--no-view` also works without a display
 
 ### Install
 
@@ -147,17 +147,17 @@ poetry run python main.py assets/maps/hard/03_ultimate_challenge.txt
 poetry run python main.py assets/maps/challenger/01_the_impossible_dream.txt
 
 # Terminal only: no Pygame import or window; history is still recorded
-poetry run python main.py assets/maps/easy/01_linear_path.txt --view-desactivate
-make run MAP=assets/maps/easy/01_linear_path.txt ARGS=--view-desactivate
+poetry run python main.py assets/maps/easy/01_linear_path.txt --no-view
+make run MAP=assets/maps/easy/01_linear_path.txt ARGS=--no-view
 
 # Export movements to a text file
-poetry run python main.py assets/maps/easy/01_linear_path.txt --view-desactivate > movements.txt
+poetry run python main.py assets/maps/easy/01_linear_path.txt --no-view > movements.txt
 
 # Debug mode (pdb)
 make debug MAP=assets/maps/easy/01_linear_path.txt
 ```
 
-If no map argument is supplied, the program uses `assets/maps/easy/02_simple_fork.txt`. Add `--view-desactivate` to any direct command above to keep terminal output only.
+If no map argument is supplied, the program uses `assets/maps/easy/02_simple_fork.txt`. Add `--no-view` to any direct command above to keep terminal output only.
 
 Creating a `Controller` only prepares its configuration. Each call to `run()` starts a fresh simulation. Pygame is imported only for graphical execution.
 

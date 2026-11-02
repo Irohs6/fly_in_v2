@@ -44,7 +44,7 @@ def test_main_catches_validator_error(
         "connection: start-missing",
     ])
     monkeypatch.setattr(
-        sys, "argv", ["main.py", str(path), "--view-desactivate"],
+        sys, "argv", ["main.py", str(path), "--no-view"],
     )
     assert main.main() == 1
     captured = capsys.readouterr()

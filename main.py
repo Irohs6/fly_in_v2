@@ -20,7 +20,6 @@ def main() -> int:
     )
     parser.add_argument(
         "--no-view",
-        "--view-desactivate",
         dest="view_active",
         action="store_false",
         help="Print movements without graphical replay.",

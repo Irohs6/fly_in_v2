@@ -170,7 +170,6 @@ def main() -> int:
     )
     parser.add_argument(
         "--no-view",
-        "--view-desactivate",
         dest="view_active",
         action="store_false",
         help="Print movements without graphical replay.",
@@ -191,11 +190,11 @@ def main() -> int:
 
 ```
 
-**Lecture du code.** `argparse.ArgumentParser` gère maintenant les arguments CLI. Le positionnel `map_path` (avec `nargs="?"`) accepte zéro ou **un** chemin ; sans argument, la carte par défaut est choisie. `parser.parse_args()` gère automatiquement `-h/--help`, les options inconnues et les arguments en trop. `--no-view` met `view_active` à `False` via `store_false` ; `--view-desactivate` reste un alias rétrocompatible. Le contrôleur lance la simulation. Les erreurs de lecture, parsing, validation et affichage produisent une seule ligne sur `stderr` avec retour `1` ; `KeyboardInterrupt` renvoie `130`. Les erreurs d'arguments sont gérées par `argparse` avec sortie `2` (et `SystemExit`), l'aide avec sortie `0`.
+**Lecture du code.** `argparse.ArgumentParser` gère maintenant les arguments CLI. Le positionnel `map_path` (avec `nargs="?"`) accepte zéro ou **un** chemin ; sans argument, la carte par défaut est choisie. `parser.parse_args()` gère automatiquement `-h/--help`, les options inconnues et les arguments en trop. `--no-view` met `view_active` à `False` via `store_false`. Le contrôleur lance la simulation. Les erreurs de lecture, parsing, validation et affichage produisent une seule ligne sur `stderr` avec retour `1` ; `KeyboardInterrupt` renvoie `130`. Les erreurs d'arguments sont gérées par `argparse` avec sortie `2` (et `SystemExit`), l'aide avec sortie `0`.
 
 **Variables, noms et cohérence.** `map_paths` a été supprimée : une liste n'était pas justifiée pour une seule map. `arguments.map_path` est un `str` transmis tel quel à `Controller` ; `arguments.view_active` contrôle l'ouverture de Pygame. L'import `ValidatorError` et son interception restent voulus : `Parser.parse()` ne convertit plus cette erreur en `ParseError`.
 
-**Décision prise sur `test-main`.** Conserver `argparse` et la seule map positionnelle. Utiliser `--no-view` comme nom principal ; garder l'alias historique pendant la finalisation pour ne pas casser les tests ni les commandes du README. Éviter tout nouveau changement direct sur `main` avant la fusion finale.
+**Décision prise sur `test-main`.** Conserver `argparse` et la seule map positionnelle. Utiliser exclusivement `--no-view` : le code, les tests et les commandes du README sont maintenant alignés, sans alias. Éviter tout nouveau changement direct sur `main` avant la fusion finale.
 
 <a id="m002"></a>
 
@@ -240,7 +239,7 @@ def main() -> int:
             except ImportError as exc:
                 raise DisplayError(
                     f"Cannot load graphical replay: {exc}. "
-                    "Run 'poetry install' or use --view-desactivate."
+                    "Run 'poetry install' or use --no-view."
                 ) from exc
 
             view = PygameView(frames)

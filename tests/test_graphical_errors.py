@@ -73,7 +73,7 @@ def test_cli_with_unavailable_video_driver(terminal_only: bool) -> None:
     env["SDL_AUDIODRIVER"] = "dummy"
     command = [sys.executable, "main.py", str(MAP)]
     if terminal_only:
-        command.append("--view-desactivate")
+        command.append("--no-view")
     result = subprocess.run(
         command, cwd=ROOT, env=env, capture_output=True, text=True, timeout=10,
     )

@@ -72,7 +72,7 @@ Pour chaque entrée : **signature effective du fichier**, paramètres, rôle/év
 
 | Méthode et paramètres | Rôle, analyse | Décision |
 |---|---|---|
-| [`main`](https://github.com/Irohs6/fly_in_v2/blob/test-main/main.py#L10) — `def main() -> int:` | `argparse` lit un unique `map_path` facultatif (carte par défaut), refuse les options inconnues et les cartes supplémentaires, gère `-h/--help` et `--no-view` (ancien alias `--view-desactivate`). Lance le contrôleur et intercepte `ValidatorError`, `ParseError`, les erreurs d'affichage/lecture et `KeyboardInterrupt`. | **MODIFIÉ** |
+| [`main`](https://github.com/Irohs6/fly_in_v2/blob/test-main/main.py#L10) — `def main() -> int:` | `argparse` lit un unique `map_path` facultatif (carte par défaut), refuse les options inconnues et les cartes supplémentaires, gère `-h/--help` et `--no-view`. Lance le contrôleur et intercepte `ValidatorError`, `ParseError`, les erreurs d'affichage/lecture et `KeyboardInterrupt`. | **MODIFIÉ** |
 
 ### `src/controller/controller.py` (2 méthodes)
 
@@ -271,7 +271,7 @@ Pour chaque entrée : **signature effective du fichier**, paramètres, rôle/év
 6. Tests de validateur adaptés ; fichier `tests/test_review_regressions.py` pour remontée d’erreur au CLI et seuil +2 sur le reroutage.
 7. Suppression de la méthode inutilisée `Dijkstra.distance_to` et de son assertion dans le test de priorité, sans affecter les autres contrôles de ce test.
 8. Workflow de contrôle sur la branche : `.github/workflows/test-main-audit.yml`.
-9. `main.py` : parsing artisanal remplacé par `argparse` ; suppression de la liste `map_paths`, une seule map positionnelle, option `--no-view` avec compatibilité `--view-desactivate`, et conservation de `ValidatorError` dans les exceptions interceptées.
+9. `main.py` : parsing artisanal remplacé par `argparse` ; suppression de la liste `map_paths`, une seule map positionnelle, option `--no-view` sans alias, et conservation de `ValidatorError` dans les exceptions interceptées.
 
 ## 5. Limites et défauts possibles non changés sans preuve
 
