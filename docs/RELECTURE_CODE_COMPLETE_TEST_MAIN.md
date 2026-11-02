@@ -2665,9 +2665,9 @@ def main() -> int:
 
 **Lecture du code.** Affiche le numéro de tour courant sur le dernier tour (`Turn X/Y`), les raccourcis du replay et une légende des capacités des hubs/connexions. Écrit directement sur la surface Pygame, sans modifier le modèle.
 
-**Variables, noms et cohérence.** Le label `Turn X/Y` reprend les snapshots, donc tour zéro visible au début. L'aide affiche gauche/droite/R mais pas Échap/C/zoom/drag, gérés par PygameView : une incohérence d'interface, pas une erreur de simulation.
+**Variables, noms et cohérence.** Le label `Turn X/Y` reprend les snapshots, donc tour zéro visible au début. L'aide affiche gauche/droite/R, mais pas Échap, géré par `PygameView.__display_replay()`. Les anciennes commandes C, zoom et glisser ne sont plus présentes dans le code.
 
-**Décision à prendre.** À discuter : compléter l'aide affichée et éviter de dupliquer les descriptions de contrôles.
+**Décision à prendre.** Éventuellement ajouter Échap à l'aide du replay, sans réintroduire de contrôles de caméra.
 
 
 ---

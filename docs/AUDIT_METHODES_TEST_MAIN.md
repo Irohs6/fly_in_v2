@@ -53,12 +53,11 @@ main.main
           └ Recorder.record
     └ TerminalView.display
     └ [vue active] PygameView.__init__ -> display -> __display_replay
-       ├ Camera.__init__
        ├ CoordinateSystem.__init__ -> compute
        ├ GraphRenderer.__init__ -> HubRenderer.__init__
        │                          -> ConnectionRenderer.__init__
        ├ ReplayPlayer.__init__
-       └ boucle écran : handle_event / Camera ; GraphRenderer.draw
+       └ boucle écran : handle_event ; GraphRenderer.draw
                        ReplayPlayer.draw ; ReplayPlayer.draw_overlay
 ```
 
