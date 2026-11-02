@@ -1,12 +1,12 @@
 # Fly-in — Relecture complète du code, méthode par méthode
 
-> **Objectif : te réapproprier le projet**, relire chaque ligne et retrouver les choix techniques. Ce n'est pas un bulletin de notes ni une proposition de refonte automatique. **Aucun code source ni test n'a été changé pendant cette relecture.** Les idées ci-dessous sont des questions à trancher par toi.
+> **Objectif : te réapproprier le projet**, relire chaque ligne et retrouver les choix techniques. Ce n'est pas un bulletin de notes ni une proposition de refonte automatique. Les corrections décidées lors de la relecture ont été appliquées à `test-main` ; les autres idées restent des questions à trancher.
 
-**Source exacte :** branche [`test-main`](https://github.com/Irohs6/fly_in_v2/tree/test-main), état récupéré le 2 novembre 2026. La méthode `Dijkstra.distance_to()` a déjà été supprimée lors de la séance précédente et n'est donc pas incluse. **93 fonctions/méthodes explicites vérifiées, sans omission** sur 18 fichiers Python applicatifs. Les quatre dataclasses sans méthode explicite, classes d'erreurs sans constructeur et initialisations de modules sont présentées à part.
+**Source exacte :** branche [`test-main`](https://github.com/Irohs6/fly_in_v2/tree/test-main), état du 2 novembre 2026 après suppression de `Camera` et ajout du rendu `rainbow`. **85 méthodes/fonctions explicites dans 17 fichiers applicatifs.** Les structures sans méthode explicite et classes d'erreurs sont présentées à part.
 
 ## Comment lire le document
 
-Pour **chacune** des 85 méthodes : tu disposes du **code complet et non modifié**, du fichier GitHub d'origine et de la ligne, d'une explication des paramètres/variables et des décisions à discuter. L'ordre suit un **parcours des appels depuis `main()`** : quand une méthode appelle une autre méthode du projet, on descend dans l'appel ; quand elle est déjà étudiée, on ne reproduit pas une deuxième fois son code. Les chemins alternatifs (déclarations de carte, transit restricted, reroutage, événements Pygame) sont placés à la suite de leur point d'entrée. Les méthodes implicites `__str__`, `__repr__` et les exceptions sont à la fin. **Ce n'est pas un ordre chronologique unique valable pour toutes les cartes**, car le flux dépend de l'entrée, des capacités et des événements utilisateur.
+Pour **chacune** des 85 méthodes : tu disposes du **code relevé sur la branche après modifications**, du fichier GitHub d'origine et de la ligne, d'une explication des paramètres/variables et des décisions à discuter. L'ordre suit un **parcours des appels depuis `main()`** : quand une méthode appelle une autre méthode du projet, on descend dans l'appel ; quand elle est déjà étudiée, on ne reproduit pas une deuxième fois son code. Les chemins alternatifs (déclarations de carte, transit restricted, reroutage, événements Pygame) sont placés à la suite de leur point d'entrée. Les méthodes implicites `__str__`, `__repr__` et les exceptions sont à la fin. **Ce n'est pas un ordre chronologique unique valable pour toutes les cartes**, car le flux dépend de l'entrée, des capacités et des événements utilisateur.
 
 **À bien distinguer :** `ParseError` = erreur de lecture/syntaxe ; `ValidatorError` = carte syntaxiquement lisible mais structurellement invalide ; `HubError`/`ConnectionError` = invariants du modèle ; `DisplayError` = interface. `main` capte les erreurs attendues.
 
@@ -2270,9 +2270,9 @@ def main() -> int:
 
 **Lecture du code.** Calcule la couleur selon l'ID, construit trois sommets autour de la position, dessine un triangle plein avec contour blanc, puis rend l'étiquette `D_<id>` à droite.
 
-**Variables, noms et cohérence.** `size=10` fixe la taille du triangle **indépendamment du zoom** (les hubs suivent le zoom) : choix graphique. `position` est en pixels ; les coordonnées de points sont calculées à partir du centre.
+**Variables, noms et cohérence.** `size=10` fixe la taille du triangle en pixels, comme les hubs : aucun zoom interactif. `position` est en pixels ; les coordonnées de points sont calculées à partir du centre.
 
-**Décision à prendre.** À discuter : uniformiser la taille des drones avec le zoom si tu le souhaites, mais préserver l'étiquette lisible.
+**Décision à prendre.** Conserver la taille fixe en pixels et l'étiquette lisible.
 
 <a id="m079"></a>
 
@@ -2443,7 +2443,6 @@ Le `src/view/__init__.py` configure `PYGAME_HIDE_SUPPORT_PROMPT=1` pour éviter 
 | 11 | `Hub.remove_drone` teste `nb_drones - 1 < 0` | Test direct `nb_drones <= 0` |
 | 12 | `ConnectionError.__init__` et `HubError.__init__` ne font que définir un message par défaut | Vérifier appels sans argument puis retirer les constructeurs si inutiles |
 | 13 | `Hub.__str__` ne montre pas `reserved` | Ajouter ce champ ou supprimer un debug non utilisé |
-| 14 | `PygameView._display_replay` nomme `positions` des positions monde | `world_positions`, `coordinate_system` |
 | 15 | `ReplayPlayer.restart` revient au début du **replay**, sans relancer le moteur | `reset_replay` |
 | 17 | `Simulation.simulate` ne détecte pas un état sans progression | Construire d'abord un cas reproductible, puis décider |
 | 18 | `Simulation._move_or_wait` bloque les retours vers `previous_zone` et refuse les détours > coût+2 | Choix métier / heuristique à retester avec cartes précises |
@@ -2455,6 +2454,6 @@ Le `src/view/__init__.py` configure `PYGAME_HIDE_SUPPORT_PROMPT=1` pour éviter 
 **Actualisation du 2 novembre 2026 :** suppression des huit méthodes de caméra et du module `camera.py` ; l'inventaire compte désormais 85 méthodes. La fenêtre ajuste automatiquement les positions au cadre, sans zoom/pan. `rainbow` est dessiné par sept disques concentriques. Les six méthodes d'affichage modifiées figurent ci-dessus avec leur code réel.
 
 
-Une exécution automatisée antérieure aux changements graphiques sur `test-main` a réussi avec **205 tests**, **11 cartes sur 11 terminées**, Flake8 et Mypy sans erreur : [GitHub Actions](https://github.com/Irohs6/fly_in_v2/actions/runs/41412890201). Cela confirme l'état précédent des tests, **pas** que toutes les décisions de design sont idéales ni que tous les graphes imaginables terminent.
+Le [dernier workflow de vérification après les modifications graphiques](https://github.com/Irohs6/fly_in_v2/actions/runs/41425411792) a réussi : **206 tests**, **11 cartes sur 11**, **Flake8 et mypy sans erreur** (35 fichiers Python vérifiés). Cela couvre les tests exécutés, pas tous les graphes possibles.
 
-**Aucune proposition du tableau IX n'est appliquée dans le code**. Ce rapport te laisse décider, après lecture, quelles modifications valent la peine et dans quel ordre les réaliser. Sauf mention explicite, les remarques « à discuter » sont des recommandations de clarté, non des bugs prouvés.
+**Les propositions encore listées au tableau IX ne sont pas appliquées dans le code**. Ce rapport te laisse décider, après lecture, quelles modifications valent la peine et dans quel ordre les réaliser. Sauf mention explicite, les remarques « à discuter » sont des recommandations de clarté, non des bugs prouvés.
