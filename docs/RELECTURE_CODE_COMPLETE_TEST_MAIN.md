@@ -2,11 +2,11 @@
 
 > **Objectif : te réapproprier le projet**, relire chaque ligne et retrouver les choix techniques. Ce n'est pas un bulletin de notes ni une proposition de refonte automatique. Les corrections décidées lors de la relecture ont été appliquées à `test-main` ; les autres idées restent des questions à trancher.
 
-**Source exacte :** branche [`test-main`](https://github.com/Irohs6/fly_in_v2/tree/test-main), état du 2 novembre 2026 après suppression de `Camera` et ajout du rendu `rainbow`. **83 méthodes/fonctions explicites dans 17 fichiers applicatifs.** Les structures sans méthode explicite et classes d'erreurs sont présentées à part.
+**Source exacte :** branche [`test-main`](https://github.com/Irohs6/fly_in_v2/tree/test-main), état du 2 novembre 2026 après suppression de `Camera` et ajout du rendu `rainbow`. **83 méthodes/fonctions explicites dans 17 fichiers applicatifs.** Tous les extraits ci-dessous ont été vérifiés contre leurs définitions réelles, y compris les méthodes avec décorateur et les signatures sur plusieurs lignes. Les structures sans méthode explicite et classes d'erreurs sont présentées à part.
 
 ## Comment lire le document
 
-Pour **chacune** des 83 méthodes : tu disposes du **code relevé sur la branche après modifications**, du fichier GitHub d'origine et de la ligne, d'une explication des paramètres/variables et des décisions à discuter. L'ordre suit un **parcours des appels depuis `main()`** : quand une méthode appelle une autre méthode du projet, on descend dans l'appel ; quand elle est déjà étudiée, on ne reproduit pas une deuxième fois son code. Les chemins alternatifs (déclarations de carte, transit restricted, reroutage, événements Pygame) sont placés à la suite de leur point d'entrée. Les méthodes implicites `__str__`, `__repr__` et les exceptions sont à la fin. **Ce n'est pas un ordre chronologique unique valable pour toutes les cartes**, car le flux dépend de l'entrée, des capacités et des événements utilisateur.
+Pour **chacune** des 83 méthodes : tu disposes du **code complet vérifié contre le fichier source actuel**, du fichier GitHub d'origine et de la ligne, d'une explication des paramètres/variables et des décisions à discuter. L'ordre suit un **parcours des appels depuis `main()`** : quand une méthode appelle une autre méthode du projet, on descend dans l'appel ; quand elle est déjà étudiée, on ne reproduit pas une deuxième fois son code. Les chemins alternatifs (déclarations de carte, transit restricted, reroutage, événements Pygame) sont placés à la suite de leur point d'entrée. Les méthodes implicites `__str__`, `__repr__` et les exceptions sont à la fin. **Ce n'est pas un ordre chronologique unique valable pour toutes les cartes**, car le flux dépend de l'entrée, des capacités et des événements utilisateur.
 
 **À bien distinguer :** `ParseError` = erreur de lecture/syntaxe ; `ValidatorError` = carte syntaxiquement lisible mais structurellement invalide ; `HubError`/`ConnectionError` = invariants du modèle ; `DisplayError` = interface. `main` capte les erreurs attendues.
 
@@ -177,7 +177,6 @@ def main() -> int:
         return 130
 
     return 0
-
 ```
 
 **Lecture du code.** `argparse.ArgumentParser` gère maintenant les arguments CLI. Le positionnel `map_path` (avec `nargs="?"`) accepte zéro ou **un** chemin ; sans argument, la carte par défaut est choisie. `parser.parse_args()` gère automatiquement `-h/--help`, les options inconnues et les arguments en trop. `--no-view` met `view_active` à `False` via `store_false`. Le contrôleur lance la simulation. Les erreurs de lecture, parsing, validation et affichage produisent une seule ligne sur `stderr` avec retour `1` ; `KeyboardInterrupt` renvoie `130`. Les erreurs d'arguments sont gérées par `argparse` avec sortie `2` (et `SystemExit`), l'aide avec sortie `0`.
@@ -238,7 +237,7 @@ def main() -> int:
 
 **Lecture du code.** Instancie `Parser`, récupère un `ParsedMap`, crée `Graph`, prépare une `Simulation`, charge le nombre de drones, lance tous les tours, puis affiche d'abord la sortie texte. L'import de `PygameView` est **volontairement retardé** jusqu'à l'option graphique, afin que le mode terminal n'exige pas le module Pygame. Si l'import échoue, un `DisplayError` clair est levé.
 
-**Variables, noms et cohérence.** `data` est un dictionnaire typé mais son nom est générique : `map_data` ou `parsed_map` aiderait à se relire. `frames` désigne des instantanés de simulation, pas des images Pygame : `turn_states` serait plus explicite. `view_active` est un booléen à argument nommé (`*`) ; cela évite l'appel ambigu `run(False)`.
+**Variables, noms et cohérence.** `data` est un dictionnaire typé mais son nom est générique : `map_data` ou `parsed_map` aiderait à se relire. `frames` désigne ici les instantanés du replay ; `Recorder` stocke ces états sous `turn_states`, déjà renommé. `view_active` est un booléen à argument nommé (`*`) ; cela évite l'appel ambigu `run(False)`.
 
 **Décision à prendre.** À discuter : noms `data`/`frames`, pas une nouvelle couche d'abstraction. Remarque : si Pygame échoue, le terminal a déjà été imprimé, c'est un choix d'ordre explicite.
 
@@ -365,8 +364,6 @@ def main() -> int:
                 f"Cannot read map {self.map_path!r}: "
                 f"{error.strerror or str(error)}"
             ) from error
-
-    # --- Hub parsing ---
 ```
 
 **Lecture du code.** Ouvre le fichier avec `encoding='utf-8'`, fait `enumerate(..., start=1)` et conserve les **vrais numéros de lignes**, y compris commentaires et lignes vides. `strip()` enlève les espaces extérieurs ; un commentaire n'est ignoré que si la ligne commence par `#` après nettoyage. Appelle `__parse_line` sur chaque déclaration. Les erreurs UTF-8 et lecture système sont contextualisées avec le chemin.
@@ -441,6 +438,27 @@ def main() -> int:
 
 ```python
     @staticmethod
+    def __parse_integer(
+        raw: str,
+        line_number: int,
+        field: str,
+        *,
+        positive: bool = False,
+    ) -> int:
+        """Convert a decimal integer, reporting errors with line and field
+        context.
+        """
+        pattern = r"[0-9]+" if positive else r"[+-]?[0-9]+"
+        error_message = f"Line {line_number}: invalid {field}: {raw!r}"
+        if re.fullmatch(pattern, raw) is None:
+            raise ParseError(error_message)
+        try:
+            value = int(raw)
+        except ValueError as error:
+            raise ParseError(error_message) from error
+        if positive and value <= 0:
+            raise ParseError(error_message)
+        return value
 ```
 
 **Lecture du code.** `@staticmethod` car n'utilise aucun état de `Parser`. Construit une expression régulière pour entier signé ou chiffres uniquement si `positive=True`; renvoie un vrai `int`. La vérification `value <= 0` rejette explicitement zéro en mode positif. Une valeur mal formée déclenche `ParseError` avec champ et numéro de ligne.
@@ -526,8 +544,6 @@ def main() -> int:
         elif hub_type == "end_hub":
             self.end_hub = hub
         self.hub_entries.append((hub, line_number))
-
-    # --- Connection parsing ---
 ```
 
 **Lecture du code.** Refuse plusieurs start/end. `partition('[')` sépare les trois champs `name x y` des métadonnées ; l'appel `__parse_metadata` contrôle crochets, clés et valeurs. Deux appels à `__parse_integer` lisent les coordonnées ; `capacity` par défaut vaut 1 sauf **start/end à capacité infinie**. Le dictionnaire final garde nom, position, couleur, capacité et type de zone, et est ajouté avec sa ligne.
@@ -544,6 +560,47 @@ def main() -> int:
 
 ```python
     @staticmethod
+    def __parse_metadata(
+        raw: str,
+        line_number: int,
+        allowed_keys: set[str],
+    ) -> dict[str, str]:
+        """Validate a complete metadata block and its allowed keys."""
+        if not raw:
+            return {}
+
+        meta_raw = raw.strip()
+        if (
+            not meta_raw.startswith("[")
+            or not meta_raw.endswith("]")
+            or "[" in meta_raw[1:]
+            or "]" in meta_raw[:-1]
+        ):
+            raise ParseError(
+                f"Line {line_number}: invalid metadata: {raw!r}"
+            )
+
+        meta: dict[str, str] = {}
+        for item in meta_raw[1:-1].split():
+            if item.count("=") != 1:
+                raise ParseError(
+                    f"Line {line_number}: invalid metadata item: {item!r}"
+                )
+            key, value = item.split("=", 1)
+            if not key or not value:
+                raise ParseError(
+                    f"Line {line_number}: invalid metadata item: {item!r}"
+                )
+            if key not in allowed_keys:
+                raise ParseError(
+                    f"Line {line_number}: unknown metadata key {key!r}"
+                )
+            if key in meta:
+                raise ParseError(
+                    f"Line {line_number}: duplicate metadata: {key!r}"
+                )
+            meta[key] = value
+        return meta
 ```
 
 **Lecture du code.** Si `raw` est vide, renvoie `{}`. Sinon exige une paire unique de crochets englobants, découpe les éléments par espaces, exige **un seul `=`**, une clé/valeur non vide, une clé autorisée et aucune clé répétée ; renvoie `dict[str, str]` sans convertir les nombres (responsabilité des parsers spécialisés).
@@ -606,8 +663,6 @@ def main() -> int:
             "capacity": capacity,
         }
         self.connection_entries.append((connection, line_number))
-
-    # --- Metadata parsing ---
 ```
 
 **Lecture du code.** Découpe `source-target` et les métadonnées éventuelles, exige un seul tiret, enlève les espaces aux extrémités, refuse les noms vides/avec espaces internes. `__parse_metadata` autorise `capacity` ou `max_link_capacity` ; les deux ensemble sont refusés ; la capacité est un entier strictement positif ou 1 par défaut. Enregistre le dictionnaire et la ligne source.
@@ -634,6 +689,16 @@ def main() -> int:
         end_hub: HubDict,
         hub_entries: list[tuple[HubDict, int]],
         connection_entries: list[tuple[ConnectionDict, int]],
+    ) -> None:
+
+        """Store parsed data and declaration line numbers. hub_entries and
+        connection_entries associate declarations with their lines for
+        error reporting.
+        """
+        self.start_hub = start_hub
+        self.end_hub = end_hub
+        self.hub_entries = hub_entries
+        self.connection_entries = connection_entries
 ```
 
 **Lecture du code.** Reçoit start/end et toutes les déclarations avec leurs lignes, déjà passées par l'analyse syntaxique. Stocke les objets sans recopier les listes. Le validateur s'occupe de **cohérence**, pas de lire ou convertir les valeurs.
@@ -1018,6 +1083,20 @@ def main() -> int:
         self,
         graph: Graph,
         pathfinder: Dijkstra | None = None,
+    ) -> None:
+        """Initialize the simulation without loading drones. Use the
+        supplied pathfinder or create Dijkstra. The recorder stores the
+        initial state and every completed turn for all views.
+        """
+        self.graph = graph
+        self.drones: list[Drone] = []
+        self.turn = 0
+        self.pathfinder = (
+            pathfinder
+            if pathfinder is not None
+            else Dijkstra(graph)
+        )
+        self.recorder = Recorder()
 ```
 
 **Lecture du code.** Reçoit `Graph` et éventuellement un `Dijkstra` préconstruit pour les tests ; autrement instancie son propre pathfinder. Prépare liste des drones, compteur de tours initialisé à zéro et `Recorder`. Aucun drone n'est encore créé.
@@ -1053,7 +1132,7 @@ def main() -> int:
 ```python
     def __init__(self) -> None:
         """Initialize the shared simulation history."""
-        self.frames: list[TurnState] = []
+        self.turn_states: list[TurnState] = []
 ```
 
 **Lecture du code.** Initialise `turn_states: list[TurnState]`. La liste sera remplie au tour zéro et après chaque tour complet. Chaque `TurnState` contient des **copies de valeurs**, pas les objets `Drone` vivants.
@@ -1106,6 +1185,37 @@ def main() -> int:
         source: Hub | None = None,
         blocked_hubs: set[Hub] | None = None,
         saturated_connections: set[tuple[Hub, Hub]] | None = None,
+    ) -> list[Hub]:
+
+        """Return a path to end_hub including both endpoints. Default to
+        start_hub when source is None and respect hub and connection
+        exclusions. Return an empty list if the destination is
+        unreachable.
+        """
+        if source is None:
+            source = self.graph.start_hub
+
+        target = self.graph.end_hub
+
+        distances, predecessors = self.__shortest_distances(
+            source,
+            blocked_hubs,
+            saturated_connections,
+        )
+
+        if distances[target] == float("inf"):
+            return []
+
+        path: list[Hub] = []
+        current: Hub | None = target
+
+        while current is not None:
+            path.append(current)
+            current = predecessors[current]
+
+        path.reverse()
+
+        return path
 ```
 
 **Lecture du code.** Prend éventuellement une zone de départ différente du start habituel et des ensembles de hubs/liens exclus. Utilise `__shortest_distances`, vérifie si `end_hub` est atteignable, remonte les prédécesseurs de end jusqu'au départ, inverse la liste et retourne le chemin **avec les deux extrémités**.
@@ -1310,6 +1420,15 @@ def main() -> int:
         self,
         drone_id: int,
         current_position: Hub
+    ) -> None:
+        """Place the drone in a hub with no path or active transit."""
+        self.drone_id = drone_id
+
+        self.current_position: Hub | Connection = current_position
+        self.previous_zone: Hub | None = None
+
+        self.path: list[Hub] = []
+        self.status: str = "idle"
 ```
 
 **Lecture du code.** Place un drone dans un `Hub`, fixe son numéro, prépare une zone précédente absente (`None`), un chemin restant vide et l'état `idle`. `current_position` accepte ensuite soit un Hub soit une Connection, car un passage restricted occupe une connexion pendant un tour.
@@ -1387,6 +1506,55 @@ def main() -> int:
         graph: Graph,
         drones: list[Drone],
         moved_drones: tuple[int, ...] = (),
+    ) -> None:
+        """Copy the full model state before turn capacity counters reset."""
+        drone_states: dict[int, DroneState] = {}
+        transits: Counter[tuple[str, str]] = Counter()
+        for drone in drones:
+            position = drone.current_position
+            current_position: str | tuple[str, str]
+            if isinstance(position, Connection):
+                current_position = (position.source.name, position.target.name)
+                transits[current_position] += 1
+            else:
+                current_position = position.name
+            drone_states[drone.drone_id] = DroneState(
+                current_position=current_position,
+                previous_zone=drone.previous_zone.name
+                if drone.previous_zone is not None else None,
+                path=tuple(hub.name for hub in drone.path),
+                status=drone.status,
+            )
+
+        hub_states = {
+            hub.name: HubState(
+                name=hub.name, x=hub.x, y=hub.y, color=hub.color,
+                zone_type=hub.zone_type, capacity=hub.capacity,
+                nb_drones=hub.nb_drones, reserved=hub.reserved,
+            )
+            for hub in graph.hubs.values()
+        }
+        connection_states = {
+            (connection.source.name, connection.target.name): ConnectionState(
+                source=connection.source.name, target=connection.target.name,
+                capacity=connection.capacity,
+                used_capacity=connection.used_capacity,
+                in_transit=transits[
+                    (connection.source.name, connection.target.name)
+                ],
+            )
+            for connection in graph.connections
+        }
+
+        self.turn_states.append(TurnState(
+            turn=turn,
+            start_hub=graph.start_hub.name,
+            end_hub=graph.end_hub.name,
+            drones=drone_states,
+            hubs=hub_states,
+            connections=connection_states,
+            moved_drones=moved_drones,
+        ))
 ```
 
 **Lecture du code.** Pour chaque drone, copie sa position comme **nom de Hub** ou **paire de noms d'extrémités** si en transit. Le `Counter` compte les transits restés sur chaque connexion. Copie ensuite tous les hubs et les connexions dans des dataclasses `frozen=True`, puis ajoute un `TurnState` dans `self.turn_states` avec le tour, les mouvements et les structures indépendantes du modèle.
@@ -1485,8 +1653,8 @@ def main() -> int:
         spent in transit is not subtracted.
         """
         return sum(
-            zone.transit_duration()
-            for zone in self.path
+            hub.transit_duration()
+            for hub in self.path
         )
 ```
 
@@ -1601,8 +1769,6 @@ def main() -> int:
                 drone.set_path(original_path)
                 drone.wait()
                 return False
-
-    # SIMULATION
 ```
 
 **Lecture du code.** Vérifie que le drone est dans un Hub et possède un chemin restant. Sauvegarde **une copie du chemin d'origine et son coût** ; prépare les ensembles de hubs bloqués et de liens saturés, et interdit d'abord la zone précédente pour éviter le demi-tour immédiat. Dans la boucle, regarde le prochain Hub, cherche la connexion, vérifie les deux capacités, ordonne un mouvement si possible ; sinon exclut les ressources indisponibles et appelle `__reroute_drone`. Si aucun chemin alternatif n'existe, le drone attend. Si le détour coûte **plus de deux tours supplémentaires** par rapport au chemin original, il restaure ce dernier puis attend.
@@ -1684,8 +1850,6 @@ def main() -> int:
             target_hub.add_drone()
 
         connection.occupy_for_turn()
-
-    # REROUTING
 ```
 
 **Lecture du code.** Récupère le Hub actuel, refuse qu'il s'agisse déjà d'une connexion, puis décrémente l'occupation de départ. Si le Hub cible est restricted, le drone entre sur la connexion (`begin_transit`) et **réserve** une place d'arrivée. Sinon le drone rejoint immédiatement le Hub (`move_to_hub`) et on incrémente l'occupation. Termine par la consommation d'une capacité de lien.
@@ -1757,6 +1921,19 @@ def main() -> int:
     def begin_transit(
         self,
         connection: Connection,
+    ) -> None:
+        """Start a two-turn move to a restricted hub on connection. Store
+        the departure hub; arrival occurs on the next simulation turn.
+        Raise RuntimeError without a departure hub. Simulation manages
+        reservations and capacity.
+        """
+        if isinstance(self.current_position, Connection):
+            raise RuntimeError(
+                f"Drone {self.drone_id} is already in transit."
+            )
+        self.previous_zone = self.current_position
+        self.current_position = connection
+        self.status = "in_transit"
 ```
 
 **Lecture du code.** Empêche de lancer un transit si le drone est déjà sur une Connection. Enregistre le Hub précédent, remplace `current_position` par la connexion et passe le statut à `in_transit`. **Le compteur de capacité et la réservation ne sont pas modifiés ici** : ils appartiennent à Simulation.
@@ -1849,8 +2026,6 @@ def main() -> int:
         drone.set_path(path[1:])
 
         return True
-
-    # MOVE OR WAIT
 ```
 
 **Lecture du code.** Si le drone se trouve sur Connection, renvoie `False`. Sinon appelle Dijkstra depuis son Hub courant avec les interdictions temporaires. Une route de longueur inférieure à deux n'apporte aucun prochain saut ; sinon `set_path(path[1:])` remplace le chemin restant et renvoie `True`.
@@ -1991,12 +2166,15 @@ def main() -> int:
 
 ### 59 — `PygameView.__init__`
 
-**Source :** [`src/view/pygame_view.py`, ligne 18](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/pygame_view.py#L18)
+**Source :** [`src/view/pygame_view.py`, ligne 17](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/pygame_view.py#L17)
 
 ```python
     def __init__(
         self,
         replay_frames: list[TurnState],
+    ) -> None:
+        """Store complete turn states without opening a window."""
+        self.replay_frames = replay_frames
 ```
 
 **Lecture du code.** Conserve `replay_frames` ; n'initialise aucune fenêtre. Les constantes de classe `SCREEN_W/H=0` et `CELL_SIZE=160` configurent la taille de départ automatique et l'échelle des positions.
@@ -2009,7 +2187,7 @@ def main() -> int:
 
 ### 60 — `PygameView.display`
 
-**Source :** [`src/view/pygame_view.py`, ligne 25](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/pygame_view.py#L25)
+**Source :** [`src/view/pygame_view.py`, ligne 24](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/pygame_view.py#L24)
 
 ```python
     def display(self) -> None:
@@ -2141,11 +2319,14 @@ def main() -> int:
     def __init__(
         self,
         cell_size: int = 400,
+    ) -> None:
+        """Store cell_size as the scale factor for world positions."""
+        self.cell_size = cell_size
 ```
 
 **Lecture du code.** Stocke `cell_size` qui traduit les coordonnées numériques de la carte en unités monde pour le renderer. PygameView fournit actuellement 160.
 
-**Variables, noms et cohérence.** `cell_size=400` dans la signature est une **valeur par défaut différente** de celle passée depuis PygameView. Ce n'est pas un bug quand l'appel explicite 160, mais le double réglage peut surprendre un lecteur.
+**Variables, noms et cohérence.** `cell_size=400` dans la signature est une **valeur par défaut différente** de la valeur 160 passée depuis PygameView. Ce n'est pas un bug quand l'appel explicite 160, mais le double réglage peut surprendre un lecteur.
 
 **Décision à prendre.** À discuter : supprimer la valeur par défaut si cette classe est toujours appelée avec un paramètre explicite, ou aligner les constantes.
 
@@ -2159,6 +2340,44 @@ def main() -> int:
     def compute(
         self,
         hubs: Iterable["Hub | HubState"],
+    ) -> dict[str, tuple[float, float]]:
+
+        """Center hubs and return their world positions by name. Scale by
+        cell_size, reducing large extents proportionally on both axes to
+        keep positions usable by Pygame. Return an empty dictionary for
+        empty input.
+        """
+        hub_list = list(hubs)
+
+        if not hub_list:
+            return {}
+
+        min_x = min(hub.x for hub in hub_list)
+        max_x = max(hub.x for hub in hub_list)
+
+        min_y = min(hub.y for hub in hub_list)
+        max_y = max(hub.y for hub in hub_list)
+
+        span = max(max_x - min_x, max_y - min_y)
+        if span * self.cell_size > self.MAX_WORLD_SPAN:
+            # Divide integers before conversion to avoid float overflow.
+            return {
+                hub.name: (
+                    (2 * hub.x - min_x - max_x) / (2 * span)
+                    * self.MAX_WORLD_SPAN,
+                    (2 * hub.y - min_y - max_y) / (2 * span)
+                    * self.MAX_WORLD_SPAN,
+                )
+                for hub in hub_list
+            }
+        # Subtract before conversion to handle large coordinate offsets.
+        return {
+            hub.name: (
+                (2 * hub.x - min_x - max_x) / 2 * self.cell_size,
+                (2 * hub.y - min_y - max_y) / 2 * self.cell_size,
+            )
+            for hub in hub_list
+        }
 ```
 
 **Lecture du code.** Convertit le conteneur `hubs` en liste pour pouvoir y passer plusieurs fois, renvoie `{}` si vide. Mesure les coordonnées extrêmes et centre le graphe. Si la plage * cell_size dépasse `MAX_WORLD_SPAN`, normalise les positions dans une plage bornée ; sinon applique directement l'échelle. Utilise des différences d'entiers avant la conversion flottante pour supporter de grandes coordonnées.
@@ -2171,7 +2390,7 @@ def main() -> int:
 
 ### 64 — `GraphRenderer.__init__`
 
-**Source :** [`src/view/graph_renderer.py`, ligne 136](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/graph_renderer.py#L136)
+**Source :** [`src/view/graph_renderer.py`, ligne 148](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/graph_renderer.py#L148)
 
 ```python
     def __init__(self, screen: pygame.Surface, font: pygame.font.Font) -> None:
@@ -2191,7 +2410,7 @@ def main() -> int:
 
 ### 65 — `HubRenderer.__init__`
 
-**Source :** [`src/view/graph_renderer.py`, ligne 41](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/graph_renderer.py#L41)
+**Source :** [`src/view/graph_renderer.py`, ligne 49](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/graph_renderer.py#L49)
 
 ```python
     def __init__(self, font: pygame.font.Font) -> None:
@@ -2209,7 +2428,7 @@ def main() -> int:
 
 ### 66 — `ConnectionRenderer.__init__`
 
-**Source :** [`src/view/graph_renderer.py`, ligne 91](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/graph_renderer.py#L91)
+**Source :** [`src/view/graph_renderer.py`, ligne 104](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/graph_renderer.py#L104)
 
 ```python
     def __init__(self, font: pygame.font.Font) -> None:
@@ -2227,12 +2446,17 @@ def main() -> int:
 
 ### 67 — `ReplayPlayer.__init__`
 
-**Source :** [`src/view/replay_player.py`, ligne 19](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/replay_player.py#L19)
+**Source :** [`src/view/replay_player.py`, ligne 20](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/replay_player.py#L20)
 
 ```python
     def __init__(
         self,
         frames: list[TurnState],
+    ) -> None:
+        """Store recorded states, selecting the first frame."""
+        self.frames = frames
+
+        self.current_index = 0
 ```
 
 **Lecture du code.** Stocke la liste de snapshots et fixe `current_index=0`, correspondant au tour zéro. La méthode ne lance pas de lecture automatique : l'utilisateur avance/revient manuellement via le clavier.
@@ -2245,7 +2469,7 @@ def main() -> int:
 
 ### 68 — `ReplayPlayer.handle_event`
 
-**Source :** [`src/view/replay_player.py`, ligne 40](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/replay_player.py#L40)
+**Source :** [`src/view/replay_player.py`, ligne 41](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/replay_player.py#L41)
 
 ```python
     def handle_event(self, event: pygame.event.Event) -> None:
@@ -2273,7 +2497,7 @@ def main() -> int:
 
 ### 69 — `ReplayPlayer.next_turn`
 
-**Source :** [`src/view/replay_player.py`, ligne 54](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/replay_player.py#L54)
+**Source :** [`src/view/replay_player.py`, ligne 55](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/replay_player.py#L55)
 
 ```python
     def next_turn(self) -> None:
@@ -2294,7 +2518,7 @@ def main() -> int:
 
 ### 70 — `ReplayPlayer.previous_turn`
 
-**Source :** [`src/view/replay_player.py`, ligne 61](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/replay_player.py#L61)
+**Source :** [`src/view/replay_player.py`, ligne 62](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/replay_player.py#L62)
 
 ```python
     def previous_turn(self) -> None:
@@ -2315,7 +2539,7 @@ def main() -> int:
 
 ### 71 — `ReplayPlayer.restart`
 
-**Source :** [`src/view/replay_player.py`, ligne 68](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/replay_player.py#L68)
+**Source :** [`src/view/replay_player.py`, ligne 69](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/replay_player.py#L69)
 
 ```python
     def restart(self) -> None:
@@ -2654,13 +2878,48 @@ def main() -> int:
 
 ### 80 — `ReplayPlayer.draw_overlay`
 
-**Source :** [`src/view/replay_player.py`, ligne 185](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/replay_player.py#L185)
+**Source :** [`src/view/replay_player.py`, ligne 175](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/replay_player.py#L175)
 
 ```python
     def draw_overlay(
         self,
         screen: pygame.Surface,
         font: pygame.font.Font,
+    ) -> None:
+        """Display the selected turn, last turn and playback controls."""
+        if not self.frames:
+            return
+
+        frame = self.frames[
+            self.current_index
+        ]
+
+        info = font.render(
+            (
+                f"Turn {frame.turn}/"
+                f"{self.frames[-1].turn} "
+            ),
+            True,
+            (255, 255, 255),
+        )
+
+        screen.blit(info, (10, 10))
+
+        controls = font.render(
+            (
+                "Left: Prev | Right: Next | R: Restart"
+            ),
+            True,
+            (180, 180, 180),
+        )
+
+        screen.blit(controls, (10, 35))
+
+        legend = font.render(
+            "Hubs: present/capacity + reserved | Links: used/capacity",
+            True, (180, 180, 180),
+        )
+        screen.blit(legend, (10, 60))
 ```
 
 **Lecture du code.** Affiche le numéro de tour courant sur le dernier tour (`Turn X/Y`), les raccourcis du replay et une légende des capacités des hubs/connexions. Écrit directement sur la surface Pygame, sans modifier le modèle.
