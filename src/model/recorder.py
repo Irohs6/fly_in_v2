@@ -11,7 +11,7 @@ class Recorder:
 
     def __init__(self) -> None:
         """Initialize the shared simulation history."""
-        self.frames: list[TurnState] = []
+        self.turn_states: list[TurnState] = []
 
     def record(
         self,
@@ -50,7 +50,7 @@ class Recorder:
         connection_states = {
             (connection.source.name, connection.target.name): ConnectionState(
                 source=connection.source.name, target=connection.target.name,
-                capacity=connection.capacity,
+                name=connection.name, capacity=connection.capacity,
                 used_capacity=connection.used_capacity,
                 in_transit=transits[
                     (connection.source.name, connection.target.name)
@@ -59,7 +59,7 @@ class Recorder:
             for connection in graph.connections
         }
 
-        self.frames.append(TurnState(
+        self.turn_states.append(TurnState(
             turn=turn,
             start_hub=graph.start_hub.name,
             end_hub=graph.end_hub.name,

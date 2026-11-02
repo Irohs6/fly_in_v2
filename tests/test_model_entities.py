@@ -143,12 +143,13 @@ def test_connection_capacity_rules() -> None:
         capacity=1,
     )
 
-    connection.use_capacity()
+    assert connection.name == "A-B"
+    connection.occupy_for_turn()
 
     assert connection.used_capacity == 1
 
     with pytest.raises(ConnectionError):
-        connection.use_capacity()
+        connection.occupy_for_turn()
 
 
 @pytest.mark.parametrize("reverse", [False, True])
@@ -177,7 +178,7 @@ def test_drone_transit_lifecycle(reverse: bool) -> None:
 
     assert drone.path == [end]
 
-    destination = drone.advance_transit()
+    destination = drone.finish_transit()
 
     assert destination is end
     assert drone.current_position is end

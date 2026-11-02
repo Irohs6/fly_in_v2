@@ -11,7 +11,6 @@ from src.model.state import DroneState, TurnState
 from src.model.simulation import Simulation
 from src.parser.parser import Parser
 from src.view.replay_player import ReplayPlayer
-from src.view.utils.camera import Camera
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -35,7 +34,7 @@ def test_terminal_mode_does_not_import_pygame() -> None:
             "result = main.main(); "
             "assert 'pygame' not in sys.modules; "
             "raise SystemExit(result)"
-        ), MAP, "--view-desactivate"],
+        ), MAP, "--no-view"],
         cwd=ROOT, text=True, capture_output=True, timeout=10, check=True,
     )
     assert result.stdout == (
@@ -75,7 +74,7 @@ def test_complete_history_is_recorded_once_per_turn(
     simulation = Simulation(Graph(data))
     simulation.load_drones(data["nb_drones"])
     frames = simulation.simulate()
-    assert frames is simulation.recorder.frames
+    assert frames is simulation.recorder.turn_states
     assert [frame.turn for frame in frames] == list(range(simulation.turn + 1))
     assert all(frame.connections for frame in frames)
     assert all(d.status == "delivered" for d in simulation.drones)
@@ -98,7 +97,7 @@ def test_replay_draws_lowest_id_per_hub_and_all_transits() -> None:
     replay = ReplayPlayer([frame])
     screen = Mock()
     screen.get_size.return_value = (800, 600)
-    with patch.object(replay, "_draw_drone") as draw:
-        replay.draw(screen, Camera(), Mock(),
+    with patch.object(replay, "_ReplayPlayer__draw_drone") as draw:
+        replay.draw(screen, Mock(),
                     {"a": (0.0, 0.0), "b": (10.0, 0.0)})
     assert [call.args[2] for call in draw.call_args_list] == [2, 4, 3, 6]

@@ -9,7 +9,6 @@ from src.model.simulation import Simulation
 from src.parser.parser import Parser
 from src.view.graph_renderer import GraphRenderer
 from src.view.replay_player import ReplayPlayer
-from src.view.utils.camera import Camera
 from src.view.utils.coordinate_system import CoordinateSystem
 
 
@@ -41,15 +40,15 @@ def test_large_coordinates_parse_simulate_and_render(
         screen = pygame.Surface((800, 600))
         font = pygame.font.Font(None, 20)
         renderer = GraphRenderer(screen, font)
-        replay = ReplayPlayer(simulation.recorder.frames)
-        camera = Camera()
-        for zoom in (camera.zoom_min, 1.0, camera.zoom_max):
-            camera.zoom = zoom
-            for index, frame in enumerate(replay.frames):
-                replay.current_index = index
-                positions = coord.compute(frame.hubs.values())
-                renderer.draw(camera, frame, positions)
-                replay.draw(screen, camera, font, positions)
+        replay = ReplayPlayer(simulation.recorder.turn_states)
+        for index, frame in enumerate(replay.frames):
+            replay.current_index = index
+            positions = {
+                name: (int(x + 400), int(y + 300))
+                for name, (x, y) in coord.compute(frame.hubs.values()).items()
+            }
+            renderer.draw(frame, positions)
+            replay.draw(screen, font, positions)
     finally:
         pygame.font.quit()
 

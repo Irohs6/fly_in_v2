@@ -7,9 +7,8 @@ from .connection import Connection
 class Graph:
     """Hub graph with indexed bidirectional connections."""
     def __init__(self, data: ParsedMap) -> None:
-
-        # Hub and connection storage
         """Build hubs and their indexes from validated map data."""
+        # Hub and connection storage
         self.hubs: dict[str, Hub] = {
             hub["name"]: Hub(**hub) for hub in data["hubs"]
         }
@@ -25,16 +24,16 @@ class Graph:
         self.hubs[self.start_hub.name] = self.start_hub
         self.hubs[self.end_hub.name] = self.end_hub
 
-        self.connections = self._build_connections(data["connections"])
+        self.connections = self.__build_connections(data["connections"])
 
         # Adjacency
         self.adjacency: dict[str, list[Connection]] = defaultdict(list)
         self.connection_map: dict[tuple[Hub, Hub], Connection] = {}
 
         for connection in self.connections:
-            self._index_connection(connection)
+            self.__index_connection(connection)
 
-    def _build_connections(
+    def __build_connections(
         self,
         raw_connections: list[ConnectionDict],
     ) -> list[Connection]:
@@ -49,7 +48,7 @@ class Graph:
             for connection in raw_connections
         ]
 
-    def _index_connection(
+    def __index_connection(
         self,
         connection: Connection,
     ) -> None:

@@ -25,7 +25,7 @@ class Hub:
 
     def remove_drone(self) -> None:
         """Remove one drone, raising HubError if the hub is empty."""
-        if self.nb_drones - 1 < 0:
+        if self.nb_drones <= 0:
             raise HubError("Cannot remove more drones than currently present")
         self.nb_drones -= 1
 

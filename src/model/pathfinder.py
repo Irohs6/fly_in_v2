@@ -11,7 +11,7 @@ class Dijkstra:
         """Associate the graph with the pathfinder without computing a path."""
         self.graph = graph
 
-    def shortest_distances(
+    def __shortest_distances(
         self,
         source: Hub,
         blocked_hubs: set[Hub] | None = None,
@@ -110,7 +110,7 @@ class Dijkstra:
 
         target = self.graph.end_hub
 
-        distances, predecessors = self.shortest_distances(
+        distances, predecessors = self.__shortest_distances(
             source,
             blocked_hubs,
             saturated_connections,
@@ -129,10 +129,3 @@ class Dijkstra:
         path.reverse()
 
         return path
-
-    def distance_to(self, source: Hub, target: Hub) -> float:
-        """Return the minimum source-to-target cost, or infinity if
-        unreachable.
-        """
-        distances, _ = self.shortest_distances(source)
-        return distances[target]

@@ -178,7 +178,7 @@ La priorité aux hubs `priority` à durée égale est cohérente avec le coût d
 | `src/view/pygame_view.py` | Fenêtre et commandes ; garantir la fermeture et gérer les échecs graphiques |
 | `src/view/graph_renderer.py` | Réseau, hubs, noms, capacités et couleurs ; palette limitée mais pas de rejet des cartes |
 | `src/view/replay_player.py` | Navigation, interpolation et représentants par hub ; visualisation du transit présente |
-| `src/view/utils/camera.py` | Zoom et translation ; aucune non-conformité supplémentaire confirmée |
+| `src/view/utils/camera.py` (supprimé sur `test-main` le 2 novembre 2026) | Ancien module de zoom et translation ; remplacé par un cadrage fixe automatique dans `PygameView` |
 | `src/view/utils/coordinate_system.py` | Entiers géants convertis sans débordement, proportions préservées ; tests de rendu réussis |
 | `Makefile` | Règles install, run, debug, clean et lint présentes ; lint obligatoire passe. lint-strict est optionnel |
 | `pyproject.toml` | Python >=3.10, Pygame, outils de qualité ; pas de dépendance de graphe interdite |

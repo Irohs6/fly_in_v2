@@ -20,11 +20,11 @@ class Drone:
         self.path: list[Hub] = []
         self.status: str = "idle"
 
-    def move_to_zone(
+    def move_to_hub(
         self,
-        zone: Hub,
+        hub: Hub,
     ) -> None:
-        """Move to zone, consume the next path step and set the status to
+        """Move to hub, consume the next path step and set the status to
         moving. Store the previous hub; raise RuntimeError if the drone
         is not in a hub.
         """
@@ -33,7 +33,7 @@ class Drone:
                 f"Drone {self.drone_id} is not currently in any hub."
             )
         self.previous_zone = self.current_position
-        self.current_position = zone
+        self.current_position = hub
 
         self.path.pop(0)
 
@@ -56,7 +56,7 @@ class Drone:
         self.current_position = connection
         self.status = "in_transit"
 
-    def advance_transit(self) -> Hub | None:
+    def finish_transit(self) -> Hub | None:
         """Complete a restricted move on the turn after departure.
 
         Return the destination, or None when there is no active transit.
@@ -91,8 +91,8 @@ class Drone:
         spent in transit is not subtracted.
         """
         return sum(
-            zone.transit_duration()
-            for zone in self.path
+            hub.transit_duration()
+            for hub in self.path
         )
 
     def set_path(self, path: list[Hub]) -> None:

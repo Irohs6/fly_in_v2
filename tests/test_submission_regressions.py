@@ -49,7 +49,6 @@ def test_priority_never_overrides_shorter_duration(
     path = finder.shortest_path()
     assert path[1].name == expected_prefix + "0"
     expected_turns = min(normal_count, priority_count) + 1
-    assert finder.distance_to(graph.start_hub, graph.end_hub) == expected_turns
     simulation = Simulation(graph)
     simulation.load_drones(1)
     assert simulation.simulate()[-1].turn == expected_turns
@@ -87,14 +86,14 @@ def test_delivered_status_in_arrival_frame(
     simulation = Simulation(graph)
     simulation.load_drones(2)
     turns = simulation.simulate()
-    for frame in simulation.recorder.frames:
+    for frame in simulation.recorder.turn_states:
         for drone_id, state in frame.drones.items():
             if state.current_position == "goal":
                 assert state.status == "delivered"
     assert all(drone.status == "delivered" for drone in simulation.drones)
     assert all(
         state.status == "delivered"
-        for state in simulation.recorder.frames[-1].drones.values()
+        for state in simulation.recorder.turn_states[-1].drones.values()
     )
     assert turns[-1].drones[2].current_position == "goal"
 

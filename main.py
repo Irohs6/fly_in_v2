@@ -3,6 +3,7 @@ import sys
 
 from src.controller.controller import Controller
 from src.parser.parser import ParseError
+from src.parser.validator import ValidatorError
 from src.view.errors import DisplayError
 
 
@@ -19,7 +20,6 @@ def main() -> int:
     )
     parser.add_argument(
         "--no-view",
-        "--view-desactivate",
         dest="view_active",
         action="store_false",
         help="Print movements without graphical replay.",
@@ -29,7 +29,7 @@ def main() -> int:
     try:
         controller = Controller(map_path=arguments.map_path)
         controller.run(view_active=arguments.view_active)
-    except (OSError, ParseError, DisplayError) as exc:
+    except (OSError, ParseError, ValidatorError, DisplayError) as exc:
         print(f"Error: {exc}", file=sys.stderr)
         return 1
     except KeyboardInterrupt:

@@ -52,7 +52,7 @@ class Parser:
         self.end_hub: HubDict | None = None
 
     # --- File reading ---
-    def read_file(self) -> None:
+    def __read_file(self) -> None:
         """Read and parse a UTF-8 map one line at a time.
         Skip empty lines and comment-only lines.
         Preserve physical line numbers and the total line count. Wrap
@@ -66,7 +66,7 @@ class Parser:
                     line = raw.strip()
                     if not line or line.startswith("#"):
                         continue
-                    self.parse_line(line, line_number)
+                    self.__parse_line(line, line_number)
         except UnicodeDecodeError as error:
             raise ParseError(
                 f"Map {self.map_path!r}: invalid UTF-8 encoding."
@@ -78,7 +78,7 @@ class Parser:
             ) from error
 
     # --- Hub parsing ---
-    def parse_hub(
+    def __parse_hub(
         self,
         hub_type: str,
         raw: str,
@@ -97,7 +97,7 @@ class Parser:
                 f"Line {line_number}: end_hub is already defined."
             )
 
-        zone_raw, marker, meta_raw = raw.partition("[")
+        zone_raw, bracket, meta_raw = raw.partition("[")
         parts = zone_raw.split()
         if len(parts) != 3:
             raise ParseError(
@@ -111,10 +111,10 @@ class Parser:
                 f"Line {line_number}: invalid hub name: {name!r} "
                 "(hyphens are not allowed)."
             )
-        x = self._parse_integer(x_str, line_number, "x coordinate")
-        y = self._parse_integer(y_str, line_number, "y coordinate")
-        meta = self.parse_metadata(
-            marker + meta_raw,
+        x = self.__parse_integer(x_str, line_number, "x coordinate")
+        y = self.__parse_integer(y_str, line_number, "y coordinate")
+        meta = self.__parse_metadata(
+            bracket + meta_raw,
             line_number,
             {"zone", "color", "capacity", "max_drones"},
         )
@@ -128,7 +128,7 @@ class Parser:
         capacity_raw = meta.get("max_drones") or meta.get("capacity") or "1"
         capacity = (
             math.inf if hub_type in ("start_hub", "end_hub")
-            else self._parse_integer(
+            else self.__parse_integer(
                 capacity_raw, line_number, "capacity", positive=True,
             )
         )
@@ -150,10 +150,10 @@ class Parser:
         self.hub_entries.append((hub, line_number))
 
     # --- Connection parsing ---
-    def parse_connection(self, raw: str, line_number: int) -> None:
+    def __parse_connection(self, raw: str, line_number: int) -> None:
         """Parse a connection declaration and its metadata."""
 
-        edge_raw, marker, meta_raw = raw.partition("[")
+        edge_raw, bracket, meta_raw = raw.partition("[")
         edge = edge_raw.strip()
 
         if edge.count("-") != 1:
@@ -174,8 +174,8 @@ class Parser:
                 f"Line {line_number}: invalid connection: {raw!r}."
             )
 
-        meta = self.parse_metadata(
-            marker + meta_raw,
+        meta = self.__parse_metadata(
+            bracket + meta_raw,
             line_number,
             {"capacity", "max_link_capacity"},
         )
@@ -184,9 +184,11 @@ class Parser:
                 f"Line {line_number}: duplicate metadata: "
                 "capacity is already defined."
             )
-        cap_raw = meta.get("max_link_capacity") or meta.get("capacity") or "1"
-        capacity = self._parse_integer(
-            cap_raw, line_number, "capacity", positive=True,
+        capacity_raw = (
+            meta.get("max_link_capacity") or meta.get("capacity") or "1"
+        )
+        capacity = self.__parse_integer(
+            capacity_raw, line_number, "capacity", positive=True,
         )
 
         connection: ConnectionDict = {
@@ -198,7 +200,7 @@ class Parser:
 
     # --- Metadata parsing ---
     @staticmethod
-    def parse_metadata(
+    def __parse_metadata(
         raw: str,
         line_number: int,
         allowed_keys: set[str],
@@ -241,7 +243,7 @@ class Parser:
         return meta
 
     @staticmethod
-    def _parse_integer(
+    def __parse_integer(
         raw: str,
         line_number: int,
         field: str,
@@ -266,7 +268,7 @@ class Parser:
     # --- Map parsing ---
     def parse(self) -> ParsedMap:
         """Read, parse and validate a complete map."""
-        from src.parser.validator import MapValidator, ValidationError
+        from src.parser.validator import MapValidator
 
         # New lists preserve the results of a previous parse.
         self.hub_entries = []
@@ -274,7 +276,7 @@ class Parser:
         self.nb_drones = None
         self.start_hub = None
         self.end_hub = None
-        self.read_file()
+        self.__read_file()
         if self.nb_drones is None:
             raise ParseError(
                 f"Line {self.line_count + 1}: "
@@ -300,10 +302,7 @@ class Parser:
             connection_entries=self.connection_entries,
         )
 
-        try:
-            validator.validate()
-        except ValidationError as error:
-            raise ParseError(str(error)) from error
+        validator.validate()
 
         return {
             "map_path": self.map_path,
@@ -320,7 +319,7 @@ class Parser:
         }
 
     # --- Line parsing ---
-    def parse_line(self, line: str, line_number: int) -> None:
+    def __parse_line(self, line: str, line_number: int) -> None:
         """Parse one declaration, requiring the drone count before any hub
         or connection. Report invalid syntax with its physical line number.
         """
@@ -352,13 +351,13 @@ class Parser:
                 raise ParseError(
                     f"Line {line_number}: nb_drones is already defined."
                 )
-            self.nb_drones = self._parse_integer(
+            self.nb_drones = self.__parse_integer(
                 raw, line_number, "nb_drones", positive=True,
             )
         elif keyword in ("start_hub", "hub", "end_hub"):
-            self.parse_hub(keyword, raw, line_number)
+            self.__parse_hub(keyword, raw, line_number)
         elif keyword == "connection":
-            self.parse_connection(raw, line_number)
+            self.__parse_connection(raw, line_number)
         else:
             raise ParseError(
                 f"Line {line_number}: unknown declaration: {line!r}"

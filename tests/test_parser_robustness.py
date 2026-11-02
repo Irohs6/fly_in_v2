@@ -3,6 +3,7 @@ from pathlib import Path
 import pytest
 
 from src.parser.parser import ParseError, Parser
+from src.parser.validator import ValidatorError
 
 
 VALID_LINES = [
@@ -118,7 +119,7 @@ def test_invalid_connection(tmp_path: Path, edge: str) -> None:
 def test_connection_before_hub(tmp_path: Path, edge: str) -> None:
     lines = VALID_LINES.copy()
     lines.insert(2, f"connection: {edge}")
-    with pytest.raises(ParseError, match="Line 3:.*not yet defined"):
+    with pytest.raises(ValidatorError, match="Line 3:.*not yet defined"):
         make_parser(tmp_path, lines).parse()
 
 
@@ -208,6 +209,7 @@ def test_positive_drone_count_has_no_fixed_limit(
     lines = VALID_LINES.copy()
     lines[0] = f"nb_drones: {count}"
     assert make_parser(tmp_path, lines).parse()["nb_drones"] == count
+
 
 @pytest.mark.parametrize("index", range(len(VALID_LINES)))
 def test_multiple_colons_rejected(tmp_path: Path, index: int) -> None:

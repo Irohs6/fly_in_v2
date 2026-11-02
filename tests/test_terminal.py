@@ -82,7 +82,7 @@ def test_terminal_restricted_transit(
     assert turns[2].drones[1].current_position == "a"
 
     # Both views use the same recorded states.
-    frames = simulation.recorder.frames
+    frames = simulation.recorder.turn_states
     assert frames is turns
     assert len(frames) == simulation.turn + 1
     transit = frames[1].drones[1]

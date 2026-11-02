@@ -13,7 +13,6 @@ from src.parser.parser import Parser
 from src.view.graph_renderer import GraphRenderer
 from src.view.replay_player import ReplayPlayer
 from src.view.terminal import TerminalView
-from src.view.utils.camera import Camera
 from src.view.utils.coordinate_system import CoordinateSystem
 
 
@@ -45,7 +44,7 @@ def test_complete_turn_keeps_capacity_usage_before_reset(
     tmp_path: Path, restricted: bool, reverse: bool,
 ) -> None:
     simulation = make_simulation(tmp_path, restricted, reverse)
-    initial = deepcopy(simulation.recorder.frames[0])
+    initial = deepcopy(simulation.recorder.turn_states[0])
     frames = simulation.simulate()
     edge = ("a", "start") if reverse else ("start", "a")
 
@@ -60,6 +59,7 @@ def test_complete_turn_keeps_capacity_usage_before_reset(
     first = frames[1]
     assert first.moved_drones == (1, 2)
     assert first.hubs["start"].nb_drones == 1
+    assert first.connections[edge].name == "-".join(edge)
     assert first.connections[edge].capacity == 2
     assert first.connections[edge].used_capacity == 2
     assert first.connections[edge].in_transit == (2 if restricted else 0)
@@ -115,6 +115,7 @@ def test_history_survives_live_model_changes(
     for connection in simulation.graph.connections:
         connection.used_capacity = 99
         connection.capacity = 99
+        connection.name = "changed"
     for drone in simulation.drones:
         drone.path.append(simulation.graph.start_hub)
         drone.current_position = simulation.graph.start_hub
@@ -134,7 +135,10 @@ def test_replay_places_transit_at_connection_midpoint(
 ) -> None:
     state = DroneState(edge, "a", ("b",), "in_transit")
     positions = {"a": (0.0, 0.0), "b": (100.0, 20.0)}
-    assert ReplayPlayer([])._state_position(state, positions) == (50.0, 10.0)
+    state_position = getattr(
+        ReplayPlayer([]), "_ReplayPlayer__state_position"
+    )
+    assert state_position(state, positions) == (50.0, 10.0)
 
 
 def test_visual_labels_follow_selected_turn(tmp_path: Path) -> None:
@@ -148,8 +152,11 @@ def test_visual_labels_follow_selected_turn(tmp_path: Path) -> None:
         for turn in (1, 2, 0, 1):
             font.reset_mock()
             frame = frames[turn]
-            positions = coord.compute(frame.hubs.values())
-            renderer.draw(Camera(), frame, positions)
+            positions = {
+                name: (int(x + 500), int(y + 300))
+                for name, (x, y) in coord.compute(frame.hubs.values()).items()
+            }
+            renderer.draw(frame, positions)
             labels = [call.args[0] for call in font.render.call_args_list]
             if turn == 1:
                 assert "0/2 +2 reserved" in labels

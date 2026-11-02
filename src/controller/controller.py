@@ -30,7 +30,7 @@ class Controller:
             except ImportError as exc:
                 raise DisplayError(
                     f"Cannot load graphical replay: {exc}. "
-                    "Run 'poetry install' or use --view-desactivate."
+                    "Run 'poetry install' or use --no-view."
                 ) from exc
 
             view = PygameView(frames)

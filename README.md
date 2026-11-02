@@ -8,7 +8,7 @@
 
 ## Description
 
-**Fly-in** is a drone routing simulator built in Python with an optional Pygame graphical interface. Given a map file describing a graph of zones and their connections, the program computes and records the simulation, prints all movements in the terminal, then opens a Pygame replay. Use `--view-desactivate` to run without opening a window. The routing heuristic aims to reduce the total number of turns; it does not guarantee a globally optimal solution.
+**Fly-in** is a drone routing simulator built in Python with an optional Pygame graphical interface. Given a map file describing a graph of zones and their connections, the program computes and records the simulation, prints all movements in the terminal, then opens a Pygame replay. Use `--no-view` to run without opening a window. The routing heuristic aims to reduce the total number of turns; it does not guarantee a globally optimal solution.
 
 The core challenge is a constrained multi-agent pathfinding problem: drones must reach the destination in the minimum number of turns while respecting zone capacity limits, connection throughput, and zone-type movement costs (including 2-turn restricted zones).
 
@@ -35,7 +35,7 @@ main.py
         └── PygameView     (src/view/pygame_view.py)       — graphical replay interface
               ├── GraphRenderer — draws hubs and connections
               ├── ReplayPlayer  — displays recorded turns and transit positions
-              └── Camera        — zoom, pan, world↔screen projection
+              └── CoordinateSystem — centered layout and fitting
 ```
 
 ---
@@ -70,7 +70,7 @@ Connection capacity is shared by both directions. A one-turn crossing consumes c
 
 `used_capacity` and `in_transit` describe different facts: a connection may have served two drones during a turn while containing none at its end. Recording before the next reset preserves both values. Snapshots contain no references to live hubs, connections or drone paths, so completing the simulation cannot rewrite earlier states.
 
-The views only interpret these records. A drone on a connection is between the two turns of a restricted move and arrives on the next turn; no transit counters are needed. The graphical view places it at the connection midpoint. Returning to an earlier turn restores its hub reservations and connection usage as well as drone positions. Fixed hub coordinates are calculated once when the replay opens; zoom and pan are applied during drawing.
+The views only interpret these records. A drone on a connection is between the two turns of a restricted move and arrives on the next turn; no transit counters are needed. The graphical view places it at the connection midpoint. Returning to an earlier turn restores its hub reservations and connection usage as well as drone positions. Centered hub coordinates are calculated once when replay opens and fitted to the window without interactive zoom or pan.
 
 **Zone movement costs:**
 
@@ -89,7 +89,7 @@ The simulation can run several searches for one drone in one turn. Its total run
 
 Dynamic rerouting allows drones to use alternative paths without precomputing every route. Processing drones sequentially keeps capacity checks straightforward, but makes results depend on processing order: a waiting drone is not reconsidered if another drone frees its destination later in the same turn. Static reachability does not prove that every possible fleet configuration will finish, and there is no general deadlock detector.
 
-For `T` turns, `N` drones and maximum remaining path length `L`, the complete history uses up to `O((T + 1) × (V + E + N × (L + 1)))` storage. This includes copies of the remaining paths. Both execution modes record the same states: `--view-desactivate` avoids the graphical window and Pygame import, but does not reduce history storage. There is no separate movement log.
+For `T` turns, `N` drones and maximum remaining path length `L`, the complete history uses up to `O((T + 1) × (V + E + N × (L + 1)))` storage. This includes copies of the remaining paths. Both execution modes record the same states: `--no-view` avoids the graphical window and Pygame import, but does not reduce history storage. There is no separate movement log.
 
 ---
 
@@ -122,7 +122,7 @@ Average turn counts are **4** for Easy, **10** for Medium and **18.33** for Hard
 - Python ≥ 3.10
 - [Poetry](https://python-poetry.org/) (dependency manager)
 - `make` for the Makefile commands
-- A working graphical display for Pygame replay; `--view-desactivate` also works without a display
+- A working graphical display for Pygame replay; `--no-view` also works without a display
 
 ### Install
 
@@ -147,17 +147,17 @@ poetry run python main.py assets/maps/hard/03_ultimate_challenge.txt
 poetry run python main.py assets/maps/challenger/01_the_impossible_dream.txt
 
 # Terminal only: no Pygame import or window; history is still recorded
-poetry run python main.py assets/maps/easy/01_linear_path.txt --view-desactivate
-make run MAP=assets/maps/easy/01_linear_path.txt ARGS=--view-desactivate
+poetry run python main.py assets/maps/easy/01_linear_path.txt --no-view
+make run MAP=assets/maps/easy/01_linear_path.txt ARGS=--no-view
 
 # Export movements to a text file
-poetry run python main.py assets/maps/easy/01_linear_path.txt --view-desactivate > movements.txt
+poetry run python main.py assets/maps/easy/01_linear_path.txt --no-view > movements.txt
 
 # Debug mode (pdb)
 make debug MAP=assets/maps/easy/01_linear_path.txt
 ```
 
-If no map argument is supplied, the program uses `assets/maps/easy/02_simple_fork.txt`. Add `--view-desactivate` to any direct command above to keep terminal output only.
+If no map argument is supplied, the program uses `assets/maps/easy/02_simple_fork.txt`. Add `--no-view` to any direct command above to keep terminal output only.
 
 Creating a `Controller` only prepares its configuration. Each call to `run()` starts a fresh simulation. Pygame is imported only for graphical execution.
 
@@ -168,7 +168,7 @@ controller = Controller("assets/maps/easy/01_linear_path.txt")
 controller.run(view_active=False)  # Terminal only; run() also opens the replay.
 ```
 
-For direct model usage, create `Simulation(graph)`, call `load_drones(count)`, then `frames = simulation.simulate()`. The returned list is also available as `simulation.recorder.frames`. Recording is always complete; the previous `record_replay` option and separate `movements_log` have been removed. `PygameView(frames)` can replay the result without access to the live graph.
+For direct model usage, create `Simulation(graph)`, call `load_drones(count)`, then `frames = simulation.simulate()`. The returned list is also available as `simulation.recorder.turn_states`. Recording is always complete; the previous `record_replay` option and separate `movements_log` have been removed. `PygameView(frames)` can replay the result without access to the live graph.
 
 Map reading or validation failures and expected Pygame errors are reported on standard error with an `Error:` prefix and exit code `1`. Keyboard interruption returns `130`. Pygame resources are released when the replay closes or an exception occurs.
 
@@ -301,9 +301,6 @@ All movements are printed in the terminal before the Pygame window opens at the 
 |---|---|
 | `←` / `→` | Previous / Next turn |
 | `R` | Return to the initial replay state |
-| `C` | Reset camera |
-| Mouse wheel | Zoom in / out (centered on cursor) |
-| Middle or right click + drag | Pan the view |
 | `ESC` | Quit |
 
 The display shows:
@@ -313,9 +310,9 @@ The display shows:
 - Drone positions for the selected turn, including intermediate restricted transit positions
 - Current turn and total turns in the overlay
 
-Stepping backward and forward helps inspect congestion and the two stages of restricted transit. For example, `0/2 +2 reserved` means that a hub is empty but both places are reserved by incoming drones. A connection labeled `2/2 (2 in transit)` used both slots and still carries two drones; `2/2` alone means both slots were used but no drone remains on the connection. Zoom and pan help explore larger graphs. When several drones share a hub, the replay draws the lowest drone ID as a representative and uses the occupancy label for the count.
+Stepping backward and forward helps inspect congestion and the two stages of restricted transit. For example, `0/2 +2 reserved` means that a hub is empty but both places are reserved by incoming drones. A connection labeled `2/2 (2 in transit)` used both slots and still carries two drones; `2/2` alone means both slots were used but no drone remains on the connection. The graph is automatically centered and fitted to the window. When several drones share a hub, the replay draws the lowest drone ID as a representative and uses the occupancy label for the count.
 
-The palette includes the colors used in the provided maps, including Spaghetti's `lightbrown`, `lightblue`, `teal` and `beige`. Unknown names use a light-gray fallback.
+The palette includes the colors used in the provided maps, including Spaghetti's `lightbrown`, `lightblue`, `teal` and `beige`. The `rainbow` color uses seven concentric circles. Unknown names use a light-gray fallback.
 
 ---
 
@@ -330,7 +327,7 @@ fly_in_v2/
 │   ├── controller/
 │   ├── model/          # Graph, entities, Simulation, Dijkstra, Recorder, complete turn states
 │   ├── parser/
-│   └── view/           # TerminalView, PygameView, GraphRenderer, ReplayPlayer, camera
+│   └── view/           # TerminalView, PygameView, GraphRenderer, ReplayPlayer
 ├── assets/
 │   └── maps/
 │       ├── easy/       (3 maps)
