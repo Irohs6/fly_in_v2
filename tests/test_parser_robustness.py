@@ -3,6 +3,7 @@ from pathlib import Path
 import pytest
 
 from src.parser.parser import ParseError, Parser
+from src.parser.validator import ValidatorError
 
 
 VALID_LINES = [
@@ -118,7 +119,7 @@ def test_invalid_connection(tmp_path: Path, edge: str) -> None:
 def test_connection_before_hub(tmp_path: Path, edge: str) -> None:
     lines = VALID_LINES.copy()
     lines.insert(2, f"connection: {edge}")
-    with pytest.raises(ParseError, match="Line 3:.*not yet defined"):
+    with pytest.raises(ValidatorError, match="Line 3:.*not yet defined"):
         make_parser(tmp_path, lines).parse()
 
 
