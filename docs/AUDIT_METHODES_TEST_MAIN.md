@@ -1,6 +1,6 @@
 # Fly-in — Audit intégral, méthode par méthode (test-main)
 
-**Base examinée :** `main` du 2 novembre 2026 (commit initial `4c1eeddfc1bda589d62c77bf7b5689f6def5c8fe`). Les corrections ont été appliquées uniquement à `test-main`. **Aucun push sur main.**
+**Branche de travail :** `test-main`. Base historique : commit `4c1eeddfc1bda589d62c77bf7b5689f6def5c8fe`. Les corrections auditées sont développées sur `test-main`. Le passage à `argparse` a d’abord été poussé par erreur sur `main` (`3246d28131dfdc44dbb5b9aea162af50edc3fb28`), puis reporté sur `test-main` avec la prise en charge de `ValidatorError`. Depuis cette décision, toutes les nouvelles modifications restent sur `test-main` jusqu’à la fusion finale.
 
 **Inventaire vérifié : 93 méthodes et fonctions explicites dans 18 fichiers applicatifs.** Chaque définition `def` a été comparée à l’index ci-dessous : aucune ne manque. L’audit inclut aussi les dataclasses, erreurs et branches rarement exécutées.
 
@@ -72,7 +72,7 @@ Pour chaque entrée : **signature effective du fichier**, paramètres, rôle/év
 
 | Méthode et paramètres | Rôle, analyse | Décision |
 |---|---|---|
-| [`main`](https://github.com/Irohs6/fly_in_v2/blob/test-main/main.py#L9) — `def main() -> int:` | Découpe les arguments CLI, choisit carte et vue, appelle le contrôleur, retourne un code de sortie ; ValidatorError est désormais attrapée à cette frontière. | **MODIFIÉ** |
+| [`main`](https://github.com/Irohs6/fly_in_v2/blob/test-main/main.py#L10) — `def main() -> int:` | `argparse` lit un unique `map_path` facultatif (carte par défaut), refuse les options inconnues et les cartes supplémentaires, gère `-h/--help` et `--no-view` (ancien alias `--view-desactivate`). Lance le contrôleur et intercepte `ValidatorError`, `ParseError`, les erreurs d'affichage/lecture et `KeyboardInterrupt`. | **MODIFIÉ** |
 
 ### `src/controller/controller.py` (2 méthodes)
 
@@ -271,6 +271,7 @@ Pour chaque entrée : **signature effective du fichier**, paramètres, rôle/év
 6. Tests de validateur adaptés ; fichier `tests/test_review_regressions.py` pour remontée d’erreur au CLI et seuil +2 sur le reroutage.
 7. Suppression de la méthode inutilisée `Dijkstra.distance_to` et de son assertion dans le test de priorité, sans affecter les autres contrôles de ce test.
 8. Workflow de contrôle sur la branche : `.github/workflows/test-main-audit.yml`.
+9. `main.py` : parsing artisanal remplacé par `argparse` ; suppression de la liste `map_paths`, une seule map positionnelle, option `--no-view` avec compatibilité `--view-desactivate`, et conservation de `ValidatorError` dans les exceptions interceptées.
 
 ## 5. Limites et défauts possibles non changés sans preuve
 
@@ -287,11 +288,11 @@ Pour chaque entrée : **signature effective du fichier**, paramètres, rôle/év
 
 Les tests ciblés et la suite complète sont lancés via le workflow GitHub Actions de `test-main` : `poetry run pytest -q`, `poetry run flake8 . --exclude=.venv`, puis `poetry run mypy` avec les drapeaux obligatoires. Les étapes doivent être vérifiées dans le run avant d’annoncer leur succès. Le terminal local de cette conversation ne peut pas résoudre github.com.
 
-Aucune modification de `main` n’est incluse dans cet audit. Le document, les tests et les corrections sont limités à la branche de travail.
+Cet audit documente le contenu de `test-main`. Exception historique : le changement `argparse` avait déjà été poussé sur `main` avant notre décision de travailler uniquement sur `test-main`. Il est maintenant aussi présent sur `test-main`, avec `ValidatorError` conservée. La mise à jour actuelle ne modifie pas `main`.
 
 ## 7. Résultats d’exécution confirmés sur GitHub Actions
 
-Le [workflow d’audit](https://github.com/Irohs6/fly_in_v2/actions/runs/41412098443) a exécuté directement le code de cette branche sur Python 3.13 :
+Avant l'intégration de `argparse`, le [workflow d’audit](https://github.com/Irohs6/fly_in_v2/actions/runs/41412098443) a exécuté la branche `test-main` sur Python 3.13 :
 
 - **205 tests pytest réussis** (1,72 s pour la phase pytest).
 - **11 cartes du dépôt terminées** sans Pygame, et toutes les sorties enregistrées sans erreur.
@@ -299,4 +300,4 @@ Le [workflow d’audit](https://github.com/Irohs6/fly_in_v2/actions/runs/4141209
 - **Flake8 réussi**.
 - **Mypy réussi** avec les options obligatoires : « Success: no issues found in 36 source files ».
 
-Ces résultats concernent les cas effectivement testés ; ils n’apportent pas une preuve de terminaison pour toutes les cartes possibles. Aucun push sur `main`.
+Ces résultats concernent le commit testé avant le changement CLI, pas encore le dernier commit de `test-main`. Ils ne prouvent pas la terminaison pour toutes les cartes possibles.
