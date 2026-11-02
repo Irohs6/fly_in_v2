@@ -20,6 +20,8 @@ jobs:
         run: poetry install --no-interaction
       - name: Run unit tests
         run: poetry run pytest -q
+      - name: Run all provided maps
+        run: poetry run python tests/test_all_maps_terminal.py --output-dir /tmp/flyin-audit-maps
       - name: Flake8
         run: poetry run flake8 . --exclude=.venv
       - name: Mypy
