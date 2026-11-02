@@ -154,39 +154,32 @@ main
 
 ### 01 — `main`
 
-**Source :** [`main.py`, ligne 9](https://github.com/Irohs6/fly_in_v2/blob/test-main/main.py#L9)
+**Source :** [`main.py`, ligne 10](https://github.com/Irohs6/fly_in_v2/blob/test-main/main.py#L10)
 
 ```python
 def main() -> int:
     """Parse command-line options and run the requested simulation mode."""
-    arguments = sys.argv[1:]
-    if "-h" in arguments or "--help" in arguments:
-        print(
-            "Usage: python main.py [map_path] [--view-desactivate]\n"
-            "Default map: assets/maps/easy/02_simple_fork.txt\n"
-            "--view-desactivate: print movements without graphical replay."
-        )
-        return 0
-
-    view_active = "--view-desactivate" not in arguments
-    map_paths = []
-    for argument in arguments:
-        if argument == "--view-desactivate":
-            continue
-        if argument.startswith("-"):
-            print(f"Error: unknown option {argument}.", file=sys.stderr)
-            return 2
-        map_paths.append(argument)
-
-    if len(map_paths) > 1:
-        print("Error: expected only one map path.", file=sys.stderr)
-        return 2
-    map_path = (
-        map_paths[0] if map_paths else "assets/maps/easy/02_simple_fork.txt"
+    parser = argparse.ArgumentParser(
+        description="Run a Fly-in drone simulation."
     )
+    parser.add_argument(
+        "map_path",
+        nargs="?",
+        default="assets/maps/easy/02_simple_fork.txt",
+        help="Path to the map file.",
+    )
+    parser.add_argument(
+        "--no-view",
+        "--view-desactivate",
+        dest="view_active",
+        action="store_false",
+        help="Print movements without graphical replay.",
+    )
+    arguments = parser.parse_args()
+
     try:
-        controller = Controller(map_path=map_path)
-        controller.run(view_active=view_active)
+        controller = Controller(map_path=arguments.map_path)
+        controller.run(view_active=arguments.view_active)
     except (OSError, ParseError, ValidatorError, DisplayError) as exc:
         print(f"Error: {exc}", file=sys.stderr)
         return 1
@@ -195,13 +188,14 @@ def main() -> int:
         return 130
 
     return 0
+
 ```
 
-**Lecture du code.** Le lancement prend `sys.argv[1:]` : l'index zéro est le nom du script. Les options d'aide font sortir avec `0`. La présence de `--view-desactivate` inverse `view_active`. La boucle sépare les chemins des options, refuse les options inconnues et plus d'une carte, puis choisit une carte par défaut. Le `try` crée le contrôleur et lance `run` ; les erreurs attendues affichent une seule ligne sur `stderr`, `KeyboardInterrupt` produit le code `130`.
+**Lecture du code.** `argparse.ArgumentParser` gère maintenant les arguments CLI. Le positionnel `map_path` (avec `nargs="?"`) accepte zéro ou **un** chemin ; sans argument, la carte par défaut est choisie. `parser.parse_args()` gère automatiquement `-h/--help`, les options inconnues et les arguments en trop. `--no-view` met `view_active` à `False` via `store_false` ; `--view-desactivate` reste un alias rétrocompatible. Le contrôleur lance la simulation. Les erreurs de lecture, parsing, validation et affichage produisent une seule ligne sur `stderr` avec retour `1` ; `KeyboardInterrupt` renvoie `130`. Les erreurs d'arguments sont gérées par `argparse` avec sortie `2` (et `SystemExit`), l'aide avec sortie `0`.
 
-**Variables, noms et cohérence.** `arguments` est lisible ; `args` serait plus idiomatique mais moins descriptif. **`map_paths` est une liste alors que l'application n'admet qu'un seul chemin** : un argument unique + compteur pourrait être plus simple, ou `argparse` plus évolutif mais plus lourd. `--view-desactivate` mélange anglais et forme inhabituelle de « désactiver » ; le changer impose de mettre à jour les tests, README et usages. Les `return 0/1/2/130` sont des codes de sortie, pas des tours de simulation.
+**Variables, noms et cohérence.** `map_paths` a été supprimée : une liste n'était pas justifiée pour une seule map. `arguments.map_path` est un `str` transmis tel quel à `Controller` ; `arguments.view_active` contrôle l'ouverture de Pygame. L'import `ValidatorError` et son interception restent voulus : `Parser.parse()` ne convertit plus cette erreur en `ParseError`.
 
-**Décision à prendre.** À discuter : supprimer `map_paths` ? Renommer l'option ? Garder le parsing artisanal plutôt qu'`argparse` ? Ne pas supprimer le `except ValidatorError` : c'est une décision explicite de la dernière revue.
+**Décision prise sur `test-main`.** Conserver `argparse` et la seule map positionnelle. Utiliser `--no-view` comme nom principal ; garder l'alias historique pendant la finalisation pour ne pas casser les tests ni les commandes du README. Éviter tout nouveau changement direct sur `main` avant la fusion finale.
 
 <a id="m002"></a>
 
