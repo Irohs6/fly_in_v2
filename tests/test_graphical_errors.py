@@ -94,6 +94,7 @@ def test_cli_with_unavailable_video_driver(terminal_only: bool) -> None:
         assert len(result.stderr.splitlines()) == 1
         assert "Traceback" not in result.stderr
 
+
 def test_rainbow_hub_draws_concentric_colored_circles() -> None:
     pygame.font.init()
     try:
