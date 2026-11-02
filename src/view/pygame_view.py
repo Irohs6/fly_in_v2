@@ -4,7 +4,6 @@ from src.model.state import TurnState
 from src.view.errors import DisplayError
 from src.view.graph_renderer import GraphRenderer
 from src.view.replay_player import ReplayPlayer
-from src.view.utils.camera import Camera
 from src.view.utils.coordinate_system import CoordinateSystem
 
 
@@ -58,12 +57,12 @@ class PygameView:
 
         clock = pygame.time.Clock()
 
-        camera = Camera()
-
         coord = CoordinateSystem(
             cell_size=self.CELL_SIZE
         )
-        positions = coord.compute(self.replay_frames[0].hubs.values())
+        world_positions = coord.compute(
+            self.replay_frames[0].hubs.values()
+        )
 
         renderer = GraphRenderer(
             screen=screen,
@@ -79,80 +78,43 @@ class PygameView:
         while running:
             clock.tick(60)
 
-            screen_w, screen_h = (
-                screen.get_size()
-            )
-
             for event in pygame.event.get():
-
                 if event.type == pygame.QUIT:
                     running = False
-                    continue
-
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_ESCAPE:
-                        running = False
-
-                    elif event.key == pygame.K_c:
-                        camera.reset()
-
-                elif event.type == pygame.MOUSEWHEEL:
-                    mouse_x, mouse_y = (
-                        pygame.mouse.get_pos()
-                    )
-
-                    factor = (
-                        1.15
-                        if event.y > 0
-                        else 1 / 1.15
-                    )
-
-                    camera.apply_zoom(
-                        mouse_x,
-                        mouse_y,
-                        screen_w,
-                        screen_h,
-                        factor,
-                    )
-
                 elif (
-                    event.type
-                    == pygame.MOUSEBUTTONDOWN
-                    and event.button in (2, 3)
+                    event.type == pygame.KEYDOWN
+                    and event.key == pygame.K_ESCAPE
                 ):
-                    camera.start_drag(
-                        event.pos[0],
-                        event.pos[1],
-                    )
-
-                elif (
-                    event.type
-                    == pygame.MOUSEBUTTONUP
-                    and event.button in (2, 3)
-                ):
-                    camera.end_drag()
-
-                elif event.type == pygame.MOUSEMOTION:
-                    camera.drag(
-                        event.pos[0],
-                        event.pos[1],
-                    )
+                    running = False
 
                 replay.handle_event(event)
 
+            screen_w, screen_h = screen.get_size()
+            max_x = max(
+                (abs(x) for x, _ in world_positions.values()),
+                default=0.0,
+            )
+            max_y = max(
+                (abs(y) for _, y in world_positions.values()),
+                default=0.0,
+            )
+            scale = min(
+                1.0,
+                (screen_w - 160) / (2 * max_x) if max_x else 1.0,
+                (screen_h - 160) / (2 * max_y) if max_y else 1.0,
+            )
+            scale = max(0.0, scale)
+            positions = {
+                name: (
+                    int(screen_w / 2 + x * scale),
+                    int(screen_h / 2 + y * scale),
+                )
+                for name, (x, y) in world_positions.items()
+            }
+
             frame = replay.frames[replay.current_index]
-            renderer.draw(camera, frame, positions)
-
-            replay.draw(
-                screen,
-                camera,
-                font_small,
-                positions,
-            )
-
-            replay.draw_overlay(
-                screen,
-                font_small,
-            )
+            renderer.draw(frame, positions)
+            replay.draw(screen, font_small, positions)
+            replay.draw_overlay(screen, font_small)
 
             pygame.display.flip()

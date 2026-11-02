@@ -13,7 +13,6 @@ from src.parser.parser import Parser
 from src.view.graph_renderer import GraphRenderer
 from src.view.replay_player import ReplayPlayer
 from src.view.terminal import TerminalView
-from src.view.utils.camera import Camera
 from src.view.utils.coordinate_system import CoordinateSystem
 
 
@@ -148,8 +147,11 @@ def test_visual_labels_follow_selected_turn(tmp_path: Path) -> None:
         for turn in (1, 2, 0, 1):
             font.reset_mock()
             frame = frames[turn]
-            positions = coord.compute(frame.hubs.values())
-            renderer.draw(Camera(), frame, positions)
+            positions = {
+                name: (int(x + 500), int(y + 300))
+                for name, (x, y) in coord.compute(frame.hubs.values()).items()
+            }
+            renderer.draw(frame, positions)
             labels = [call.args[0] for call in font.render.call_args_list]
             if turn == 1:
                 assert "0/2 +2 reserved" in labels

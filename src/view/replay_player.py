@@ -1,7 +1,6 @@
 import pygame
 
 from src.model.state import DroneState, TurnState
-from src.view.utils.camera import Camera
 
 
 class ReplayPlayer:
@@ -86,18 +85,12 @@ class ReplayPlayer:
     def draw(
         self,
         screen: pygame.Surface,
-        camera: Camera,
         font: pygame.font.Font,
         hub_positions: dict[str, tuple[float, float]],
     ) -> None:
-        """Draw drones in the selected frame. Show the lowest drone ID per
-        hub and every drone in transit. Convert world positions to screen
-        positions using the camera.
-        """
+        """Draw one representative per hub and all drones in transit."""
         if not self.frames:
             return
-
-        screen_w, screen_h = screen.get_size()
 
         current_frame = self.frames[
             self.current_index
@@ -123,12 +116,7 @@ class ReplayPlayer:
                 state, hub_positions,
             )
 
-            screen_position = camera.world_to_screen(
-                position[0],
-                position[1],
-                screen_w,
-                screen_h,
-            )
+            screen_position = (int(position[0]), int(position[1]))
 
             self._draw_drone(
                 screen,

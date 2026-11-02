@@ -11,7 +11,6 @@ from src.model.state import DroneState, TurnState
 from src.model.simulation import Simulation
 from src.parser.parser import Parser
 from src.view.replay_player import ReplayPlayer
-from src.view.utils.camera import Camera
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -99,6 +98,6 @@ def test_replay_draws_lowest_id_per_hub_and_all_transits() -> None:
     screen = Mock()
     screen.get_size.return_value = (800, 600)
     with patch.object(replay, "_draw_drone") as draw:
-        replay.draw(screen, Camera(), Mock(),
+        replay.draw(screen, Mock(),
                     {"a": (0.0, 0.0), "b": (10.0, 0.0)})
     assert [call.args[2] for call in draw.call_args_list] == [2, 4, 3, 6]
