@@ -29,6 +29,11 @@ class HubState:
     nb_drones: int
     reserved: int
 
+    @property
+    def used_capacity(self) -> int:
+        """Return occupied and reserved slots for this recorded hub."""
+        return self.nb_drones + self.reserved
+
 
 @dataclass(frozen=True)
 class ConnectionState:

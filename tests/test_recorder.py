@@ -51,6 +51,7 @@ def test_complete_turn_keeps_capacity_usage_before_reset(
     assert frames[0] == initial
     assert initial.moved_drones == ()
     assert initial.hubs["start"].nb_drones == 3
+    assert initial.hubs["start"].used_capacity == 3
     assert initial.hubs["start"].capacity == float("inf")
     assert initial.drones[1].path == ("a", "goal")
     assert initial.connections[edge].used_capacity == 0
@@ -65,6 +66,7 @@ def test_complete_turn_keeps_capacity_usage_before_reset(
     assert first.connections[edge].in_transit == (2 if restricted else 0)
     assert first.hubs["a"].nb_drones == (0 if restricted else 2)
     assert first.hubs["a"].reserved == (2 if restricted else 0)
+    assert first.hubs["a"].used_capacity == 2
     assert first.drones[3].status == "waiting"
     assert first.drones[3].current_position == "start"
     assert first.drones[1].previous_zone == "start"

@@ -2,7 +2,7 @@
 
 **Branche de travail :** `test-main`. Base historique : commit `4c1eeddfc1bda589d62c77bf7b5689f6def5c8fe`. Les corrections auditées sont développées sur `test-main`. Le passage à `argparse` a d’abord été poussé par erreur sur `main` (`3246d28131dfdc44dbb5b9aea162af50edc3fb28`), puis reporté sur `test-main` avec la prise en charge de `ValidatorError`. Depuis cette décision, toutes les nouvelles modifications restent sur `test-main` jusqu’à la fusion finale.
 
-**Inventaire vérifié : 83 méthodes et fonctions explicites dans 17 fichiers applicatifs.** Chaque définition `def` a été comparée à l’index ci-dessous : aucune ne manque. L’audit inclut aussi les dataclasses, erreurs et branches rarement exécutées.
+**Inventaire vérifié : 84 méthodes et fonctions explicites dans 18 fichiers applicatifs.** Chaque définition `def` a été comparée à l’index ci-dessous : aucune ne manque. L’audit inclut aussi les dataclasses, erreurs et branches rarement exécutées.
 
 ## 1. Chemin réel des appels depuis main
 
@@ -239,7 +239,7 @@ Les classes `ConnectionError` et `HubError` héritent directement d'`Exception`.
 - `HubDict`, `ConnectionDict`, `ParsedMap` : `TypedDict` du parser, typent l’interface avant création du Graph ; pas de code exécuté dans ces classes.
 - `ParseError` : erreur syntaxique, fichier, métadonnées, nombre ; levée par Parser.
 - `ValidatorError` : erreur de structure et de route (doublons, zone invalide, lien inconnu, non-accessibilité) ; levée par MapValidator, **non transformée par Parser.parse**.
-- `src/model/state.py` : `DroneState`, `HubState`, `ConnectionState`, `TurnState` sont quatre dataclasses `frozen=True` utilisées par Recorder et les vues. Elles n’ont pas de méthode définie explicitement ; `__init__` et `__repr__` sont générées par Python. Toutes conservées.
+- `src/model/state.py` : `DroneState`, `HubState`, `ConnectionState`, `TurnState` sont quatre dataclasses `frozen=True` utilisées par Recorder et les vues. `HubState` expose désormais la propriété calculée `used_capacity = nb_drones + reserved` ; les autres dataclasses n’ont pas de méthode définie explicitement. `__init__` et `__repr__` sont générées par Python. Toutes conservées.
 - `DisplayError` : exception de couche présentation, reportée à main.
 - `src/view/__init__.py` : `PYGAME_HIDE_SUPPORT_PROMPT=1` est un effet volontaire de l’import pour protéger la sortie terminale.
 - `if __name__ == "__main__"` : transmet correctement le retour de `main()` à `SystemExit`.
@@ -317,3 +317,7 @@ Dans `Recorder`, l'attribut `self.frames` est renommé `self.turn_states` : il s
 ## 12. Nommage des connexions — 2 novembre 2026
 
 Chaque `Connection` expose désormais `name` au format `source-target`, comme les hubs exposent `name`. `Recorder.record` le recopie dans `ConnectionState.name`, afin que les vues lisent directement `frame.connections[...].name` sans reconstituer le nom à partir des extrémités. Aucun changement aux capacités, aux itinéraires ni à la sortie normale.
+
+## 13. Capacité totale du HubState — live coding
+
+Ajout sur `main` de la propriété `HubState.used_capacity`, calculée avec `nb_drones + reserved`. `ConnectionState.used_capacity` existe déjà. Les deux états enregistrés possèdent donc `name`, `capacity` et `used_capacity`, sans changer `TerminalView` ni implémenter `--capacity-info` à l'avance.

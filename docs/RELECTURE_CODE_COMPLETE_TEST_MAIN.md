@@ -2,11 +2,11 @@
 
 > **Objectif : te réapproprier le projet**, relire chaque ligne et retrouver les choix techniques. Ce n'est pas un bulletin de notes ni une proposition de refonte automatique. Les corrections décidées lors de la relecture ont été appliquées à `test-main` ; les autres idées restent des questions à trancher.
 
-**Source exacte :** branche [`test-main`](https://github.com/Irohs6/fly_in_v2/tree/test-main), état du 2 novembre 2026 après suppression de `Camera` et ajout du rendu `rainbow`. **83 méthodes/fonctions explicites dans 17 fichiers applicatifs.** Tous les extraits ci-dessous ont été vérifiés contre leurs définitions réelles, y compris les méthodes avec décorateur et les signatures sur plusieurs lignes. Les structures sans méthode explicite et classes d'erreurs sont présentées à part.
+**Source exacte :** branche [`test-main`](https://github.com/Irohs6/fly_in_v2/tree/test-main), état du 2 novembre 2026 après suppression de `Camera` et ajout du rendu `rainbow`. **84 méthodes/fonctions explicites dans 18 fichiers applicatifs.** Tous les extraits ci-dessous ont été vérifiés contre leurs définitions réelles, y compris les méthodes avec décorateur et les signatures sur plusieurs lignes. Les structures sans méthode explicite et classes d'erreurs sont présentées à part.
 
 ## Comment lire le document
 
-Pour **chacune** des 83 méthodes : tu disposes du **code complet vérifié contre le fichier source actuel**, du fichier GitHub d'origine et de la ligne, d'une explication des paramètres/variables et des décisions à discuter. L'ordre suit un **parcours des appels depuis `main()`** : quand une méthode appelle une autre méthode du projet, on descend dans l'appel ; quand elle est déjà étudiée, on ne reproduit pas une deuxième fois son code. Les chemins alternatifs (déclarations de carte, transit restricted, reroutage, événements Pygame) sont placés à la suite de leur point d'entrée. Les méthodes implicites `__str__`, `__repr__` et les exceptions sont à la fin. **Ce n'est pas un ordre chronologique unique valable pour toutes les cartes**, car le flux dépend de l'entrée, des capacités et des événements utilisateur.
+Pour **chacune** des 84 méthodes : tu disposes du **code complet vérifié contre le fichier source actuel**, du fichier GitHub d'origine et de la ligne, d'une explication des paramètres/variables et des décisions à discuter. L'ordre suit un **parcours des appels depuis `main()`** : quand une méthode appelle une autre méthode du projet, on descend dans l'appel ; quand elle est déjà étudiée, on ne reproduit pas une deuxième fois son code. Les chemins alternatifs (déclarations de carte, transit restricted, reroutage, événements Pygame) sont placés à la suite de leur point d'entrée. Les méthodes implicites `__str__`, `__repr__` et les exceptions sont à la fin. **Ce n'est pas un ordre chronologique unique valable pour toutes les cartes**, car le flux dépend de l'entrée, des capacités et des événements utilisateur.
 
 **À bien distinguer :** `ParseError` = erreur de lecture/syntaxe ; `ValidatorError` = carte syntaxiquement lisible mais structurellement invalide ; `HubError`/`ConnectionError` = invariants du modèle ; `DisplayError` = interface. `main` capte les erreurs attendues.
 
@@ -108,6 +108,7 @@ Pour **chacune** des 83 méthodes : tu disposes du **code complet vérifié cont
 - [81 — `Connection.__repr__`](#m081)
 - [82 — `Hub.__str__`](#m082)
 - [83 — `Hub.__repr__`](#m083)
+- [84 — `HubState.used_capacity`](#m084)
 
 ## Schéma du parcours principal
 
@@ -2995,11 +2996,30 @@ def main() -> int:
 
 **Décision à prendre.** À discuter : nécessité de deux méthodes spéciales pour un projet scolaire.
 
-## VIII. Les classes qui ne définissent pas de méthode explicite
+<a id="m084"></a>
+
+### 84 — `HubState.used_capacity`
+
+**Source :** [`src/model/state.py`, ligne 33](https://github.com/Irohs6/fly_in_v2/blob/main/src/model/state.py#L33)
+
+```python
+    @property
+    def used_capacity(self) -> int:
+        """Return occupied and reserved slots for this recorded hub."""
+        return self.nb_drones + self.reserved
+```
+
+**Lecture du code.** Expose l'occupation totale d'un hub enregistré comme une propriété calculée : drones présents + places réservées pour les transits restricted. `ConnectionState` possède déjà un champ `used_capacity`. Les vues pourront lire `element.used_capacity` pour les deux sans copier les compteurs.
+
+**Variables, noms et cohérence.** Aucun stockage supplémentaire ; le résultat est calculé à chaque accès et reste cohérent avec le snapshot `frozen=True`. `@property` permet l'accès sans parenthèses.
+
+**Décision prise sur `main`.** Ajout pour préparer le live coding `--capacity-info`, sans ajouter le flag ni modifier le terminal.
+
+## VIII. Structures de données et classes sans logique applicative
 
 Les `TypedDict` `HubDict`, `ConnectionDict` et `ParsedMap` dans `parser.py` définissent la **forme des dictionnaires**. `Parser` fabrique ces structures, `MapValidator` les valide, `Graph` les transforme en vrais objets. Elles ne possèdent pas de méthode applicative : inutile d'inventer un objet `Hub` dans le parser.
 
-`src/model/state.py` contient quatre `@dataclass(frozen=True)` : `DroneState` (position/état/chemin), `HubState` (coordonnées/occupation/réservations), `ConnectionState` (nom de connexion/usage/transit) et `TurnState` (ensemble d'un tour, avec `moved_drones`). Elles sont créées par `Recorder.record` et lues par les vues. Elles **n'ont aucune méthode `def` écrite dans le fichier**, Python génère certaines méthodes spéciales. Leur `frozen=True` ne rend pas immuables les dictionnaires contenues dans `TurnState`.
+`src/model/state.py` contient quatre `@dataclass(frozen=True)` : `DroneState` (position/état/chemin), `HubState` (coordonnées/occupation/réservations), `ConnectionState` (nom de connexion/usage/transit) et `TurnState` (ensemble d'un tour, avec `moved_drones`). Elles sont créées par `Recorder.record` et lues par les vues. Seule `HubState` définit désormais la propriété calculée `used_capacity` ; les autres dataclasses n'ont pas de méthode applicative explicite. Python génère également certaines méthodes spéciales. Leur `frozen=True` ne rend pas immuables les dictionnaires contenues dans `TurnState`.
 
 `ParseError`, `ValidatorError`, `DisplayError`, `ConnectionError` et `HubError` sont des classes d'exception sans constructeur spécifique. Les deux dernières gardent leur rôle d'exception métier pour les opérations sur `Connection` et `Hub`. Tous les appels relevés fournissent un message explicite.
 
@@ -3028,10 +3048,10 @@ Le `src/view/__init__.py` configure `PYGAME_HIDE_SUPPORT_PROMPT=1` pour éviter 
 **Mise à jour des signatures (2 novembre 2026) :** les méthodes utilisées uniquement à l'intérieur de leur classe ont désormais un préfixe double `__`, avec name mangling Python. `Drone.move_to_hub(hub)`, `Connection.occupy_for_turn()`, `Drone.finish_transit()` et la condition `Hub.remove_drone()` ont été mis à jour. Les extraits des méthodes modifiées reproduisent la version courante de `test-main`.
 
 
-**Simplification effectuée :** `ConnectionError.__init__` et `HubError.__init__` ont été supprimés après vérification des appels. Les classes métier restent définies dans `src/model/errors.py` avec un simple `pass`. Le présent inventaire recense donc **83 méthodes**, et les sections 84 et 85 précédentes n'ont plus lieu d'être. La vérification automatisée citée plus bas ne couvre pas encore cette suppression.
+**Simplification effectuée :** `ConnectionError.__init__` et `HubError.__init__` ont été supprimés après vérification des appels. Les classes métier restent définies dans `src/model/errors.py` avec un simple `pass`. Après cette suppression, l'inventaire recensait **83 méthodes**. La propriété `HubState.used_capacity`, ajoutée ensuite sur `main`, porte le total actuel à **84**. La vérification automatisée citée plus bas ne couvre pas encore cette suppression.
 
 
-**Actualisation du 2 novembre 2026 :** suppression des huit méthodes de caméra et du module `camera.py` ; l'inventaire comptait alors 85 méthodes, puis 83 après suppression des deux constructeurs d'exceptions. La fenêtre ajuste automatiquement les positions au cadre, sans zoom/pan. `rainbow` est dessiné par sept disques concentriques. Les six méthodes d'affichage modifiées figurent ci-dessus avec leur code réel.
+**Actualisation du 2 novembre 2026 :** suppression des huit méthodes de caméra et du module `camera.py` ; l'inventaire comptait alors 85 méthodes, puis 83 après suppression des deux constructeurs d'exceptions, et désormais 84 avec `HubState.used_capacity`. La fenêtre ajuste automatiquement les positions au cadre, sans zoom/pan. `rainbow` est dessiné par sept disques concentriques. Les six méthodes d'affichage modifiées figurent ci-dessus avec leur code réel.
 
 
 Le [dernier workflow de vérification après les modifications graphiques](https://github.com/Irohs6/fly_in_v2/actions/runs/41425411792) a réussi : **206 tests**, **11 cartes sur 11**, **Flake8 et mypy sans erreur** (35 fichiers Python vérifiés). Cela couvre les tests exécutés, pas tous les graphes possibles.
