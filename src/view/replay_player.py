@@ -1,3 +1,5 @@
+from collections.abc import Mapping
+
 import pygame
 
 from src.model.state import DroneState, TurnState
@@ -71,7 +73,7 @@ class ReplayPlayer:
     def _state_position(
         self,
         state: DroneState,
-        hub_positions: dict[str, tuple[float, float]],
+        hub_positions: Mapping[str, tuple[float, float]],
     ) -> tuple[float, float]:
         """Return the hub position or midpoint of a restricted transit."""
         position = state.current_position
@@ -86,7 +88,7 @@ class ReplayPlayer:
         self,
         screen: pygame.Surface,
         font: pygame.font.Font,
-        hub_positions: dict[str, tuple[float, float]],
+        hub_positions: Mapping[str, tuple[float, float]],
     ) -> None:
         """Draw one representative per hub and all drones in transit."""
         if not self.frames:
