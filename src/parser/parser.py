@@ -184,7 +184,9 @@ class Parser:
                 f"Line {line_number}: duplicate metadata: "
                 "capacity is already defined."
             )
-        capacity_raw = meta.get("max_link_capacity") or meta.get("capacity") or "1"
+        capacity_raw = (
+            meta.get("max_link_capacity") or meta.get("capacity") or "1"
+        )
         capacity = self._parse_integer(
             capacity_raw, line_number, "capacity", positive=True,
         )
