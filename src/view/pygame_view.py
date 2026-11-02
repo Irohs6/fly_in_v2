@@ -28,7 +28,7 @@ class PygameView:
         Other exceptions propagate after cleanup.
         """
         try:
-            self._display_replay()
+            self.__display_replay()
         except pygame.error as exc:
             raise DisplayError(
                 f"Cannot display graphical replay: {exc}"
@@ -36,7 +36,7 @@ class PygameView:
         finally:
             pygame.quit()
 
-    def _display_replay(self) -> None:
+    def __display_replay(self) -> None:
         """Initialize the window and run the interactive replay loop."""
         if not self.replay_frames:
             return

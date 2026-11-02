@@ -86,7 +86,7 @@ def test_reroute_cost_threshold(
     assert direct is not None
     direct.use_capacity()
 
-    assert simulation._move_or_wait(drone) is reroutes
+    assert simulation._Simulation__move_or_wait(drone) is reroutes
     if reroutes:
         assert drone.current_position is graph.hubs["x0"]
     else:
@@ -95,5 +95,5 @@ def test_reroute_cost_threshold(
         assert drone.path == [graph.end_hub]
 
         direct.used_capacity = 0
-        assert simulation._move_or_wait(drone) is True
+        assert simulation._Simulation__move_or_wait(drone) is True
         assert drone.current_position is graph.end_hub

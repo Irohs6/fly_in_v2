@@ -26,7 +26,7 @@ class ReplayPlayer:
 
         self.current_index = 0
 
-    def _drone_color(
+    def __drone_color(
         self,
         drone_id: int,
     ) -> tuple[int, int, int]:
@@ -70,7 +70,7 @@ class ReplayPlayer:
         """Reset the selection to the beginning of the replay."""
         self.current_index = 0
 
-    def _state_position(
+    def __state_position(
         self,
         state: DroneState,
         hub_positions: Mapping[str, tuple[float, float]],
@@ -114,20 +114,20 @@ class ReplayPlayer:
             ):
                 continue
 
-            position = self._state_position(
+            position = self.__state_position(
                 state, hub_positions,
             )
 
             screen_position = (int(position[0]), int(position[1]))
 
-            self._draw_drone(
+            self.__draw_drone(
                 screen,
                 screen_position,
                 drone_id,
                 font,
             )
 
-    def _draw_drone(
+    def __draw_drone(
         self,
         screen: pygame.Surface,
         position: tuple[int, int],
@@ -135,7 +135,7 @@ class ReplayPlayer:
         font: pygame.font.Font,
     ) -> None:
         """Draw a colored triangle and the drone ID at a screen position."""
-        color = self._drone_color(drone_id)
+        color = self.__drone_color(drone_id)
 
         size = 10
 

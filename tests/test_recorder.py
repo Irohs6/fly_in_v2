@@ -133,7 +133,7 @@ def test_replay_places_transit_at_connection_midpoint(
 ) -> None:
     state = DroneState(edge, "a", ("b",), "in_transit")
     positions = {"a": (0.0, 0.0), "b": (100.0, 20.0)}
-    assert ReplayPlayer([])._state_position(state, positions) == (50.0, 10.0)
+    assert ReplayPlayer([])._ReplayPlayer__state_position(state, positions) == (50.0, 10.0)
 
 
 def test_visual_labels_follow_selected_turn(tmp_path: Path) -> None:
