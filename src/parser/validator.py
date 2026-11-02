@@ -2,7 +2,7 @@ from collections import deque
 from .parser import ConnectionDict, HubDict
 
 
-class ValidationError(Exception):
+class ValidatorError(Exception):
     """Error while validating map data."""
     pass
 
@@ -45,7 +45,7 @@ class MapValidator:
         for hub, line in self.hub_entries:
             zone_type = hub["zone_type"]
             if zone_type not in self.VALID_ZONE_TYPES:
-                raise ValidationError(
+                raise ValidatorError(
                     f"Line {line}: invalid zone type '{zone_type}' "
                     f"for hub {hub['name']!r}"
                 )
@@ -57,7 +57,7 @@ class MapValidator:
             name = hub["name"]
             if name in names:
                 first_line = names[name]
-                raise ValidationError(
+                raise ValidatorError(
                     f"Line {line}: duplicate hub name: {name!r} "
                     f"(already defined on line {first_line})"
                 )
@@ -65,7 +65,7 @@ class MapValidator:
 
     def _check_connection_endpoints(self) -> None:
         """Verify that each endpoint exists and precedes its connection.
-        Raise ValidationError for unknown hubs or late declarations.
+        Raise ValidatorError for unknown hubs or late declarations.
         """
         definition_lines = {
             hub["name"]: line for hub, line in self.hub_entries
@@ -73,12 +73,12 @@ class MapValidator:
         for connection, line in self.connection_entries:
             for endpoint in (connection["source"], connection["target"]):
                 if endpoint not in definition_lines:
-                    raise ValidationError(
+                    raise ValidatorError(
                         f"Line {line}: connection references unknown hub: "
                         f"{endpoint!r}"
                     )
                 if definition_lines[endpoint] >= line:
-                    raise ValidationError(
+                    raise ValidatorError(
                         f"Line {line}: hub {endpoint!r} not yet defined "
                         f"(defined on line {definition_lines[endpoint]})."
                     )
@@ -99,7 +99,7 @@ class MapValidator:
             if pair in checked_conn:
                 first_line = checked_conn[pair]
 
-                raise ValidationError(
+                raise ValidatorError(
                     f"Line {line}: "
                     f"Duplicate connection between "
                     f"{pair[0]} and {pair[1]} "
@@ -145,7 +145,7 @@ class MapValidator:
             line for hub, line in self.hub_entries
             if hub is self.end_hub
         )
-        raise ValidationError(
+        raise ValidatorError(
             f"Line {end_line}: no traversable path "
             f"between {start!r} and {end!r} (blocked hubs excluded)."
         )
