@@ -8,9 +8,11 @@ import pygame
 import pytest
 
 from src.model.graph import Graph
+from src.model.state import HubState
 from src.model.simulation import Simulation
 from src.parser.parser import Parser
 from src.view.errors import DisplayError
+from src.view.graph_renderer import HubRenderer
 from src.view.pygame_view import PygameView
 
 
@@ -91,3 +93,25 @@ def test_cli_with_unavailable_video_driver(terminal_only: bool) -> None:
         )
         assert len(result.stderr.splitlines()) == 1
         assert "Traceback" not in result.stderr
+
+def test_rainbow_hub_draws_concentric_colored_circles() -> None:
+    pygame.font.init()
+    try:
+        hub = HubState(
+            name="rainbow", x=0, y=0, color="rainbow",
+            zone_type="normal", capacity=1, nb_drones=0, reserved=0,
+        )
+        screen = pygame.Surface((200, 200))
+        renderer = HubRenderer(pygame.font.Font(None, 20))
+        with patch("src.view.graph_renderer.pygame.draw.circle") as draw:
+            renderer.draw(screen, hub, (100, 100))
+
+        circles = draw.call_args_list
+        colors = [call.args[1] for call in circles[:-1]]
+        radii = [call.args[3] for call in circles[:-1]]
+        assert colors == list(HubRenderer.RAINBOW_COLORS)
+        assert radii == sorted(radii, reverse=True)
+        assert all(radius > 0 for radius in radii)
+        assert len(circles) == len(HubRenderer.RAINBOW_COLORS) + 1
+    finally:
+        pygame.font.quit()
