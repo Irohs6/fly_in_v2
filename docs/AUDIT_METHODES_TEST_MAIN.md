@@ -2,7 +2,7 @@
 
 **Base examinée :** `main` du 2 novembre 2026 (commit initial `4c1eeddfc1bda589d62c77bf7b5689f6def5c8fe`). Les corrections ont été appliquées uniquement à `test-main`. **Aucun push sur main.**
 
-**Inventaire vérifié : 94 méthodes et fonctions explicites dans 18 fichiers applicatifs.** Chaque définition `def` a été comparée à l’index ci-dessous : aucune ne manque. L’audit inclut aussi les dataclasses, erreurs et branches rarement exécutées.
+**Inventaire vérifié : 93 méthodes et fonctions explicites dans 18 fichiers applicatifs.** Chaque définition `def` a été comparée à l’index ci-dessous : aucune ne manque. L’audit inclut aussi les dataclasses, erreurs et branches rarement exécutées.
 
 ## 1. Chemin réel des appels depuis main
 
@@ -161,7 +161,6 @@ Pour chaque entrée : **signature effective du fichier**, paramètres, rôle/év
 | [`Dijkstra.__init__`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/pathfinder.py#L10) — `def __init__(self, graph: Graph):` | Stocke l’instance de Graph ; ne recherche rien lors de l’initialisation. | **CONSERVER** |
 | [`Dijkstra.shortest_distances`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/pathfinder.py#L14) — `def shortest_distances( self, source: Hub, blocked_hubs: set[Hub] \| None = None, saturated_connections: set[tuple[Hub, Hub]] \| None = None, ) -> tuple[dict[Hub, float], dict[Hub, Hub \| None]]:` | Dijkstra à tas, filtrage hubs blocked/occupés et connexions saturées, préférence priority à coût égal. | **CONSERVER** |
 | [`Dijkstra.shortest_path`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/pathfinder.py#L96) — `def shortest_path( self, source: Hub \| None = None, blocked_hubs: set[Hub] \| None = None, saturated_connections: set[tuple[Hub, Hub]] \| None = None, ) -> list[Hub]:` | Reconstruit depuis predecessors jusqu’à end ; chemin vide si end inaccessible. | **CONSERVER** |
-| [`Dijkstra.distance_to`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/pathfinder.py#L133) — `def distance_to(self, source: Hub, target: Hub) -> float:` | Fournit coût source-cible via shortest_distances ; méthode utilisée dans les tests et diagnostics. | **CONSERVER** |
 
 ### `src/model/simulation.py` (9 méthodes)
 
@@ -270,7 +269,8 @@ Pour chaque entrée : **signature effective du fichier**, paramètres, rôle/év
 4. `Graph.__init__` : retrait d’une expression chaîne sans effet et repositionnement de la docstring.
 5. `Makefile` : deux commandes distinctes dans `lint-strict`, afin qu’un échec de Flake8 ne soit pas masqué.
 6. Tests de validateur adaptés ; fichier `tests/test_review_regressions.py` pour remontée d’erreur au CLI et seuil +2 sur le reroutage.
-7. Workflow de contrôle sur la branche : `.github/workflows/test-main-audit.yml`.
+7. Suppression de la méthode inutilisée `Dijkstra.distance_to` et de son assertion dans le test de priorité, sans affecter les autres contrôles de ce test.
+8. Workflow de contrôle sur la branche : `.github/workflows/test-main-audit.yml`.
 
 ## 5. Limites et défauts possibles non changés sans preuve
 
@@ -281,7 +281,7 @@ Pour chaque entrée : **signature effective du fichier**, paramètres, rôle/év
 - **Fenêtre** : dimension initiale 0×0 utilisée avec `pygame.RESIZABLE` ; comportement SDL dépendant de la plateforme ; pas de modification aveugle.
 - **Couleurs** : les noms de couleur hors palette choisie sont affichés en couleur de repli, non fidèlement.
 - **Dépendance circulaire contrôlée** : `validator.py` importe les TypedDict du parser ; l’import de `MapValidator` est donc volontairement local à `Parser.parse`. Le déplacer sans extraire les types casserait le chargement.
-- **Aucune suppression de `Dijkstra.distance_to`** : bien qu’absent du chemin nominal, il est utilisé par des tests et par l’API de diagnostic.
+- **Suppression de `Dijkstra.distance_to`** : aucune utilisation par l'application. L'unique assertion dédiée a été supprimée de `tests/test_submission_regressions.py` sans remplacer sa vérification. Les contrôles du choix de chemin et de la durée des simulations dans ce test sont maintenus.
 
 ## 6. Vérification et critères
 
