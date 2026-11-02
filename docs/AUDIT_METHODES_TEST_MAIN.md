@@ -10,49 +10,49 @@
 main.main
  └ Controller.__init__ ; Controller.run
     └ Parser.__init__ ; Parser.parse
-       └ Parser.read_file (pour chaque ligne)
-          └ Parser.parse_line
-             ├ Parser._parse_integer (nb_drones)
-             ├ Parser.parse_hub -> _parse_integer (x,y,capacité)
-             │                   -> parse_metadata
-             └ Parser.parse_connection -> parse_metadata -> _parse_integer
+       └ Parser.__read_file (pour chaque ligne)
+          └ Parser.__parse_line
+             ├ Parser.__parse_integer (nb_drones)
+             ├ Parser.__parse_hub -> __parse_integer (x,y,capacité)
+             │                   -> __parse_metadata
+             └ Parser.__parse_connection -> __parse_metadata -> __parse_integer
        └ MapValidator.__init__ ; MapValidator.validate
-          ├ _check_zone_types
-          ├ _check_unique_hub_names
-          ├ _check_connection_endpoints
-          ├ _check_duplicate_connections
-          └ _check_reachable_end (BFS)
+          ├ __check_zone_types
+          ├ __check_unique_hub_names
+          ├ __check_connection_endpoints
+          ├ __check_duplicate_connections
+          └ __check_reachable_end (BFS)
     └ Graph.__init__
        ├ Hub.__init__ (toutes les zones)
-       ├ Graph._build_connections -> Connection.__init__
-       └ Graph._index_connection
+       ├ Graph.__build_connections -> Connection.__init__
+       └ Graph.__index_connection
     └ Simulation.__init__ -> Dijkstra.__init__ ; Recorder.__init__
        ├ Simulation.load_drones
-       │  ├ Dijkstra.shortest_path -> shortest_distances
+       │  ├ Dijkstra.shortest_path -> __shortest_distances
        │  │  └ Graph.get_connections -> Connection.get_other_hub
        │  │                           -> Hub.move_cost -> transit_duration
        │  ├ Drone.__init__ -> Drone.set_path
        │  ├ Hub.add_drone -> is_available
        │  └ Recorder.record
        └ Simulation.simulate (boucle de tours)
-          ├ _all_drones_delivered
-          ├ _prepare_connections_for_turn -> Connection.use_capacity
+          ├ __all_drones_delivered
+          ├ __prepare_connections_for_turn -> Connection.occupy_for_turn
           ├ Drone.path_turns (tri)
-          ├ _advance_drone
-          │  ├ _move_or_wait -> Graph.get_connection
+          ├ __advance_drone
+          │  ├ __move_or_wait -> Graph.get_connection
           │  │  ├ Hub.is_available ; Connection.is_available
-          │  │  ├ move_drone -> Hub.remove_drone
-          │  │  │              -> Drone.move_to_zone OU begin_transit
+          │  │  ├ __move_drone -> Hub.remove_drone
+          │  │  │              -> Drone.move_to_hub OU begin_transit
           │  │  │              -> Hub.add_drone OU reserve
-          │  │  │              -> Connection.use_capacity
-          │  │  ├ _reroute_drone -> Dijkstra.shortest_path
+          │  │  │              -> Connection.occupy_for_turn
+          │  │  ├ __reroute_drone -> Dijkstra.shortest_path
           │  │  └ Drone.wait
-          │  ├ Drone.advance_transit -> Connection.get_other_hub
+          │  ├ Drone.finish_transit -> Connection.get_other_hub
           │  │                         -> Hub.release_reservation -> add_drone
           │  └ Drone.deliver
           └ Recorder.record
     └ TerminalView.display
-    └ [vue active] PygameView.__init__ -> display -> _display_replay
+    └ [vue active] PygameView.__init__ -> display -> __display_replay
        ├ Camera.__init__
        ├ CoordinateSystem.__init__ -> compute
        ├ GraphRenderer.__init__ -> HubRenderer.__init__
@@ -86,13 +86,13 @@ Pour chaque entrée : **signature effective du fichier**, paramètres, rôle/év
 | Méthode et paramètres | Rôle, analyse | Décision |
 |---|---|---|
 | [`Parser.__init__`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/parser/parser.py#L42) — `def __init__(self, map_path: str):` | Initialise le chemin, les deux listes d’entrées avec lignes physiques et les déclarations facultatives avant lecture. | **CONSERVER** |
-| [`Parser.read_file`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/parser/parser.py#L55) — `def read_file(self) -> None:` | Lit UTF-8 ligne par ligne, ignore vide et commentaires seuls, mémorise le numéro, appelle parse_line ; encapsule erreurs de lecture. | **CONSERVER** |
-| [`Parser.parse_hub`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/parser/parser.py#L81) — `def parse_hub( self, hub_type: str, raw: str, line_number: int, ) -> None:` | Lit type, nom, x/y et métadonnées ; vérifie unicité des terminaux ; capacités start/end illimitées ; noms de variables homogénéisés. | **MODIFIÉ** |
-| [`Parser.parse_connection`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/parser/parser.py#L153) — `def parse_connection(self, raw: str, line_number: int) -> None:` | Lit paire de zones, refuse tirets en trop et espaces, contrôle capacité ; nom capacity_raw homogénéisé. | **MODIFIÉ** |
-| [`Parser.parse_metadata`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/parser/parser.py#L203) — `def parse_metadata( raw: str, line_number: int, allowed_keys: set[str], ) -> dict[str, str]:` | Méthode statique pour format [clé=valeur], clés permises, valeurs non vides, répétitions et parenthèses carrées. | **CONSERVER** |
-| [`Parser._parse_integer`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/parser/parser.py#L246) — `def _parse_integer( raw: str, line_number: int, field: str, *, positive: bool = False, ) -> int:` | Méthode statique pour entiers signés ou strictement positifs, message contextualisé ; conserver le catch ValueError (entiers trop longs). | **CONSERVER** |
+| [`Parser.__read_file`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/parser/parser.py#L55) — `def __read_file(self) -> None:` | Lit UTF-8 ligne par ligne, ignore vide et commentaires seuls, mémorise le numéro, appelle __parse_line ; encapsule erreurs de lecture. | **CONSERVER** |
+| [`Parser.__parse_hub`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/parser/parser.py#L81) — `def __parse_hub( self, hub_type: str, raw: str, line_number: int, ) -> None:` | Lit type, nom, x/y et métadonnées ; vérifie unicité des terminaux ; capacités start/end illimitées ; noms de variables homogénéisés. | **MODIFIÉ** |
+| [`Parser.__parse_connection`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/parser/parser.py#L153) — `def __parse_connection(self, raw: str, line_number: int) -> None:` | Lit paire de zones, refuse tirets en trop et espaces, contrôle capacité ; nom capacity_raw homogénéisé. | **MODIFIÉ** |
+| [`Parser.__parse_metadata`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/parser/parser.py#L203) — `def __parse_metadata( raw: str, line_number: int, allowed_keys: set[str], ) -> dict[str, str]:` | Méthode statique pour format [clé=valeur], clés permises, valeurs non vides, répétitions et parenthèses carrées. | **CONSERVER** |
+| [`Parser.__parse_integer`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/parser/parser.py#L246) — `def __parse_integer( raw: str, line_number: int, field: str, *, positive: bool = False, ) -> int:` | Méthode statique pour entiers signés ou strictement positifs, message contextualisé ; conserver le catch ValueError (entiers trop longs). | **CONSERVER** |
 | [`Parser.parse`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/parser/parser.py#L269) — `def parse(self) -> ParsedMap:` | Réinitialise l’état pour réutilisation, lit, vérifie déclarations, délègue au validateur, construit ParsedMap ; laisse ValidatorError remonter. | **MODIFIÉ** |
-| [`Parser.parse_line`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/parser/parser.py#L322) — `def parse_line(self, line: str, line_number: int) -> None:` | Exige exactement un caractère :, extrait keyword et raw puis distribue à la méthode spécialisée ; erreurs de syntaxe dans ParseError. | **CONSERVER** |
+| [`Parser.__parse_line`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/parser/parser.py#L322) — `def __parse_line(self, line: str, line_number: int) -> None:` | Exige exactement un caractère :, extrait keyword et raw puis distribue à la méthode spécialisée ; erreurs de syntaxe dans ParseError. | **CONSERVER** |
 
 ### `src/parser/validator.py` (7 méthodes)
 
@@ -100,19 +100,19 @@ Pour chaque entrée : **signature effective du fichier**, paramètres, rôle/év
 |---|---|---|
 | [`MapValidator.__init__`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/parser/validator.py#L18) — `def __init__( self, start_hub: HubDict, end_hub: HubDict, hub_entries: list[tuple[HubDict, int]], connection_entries: list[tuple[ConnectionDict, int]], ) -> None:` | Conserve les définitions et leurs lignes source ; pas de validation anticipée. | **CONSERVER** |
 | [`MapValidator.validate`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/parser/validator.py#L35) — `def validate(self) -> None:` | Enchaîne les cinq contrôles statiques ; les exceptions sont de type ValidatorError. | **MODIFIÉ** |
-| [`MapValidator._check_zone_types`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/parser/validator.py#L43) — `def _check_zone_types(self) -> None:` | Refuse tout type différent de normal/blocked/restricted/priority. | **MODIFIÉ** |
-| [`MapValidator._check_unique_hub_names`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/parser/validator.py#L53) — `def _check_unique_hub_names(self) -> None:` | Détecte doublons de nom parmi toutes les zones, y compris start/end. | **MODIFIÉ** |
-| [`MapValidator._check_connection_endpoints`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/parser/validator.py#L66) — `def _check_connection_endpoints(self) -> None:` | Vérifie existence des zones reliées et ordre de définition avant une connexion. | **MODIFIÉ** |
-| [`MapValidator._check_duplicate_connections`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/parser/validator.py#L86) — `def _check_duplicate_connections(self) -> None:` | Normalise le couple de noms pour détecter une duplication dans les deux sens. | **MODIFIÉ** |
-| [`MapValidator._check_reachable_end`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/parser/validator.py#L112) — `def _check_reachable_end(self) -> None:` | Parcours BFS depuis start en excluant blocked ; garantit une route statique, non la fin de toute congestion. | **MODIFIÉ** |
+| [`MapValidator.__check_zone_types`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/parser/validator.py#L43) — `def __check_zone_types(self) -> None:` | Refuse tout type différent de normal/blocked/restricted/priority. | **MODIFIÉ** |
+| [`MapValidator.__check_unique_hub_names`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/parser/validator.py#L53) — `def __check_unique_hub_names(self) -> None:` | Détecte doublons de nom parmi toutes les zones, y compris start/end. | **MODIFIÉ** |
+| [`MapValidator.__check_connection_endpoints`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/parser/validator.py#L66) — `def __check_connection_endpoints(self) -> None:` | Vérifie existence des zones reliées et ordre de définition avant une connexion. | **MODIFIÉ** |
+| [`MapValidator.__check_duplicate_connections`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/parser/validator.py#L86) — `def __check_duplicate_connections(self) -> None:` | Normalise le couple de noms pour détecter une duplication dans les deux sens. | **MODIFIÉ** |
+| [`MapValidator.__check_reachable_end`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/parser/validator.py#L112) — `def __check_reachable_end(self) -> None:` | Parcours BFS depuis start en excluant blocked ; garantit une route statique, non la fin de toute congestion. | **MODIFIÉ** |
 
 ### `src/model/graph.py` (5 méthodes)
 
 | Méthode et paramètres | Rôle, analyse | Décision |
 |---|---|---|
 | [`Graph.__init__`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/graph.py#L9) — `def __init__(self, data: ParsedMap) -> None:` | Construit les Hub et Connection, adjacency et connection_map ; expression de docstring sans effet corrigée. | **MODIFIÉ** |
-| [`Graph._build_connections`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/graph.py#L36) — `def _build_connections( self, raw_connections: list[ConnectionDict], ) -> list[Connection]:` | Instancie chaque connexion depuis les noms validés, sans dépendance à une bibliothèque de graphes. | **CONSERVER** |
-| [`Graph._index_connection`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/graph.py#L51) — `def _index_connection( self, connection: Connection, ) -> None:` | Insère le même objet Connection dans deux listes d’adjacence et deux clés directionnelles. | **CONSERVER** |
+| [`Graph.__build_connections`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/graph.py#L36) — `def __build_connections( self, raw_connections: list[ConnectionDict], ) -> list[Connection]:` | Instancie chaque connexion depuis les noms validés, sans dépendance à une bibliothèque de graphes. | **CONSERVER** |
+| [`Graph.__index_connection`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/graph.py#L51) — `def __index_connection( self, connection: Connection, ) -> None:` | Insère le même objet Connection dans deux listes d’adjacence et deux clés directionnelles. | **CONSERVER** |
 | [`Graph.get_connections`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/graph.py#L70) — `def get_connections(self, hub: Hub) -> list[Connection]:` | Retourne les connexions incidentes ou une liste vide ; utilisé par Dijkstra. | **CONSERVER** |
 | [`Graph.get_connection`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/graph.py#L74) — `def get_connection(self, source: Hub, target: Hub) -> Connection \| None:` | Trouve le lien direct entre deux Hub en temps moyen constant ; utilisé par le mouvement. | **CONSERVER** |
 
@@ -122,7 +122,7 @@ Pour chaque entrée : **signature effective du fichier**, paramètres, rôle/év
 |---|---|---|
 | [`Hub.__init__`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/hub.py#L6) — `def __init__(self, name: str, color: str = "white", zone_type: str = "normal", capacity: int \| float = 1, x: int = 0, y: int = 0) -> None:` | Stocke type, coordonnées, capacité, occupation et réservations ; paramètres cohérents avec HubDict. | **CONSERVER** |
 | [`Hub.add_drone`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/hub.py#L20) — `def add_drone(self) -> None:` | Incrémente seulement si place réellement disponible ; délègue la règle à is_available. | **CONSERVER** |
-| [`Hub.remove_drone`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/hub.py#L26) — `def remove_drone(self) -> None:` | Libère une occupation et refuse de décrémenter en dessous de zéro. | **CONSERVER** |
+| [`Hub.remove_drone`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/hub.py#L26) — `def remove_drone(self) -> None:` | Décrémente l'occupation après vérification directe `nb_drones <= 0`. | **CONSERVER** |
 | [`Hub.is_available`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/hub.py#L32) — `def is_available(self) -> bool:` | Inclut les places réservées dans la capacité ; prévient la collision à l’arrivée restricted. | **CONSERVER** |
 | [`Hub.reserve`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/hub.py#L36) — `def reserve(self) -> None:` | Bloque une place à destination avant le transit sur une connexion. | **CONSERVER** |
 | [`Hub.release_reservation`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/hub.py#L47) — `def release_reservation(self) -> None:` | Annule une place réservée juste avant l’entrée dans le Hub. | **CONSERVER** |
@@ -136,7 +136,7 @@ Pour chaque entrée : **signature effective du fichier**, paramètres, rôle/év
 | Méthode et paramètres | Rôle, analyse | Décision |
 |---|---|---|
 | [`Connection.__init__`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/connection.py#L7) — `def __init__(self, source: Hub, target: Hub, capacity: int \| float):` | Conserve deux Hub, capacité maximale et consommation du tour. | **CONSERVER** |
-| [`Connection.use_capacity`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/connection.py#L15) — `def use_capacity(self) -> None:` | Consomme une unité après vérification ; erreur métier si dépassement. | **CONSERVER** |
+| [`Connection.occupy_for_turn`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/connection.py#L15) — `def occupy_for_turn(self) -> None:` | Consomme une unité après vérification ; erreur métier si dépassement. | **CONSERVER** |
 | [`Connection.is_available`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/connection.py#L25) — `def is_available(self) -> bool:` | Contrôle used_capacity < capacity, capacité partagée par les deux directions. | **CONSERVER** |
 | [`Connection.get_other_hub`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/connection.py#L29) — `def get_other_hub(self, hub: Hub) -> Hub:` | Récupère le voisin opposé ou déclenche ConnectionError si Hub étranger au lien. | **CONSERVER** |
 | [`Connection.__repr__`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/connection.py#L43) — `def __repr__(self) -> str:` | Affiche les noms extrémités, capacité et usage ; diagnostic non nominal. | **CONSERVER** |
@@ -146,9 +146,9 @@ Pour chaque entrée : **signature effective du fichier**, paramètres, rôle/év
 | Méthode et paramètres | Rôle, analyse | Décision |
 |---|---|---|
 | [`Drone.__init__`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/drone.py#L9) — `def __init__( self, drone_id: int, current_position: Hub ) -> None:` | Initialise ID, Hub courant, précédente zone, chemin vide et état idle. | **CONSERVER** |
-| [`Drone.move_to_zone`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/drone.py#L23) — `def move_to_zone( self, zone: Hub, ) -> None:` | Déplace en un tour, retient l’origine, consomme le prochain Hub du chemin et marque moving. | **CONSERVER** |
+| [`Drone.move_to_hub`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/drone.py#L23) — `def move_to_hub( self, hub: Hub, ) -> None:` | Déplace vers un hub en un tour, retient l’origine, consomme le prochain Hub du chemin et marque moving. | **CONSERVER** |
 | [`Drone.begin_transit`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/drone.py#L42) — `def begin_transit( self, connection: Connection, ) -> None:` | Met le drone sur Connection, conserve l’origine et marque in_transit. | **CONSERVER** |
-| [`Drone.advance_transit`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/drone.py#L59) — `def advance_transit(self) -> Hub \| None:` | Au tour suivant, va sur le Hub opposé au départ, consomme une étape et retourne la destination. | **CONSERVER** |
+| [`Drone.finish_transit`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/drone.py#L59) — `def finish_transit(self) -> Hub \| None:` | Au tour suivant, va sur le Hub opposé au départ, consomme une étape et retourne la destination. | **CONSERVER** |
 | [`Drone.wait`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/drone.py#L81) — `def wait(self) -> None:` | Marque waiting sans toucher au chemin ni à la position. | **CONSERVER** |
 | [`Drone.deliver`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/drone.py#L85) — `def deliver(self) -> None:` | Marque delivered après arrivée à end. | **CONSERVER** |
 | [`Drone.path_turns`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/drone.py#L89) — `def path_turns(self) -> int:` | Somme durées des Hub restants ; utilisé au tri, sans ajustement du transit en cours. | **CONSERVER** |
@@ -159,7 +159,7 @@ Pour chaque entrée : **signature effective du fichier**, paramètres, rôle/év
 | Méthode et paramètres | Rôle, analyse | Décision |
 |---|---|---|
 | [`Dijkstra.__init__`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/pathfinder.py#L10) — `def __init__(self, graph: Graph):` | Stocke l’instance de Graph ; ne recherche rien lors de l’initialisation. | **CONSERVER** |
-| [`Dijkstra.shortest_distances`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/pathfinder.py#L14) — `def shortest_distances( self, source: Hub, blocked_hubs: set[Hub] \| None = None, saturated_connections: set[tuple[Hub, Hub]] \| None = None, ) -> tuple[dict[Hub, float], dict[Hub, Hub \| None]]:` | Dijkstra à tas, filtrage hubs blocked/occupés et connexions saturées, préférence priority à coût égal. | **CONSERVER** |
+| [`Dijkstra.__shortest_distances`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/pathfinder.py#L14) — `def __shortest_distances( self, source: Hub, blocked_hubs: set[Hub] \| None = None, saturated_connections: set[tuple[Hub, Hub]] \| None = None, ) -> tuple[dict[Hub, float], dict[Hub, Hub \| None]]:` | Dijkstra à tas, filtrage hubs blocked/occupés et connexions saturées, préférence priority à coût égal. | **CONSERVER** |
 | [`Dijkstra.shortest_path`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/pathfinder.py#L96) — `def shortest_path( self, source: Hub \| None = None, blocked_hubs: set[Hub] \| None = None, saturated_connections: set[tuple[Hub, Hub]] \| None = None, ) -> list[Hub]:` | Reconstruit depuis predecessors jusqu’à end ; chemin vide si end inaccessible. | **CONSERVER** |
 
 ### `src/model/simulation.py` (9 méthodes)
@@ -168,12 +168,12 @@ Pour chaque entrée : **signature effective du fichier**, paramètres, rôle/év
 |---|---|---|
 | [`Simulation.__init__`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/simulation.py#L13) — `def __init__( self, graph: Graph, pathfinder: Dijkstra \| None = None, ) -> None:` | Stocke graphe, drones, compteur de tours, Dijkstra injecté ou créé, Recorder. | **CONSERVER** |
 | [`Simulation.load_drones`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/simulation.py#L32) — `def load_drones(self, nb_drones: int) -> None:` | Détermine chemin initial unique, crée N drones, compte occupation à start et prend la frame zéro. | **CONSERVER** |
-| [`Simulation.move_drone`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/simulation.py#L54) — `def move_drone( self, drone: Drone, connection: Connection, target_hub: Hub, ) -> None:` | Libère la zone quittée, gère entrée immédiate ou réservation restricted, consomme capacité du lien. | **CONSERVER** |
-| [`Simulation._reroute_drone`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/simulation.py#L85) — `def _reroute_drone( self, drone: Drone, blocked_hubs: set[Hub], saturated_connections: set[ tuple[Hub, Hub] ], ) -> bool:` | Calcule depuis la position actuelle avec contraintes temporaires ; remplace le chemin si possible. | **CONSERVER** |
-| [`Simulation._move_or_wait`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/simulation.py#L116) — `def _move_or_wait( self, drone: Drone, ) -> bool:` | Essaie le pas suivant, puis alternatives ; conserve chemin initial et attend si détour > coût initial +2 ; exclusion previous_zone conservée. | **RISQUE À SURVEILLER** |
-| [`Simulation._all_drones_delivered`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/simulation.py#L181) — `def _all_drones_delivered(self) -> bool:` | Stoppe uniquement lorsque chaque drone a atteint le Hub final. | **CONSERVER** |
-| [`Simulation._advance_drone`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/simulation.py#L188) — `def _advance_drone( self, drone: Drone, ) -> bool:` | Avance un drone une seule fois par tour : transit, déplacement ou état livré. | **CONSERVER** |
-| [`Simulation._prepare_connections_for_turn`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/simulation.py#L210) — `def _prepare_connections_for_turn(self) -> None:` | Réinitialise les usages de liens puis réserve ceux encore occupés par les transits. | **CONSERVER** |
+| [`Simulation.__move_drone`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/simulation.py#L54) — `def __move_drone( self, drone: Drone, connection: Connection, target_hub: Hub, ) -> None:` | Libère la zone quittée, gère entrée immédiate ou réservation restricted, consomme capacité du lien. | **CONSERVER** |
+| [`Simulation.__reroute_drone`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/simulation.py#L85) — `def __reroute_drone( self, drone: Drone, blocked_hubs: set[Hub], saturated_connections: set[ tuple[Hub, Hub] ], ) -> bool:` | Calcule depuis la position actuelle avec contraintes temporaires ; remplace le chemin si possible. | **CONSERVER** |
+| [`Simulation.__move_or_wait`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/simulation.py#L116) — `def __move_or_wait( self, drone: Drone, ) -> bool:` | Essaie le pas suivant, puis alternatives ; conserve chemin initial et attend si détour > coût initial +2 ; exclusion previous_zone conservée. | **RISQUE À SURVEILLER** |
+| [`Simulation.__all_drones_delivered`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/simulation.py#L181) — `def __all_drones_delivered(self) -> bool:` | Stoppe uniquement lorsque chaque drone a atteint le Hub final. | **CONSERVER** |
+| [`Simulation.__advance_drone`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/simulation.py#L188) — `def __advance_drone( self, drone: Drone, ) -> bool:` | Avance un drone une seule fois par tour : transit, déplacement ou état livré. | **CONSERVER** |
+| [`Simulation.__prepare_connections_for_turn`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/simulation.py#L210) — `def __prepare_connections_for_turn(self) -> None:` | Réinitialise les usages de liens puis réserve ceux encore occupés par les transits. | **CONSERVER** |
 | [`Simulation.simulate`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/simulation.py#L218) — `def simulate(self) -> list[TurnState]:` | Boucle tours, trie par path_turns, ordonne déplacements et enregistre frames ; pas de garde de deadlock prouvée. | **RISQUE À SURVEILLER** |
 
 ### `src/model/recorder.py` (2 méthodes)
@@ -199,15 +199,15 @@ Les classes `ConnectionError` et `HubError` héritent directement d'`Exception`.
 |---|---|---|
 | [`PygameView.__init__`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/pygame_view.py#L18) — `def __init__( self, replay_frames: list[TurnState], ) -> None:` | Conserve replay_frames, sans ouvrir de fenêtre dans le constructeur. | **CONSERVER** |
 | [`PygameView.display`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/pygame_view.py#L25) — `def display(self) -> None:` | Lance l’écran, transforme pygame.error en DisplayError et assure pygame.quit en finally. | **CONSERVER** |
-| [`PygameView._display_replay`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/pygame_view.py#L40) — `def _display_replay(self) -> None:` | Crée une fenêtre redimensionnable et ajuste automatiquement le graphe à l’écran, sans zoom ni pan. | **À VÉRIFIER SUR ÉCRAN** |
+| [`PygameView.__display_replay`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/pygame_view.py#L40) — `def __display_replay(self) -> None:` | Crée une fenêtre redimensionnable et ajuste automatiquement le graphe à l’écran, sans zoom ni pan. | **À VÉRIFIER SUR ÉCRAN** |
 
 ### `src/view/graph_renderer.py` (7 méthodes)
 
 | Méthode et paramètres | Rôle, analyse | Décision |
 |---|---|---|
 | [`HubRenderer.__init__`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/graph_renderer.py#L41) — `def __init__(self, font: pygame.font.Font) -> None:` | Conserve la police de texte des Hub. | **CONSERVER** |
-| [`HubRenderer.radius`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/graph_renderer.py#L45) — `def radius(self, zone: HubState) -> int:` | Calcule un rayon borné selon la capacité, sans zoom. | **CONSERVER** |
-| [`HubRenderer.draw`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/graph_renderer.py#L51) — `def draw( self, screen: pygame.Surface, zone: HubState, position: tuple[int, int], is_terminal: bool = False, ) -> None:` | Dessine le hub, son contour et ses labels ; le mode `rainbow` utilise sept cercles colorés concentriques. | **LIMITE VISUELLE** |
+| [`HubRenderer.__radius`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/graph_renderer.py#L45) — `def __radius(self, hub: HubState) -> int:` | Calcule un rayon borné selon la capacité, sans zoom. | **CONSERVER** |
+| [`HubRenderer.draw`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/graph_renderer.py#L51) — `def draw( self, screen: pygame.Surface, hub: HubState, position: tuple[int, int], is_terminal: bool = False, ) -> None:` | Dessine le hub, son contour et ses labels ; le mode `rainbow` utilise sept cercles colorés concentriques. | **LIMITE VISUELLE** |
 | [`ConnectionRenderer.__init__`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/graph_renderer.py#L91) — `def __init__(self, font: pygame.font.Font) -> None:` | Conserve la police des étiquettes de connexions. | **CONSERVER** |
 | [`ConnectionRenderer.draw`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/graph_renderer.py#L95) — `def draw( self, screen: pygame.Surface, source_position: tuple[int, int], target_position: tuple[int, int], state: ConnectionState, ) -> None:` | Affiche liens et compteurs used/capacity et in_transit. | **CONSERVER** |
 | [`GraphRenderer.__init__`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/graph_renderer.py#L136) — `def __init__(self, screen: pygame.Surface, font: pygame.font.Font) -> None:` | Assemble HubRenderer et ConnectionRenderer autour de l’écran Pygame. | **CONSERVER** |
@@ -218,14 +218,14 @@ Les classes `ConnectionError` et `HubError` héritent directement d'`Exception`.
 | Méthode et paramètres | Rôle, analyse | Décision |
 |---|---|---|
 | [`ReplayPlayer.__init__`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/replay_player.py#L19) — `def __init__( self, frames: list[TurnState], ) -> None:` | Conserve frames et place current_index sur le tour zéro. | **CONSERVER** |
-| [`ReplayPlayer._drone_color`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/replay_player.py#L28) — `def _drone_color( self, drone_id: int, ) -> tuple[int, int, int]:` | Attribue une couleur stable par ID, modulo la taille de la palette. | **CONSERVER** |
+| [`ReplayPlayer.__drone_color`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/replay_player.py#L28) — `def __drone_color( self, drone_id: int, ) -> tuple[int, int, int]:` | Attribue une couleur stable par ID, modulo la taille de la palette. | **CONSERVER** |
 | [`ReplayPlayer.handle_event`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/replay_player.py#L40) — `def handle_event(self, event: pygame.event.Event) -> None:` | Route flèche droite/gauche et R vers navigation ; ignore autres touches. | **CONSERVER** |
 | [`ReplayPlayer.next_turn`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/replay_player.py#L54) — `def next_turn(self) -> None:` | Incrémente l’index en respectant la dernière frame. | **CONSERVER** |
 | [`ReplayPlayer.previous_turn`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/replay_player.py#L61) — `def previous_turn(self) -> None:` | Décrémente sans aller avant le tour zéro. | **CONSERVER** |
 | [`ReplayPlayer.restart`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/replay_player.py#L68) — `def restart(self) -> None:` | Replace l’index sur zéro. | **CONSERVER** |
-| [`ReplayPlayer._state_position`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/replay_player.py#L72) — `def _state_position( self, state: DroneState, hub_positions: dict[str, tuple[float, float]], ) -> tuple[float, float]:` | Pour un Hub retourne sa position, pour un transit retourne milieu des deux extrémités. | **CONSERVER** |
+| [`ReplayPlayer.__state_position`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/replay_player.py#L72) — `def __state_position( self, state: DroneState, hub_positions: dict[str, tuple[float, float]], ) -> tuple[float, float]:` | Pour un Hub retourne sa position, pour un transit retourne milieu des deux extrémités. | **CONSERVER** |
 | [`ReplayPlayer.draw`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/replay_player.py#L86) — `def draw( self, screen: pygame.Surface, font: pygame.font.Font, hub_positions: Mapping[str, tuple[float, float]], ) -> None:` | Dessine un représentant de chaque hub et tous les transits aux positions écran partagées. | **CONSERVER** |
-| [`ReplayPlayer._draw_drone`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/replay_player.py#L140) — `def _draw_drone( self, screen: pygame.Surface, position: tuple[int, int], drone_id: int, font: pygame.font.Font, ) -> None:` | Dessine triangle, contour et ID du drone. | **CONSERVER** |
+| [`ReplayPlayer.__draw_drone`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/replay_player.py#L140) — `def __draw_drone( self, screen: pygame.Surface, position: tuple[int, int], drone_id: int, font: pygame.font.Font, ) -> None:` | Dessine triangle, contour et ID du drone. | **CONSERVER** |
 | [`ReplayPlayer.draw_overlay`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/view/replay_player.py#L185) — `def draw_overlay( self, screen: pygame.Surface, font: pygame.font.Font, ) -> None:` | Affiche numéro de tour, durée totale et commandes du replay. | **CONSERVER** |
 
 ### `src/view/utils/coordinate_system.py` (2 méthodes)
@@ -249,7 +249,7 @@ Les classes `ConnectionError` et `HubError` héritent directement d'`Exception`.
 
 1. `ValidationError` renommée `ValidatorError` dans le validateur et dans les tests.
 2. `Parser.parse` ne rattrape plus `ValidatorError` pour la convertir en `ParseError`. La classe valide seule ; `main.main` intercepte les deux exceptions.
-3. Les variables `marker` deviennent `bracket` dans parse_hub/parse_connection ; `cap_raw` devient `capacity_raw` ; adaptation Flake8.
+3. Les variables `marker` deviennent `bracket` dans __parse_hub/__parse_connection ; `cap_raw` devient `capacity_raw` ; adaptation Flake8.
 4. `Graph.__init__` : retrait d’une expression chaîne sans effet et repositionnement de la docstring.
 5. `Makefile` : deux commandes distinctes dans `lint-strict`, afin qu’un échec de Flake8 ne soit pas masqué.
 6. Tests de validateur adaptés ; fichier `tests/test_review_regressions.py` pour remontée d’erreur au CLI et seuil +2 sur le reroutage.
@@ -294,7 +294,7 @@ Ces résultats incluent la version de `main.py` avec `argparse` et `ValidatorErr
 - **Branche :** `test-main` ; `main` n'est pas modifiée.
 - **Rainbow :** sept disques concentriques rouge, orange, jaune, vert, cyan, indigo, violet ; contour et labels inchangés.
 - **Caméra :** suppression de `src/view/utils/camera.py` et de ses huit méthodes. Suppression des contrôles de zoom, glisser et reset caméra.
-- **Placement :** `CoordinateSystem.compute` garde son rôle de calcul des coordonnées logiques centrées ; `PygameView._display_replay` transforme celles-ci en positions écran ajustées à la taille de la fenêtre. `GraphRenderer` et `ReplayPlayer` partagent les mêmes positions.
+- **Placement :** `CoordinateSystem.compute` garde son rôle de calcul des coordonnées logiques centrées ; `PygameView.__display_replay` transforme celles-ci en positions écran ajustées à la taille de la fenêtre. `GraphRenderer` et `ReplayPlayer` partagent les mêmes positions.
 - **Inventaire :** 83 méthodes dans 17 fichiers applicatifs (dont un fichier d'exceptions sans méthode explicite).
 - **Tests :** les tests existants de rendu sont adaptés et un test vérifie les couleurs et les rayons décroissants de `rainbow`. **Vérification actuelle :** [workflow GitHub Actions réussi](https://github.com/Irohs6/fly_in_v2/actions/runs/41425411792) avec **206 tests réussis**, **11 cartes terminées**, **Flake8** et **mypy** sans erreur (35 fichiers Python vérifiés).
 
@@ -305,3 +305,12 @@ Sur `test-main`, les deux constructeurs `ConnectionError.__init__` et `HubError.
 ## 10. Nom de l'historique du Recorder — 2 novembre 2026
 
 Dans `Recorder`, l'attribut `self.frames` est renommé `self.turn_states` : il stocke des `TurnState` (instantanés de simulation), et non des images graphiques. `Recorder.record` et `Simulation.simulate` utilisent ce nom, tout comme les tests et le README. La terminologie `ReplayPlayer.frames` est conservée parce qu'elle désigne la séquence que parcourt le lecteur graphique. **Aucune règle de simulation n'est modifiée.** Le workflow GitHub Actions associé au commit doit confirmer la non-régression.
+
+## 11. Encapsulation et renommages validés (2 novembre 2026)
+
+- **Méthodes internes :** les helpers internes de `Simulation`, `Graph`, `Parser`, `MapValidator`, `PygameView`, `ReplayPlayer`, `HubRenderer` et la distance interne de `Dijkstra` sont passés en `__nom` (name mangling Python). Les méthodes utilisées entre classes comme `Drone.move_to_hub`, `Connection.occupy_for_turn`, `Graph.get_connection` et `Hub.remove_drone` restent publiques.
+- **Déplacements :** `Simulation.__move_drone` remplace l'ancienne méthode publique, car ses préconditions de capacité sont vérifiées par `Simulation.__move_or_wait`. Le changement est une convention d'encapsulation et ne prétend pas rendre l'accès impossible via `getattr`.
+- **Cohérence des noms :** `Drone.move_to_hub(hub)` remplace `move_to_zone(zone)` ; les paramètres Hub du renderer utilisent aussi `hub`. Les noms de métadonnées `zone_type` du sujet restent inchangés.
+- **État et transit :** `Connection.occupy_for_turn()` remplace `use_capacity()`, puisque l'usage d'un lien est remis à zéro au prochain tour (hors occupation prolongée en transit). `Drone.finish_transit()` remplace `advance_transit()` pour indiquer l'achèvement de la traversée restricted.
+- **Contrôle Hub :** `Hub.remove_drone()` utilise `self.nb_drones <= 0` sans changer le comportement.
+- **Tests :** les tests qui vérifient les helpers privés utilisent `getattr` avec leur nom manglé ; ce sont des tests internes, pas une API recommandée.
