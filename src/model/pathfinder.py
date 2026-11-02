@@ -11,7 +11,7 @@ class Dijkstra:
         """Associate the graph with the pathfinder without computing a path."""
         self.graph = graph
 
-    def shortest_distances(
+    def __shortest_distances(
         self,
         source: Hub,
         blocked_hubs: set[Hub] | None = None,
@@ -110,7 +110,7 @@ class Dijkstra:
 
         target = self.graph.end_hub
 
-        distances, predecessors = self.shortest_distances(
+        distances, predecessors = self.__shortest_distances(
             source,
             blocked_hubs,
             saturated_connections,

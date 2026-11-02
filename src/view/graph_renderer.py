@@ -50,44 +50,44 @@ class HubRenderer:
         """Store the font used for hub labels."""
         self.font = font
 
-    def radius(self, zone: HubState) -> int:
+    def __radius(self, hub: HubState) -> int:
         """Compute a bounded pixel radius from hub capacity."""
-        radius = self.HUB_BASE_RADIUS + zone.capacity * self.HUB_SCALE
+        radius = self.HUB_BASE_RADIUS + hub.capacity * self.HUB_SCALE
         radius = max(self.HUB_MIN_RADIUS, min(self.HUB_MAX_RADIUS, radius))
         return int(radius)
 
     def draw(
         self,
         screen: pygame.Surface,
-        zone: HubState,
+        hub: HubState,
         position: tuple[int, int],
         is_terminal: bool = False,
     ) -> None:
         """Draw a hub using only the selected turn's recorded values."""
-        radius = self.radius(zone)
-        if zone.color == "rainbow":
+        radius = self.__radius(hub)
+        if hub.color == "rainbow":
             count = len(self.RAINBOW_COLORS)
             for index, color in enumerate(self.RAINBOW_COLORS):
                 ring_radius = max(1, radius * (count - index) // count)
                 pygame.draw.circle(screen, color, position, ring_radius)
         else:
             pygame.draw.circle(
-                screen, self.COLOR_MAP.get(zone.color, (200, 200, 200)),
+                screen, self.COLOR_MAP.get(hub.color, (200, 200, 200)),
                 position, radius,
             )
         pygame.draw.circle(
             screen, (255, 215, 0) if is_terminal else (255, 255, 255),
             position, radius, 3 if is_terminal else 2,
         )
-        label = self.font.render(zone.name, True, (230, 230, 235))
+        label = self.font.render(hub.name, True, (230, 230, 235))
         label_rect = label.get_rect()
         label_rect.midbottom = (position[0], position[1] - radius - 6)
         screen.blit(label, label_rect)
 
-        capacity = "∞" if zone.capacity == float("inf") else str(zone.capacity)
-        occupancy = f"{zone.nb_drones}/{capacity}"
-        if zone.reserved:
-            occupancy += f" +{zone.reserved} reserved"
+        capacity = "∞" if hub.capacity == float("inf") else str(hub.capacity)
+        occupancy = f"{hub.nb_drones}/{capacity}"
+        if hub.reserved:
+            occupancy += f" +{hub.reserved} reserved"
         info = self.font.render(occupancy, True, (255, 255, 255))
         info_rect = info.get_rect()
         info_rect.midtop = (position[0], position[1] + radius + 6)

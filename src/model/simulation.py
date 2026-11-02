@@ -51,7 +51,7 @@ class Simulation:
     # MOVEMENT
     # ==============================================================
 
-    def move_drone(
+    def __move_drone(
         self,
         drone: Drone,
         connection: Connection,
@@ -75,14 +75,14 @@ class Simulation:
 
             target_hub.reserve()
         else:
-            drone.move_to_zone(target_hub)
+            drone.move_to_hub(target_hub)
             target_hub.add_drone()
 
         connection.use_capacity()
 
     # REROUTING
 
-    def _reroute_drone(
+    def __reroute_drone(
         self,
         drone: Drone,
         blocked_hubs: set[Hub],
@@ -113,7 +113,7 @@ class Simulation:
 
     # MOVE OR WAIT
 
-    def _move_or_wait(
+    def __move_or_wait(
         self,
         drone: Drone,
     ) -> bool:
@@ -151,20 +151,20 @@ class Simulation:
             if connection is None:
                 blocked_hubs.add(target_hub)
             else:
-                zone_available = target_hub.is_available()
+                hub_available = target_hub.is_available()
                 connection_available = connection.is_available()
-                if zone_available and connection_available:
-                    self.move_drone(drone, connection, target_hub)
+                if hub_available and connection_available:
+                    self.__move_drone(drone, connection, target_hub)
                     return True
 
-                if not zone_available:
+                if not hub_available:
                     blocked_hubs.add(target_hub)
                 if not connection_available:
                     saturated_connections.add(
                         (connection.source, connection.target)
                     )
 
-            if not self._reroute_drone(
+            if not self.__reroute_drone(
                 drone, blocked_hubs, saturated_connections,
             ):
                 drone.wait()
@@ -178,14 +178,14 @@ class Simulation:
 
     # SIMULATION
 
-    def _all_drones_delivered(self) -> bool:
+    def __all_drones_delivered(self) -> bool:
         """Return whether all drones have reached the destination."""
         return all(
             drone.current_position == self.graph.end_hub
             for drone in self.drones
         )
 
-    def _advance_drone(
+    def __advance_drone(
         self,
         drone: Drone,
     ) -> bool:
@@ -201,13 +201,13 @@ class Simulation:
                 destination.add_drone()
             moved = True
         else:
-            moved = self._move_or_wait(drone)
+            moved = self.__move_or_wait(drone)
 
         if drone.current_position == self.graph.end_hub:
             drone.deliver()
         return moved
 
-    def _prepare_connections_for_turn(self) -> None:
+    def __prepare_connections_for_turn(self) -> None:
         """Prepare a new turn, retaining only ongoing transit occupancy."""
         for connection in self.graph.connections:
             connection.used_capacity = 0
@@ -217,13 +217,13 @@ class Simulation:
 
     def simulate(self) -> list[TurnState]:
         """Run to completion and return the initial and completed states."""
-        while not self._all_drones_delivered():
-            self._prepare_connections_for_turn()
+        while not self.__all_drones_delivered():
+            self.__prepare_connections_for_turn()
             moved_drones = []
             for drone in sorted(
                 self.drones, key=lambda drone: drone.path_turns(),
             ):
-                if self._advance_drone(drone):
+                if self.__advance_drone(drone):
                     moved_drones.append(drone.drone_id)
             self.turn += 1
             self.recorder.record(
