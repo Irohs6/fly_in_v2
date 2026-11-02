@@ -44,7 +44,7 @@ def test_complete_turn_keeps_capacity_usage_before_reset(
     tmp_path: Path, restricted: bool, reverse: bool,
 ) -> None:
     simulation = make_simulation(tmp_path, restricted, reverse)
-    initial = deepcopy(simulation.recorder.frames[0])
+    initial = deepcopy(simulation.recorder.turn_states[0])
     frames = simulation.simulate()
     edge = ("a", "start") if reverse else ("start", "a")
 

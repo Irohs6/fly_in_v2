@@ -969,11 +969,11 @@ def main() -> int:
         self.frames: list[TurnState] = []
 ```
 
-**Lecture du code.** Initialise `frames: list[TurnState]`. La liste sera remplie au tour zéro et après chaque tour complet. Chaque frame contient des **copies de valeurs**, pas les objets `Drone` vivants.
+**Lecture du code.** Initialise `turn_states: list[TurnState]`. La liste sera remplie au tour zéro et après chaque tour complet. Chaque `TurnState` contient des **copies de valeurs**, pas les objets `Drone` vivants.
 
-**Variables, noms et cohérence.** `frames` est commun à Pygame et à l'historique, mais une frame est ici un instantané d'un tour ; `turn_states` ferait moins penser à des images affichées à 60 FPS.
+**Variables, noms et cohérence.** Le nom `turn_states` indique clairement une liste d'instantanés de simulation. `ReplayPlayer.frames` reste un nom adapté au parcours du replay, mais le `Recorder` stocke des états de tours.
 
-**Décision à prendre.** À discuter : garder `frames` si le terme est déjà bien intégré à l'interface.
+**Décision prise.** Renommer `Recorder.frames` en `Recorder.turn_states` et adapter toutes ses références dans le code et les tests.
 
 <a id="m027"></a>
 
@@ -1226,7 +1226,7 @@ def main() -> int:
         moved_drones: tuple[int, ...] = (),
 ```
 
-**Lecture du code.** Pour chaque drone, copie sa position comme **nom de Hub** ou **paire de noms d'extrémités** si en transit. Le `Counter` compte les transits restés sur chaque connexion. Copie ensuite tous les hubs et les connexions dans des dataclasses `frozen=True`, puis ajoute un `TurnState` avec le tour, les mouvements et les structures indépendantes du modèle.
+**Lecture du code.** Pour chaque drone, copie sa position comme **nom de Hub** ou **paire de noms d'extrémités** si en transit. Le `Counter` compte les transits restés sur chaque connexion. Copie ensuite tous les hubs et les connexions dans des dataclasses `frozen=True`, puis ajoute un `TurnState` dans `self.turn_states` avec le tour, les mouvements et les structures indépendantes du modèle.
 
 **Variables, noms et cohérence.** `moved_drones` contient uniquement les IDs qui ont avancé **ce tour**, et sert à la sortie texte. `frame.drones` est un dictionnaire de snapshots par ID. Important : `frozen=True` protège les objets dataclass, pas les dictionnaires imbriqués de `TurnState` contre une modification extérieure. L'historique est indépendant des objets vivants, mais pas profondément immutable.
 
@@ -1258,10 +1258,10 @@ def main() -> int:
             self.recorder.record(
                 self.turn, self.graph, self.drones, tuple(moved_drones),
             )
-        return self.recorder.frames
+        return self.recorder.turn_states
 ```
 
-**Lecture du code.** La boucle continue tant que `_all_drones_delivered()` est faux. À chaque tour, `_prepare_connections_for_turn` remet les usages des liens à jour. Les drones sont triés par `path_turns()` croissant, puis chacun passe au plus une fois dans `_advance_drone`. Les IDs de ceux qui ont bougé sont conservés, le compteur de tour est incrémenté et `Recorder.record` prend la photographie. La méthode retourne `recorder.frames`.
+**Lecture du code.** La boucle continue tant que `_all_drones_delivered()` est faux. À chaque tour, `_prepare_connections_for_turn` remet les usages des liens à jour. Les drones sont triés par `path_turns()` croissant, puis chacun passe au plus une fois dans `_advance_drone`. Les IDs de ceux qui ont bougé sont conservés, le compteur de tour est incrémenté et `Recorder.record` prend la photographie. La méthode retourne `recorder.turn_states`.
 
 **Variables, noms et cohérence.** `moved_drones` est une liste locale convertie en tuple dans la frame ; les vues ne recalculent pas les déplacements. **Le tri en cours de tour** est calculé sur un snapshot de la liste triée : la modification du chemin d'un drone ne le fait pas changer de rang avant le prochain tour. La boucle n'a pas de détection d'absence de progrès prolongée.
 

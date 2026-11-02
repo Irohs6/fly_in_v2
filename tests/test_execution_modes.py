@@ -74,7 +74,7 @@ def test_complete_history_is_recorded_once_per_turn(
     simulation = Simulation(Graph(data))
     simulation.load_drones(data["nb_drones"])
     frames = simulation.simulate()
-    assert frames is simulation.recorder.frames
+    assert frames is simulation.recorder.turn_states
     assert [frame.turn for frame in frames] == list(range(simulation.turn + 1))
     assert all(frame.connections for frame in frames)
     assert all(d.status == "delivered" for d in simulation.drones)

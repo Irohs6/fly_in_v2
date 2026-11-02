@@ -168,7 +168,7 @@ controller = Controller("assets/maps/easy/01_linear_path.txt")
 controller.run(view_active=False)  # Terminal only; run() also opens the replay.
 ```
 
-For direct model usage, create `Simulation(graph)`, call `load_drones(count)`, then `frames = simulation.simulate()`. The returned list is also available as `simulation.recorder.frames`. Recording is always complete; the previous `record_replay` option and separate `movements_log` have been removed. `PygameView(frames)` can replay the result without access to the live graph.
+For direct model usage, create `Simulation(graph)`, call `load_drones(count)`, then `frames = simulation.simulate()`. The returned list is also available as `simulation.recorder.turn_states`. Recording is always complete; the previous `record_replay` option and separate `movements_log` have been removed. `PygameView(frames)` can replay the result without access to the live graph.
 
 Map reading or validation failures and expected Pygame errors are reported on standard error with an `Error:` prefix and exit code `1`. Keyboard interruption returns `130`. Pygame resources are released when the replay closes or an exception occurs.
 

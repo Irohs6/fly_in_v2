@@ -229,4 +229,4 @@ class Simulation:
             self.recorder.record(
                 self.turn, self.graph, self.drones, tuple(moved_drones),
             )
-        return self.recorder.frames
+        return self.recorder.turn_states

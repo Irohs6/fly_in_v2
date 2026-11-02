@@ -28,7 +28,7 @@ def view(monkeypatch: pytest.MonkeyPatch) -> PygameView:
     simulation = Simulation(Graph(Parser(str(MAP)).parse()))
     simulation.load_drones(1)
     simulation.simulate()
-    return PygameView(simulation.recorder.frames)
+    return PygameView(simulation.recorder.turn_states)
 
 
 @pytest.mark.parametrize("target", [

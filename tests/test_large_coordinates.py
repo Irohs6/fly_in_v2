@@ -40,7 +40,7 @@ def test_large_coordinates_parse_simulate_and_render(
         screen = pygame.Surface((800, 600))
         font = pygame.font.Font(None, 20)
         renderer = GraphRenderer(screen, font)
-        replay = ReplayPlayer(simulation.recorder.frames)
+        replay = ReplayPlayer(simulation.recorder.turn_states)
         for index, frame in enumerate(replay.frames):
             replay.current_index = index
             positions = {

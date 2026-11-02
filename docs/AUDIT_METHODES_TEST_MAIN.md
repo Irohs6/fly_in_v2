@@ -180,7 +180,7 @@ Pour chaque entrée : **signature effective du fichier**, paramètres, rôle/év
 
 | Méthode et paramètres | Rôle, analyse | Décision |
 |---|---|---|
-| [`Recorder.__init__`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/recorder.py#L12) — `def __init__(self) -> None:` | Initialise la liste des TurnState du replay. | **CONSERVER** |
+| [`Recorder.__init__`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/recorder.py#L12) — `def __init__(self) -> None:` | Initialise `self.turn_states: list[TurnState]` pour stocker les instantanés de chaque tour, sans confusion avec les images Pygame. | **MODIFIÉ** |
 | [`Recorder.record`](https://github.com/Irohs6/fly_in_v2/blob/test-main/src/model/recorder.py#L16) — `def record( self, turn: int, graph: Graph, drones: list[Drone], moved_drones: tuple[int, ...] = (), ) -> None:` | Copie tous les états (drones, Hub, Connection) pour figer le tour indépendamment du modèle vivant. | **CONSERVER** |
 
 ### `src/model/errors.py` (0 méthode explicite)
@@ -301,3 +301,7 @@ Ces résultats incluent la version de `main.py` avec `argparse` et `ValidatorErr
 ## 9. Simplification des exceptions — 2 novembre 2026
 
 Sur `test-main`, les deux constructeurs `ConnectionError.__init__` et `HubError.__init__` sont supprimés. Les appels réels dans `Connection` et `Hub` fournissent tous un message ; aucun appel nu n'a été relevé dans les sources et tests. Les classes d'exceptions métier sont conservées, sans logique propre. L'inventaire descend donc de **85 à 83 méthodes explicites**. La vérification CI mentionnée plus haut précède cette dernière modification et doit être reconfirmée sur le nouveau commit.
+
+## 10. Nom de l'historique du Recorder — 2 novembre 2026
+
+Dans `Recorder`, l'attribut `self.frames` est renommé `self.turn_states` : il stocke des `TurnState` (instantanés de simulation), et non des images graphiques. `Recorder.record` et `Simulation.simulate` utilisent ce nom, tout comme les tests et le README. La terminologie `ReplayPlayer.frames` est conservée parce qu'elle désigne la séquence que parcourt le lecteur graphique. **Aucune règle de simulation n'est modifiée.** Le workflow GitHub Actions associé au commit doit confirmer la non-régression.

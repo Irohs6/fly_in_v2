@@ -86,14 +86,14 @@ def test_delivered_status_in_arrival_frame(
     simulation = Simulation(graph)
     simulation.load_drones(2)
     turns = simulation.simulate()
-    for frame in simulation.recorder.frames:
+    for frame in simulation.recorder.turn_states:
         for drone_id, state in frame.drones.items():
             if state.current_position == "goal":
                 assert state.status == "delivered"
     assert all(drone.status == "delivered" for drone in simulation.drones)
     assert all(
         state.status == "delivered"
-        for state in simulation.recorder.frames[-1].drones.values()
+        for state in simulation.recorder.turn_states[-1].drones.values()
     )
     assert turns[-1].drones[2].current_position == "goal"
 
