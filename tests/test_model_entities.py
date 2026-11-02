@@ -177,7 +177,7 @@ def test_drone_transit_lifecycle(reverse: bool) -> None:
 
     assert drone.path == [end]
 
-    destination = drone.advance_transit()
+    destination = drone.finish_transit()
 
     assert destination is end
     assert drone.current_position is end

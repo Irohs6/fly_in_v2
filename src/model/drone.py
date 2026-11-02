@@ -56,7 +56,7 @@ class Drone:
         self.current_position = connection
         self.status = "in_transit"
 
-    def advance_transit(self) -> Hub | None:
+    def finish_transit(self) -> Hub | None:
         """Complete a restricted move on the turn after departure.
 
         Return the destination, or None when there is no active transit.

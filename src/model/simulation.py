@@ -195,7 +195,7 @@ class Simulation:
             return False
 
         if isinstance(drone.current_position, Connection):
-            destination = drone.advance_transit()
+            destination = drone.finish_transit()
             if destination is not None:
                 destination.release_reservation()
                 destination.add_drone()
